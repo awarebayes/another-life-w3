@@ -1,0 +1,100 @@
+name: Release
+
+# Builds the NSIS installer and the portable zip and creates a DRAFT release; a human tests and publishes it.
+# Needs the release tagged `templates-v1` (template saves, uploaded once by hand) and templates.sha256 in the repo.
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag for the draft release (e.g. v0.1.0); created by the release, not pushed from here'
+        required: true
+
+permissions:
+  contents: write
+
+env:
+  CARGO_TERM_COLOR: always
+  TEMPLATES_TAG: templates-v1
+  RELEASE_TAG: ${{ github.event.inputs.tag || github.ref_name }}
+  GH_TOKEN: ${{ github.token }}
+
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Versions in sync with the tag
+        shell: pwsh
+        run: ./scripts/check-version.ps1 -Tag $env:RELEASE_TAG
+
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Fetch template saves
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $expected = ((Get-Content templates.sha256 -TotalCount 1) -split '\s+')[0].ToLower()
+          $asset = ((Get-Content templates.sha256 -TotalCount 1) -split '\s+')[1]
+          gh release download $env:TEMPLATES_TAG --pattern $asset --dir "$env:RUNNER_TEMP\tpl"
+          if ($LASTEXITCODE) { throw 'could not download the templates asset' }
+          $zip = Join-Path $env:RUNNER_TEMP "tpl\$asset"
+          $actual = (Get-FileHash -Algorithm SHA256 $zip).Hash.ToLower()
+          if ($actual -ne $expected) { throw "templates hash mismatch: expected $expected, got $actual" }
+          Expand-Archive $zip -DestinationPath templates -Force
+          $n = @(Get-ChildItem templates -Filter *.sav).Count
+          if ($n -eq 0) { throw 'templates asset holds no .sav files' }
+          Write-Host "$n template saves, hash ok"
+
+      - name: Tests and questbook lint
+        run: |
+          cargo test --locked
+          cargo run --locked -p w3al-cli -- lint
+
+      - name: Build the CLI
+        run: cargo build --release --locked -p w3al-cli
+
+      - name: Stage the CLI for the installer
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force src-tauri/bundle-extra | Out-Null
+          Copy-Item target/release/w3al.exe src-tauri/bundle-extra/w3al.exe
+
+      - name: Install Tauri CLI
+        run: cargo install tauri-cli --version "^2" --locked
+
+      - name: Build the app and the NSIS installer
+        run: cargo tauri build --config src-tauri/tauri.release.conf.json
+
+      - name: Portable zip
+        shell: pwsh
+        run: ./scripts/package-portable.ps1 -SkipBuild
+
+      - name: Collect artifacts and checksums
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          New-Item -ItemType Directory -Force dist/release | Out-Null
+          # GitHub turns spaces in asset names into dots, so rename up front to keep SHA256SUMS names exact.
+          Get-ChildItem target/release/bundle/nsis/*.exe | ForEach-Object {
+            Copy-Item $_.FullName (Join-Path dist/release ($_.Name -replace ' ', '-'))
+          }
+          Copy-Item dist/another-life-w3-*-portable-win64.zip dist/release/
+          Push-Location dist/release
+          Get-ChildItem -File | Where-Object { $_.Name -ne 'SHA256SUMS' } | ForEach-Object {
+            "{0}  {1}" -f (Get-FileHash -Algorithm SHA256 $_.FullName).Hash.ToLower(), $_.Name
+          } | Set-Content -Encoding ascii SHA256SUMS
+          Get-Content SHA256SUMS
+          Pop-Location
+
+      - name: Create the draft release
+        shell: pwsh
+        run: |
+          $files = Get-ChildItem dist/release -File | ForEach-Object { $_.FullName }
+          $notes = "Unofficial fan tool. Windows build, not code signed (SmartScreen may warn: More info, Run anyway). Verify downloads with SHA256SUMS. See docs/DISTRIBUTION.md."
+          $ghArgs = @('release', 'create', $env:RELEASE_TAG, '--draft', '--title', $env:RELEASE_TAG, '--notes', $notes)
+          if ($env:GITHUB_EVENT_NAME -eq 'workflow_dispatch') { $ghArgs += @('--target', $env:GITHUB_SHA) }
+          gh @ghArgs @files

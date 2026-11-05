@@ -1,0 +1,7 @@
+{
+  "bundle": {
+    "resources": {
+      "bundle-extra/w3al.exe": "w3al.exe"
+    }
+  }
+}
