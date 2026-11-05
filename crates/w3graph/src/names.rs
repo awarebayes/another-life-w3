@@ -315,9 +315,73 @@ pub fn item_names_in(install: &Path, lang: &str, items: &[String]) -> Result<Has
     Ok(out)
 }
 
+/// The game's recommended level of one journal quest.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct QuestLevel {
+    /// The `CJournalQuest` GUID (32 lower-case hex digits).
+    pub guid: String,
+    /// The `.journal` resource.
+    pub resource: String,
+    /// The English working name (`baseName`), the key of the level tables.
+    pub base_name: String,
+    /// The level from the quest-level tables, or `None` when no table lists the quest.
+    pub level: Option<u32>,
+}
+
+/// Parse one `quest_levels*.csv` (`Quest Name;Level`, one row per quest) into `(name, level)` rows.
+fn parse_level_csv(d: &[u8]) -> Vec<(String, u32)> {
+    String::from_utf8_lossy(d)
+        .lines()
+        .skip(1)
+        .filter_map(|l| {
+            let (n, v) = l.rsplit_once(';')?;
+            Some((n.trim().to_owned(), v.trim().parse().ok()?))
+        })
+        .collect()
+}
+
+/// The recommended level of every journal quest. The game keeps them in `gameplay\globals\quest_levels.csv`
+/// (and one or two such tables per DLC, `quest_levels*.csv`), rows `<journal baseName>;<level>`; the journal's quest menu looks the
+/// quest's `baseName` up in every loaded table (exact, case-insensitive; the last table wins). Quests
+/// that no table lists get `level: None` (the menu shows no level for them).
+pub fn quest_levels(install: &Path) -> Result<Vec<QuestLevel>, Error> {
+    let mut tables: Vec<(String, Vec<(String, u32)>)> = Vec::new();
+    for b in bundle::bundles_of_install(install) {
+        let Ok(toc) = bundle::toc(&b) else { continue };
+        for e in toc.iter().filter(|e| {
+            let n = e.name.to_ascii_lowercase();
+            n.ends_with(".csv") && n.contains("gameplay\\globals\\") && n.rsplit('\\').next().is_some_and(|f| f.contains("quest_levels"))
+        }) {
+            let Ok(d) = bundle::extract(&b, e) else { continue };
+            tables.push((e.name.clone(), parse_level_csv(&d)));
+        }
+    }
+    // The base game's table is loaded first, the DLC tables after it.
+    tables.sort_by_key(|(n, _)| (n.starts_with("dlc\\"), n.clone()));
+    let mut by: HashMap<String, u32> = HashMap::new();
+    for (_, rows) in &tables {
+        for (n, v) in rows {
+            by.insert(n.to_ascii_lowercase(), *v);
+        }
+    }
+    let mut out: Vec<QuestLevel> = skeleton(install)
+        .quests
+        .into_iter()
+        .map(|(q, _)| QuestLevel { level: by.get(&q.base_name.to_ascii_lowercase()).copied(), guid: q.guid, resource: q.resource, base_name: q.base_name })
+        .collect();
+    out.sort_by(|a, b| a.resource.cmp(&b.resource).then(a.guid.cmp(&b.guid)));
+    Ok(out)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn level_csv_rows_parse() {
+        let rows = parse_level_csv(b"Quest Name;Level\r\nQ001 Find Yennefer;1\r\nmh201 : Cave Troll;27\r\nbad;x\r\n");
+        assert_eq!(rows, vec![("Q001 Find Yennefer".to_owned(), 1), ("mh201 : Cave Troll".to_owned(), 27)]);
+    }
 
     /// Needs the install; skipped without one. Asserts counts and non-ASCII text only, never the text.
     #[test]

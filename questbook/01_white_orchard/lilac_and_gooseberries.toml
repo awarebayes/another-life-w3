@@ -1,21 +1,13 @@
-# Sample quest: NO choices, so the app offers only completed / started / skipped.
-# Licensed CC BY-SA 4.0 (see questbook/SCHEMA.md). Narration is original.
+# White Orchard has no story decision (docs/plan/act1-white-orchard.md section 7); every template sits
+# after it, so it is already completed there and the quest carries no effect. Licensed CC BY-SA 4.0.
 id = "lilac_and_gooseberries"
 title = "Lilac and Gooseberries"
 act = 1
 order = 1010
 kind = "main"
 region = "white_orchard"
-level = 1                 # TODO(phase3): verify the recommended level in game
+level = 1                 # from the game's quest-level table
 summary = """You arrive in White Orchard with a name to chase and a smell of lilac that \
 isn't yours. The trail runs through a village that has seen too many soldiers and too few \
 witchers, and every answer you get opens two new questions."""
-done_effects = "done"
 
-# PLACEHOLDER: names below are not real game identifiers. Real ones come from
-# Phase 3 research (scripts under content0/scripts, quest graphs via WolvenKit,
-# or a diff between two real saves). Never ship a guessed name.
-[effects.done]
-source = "PLACEHOLDER: replace with script line / quest graph reference (Phase 3)"
-placeholder = true
-quests = { "PLACEHOLDER_lilac_and_gooseberries" = "completed" }

@@ -6,6 +6,7 @@ kind = "side"
 region = "velen"
 act = 2
 order = 21008
+level = 7   # from the game's quest-level table
 title_id = 455889
 fallback_title = "quests/minor_quests/no_mans_land/mq1015_lynch"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/55e817b99dae134ca64a96aba395c29e"

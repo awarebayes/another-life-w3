@@ -6,6 +6,7 @@ kind = "gwent"
 region = "novigrad"
 act = 3
 order = 35001
+level = 1   # from the game's quest-level table
 title_id = 1076791
 fallback_title = "quests/generic_quests/novigrad/cg300_novigrad"
 journal = "e86908f500b7a546ba27ba7308686314/3b4fb54011708548bcb3c09ee237755a"

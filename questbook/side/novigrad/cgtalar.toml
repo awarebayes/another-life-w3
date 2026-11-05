@@ -6,6 +6,7 @@ kind = "gwent"
 region = "novigrad"
 act = 3
 order = 35002
+level = 1   # from the game's quest-level table
 title_id = 1076788
 fallback_title = "quests/generic_quests/card_minigame_all_hubs/cg_card_minigame_meta"
 journal = "e86908f500b7a546ba27ba7308686314/1b770cff62907f46b16751e2604f1e00"

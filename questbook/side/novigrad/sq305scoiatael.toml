@@ -6,6 +6,7 @@ kind = "contract"
 region = "novigrad"
 act = 3
 order = 32004
+level = 6   # from the game's quest-level table
 title_id = 465266
 fallback_title = "quests/sidequests/novigrad/sq305_scoiatael"
 journal = "a93885ce3a22194c955e802d55358928/3cfcfa6a9904d547a7d3216d4dc1300d"

@@ -35,7 +35,7 @@ act = 6
 order = 6020
 kind = "main"
 region = "novigrad"
-level = 25                # TODO(phase3): verify the recommended level in game
+level = 28                # the game's table lists this chapter entry at 1 (shows no level); 28 is its Q310 quests' table level
 summary = """The Lodge of Sorceresses wants a word with Ciri before the last battle, and every one of \
 them would like a say in what she becomes. You pull Philippa out of a trap first, and then Ciri \
 asks whether she should face the sorceresses on her own."""

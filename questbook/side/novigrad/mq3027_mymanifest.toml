@@ -6,6 +6,7 @@ kind = "side"
 region = "novigrad"
 act = 3
 order = 31006
+level = 1   # from the game's quest-level table
 title_id = 1020614
 fallback_title = "quests/minor_quests/novigrad/mq3027_my_manifest"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/03c36e54b8249c4686729e80a088c258"

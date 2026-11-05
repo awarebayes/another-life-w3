@@ -41,7 +41,7 @@ act = 5
 order = 5005
 kind = "main"
 region = "kaer_morhen"
-level = 20                # TODO(phase3): verify the recommended level in game
+level = 19                # from the game's quest-level table
 summary = """A cursed thing that used to be a man sits in a cage at Kaer Morhen, and the only people who \
 can help it are three witchers who would rather be drinking and a sorceress who does not take no for an \
 answer. You split the chores, hunt a forktail, drag a phylactery out of a lake, mend a megascope, and then \

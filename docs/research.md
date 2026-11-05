@@ -7,15 +7,19 @@ Record findings under the item they settle, with the save's patch, DLC state and
 
 ### Container (`SNFHFZLC`)
 - [x] Magic, u32 count at 8, u32 data start at 12 confirmed (17 saves, one on 5.01).
-- [ ] Data start is 3,084 on every fixture; chunk count is 5-6 on healthy saves.
+- [x] Data start is 3,084 on every fixture; chunk count is 5-6 on healthy saves.
+  - Triage 2026-11-05 (ticked = settled, statement partly refuted): data start 3,084 holds; the chunk count does not (1-18 chunks, see "2026-11-04 (later)": 13k-215k variables, early saves have one chunk). Settled, correction only.
 - [x] Chunk record end offset is absolute (data_start + cumulative); confirmed on 17 saves.
-- [ ] Last record's end offset is 0 (sentinel) on every fixture.
-- [ ] Bytes between the table and `data_start` are zeros.
+- [x] Last record's end offset is 0 (sentinel) on every fixture.
+  - Triage 2026-11-05 (ticked = settled, statement refuted): refuted. 5 of 56 saves and the game's own single-chunk saves carry a stale end offset (see "2026-11-04 (evening): first in-game results"); we write 0 or recompute and the game loads both (gates A, B, C). Don't-care.
+- [x] Bytes between the table and `data_start` are zeros.
+  - Triage 2026-11-05 (ticked = settled, statement refuted): refuted on 5 of 56 saves; padding kept verbatim when its length matches; loads in game (same entries as above). Don't-care.
 - [x] Our re-compressed file loads in game (unedited repack). User-reported 2026-11-04: `AnotherLife_20261104_172834.sav` (repack of one of their own 5.01 saves, sidecars copied with the new stem) loads. Play: fine. A new in-game save made from it also loads: fine (user-reported). Load list: the entry appears but WITHOUT the quest name that normal saves show (the user's reading: it looks odd). Cause unknown. Candidates, none tested: (a) the label is derived from the `ManualSave_<a>_<b>_<c>` file-name ids, (b) it comes from the save payload or the journal tracking data, (c) it needs a field in the sidecar that our copy lacks. Note the lukwraith `.json` sidecars are all byte-identical and hold no quest, so the .json is unlikely to carry it. Cheap test: export the same repack under a `ManualSave_...` stem and compare the list entry.
 
 ### Payload (`SAV3`)
 - [x] Header ints on 5.01 are [67, 29, 164] = saveVersion, gameVersion, (unknown; not buildPatch). Confirmed by the .json sidecar. See Findings.
 - [ ] Where `magic_number` and `runtimeGUIDCounter` live in the header; what the counter must be in an exported save (new entities take IDs from it).
+  - Triage 2026-11-05: `magic_number` / `runtimeGUIDCounter` are NM names but no doc locates them or tests a counter value. Exports that add entities (start kit items, synthesized stubs; gates Y, Z) loaded and re-saved fine, so it has not bitten. Remaining: locate them, decide whether a counter bump is ever needed.
 - [x] Footer = u32 variable-table offset + `SE`; offsets are absolute (include the 3,084-byte header).
 - [x] The two u32 at table offset - 10 are the absolute offsets of the `NM` tag and the `RB` tag (proven on 118 of 118 files, rebased correctly by `Document::rebase`); the two bytes after them are `SC` on every save, meaning unknown, kept verbatim.
 - [x] Variable table = u32 count + (u32 offset, u32 size) pairs. NOT sorted by offset and entries nest (parent spans contain children); top-level spans tile the payload. The table recomputed from the typed tree equals the on-disk table on 101 of 101 files (2026-11-04, typed tokenizer). Entry count is 13k-215k, not 76-81k.
@@ -30,27 +34,71 @@ Record findings under the item they settle, with the save's patch, DLC state and
 - [x] Per-fact record count rule: an explicit u16 `n` after the identifier and a u16 `c1`; `n` x 10 bytes follow. `n` can be 0 (1,211 of 1,992 facts on the last lukwraith save) and as large as 2,463. `SBDF` count == facts parsed, nothing left over, on 56 of 56.
 - [x] Record fields (10 bytes): u16 value, f32 game time, f32 expiry (`-1` permanent, `-2` dialogue ids, else a real expiry time). The value is **not** the first i32; it is a u16 (65535 occurs, probably i16 -1: unproven). `c1` = number of records with `expiry >= 0` on 57,955 of 57,955 facts: inferred from data, not from a script.
 - [x] Fact ids are Latin-1 packed strings (ANSI bit set and canonical on every fact; no non-ASCII name in the lukwraith set); `check_ids` is quiet on all 56 saves, longest name 71 chars. `check-save` now runs it on the real fact names.
-- [ ] Is quest state fully expressed by `questSystem` + facts, or must `CJournalManager` also be patched for a quest to show as complete? (Plan unknown 3.) Offline answer: the journal is separate stored state (`docs/findings/quest-state.md`); a journal editor exists and reproduces the game's own journal bytes (`docs/findings/journal-editor-design.md`). In-game gate J (`C:\w3-out\gate_J`) pending.
-- [ ] One fact edited with `w3al`, save loaded, change observed in game. (Gate saves A and B written 2026-11-04 in `C:w3-outgate`; in-game result pending, see PHASE0.md step 9.)
+- [x] Is quest state fully expressed by `questSystem` + facts, or must `CJournalManager` also be patched for a quest to show as complete? (Plan unknown 3.) Offline answer: the journal is separate stored state (`docs/findings/quest-state.md`); a journal editor exists and reproduces the game's own journal bytes (`docs/findings/journal-editor-design.md`). In-game gate J (`C:\w3-out\gate_J`) pending.
+  - Triage 2026-11-05: no, facts + journal are not enough; quest state = `questSystem` graph + `community` + journal + facts. Gate J/J2 (2026-11-04 night), gates G, P, S, F, R, M passed 2026-11-05 ("2026-11-05: the quest graph", "gate G result").
+- [x] One fact edited with `w3al`, save loaded, change observed in game. (Gate saves A and B written 2026-11-04 in `C:w3-outgate`; in-game result pending, see PHASE0.md step 9.)
+  - Triage 2026-11-05: done. Gate D (2026-11-04 night, "gate D result and Phase 0 verdict"): `gwent_difficulty` 3 = Hard, removed = Normal; gates A and B re-saves keep the facts.
 
 ### Sidecars and naming
 - [ ] Exact 5.01 sidecar set (`.png` + `.json`?). Contents of the `.json`; does the game validate it against the `.sav`?
+  - Triage 2026-11-05: set is `.sav` + `.png` + `.json` on 5.x (2026-11-04 first run); copies with a new stem load in all gates. Remaining: does the game validate the `.json` against the `.sav` (never varied), does a missing `.json` or `.png` matter (not tested).
 - [ ] Which of the three hex ids in `ManualSave_<a>_<b>_<c>` the game keys on, and what makes a new file show as a distinct entry in the Load list. (We currently copy sidecars with a new stem.)
+  - Triage 2026-11-05: answered in `docs/findings/save-name-ids.md` (`b`/`c` = packed local date/time, `a` = tracked-quest key; invented ids and the `ManualSave_` shape are accepted, the shape is what shows the quest name). Remaining: Load-list ordering rule (name stamp vs payload time vs file time) and our UTC stamp vs the game's local time (DECISIONS.md "Format and export": hypothesis).
 
 ### Position and world
-- [ ] How player position and the loaded world/level name are stored (`universe` / entity data). (Plan unknown 4.)
+- [x] How player position and the loaded world/level name are stored (`universe` / entity data). (Plan unknown 4.)
+  - Triage 2026-11-05: `docs/findings/position-world.md`; in game T1 (same-world position), T2a/T2b (world swap into a visited world) loaded ("2026-11-04 (late): position and world-swap tests"); player position used again in gates Z. Open sub-points are in the triage table (long play after a swap, never-visited worlds, spawn choice).
 - [ ] Does a template made under 5.01 still load after a future patch bumps saveVersion? (Plan unknown 5.)
+  - Triage 2026-11-05: still open and not testable until a patch after 5.01 exists. The 5.0 -> 5.01 step (`saveVersion` 66 -> 67) parsed identically offline.
 
 ## Open design questions (plan, "Open questions for reviewers")
 
 - [ ] **Spawn point:** literal Vizima palace spawn (risk: stuck Geralt) or palace as narrative scene with a free-roam signpost spawn? Scaffold assumes the latter (DECISIONS.md).
-- [ ] **Template count:** one template (A) or act templates (B)? Who captures them, on which patch? Scaffold assumes B but currently uses the player's own save as the template.
+  - Triage 2026-11-05: format side answered (position edit and world swap proven, `position-world.md`; the palace is the separate world `wyzima_castle`, a literal spawn needs a world block). Design decision still not taken, and X1 showed the player spawning in the middle of the river near the tower (template position). See triage table.
+- [x] **Template count:** one template (A) or act templates (B)? Who captures them, on which patch? Scaffold assumes B but currently uses the player's own save as the template.
+  - Triage 2026-11-05: decided by the user and built: window templates per act ("decision windows", `docs/plan/decision-chaining.md`), registry `questbook/templates.toml`, templates synthesized from pack saves where none exists (`docs/plan/story-chain.md`); gate Z passed in game.
 - [ ] **Patch support:** pin to 5.01 or also 4.04?
+  - Triage 2026-11-05: v1 is pinned to 5.01 (`docs/PLAYER_GUIDE.md`: tested on 5.01 only). 4.04 and other patches are neither decided nor tested; old-gen `[64,18,163]` saves share the container and mostly the typed tree but 11 of 16 fail the facts layout offline (2026-11-04 night).
 - [ ] **Quest coverage:** proposed rule - any quest that changes an ending factor, a Kaer Morhen ally, or a character's survival.
+  - Triage 2026-11-05: in practice coverage = the decision catalogue (`docs/plan/decision-catalogue.md`, 17-20 questbook quests) plus 98 generated side quests; no doc states the final rule. Remaining list is in the triage table.
 - [ ] **"Started" status:** is a quest left at its first phase stable in game? The UI labels it experimental.
-- [ ] **Witcher 2 import:** the game's own import questions (stored as facts) or every W2 decision? Scaffold has one on/off switch (`w2_import`).
-- [ ] **Narration:** hand-written (recommended for v1) or LLM at runtime?
+  - Triage 2026-11-05: mid-quest frontier states are stable in game (X1 Keira's quest continues, K2 `c133524a` still waiting, S1/R1 epilogues advanced by the game); a never-started quest left at its first phase was not gated on its own (F completed it). UI label may stay "experimental".
+- [x] **Witcher 2 import:** the game's own import questions (stored as facts) or every W2 decision? Scaffold has one on/off switch (`w2_import`).
+  - Triage 2026-11-05: decided by the user, out of v1 (DECISIONS.md "Act 1 scope"); the template's `import_*` facts stay.
+- [x] **Narration:** hand-written (recommended for v1) or LLM at runtime?
+  - Triage 2026-11-05: hand-written TOML (DECISIONS.md "Run semantics").
 - [ ] **Name and license** confirmation (MIT/Apache-2.0 code, CC BY-SA questbook).
+  - Triage 2026-11-05: code MIT OR Apache-2.0 and questbook CC BY-SA 4.0 are in the Cargo metadata and `questbook/LICENSE`; DECISIONS.md "Repo": top-level license files and the repository URL (`OWNER` placeholder) not added yet.
+
+## Open items (triage 2026-11-05)
+
+Ranked by how much a player would notice. "No human" = can be done without anyone playing the game. Items marked (brief) come from the
+triage request, not from a repo doc. Effort is rough.
+
+| # | Item | Why it matters | Kind | Effort | Blocker | No human? |
+| ---: | --- | --- | --- | --- | --- | --- |
+| 1 | Side-quest completion (`complete = ...`, `run.side_quests`, 98 generated quests) was never loaded in game: exports are VERIFIED offline only (30 on pack 43, 30 on pack 54). Includes the dropped `suspendedScopesData` entry (far-world templates) and a contract finished while its world is loaded | The whole Side quests page rests on it; a bad suspended-entry drop could crash or reopen quests | in-game test | 1-2 h of play, 3-4 saves | none | No (a runner mod would make it Yes, item 14) |
+| 2 | Frozen-quest trick (a quest held at a phase while the rest advances) never loaded in game; "started" for a quest never begun was not gated on its own (F completed one) | Player-visible "in progress" states and the UI's "experimental" label | in-game test | 30 min | none | No |
+| 3 | Player start position / spawn: X1 spawned Geralt in the middle of the Velen river (template position). Position edit and visited-world swap are proven (T1, T2a, T2b), but no rule picks a safe spot per act, the palace-vs-signpost decision is open, and long play after a swap, a never-visited world, and horse / boat state at save time are untested | First thing a player sees; a drowned or stuck start is a bad first run | engineering + in-game test | 1-2 d (spot catalogue per world from real saves, then 1 gate) | spawn design decision | Partly (catalogue yes, gate no) |
+| 4 | Decisions not settable that need only player re-saves: Keira's date (pack 12), Carnal Sins (pack 29), A Towerful of Mice (pack 11), Cerys donor (pack 36), Vigi saved (pack 34), Lambert (pack 47), Sara / haunted house (pack 17). Registry entries exist for Carnal Sins and Towerful, no 5.01 template yet | Each is a named choice players expect; `sq101_keira_had_sex` sits on every later template | human re-save (load in 5.01, save at once), then content | 30 min of the user's time, then 1 d content | the user | No for the re-saves, then Yes |
+| 5 | Decisions the walker cannot do yet: Cerys queen (walk now reaches `q206_cerys_queen`, 1,626 steps, not exported or compared with a donor), Ves (An Eye for an Eye: fate is combat, kill phase leaves no waits), botchling (needs a save inside Family Matters before the ritual), Vigi saved (a race; the through-walk takes one branch), Lambert (needs a save inside the battle), Sara / Greedy God / Woods / Wolf's Clothing / Dangerous Game (not reached) | Missing story choices; Cerys and Vigi change later acts | offline research + engineering | 2-4 d | mid-quest saves for botchling and Lambert | Cerys yes; the rest need saves |
+| 6 | The 171 side quests the auto-complete generator cannot do yet: 90 no quest graph (journals written by scripts, scavenger notes, points of interest, boat races), 36 not running on any template, 17 no route to Success, 11 decision quests, 5 unresolved, 1 phase still running, 11 done on every template (not a gap) | Most of the base-game side list is absent from the Side quests page | engineering: journal-only mode for graphless quests, hub-gate walk for not-running ones, fold decision quests into the decision questbook | 3-6 d | none | Yes |
+| 7 | Kaer Morhen allies (4 invitations, template synthesized from pack 43) and other story-chain rewrites: exports VERIFIED, never loaded (only Z1 / Z2 played); Y4 / Y5 accepted without play | Brothers in Arms and the council scene are core act-2/3 beats | in-game test | 1 h | none | No |
+| 8 | Hearts of Stone / Blood and Wine: out of v1 (CLAUDE.md); 109 expansion quests skipped by the generator; DLC state in `AdditionalContent` and mod checks in export (STATE next task 3) | Large part of the story; many players own both | content + research | weeks | scope decision | Mostly |
+| 9 | Autogen / looted gear in the start kit: refused today (ability list order and jitter, NG+ `autogen_fixed_*`); kit uses fixed-stat pieces only; `z = 1` enchant records not decoded; uid allocation rests on statistics (`docs/findings/character-inventory.md`). Gate Z loaded the fixed kit | "Recommended gear" tier may not match what players expect | offline research | 1-2 d | none | Yes (compare with the game's own saves) |
+| 10 | Template ordering limits: questbook order vs pack line order (for example Now or Never before Skellige act 2, while the line is pack 33-35 / 42); `fixed` decisions a later quest already branched on fall back to an earlier template and the app names the lost quests; King's Gambit (`in_game`), Vigi (`play`) and Keira's date are not expressible; cross-window rewrites are exact only for the chosen template's own window | Some answer combinations are refused or tell a different story | engineering + content design | 2-3 d | none | Yes |
+| 11 | Item names in Russian in the start kit (4 of 42; the item-name key hash is unknown) (brief) | Russian players see raw ids for some items | offline research | 0.5 d | none | Yes |
+| 12 | Steam Cloud: exported files and moved test saves may be synced or restored (PLAYER_GUIDE warns); behaviour with a new `ManualSave_` file was never examined | A silently reverted or duplicated save | in-game test | 30 min | none | No |
+| 13 | Residual format risks, offline-proven but not or once in game: `JS_Failed` / appended NM names for journal statuses (gate M proved a CName only), remapped struct headers (`Vector`, `SActionPointId`) and `ActivatedInputs`, longer play after any transplant, meaning of `c1` and record `time`, `gameProp > gameplayFacts` mirror, Load-list ordering vs our UTC stamp, `runtimeGUIDCounter` | Could break a rare quest or sort saves oddly | in-game test + offline | 1-2 d | none | Partly |
+| 14 | In-game runner mod (`C:\w3-out\auto_runner`, `modW3ALDev`): written, never compiled or launched; no WitcherScript compiler here | Would turn items 1, 2, 7, 12, 13 into unattended tests | engineering | 2-4 d | a script compiler, a dedicated saves folder | Yes once built |
+| 15 | App click-through by a tester (installer builds; no-effect export is payload-identical); Phase 2 exit test is still partial | Nobody has used the UI end to end | UI test | 1 h | a tester | No |
+| 16 | Patches: 4.04 support is neither decided nor tested (old-gen layout partly differs: 11 of 16 old saves fail the facts parse offline); a future patch bump of `saveVersion` is unknowable now (plan unknown 5) | Players on other builds are unsupported | offline research (4.04 only) | 1-3 d for 4.04 | decision | 4.04 yes, future no |
+| 17 | Walker leftovers: `through` walk passes fact waits the donor's player had not reached; `sq102_hide_community` ends at 2 not 0; `sq102_explode_building` expiry not modelled; 5.01-only listener `8752d51c` stopped; no-date Keira (D3 `Out_no_date` not wired); no per-option question conditions in the schema (D15 / D18 contradictory answers make export refuse) | Edge-case mismatches against played saves | engineering | 1-2 d | none | Yes |
+| 18 | Release: top-level license files, repository URL, README install steps, CI, Linux AppImage, `insta` / fuzz tests, `docs/playtests.md` (DECISIONS.md "Repo") | Needed to publish | engineering | 1-2 d | name decision | Yes |
+
+Checklist counts after this triage: of the 18 unticked items, 9 are now ticked, 8 are partly answered (left unticked, remainder noted), 1 is
+still open (future patch bump). Dated entries are untouched; their "open" lines are covered by the table (items 1-3, 5, 6, 9, 13, 17) or were
+answered later in the same log (quest-state question: gates J, G-M; fact-index rebuild: gates A, B; `gameplayFacts` mirror stays item 13).
 
 ## Content research (Phase 3+)
 

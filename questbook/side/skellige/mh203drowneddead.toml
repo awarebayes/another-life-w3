@@ -6,6 +6,7 @@ kind = "contract"
 region = "skellige"
 act = 4
 order = 42004
+level = 18   # from the game's quest-level table
 title_id = 368919
 fallback_title = "quests/generic_quests/skellige/mh203_water_hag"
 journal = "dd4652d4e3db404a939f1e88b285eb20/60e049807c0d7f448b207c96cbfa57ff"

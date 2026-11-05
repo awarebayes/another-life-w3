@@ -27,7 +27,7 @@ act = 3
 order = 3300
 kind = "secondary"
 region = "novigrad"
-level = 14                # TODO(phase3): verify the recommended level in game
+level = 16                # from the game's quest-level table
 summary = """Someone is killing women in Novigrad's brothels and leaving them posed like statues. You follow \
 a carpenter's clues, hear a suspect out and, at the end, decide whether he is the man you are hunting."""
 

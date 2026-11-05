@@ -6,6 +6,7 @@ kind = "side"
 region = "velen"
 act = 2
 order = 21013
+level = 2   # from the game's quest-level table
 title_id = 407710
 fallback_title = "quests/minor_quests/no_mans_land/mq1028_courier"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/cf35ae4b44c552418c741b6d617b8cd6"

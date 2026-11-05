@@ -6,6 +6,7 @@ kind = "side"
 region = "skellige"
 act = 4
 order = 41006
+level = 24   # from the game's quest-level table
 title_id = 1073377
 fallback_title = "quests/minor_quests/skellige/mq2010_human_trap"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/b92c35f911d77c4d9056a28f0818b180"

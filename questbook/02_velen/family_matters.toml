@@ -1,44 +1,19 @@
-# Sample quest: a choice and `requires`. The botchling decision comes from the project plan;
-# its exact options and the real quest's other decisions must be re-checked in Phase 3.
-# The spirit of the hillock (decision D1) is its own quest, sidequests/q105evilspirit:
-# whispering_hillock.toml. Licensed CC BY-SA 4.0.
+# Family Matters (the Bloody Baron line). The spirit of the hillock (decision D1) is its own quest,
+# sidequests/q105evilspirit: whispering_hillock.toml. Licensed CC BY-SA 4.0.
 id = "family_matters"
 title = "Family Matters"
 act = 2
 order = 2040
 kind = "main"
 region = "velen"
-level = 6
+level = 6                 # from the game's quest-level table
 # The real prerequisite chain (Ciri's trail into Velen, etc.) is Phase 3 work; this
 # sample only needs one valid, earlier quest to exercise `requires`.
 requires = ["beast_of_white_orchard"]
 summary = """The Baron wants his wife and daughter back, and he'll trade what he knows \
 about Ciri to get them. You trudge through a marsh of burnt farms, a ruined shrine \
 and something small and furious that has been waiting a long time to be found."""
-done_effects = "done"
 
-[[choices]]
-id = "botchling"
-prompt = "The Baron's stillborn child haunts the old ruins. What do you do?"
-default = "lubberkin"
-options = [
-  { id = "lubberkin", text = "Turn the botchling into a lubberkin", effects = "botchling_saved" },
-  { id = "kill",      text = "Kill the botchling",                  effects = "botchling_killed" },
-]
 
-# PLACEHOLDER effects: names are not real game identifiers (Phase 3 fills them in).
-[effects.done]
-source = "PLACEHOLDER: replace with script line / quest graph reference (Phase 3)"
-placeholder = true
-quests = { "PLACEHOLDER_family_matters" = "completed" }
-
-[effects.botchling_saved]
-source = "PLACEHOLDER: plan example; real fact name from Phase 3 research"
-placeholder = true
-facts = { "PLACEHOLDER_botchling_saved" = 1 }
-journal = ["PLACEHOLDER_botchling_lubberkin"]
-
-[effects.botchling_killed]
-source = "PLACEHOLDER: plan example; real fact name from Phase 3 research"
-placeholder = true
-facts = { "PLACEHOLDER_botchling_killed" = 1 }
+# The botchling decision is not offered yet: its template sits mid-quest and no 5.01 save before the ritual
+# exists (docs/research.md, open items). The quest itself carries no effect: every Velen template has it done.

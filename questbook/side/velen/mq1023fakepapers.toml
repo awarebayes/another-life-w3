@@ -6,6 +6,7 @@ kind = "side"
 region = "velen"
 act = 2
 order = 21012
+level = 1   # from the game's quest-level table
 title_id = 1062169
 fallback_title = "quests/minor_quests/no_mans_land/mq1023_fake_papers"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/7546b83312787f45be90b52f02671d54"

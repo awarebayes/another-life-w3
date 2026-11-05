@@ -6,6 +6,7 @@ kind = "side"
 region = "velen"
 act = 2
 order = 21002
+level = 6   # from the game's quest-level table
 title_id = 521042
 fallback_title = "dlc/dlc7/data/sq107_pigs"
 journal = "8aac06de28d8ee4ea63a1a5e55b222d3/fd08815c6d96d94581099621d2bbaff9"

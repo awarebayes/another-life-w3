@@ -6,6 +6,7 @@ kind = "contract"
 region = "skellige"
 act = 4
 order = 42001
+level = 29   # from the game's quest-level table
 title_id = 1090362
 fallback_title = "dlc/dlc12/data/quest/mq2052_reversed_monster_hunt"
 journal = "1490100e984eca48afae36f804ef77ae/0831229b4c9c3441b21b4db7d97da119"

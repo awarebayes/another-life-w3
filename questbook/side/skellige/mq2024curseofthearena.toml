@@ -6,6 +6,7 @@ kind = "side"
 region = "skellige"
 act = 4
 order = 41014
+level = 14   # from the game's quest-level table
 title_id = 481365
 fallback_title = "quests/minor_quests/skellige/mq2024_curse_of_the_arena"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/8735c8c8c0ca2a4db5851ae4e8daf1a9"

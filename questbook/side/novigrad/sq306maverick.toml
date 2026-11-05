@@ -6,6 +6,7 @@ kind = "side"
 region = "novigrad"
 act = 3
 order = 31016
+level = 26   # from the game's quest-level table
 title_id = 573611
 fallback_title = "quests/sidequests/novigrad/sq306_maverick"
 journal = "a93885ce3a22194c955e802d55358928/56075c027628ec429fc3f08968b5dd39"

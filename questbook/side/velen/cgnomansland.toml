@@ -6,6 +6,7 @@ kind = "gwent"
 region = "velen"
 act = 2
 order = 25001
+level = 1   # from the game's quest-level table
 title_id = 1076752
 fallback_title = "quests/generic_quests/no_mans_land/cg100_no_mans_land"
 journal = "e86908f500b7a546ba27ba7308686314/a03bcbbe483a294cb629c2c39a43a131"

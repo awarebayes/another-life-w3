@@ -19,7 +19,7 @@ act = 3
 order = 3010
 kind = "main"
 region = "novigrad"
-level = 14                # TODO(phase3): verify the recommended level in game
+level = 12                # from the game's quest-level table
 summary = """A crime lord's son has a friend of yours, and a city full of thugs, bouncers and \
 debts stands between you. By the time you reach him, Ciri has already been through his house, and \
 what is left is a frightened, cruel man asking for his life."""

@@ -6,6 +6,7 @@ kind = "side"
 region = "novigrad"
 act = 3
 order = 31002
+level = 12   # from the game's quest-level table
 title_id = 531186
 fallback_title = "quests/minor_quests/novigrad/mq3005_bad_alley"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/4f6af66e0d16744abf881b9dc4a59148"

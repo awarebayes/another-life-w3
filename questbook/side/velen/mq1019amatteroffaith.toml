@@ -6,6 +6,7 @@ kind = "side"
 region = "velen"
 act = 2
 order = 21009
+level = 3   # from the game's quest-level table
 title_id = 404537
 fallback_title = "quests/minor_quests/no_mans_land/mq1019_a_matter_of_faith"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/90938b3032ef3641a3108763ca327dad"

@@ -35,7 +35,7 @@ act = 4
 order = 4010
 kind = "main"
 region = "skellige"
-level = 15                # TODO(phase3): verify the recommended level in game
+level = 17                # from the game's quest-level table
 summary = """An island gone silent, a wrecked fleet on its shore and a jarl's son somewhere in the \
 snow. You wade through bones and broken longships looking for Hjalmar, and the first living soul \
 you find is a hunter about to become somebody's supper."""

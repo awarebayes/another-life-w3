@@ -6,6 +6,7 @@ kind = "side"
 region = "skellige"
 act = 4
 order = 41005
+level = 15   # from the game's quest-level table
 title_id = 351309
 fallback_title = "quests/minor_quests/skellige/mq2009_water_hag"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/86e276b62cee164abafc5e22709aba3d"

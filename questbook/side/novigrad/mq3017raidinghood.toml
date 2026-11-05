@@ -6,6 +6,7 @@ kind = "side"
 region = "novigrad"
 act = 3
 order = 31005
+level = 15   # from the game's quest-level table
 title_id = 449737
 fallback_title = "quests/minor_quests/novigrad/mq3017_little_red_raiding_hood"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/1fb30ee6e613cb4ab4ec4562c9530114"

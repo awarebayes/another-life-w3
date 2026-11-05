@@ -6,6 +6,7 @@ kind = "side"
 region = "novigrad"
 act = 3
 order = 31003
+level = 6   # from the game's quest-level table
 title_id = 1077279
 fallback_title = "quests/minor_quests/novigrad/mq3006_magic_stuff_merchants"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/4f9c6d9659a75840837943efb64b6f14"

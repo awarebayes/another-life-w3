@@ -6,6 +6,7 @@ kind = "fistfight"
 region = "skellige"
 act = 4
 order = 47001
+level = 11   # from the game's quest-level table
 title_id = 1047233
 fallback_title = "quests/ff_all_hubs"
 journal = "dd4652d4e3db404a939f1e88b285eb20/f0d09c3b2477e04cba888c3f32e2344b"

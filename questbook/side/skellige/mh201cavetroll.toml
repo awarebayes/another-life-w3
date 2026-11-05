@@ -6,6 +6,7 @@ kind = "contract"
 region = "skellige"
 act = 4
 order = 42002
+level = 27   # from the game's quest-level table
 title_id = 370417
 fallback_title = "dlc/dlc3/data/mh201_cave_troll"
 journal = "ca05120045cc05478a5ec70029c36b48/d723bea1b838ed4eaff147a9d4f674e2"

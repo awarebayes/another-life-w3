@@ -33,7 +33,7 @@ act = 6
 order = 6030
 kind = "secondary"
 region = "novigrad"
-level = 25                # TODO(phase3): verify the recommended level in game
+level = 30                # from the game's quest-level table
 summary = """An old spymaster, a Temerian patriot and an imperial agent share a back room and a plan \
 to end a king. They need a witcher at the table, and once the deed is done the men who made it \
 will not agree on what comes after."""

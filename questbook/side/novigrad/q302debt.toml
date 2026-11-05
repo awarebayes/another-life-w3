@@ -6,6 +6,7 @@ kind = "side"
 region = "novigrad"
 act = 3
 order = 31013
+level = 9   # from the game's quest-level table
 title_id = 514063
 fallback_title = "quests/part_1/quest_files/q302_mafia/phases/king_beggar_reward"
 journal = "c363eee207345a43870711acc05f2121/d06f4fc0da95af4486a6ae578b74475e"

@@ -6,6 +6,7 @@ kind = "contract"
 region = "skellige"
 act = 4
 order = 42005
+level = 29   # from the game's quest-level table
 title_id = 381738
 fallback_title = "quests/generic_quests/skellige/mh206_fiend"
 journal = "dd4652d4e3db404a939f1e88b285eb20/f72e0b1a9ef30e4f824adca39b9daad9"

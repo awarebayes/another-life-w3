@@ -3,7 +3,7 @@
 For any agent (Claude, Codex) picking this up. Plan: `W3_Another_Life___Plan.md` and brief `W3AL_BRIEF_for_Sonnet.md` (originals outside the repo, in a private scratch folder). Rules: `CLAUDE.md` (wins for process), `DECISIONS.md` (assumptions), `docs/research.md` (every finding, dated, newest last), `docs/findings/*.md` (deep dives).
 
 ## What this is
-Open-source Rust tool: the player walks Witcher 3's story as a text RPG, then we write one `.sav` (Remastered PC, patch 5.01) whose world matches their choices. Template-and-patch, never synthesize a save. Tauri 2 shell + plain HTML/CSS/JS `ui/`. Questbook = hand-curated TOML in `questbook/` (CC BY-SA); code MIT/Apache-2.0. Out of v1: Hearts of Stone, Blood and Wine, console saves, level/gold/gear/skills editing, Gwent.
+Open-source Rust tool: the player walks Witcher 3's story as a text RPG, then we write one `.sav` (Remastered PC, patch 5.01) whose world matches their choices. Template-and-patch, never synthesize a save. Tauri 2 shell + plain HTML/CSS/JS `ui/`. Questbook = hand-curated TOML in `questbook/` (CC BY-SA); code MIT/Apache-2.0. Out of v1: Hearts of Stone, Blood and Wine, console saves, Gwent. (Level, crowns and a start kit are in via the start-kit feature, gate Z.)
 
 ## Layout and commands
 Workspace crates: `crates/w3save` (all game-format knowledge), `crates/w3al-core` (questbook, validation, run, export; never touches bytes), `crates/w3al-cli` (binary `w3al`), `src-tauri` (excluded from default members), `ui/`, `questbook/`.
@@ -19,16 +19,16 @@ Shell notes: Windows, no Python. PowerShell 5.1 (no `&&`) and Git Bash both exis
 
 ## Status
 - **Phase 0 (save-format gate): PASSED for fact edits** (2026-11-04). Proven in game by the user: unedited repack loads; fact appended/changed/removed (`gwent_difficulty` 3 = Hard, removed = Normal); the game's own re-saves keep our facts; same-world teleport, world swap to another visited world (Kaer Morhen, White Orchard).
-- **Phase 1 (`w3save`)**: container, payload map, typed token tree (byte-exact on 101 files), facts (parse/set/remove/exact restore), `rebase`, `apply` for facts, journal editor (offline byte-exact reproduction of a real quest completion; in game: shows completed on load), position edit (tested). Not done: quest graph (`questSystem`), `JS_Failed`/new name-table names in game, DLC/mod checks in export.
-- **Phase 2 (Tauri shell)**: scaffold works; export must be wired to the real edits; default output name is now `ManualSave_<a>_<b>_<c>` (generated).
-- **Phase 3+ (content)**: not started on purpose; do not start until the quest-graph question is answered. Sample questbook uses `PLACEHOLDER_` effect names.
+- **Phase 1 (`w3save`)**: container, payload map, typed token tree (byte-exact on 101 files), facts (parse/set/remove/exact restore), `rebase`, `apply` for facts, journal editor (offline byte-exact reproduction of a real quest completion; in game: shows completed on load), position edit (tested). Quest graph (`questSystem`) is done (gates G-M, `w3save::graph`). Not done: `JS_Failed`/new name-table names in game, DLC/mod checks in export.
+- **Phase 2 (Tauri shell)**: scaffold works; export is wired to the real edits (2026-11-05); default output name is now `ManualSave_<a>_<b>_<c>` (generated).
+- **Phase 3+ (content)**: started 2026-11-05 after the quest-graph gates (decisions by act in `questbook/`, 98 generated side quests, story chain); gates Y1-Y3 and Z passed. Open work: `docs/research.md` "Open items (triage 2026-11-05)".
 
 ## Key facts about the save format (see docs for evidence)
 - Container `SNFHFZLC`: 12-byte chunk records, raw LZ4 chunks, data start 3,084. The last record's end offset is stale/don't-care (game reuses a header buffer); write 0.
 - Payload `SAV3`: variable table (unordered, nested), `RB` (name index + offset of each top-level `BS`), `NM`/`MANU` name table (count, zero, 1-byte-length Latin-1 names, zero, `ENOD`), footer `SE`. No checksum found.
 - Facts: one `SS` blob (`SXAP`, `SBDF`, count, facts, `EBDF`); fact = packed string, u16 c1 (= number of timed records), u16 n, n x (u16 value, f32 time, f32 expiry). `FactsSet` = remove then add one permanent record.
 - Quest log: `CJournalManager > JActiveEntries` (append-only `SJournalEntryStatus`, GUID paths, `EJournalStatus`), `CWitcherJournalManager` counters/tracked quest. Position: `universe > Player > position/rotation`; world: `worldInfo > world`.
-- **Open core problem:** the quest graph `questSystem` decides what happens next; journal + facts only decide what is shown (gate J/J2: quest showed completed, but talking to Napp reactivated it). See `docs/research.md` (2026-11-04 night) and `docs/handoff/PROMPT_quest_graph_opus.md`.
+- **Solved by gates G-M (2026-11-05); history:** the quest graph `questSystem` decides what happens next; journal + facts only decide what is shown (gate J/J2: quest showed completed, but talking to Napp reactivated it). See `docs/research.md` (2026-11-04 night) and `docs/handoff/PROMPT_quest_graph_opus.md`.
 - **Gate G (2026-11-05): PASSED for mq0005.** Transplanting the quest's graph scopes + spawn set/stub (with journal + facts) from a later save of the same playthrough makes the quest count as done in play (Napp gone, no reopen).
 - File-name ids: `ManualSave_<a>_<b>_<c>`: `b`/`c` = packed local date/time (high/low word of the last `saveInfo` time); `a` follows the tracked quest (cannot compute; keep the template's). The Load list shows quest names only for this name shape.
 

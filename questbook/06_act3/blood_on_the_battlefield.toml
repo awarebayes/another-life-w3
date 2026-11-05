@@ -33,7 +33,7 @@ act = 6
 order = 6010
 kind = "main"
 region = "kaer_morhen"
-level = 24                # TODO(phase3): verify the recommended level in game
+level = 20                # from the game's quest-level table
 summary = """The battle is over and the keep is full of smoke and graves. Ciri is grieving the only \
 way she knows, with clenched fists and too much power, and before you can go after the Hunt you \
 have to decide how to help her carry it, and where she goes next."""

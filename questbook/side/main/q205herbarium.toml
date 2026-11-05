@@ -6,6 +6,7 @@ kind = "main"
 region = "skellige"
 act = 4
 order = 40001
+level = 14   # from the game's quest-level table
 title_id = 1048568
 fallback_title = "quests/part_1/quest_files/q205_frozen_coast/phases/q205_hindarsfjall_yen"
 journal = "c363eee207345a43870711acc05f2121/a6636b7f50ca9e439f6cd4d798ac3e26"

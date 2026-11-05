@@ -6,6 +6,7 @@ kind = "side"
 region = "kaer_morhen"
 act = 5
 order = 51004
+level = 30   # from the game's quest-level table
 title_id = 1031235
 fallback_title = "quests/minor_quests/kaer_morhen/mq4006_armor"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/3018c9731884934490cbd8085e78fd1e"

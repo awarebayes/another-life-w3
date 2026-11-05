@@ -24,7 +24,7 @@ act = 3
 order = 3910
 kind = "main"
 region = "novigrad"
-level = 18                # TODO(phase3): verify the recommended level in game
+level = 14                # from the game's quest-level table
 summary = """The mages of Novigrad are hiding under the city while the witch hunters burn whoever \
 they catch. You lead them through sewers and old cellars to a ship in the harbour. Triss is \
 leaving with them, and the last chance to tell her anything is on the pier."""

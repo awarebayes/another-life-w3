@@ -6,6 +6,7 @@ kind = "side"
 region = "skellige"
 act = 4
 order = 41011
+level = 15   # from the game's quest-level table
 title_id = 1062153
 fallback_title = "quests/minor_quests/skellige/mq2018_bandits"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/c9fd386c84e87741ad0230a9ecbfdecc"

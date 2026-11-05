@@ -6,6 +6,7 @@ kind = "contract"
 region = "velen"
 act = 2
 order = 22002
+level = 22   # from the game's quest-level table
 title_id = 552318
 fallback_title = "quests/generic_quests/no_mans_land/mh104_ekimma"
 journal = "dd4652d4e3db404a939f1e88b285eb20/b759d796ff245e46996d751e107cc563"

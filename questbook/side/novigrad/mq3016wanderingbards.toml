@@ -6,6 +6,7 @@ kind = "side"
 region = "novigrad"
 act = 3
 order = 31004
+level = 8   # from the game's quest-level table
 title_id = 454017
 fallback_title = "quests/minor_quests/novigrad/mq3016_wandering_bards"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/d1694689ab978445ae1cfae2d0c1df46"

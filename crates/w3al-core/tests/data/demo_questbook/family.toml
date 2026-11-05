@@ -1,0 +1,16 @@
+# Test fixture: a later main quest with `requires`, for the lock and stop_after rules.
+id = "family_matters"
+title = "Family Matters"
+act = 2
+order = 2040
+kind = "main"
+region = "velen"
+level = 6
+requires = ["beast_of_white_orchard"]
+summary = "Test fixture."
+done_effects = "done"
+
+[effects.done]
+source = "PLACEHOLDER: test fixture"
+placeholder = true
+quests = { "PLACEHOLDER_family_matters" = "completed" }

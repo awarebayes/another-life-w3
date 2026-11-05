@@ -6,6 +6,7 @@ kind = "contract"
 region = "velen"
 act = 2
 order = 22007
+level = 7   # from the game's quest-level table
 title_id = 540318
 fallback_title = "quests/minor_quests/no_mans_land/mq1051_monster_hunt_nilfgaaard1"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/343b58c5585d1544984c1782efe47bce"

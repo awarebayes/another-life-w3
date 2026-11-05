@@ -6,6 +6,7 @@ kind = "side"
 region = "velen"
 act = 2
 order = 21017
+level = 1   # from the game's quest-level table
 title_id = 454220
 fallback_title = "quests/minor_quests/no_mans_land/mq1050_written_in_the_stars"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/c50297189179374e810db5898e18f145"

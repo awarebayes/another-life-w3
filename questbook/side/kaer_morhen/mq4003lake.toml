@@ -6,6 +6,7 @@ kind = "side"
 region = "kaer_morhen"
 act = 5
 order = 51001
+level = 26   # from the game's quest-level table
 title_id = 1026248
 fallback_title = "quests/minor_quests/kaer_morhen/mq4003_lake"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/b9832d2b59400047b1ed60ef36cdabc9"

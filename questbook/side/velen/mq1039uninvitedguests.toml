@@ -6,6 +6,7 @@ kind = "side"
 region = "velen"
 act = 2
 order = 21014
+level = 11   # from the game's quest-level table
 title_id = 1052986
 fallback_title = "quests/minor_quests/no_mans_land/mq1039_uninvited_guest"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/c6a686853d53b24ebc53a0383bcfe889"

@@ -6,6 +6,7 @@ kind = "side"
 region = "novigrad"
 act = 3
 order = 31017
+level = 12   # from the game's quest-level table
 title_id = 503027
 fallback_title = "quests/sidequests/novigrad/sq310_dangerous_game"
 journal = "a93885ce3a22194c955e802d55358928/a71caa4e62179148b0e0849c54f1a22e"

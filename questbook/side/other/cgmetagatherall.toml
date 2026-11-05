@@ -6,6 +6,7 @@ kind = "gwent"
 region = "other"
 act = 6
 order = 65002
+level = 1   # from the game's quest-level table
 title_id = 522071
 fallback_title = "quests/generic_quests/card_minigame_all_hubs/cg_card_minigame_meta"
 journal = "dd4652d4e3db404a939f1e88b285eb20/1979a222e1f7cc4e906f539f21cb40d1"

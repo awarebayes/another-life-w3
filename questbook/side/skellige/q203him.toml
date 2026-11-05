@@ -6,6 +6,7 @@ kind = "side"
 region = "skellige"
 act = 4
 order = 41022
+level = 17   # from the game's quest-level table
 title_id = 318698
 fallback_title = "quests/part_1/q203_him"
 journal = "c363eee207345a43870711acc05f2121/0608cb2b8c06e147ae34324f17acf3d5"

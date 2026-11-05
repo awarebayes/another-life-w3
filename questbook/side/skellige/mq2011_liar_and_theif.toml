@@ -6,6 +6,7 @@ kind = "side"
 region = "skellige"
 act = 4
 order = 41007
+level = 1   # from the game's quest-level table
 title_id = 1074000
 fallback_title = "quests/minor_quests/skellige/mq2011_liar_and_a_thief"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/03795e1c6ccd6240b7f768c97f8a1223"

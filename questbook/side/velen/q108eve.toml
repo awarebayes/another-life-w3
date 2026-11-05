@@ -6,6 +6,7 @@ kind = "side"
 region = "velen"
 act = 2
 order = 21019
+level = 7   # from the game's quest-level table
 title_id = 308555
 fallback_title = "quests/part_2/q108_eve"
 journal = "419f978ff624ed49a444903714632529/3b30f8d9fd613542ac4dc39ab4190442"

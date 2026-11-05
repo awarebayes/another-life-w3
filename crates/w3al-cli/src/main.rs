@@ -15,6 +15,7 @@ mod edit_cmd;
 mod edit_save_cmd;
 mod facts_cmd;
 mod gametext_cmd;
+mod questlevels_cmd;
 mod graph_cmd;
 mod journal_cmd;
 mod side_cmd;
@@ -124,6 +125,13 @@ enum Cmd {
         /// Also list every objective counter.
         #[arg(long)]
         counters: bool,
+    },
+    /// Print the game's recommended level of every journal quest (journal GUID, level, `.journal`, working
+    /// name) from the local game install's quest-level tables. Numbers only; nothing is written.
+    QuestLevels {
+        /// The Witcher 3 install (default: `W3AL_INSTALL`, else the Steam folder).
+        #[arg(long)]
+        game_dir: Option<PathBuf>,
     },
     /// Print a journal quest's (or character's) title, description entries and objective titles from the
     /// local game install, in a language. For checking only; nothing is written.
@@ -606,6 +614,7 @@ fn run(cli: Cli) -> Result<ExitCode> {
         Cmd::Journal { sav, status, grep, counters } => {
             journal_cmd::journal_cmd(&sav, status.as_deref(), grep.as_deref(), counters)
         }
+        Cmd::QuestLevels { game_dir } => questlevels_cmd::quest_levels_cmd(game_dir.as_deref()).map(|()| ExitCode::SUCCESS),
         Cmd::GameText { key, lang, game_dir } => gametext_cmd::game_text_cmd(&key, &lang, game_dir.as_deref()).map(|()| ExitCode::SUCCESS),
         Cmd::JournalDiff { a, b, grep, key } => journal_cmd::journal_diff_cmd(&a, &b, grep.as_deref(), &key),
         Cmd::JournalSet {

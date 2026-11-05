@@ -6,6 +6,7 @@ kind = "contract"
 region = "skellige"
 act = 4
 order = 42003
+level = 16   # from the game's quest-level table
 title_id = 370714
 fallback_title = "quests/generic_quests/skellige/mh202_nekker_alpha"
 journal = "dd4652d4e3db404a939f1e88b285eb20/64d78632b1158c499a2199029868bcbd"

@@ -6,6 +6,7 @@ kind = "side"
 region = "novigrad"
 act = 3
 order = 31012
+level = 7   # from the game's quest-level table
 title_id = 1084795
 fallback_title = "quests/part_3/quest_files/q311_geels/phases/q311_after_q301_dreamer_godling_house"
 journal = "a93885ce3a22194c955e802d55358928/b74f5f58de2bf84cacb63bd303df468d"

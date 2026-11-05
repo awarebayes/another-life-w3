@@ -6,6 +6,7 @@ kind = "contract"
 region = "skellige"
 act = 4
 order = 42006
+level = 19   # from the game's quest-level table
 title_id = 1025655
 fallback_title = "quests/generic_quests/skellige/mh210_lamia"
 journal = "dd4652d4e3db404a939f1e88b285eb20/57b9c84fb164d14aa6340ed5aa18812e"

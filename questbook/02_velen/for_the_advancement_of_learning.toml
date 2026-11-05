@@ -17,7 +17,7 @@ act = 2
 order = 2300
 kind = "secondary"
 region = "velen"
-level = 11                # TODO(phase3): verify the recommended level in game
+level = 8                 # from the game's quest-level table
 summary = """The sorceress from the bog has been digging through a mage's tower for more than \
 curiosity. Once her real plan is out in the open, she asks you to look the other way. What you \
 say decides where she spends the coming war."""

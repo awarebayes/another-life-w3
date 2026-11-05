@@ -8,6 +8,13 @@ fn book() -> Questbook {
     Questbook::load_dir(&dir).expect("questbook loads")
 }
 
+/// A three-quest fixture with a demo choice and placeholder effects, for the resolve/export rules
+/// (the shipped questbook no longer has placeholders to exercise them).
+fn demo_book() -> Questbook {
+    let dir = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("tests/data/demo_questbook");
+    Questbook::load_dir(&dir).expect("demo questbook loads")
+}
+
 fn entry(status: Status, answers: &[(&str, &str)]) -> QuestEntry {
     QuestEntry {
         status,
@@ -37,7 +44,7 @@ fn quests_are_chronological() {
 
 #[test]
 fn completed_applies_chosen_option_then_done_phase() {
-    let book = book();
+    let book = demo_book();
     let mut run = Run::default();
     run.quests.insert("lilac_and_gooseberries".into(), entry(Status::Completed, &[]));
     run.quests.insert("beast_of_white_orchard".into(), entry(Status::Completed, &[("demo_reward", "waive_fee")]));
@@ -58,7 +65,7 @@ fn completed_applies_chosen_option_then_done_phase() {
 
 #[test]
 fn unanswered_choice_uses_default() {
-    let book = book();
+    let book = demo_book();
     let mut run = Run::default();
     for id in ["lilac_and_gooseberries", "beast_of_white_orchard"] {
         run.quests.insert(id.into(), entry(Status::Completed, &[]));
@@ -70,7 +77,7 @@ fn unanswered_choice_uses_default() {
 
 #[test]
 fn skipping_a_main_quest_locks_later_main_quests() {
-    let book = book();
+    let book = demo_book();
     let mut run = Run::default();
     // lilac skipped (absent); the rest claim to be completed.
     run.quests.insert("beast_of_white_orchard".into(), entry(Status::Completed, &[]));
@@ -82,7 +89,7 @@ fn skipping_a_main_quest_locks_later_main_quests() {
 
 #[test]
 fn stop_after_truncates_the_walk() {
-    let book = book();
+    let book = demo_book();
     let mut run = Run::default();
     for id in ["lilac_and_gooseberries", "beast_of_white_orchard", "family_matters"] {
         run.quests.insert(id.into(), entry(Status::Completed, &[]));
@@ -94,7 +101,7 @@ fn stop_after_truncates_the_walk() {
 
 #[test]
 fn bad_answer_is_an_error() {
-    let book = book();
+    let book = demo_book();
     let mut run = Run::default();
     for id in ["lilac_and_gooseberries", "beast_of_white_orchard"] {
         run.quests.insert(id.into(), entry(Status::Completed, &[("demo_reward", "nope")]));
@@ -109,7 +116,7 @@ fn export_refuses_the_sample_questbook_placeholders() {
     use w3al_core::export::{build_save, ExportError};
     use w3save::Container;
 
-    let book = book();
+    let book = demo_book();
     let mut run = Run::default();
     run.quests.insert("lilac_and_gooseberries".into(), entry(Status::Completed, &[]));
     let res = resolve(&book, &run);

@@ -6,6 +6,7 @@ kind = "race"
 region = "skellige"
 act = 4
 order = 46002
+level = 1   # from the game's quest-level table
 title_id = 592396
 fallback_title = "quests/generic_quests/skellige/hr200_skg_horseraces"
 journal = "dd4652d4e3db404a939f1e88b285eb20/3b070a0270ee2a47811be5ab377fb690"

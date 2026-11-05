@@ -6,6 +6,7 @@ kind = "side"
 region = "velen"
 act = 2
 order = 21010
+level = 12   # from the game's quest-level table
 title_id = 478626
 fallback_title = "quests/minor_quests/no_mans_land/mq1020_wild_horse"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/d4cb6e9c00081442b1db5c3260a7645a"

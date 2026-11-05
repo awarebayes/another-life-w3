@@ -6,6 +6,7 @@ kind = "contract"
 region = "velen"
 act = 2
 order = 22004
+level = 10   # from the game's quest-level table
 title_id = 443077
 fallback_title = "quests/generic_quests/no_mans_land/mh106_gravehag"
 journal = "dd4652d4e3db404a939f1e88b285eb20/30eadd3445e48a46921ad677dc03dd31"

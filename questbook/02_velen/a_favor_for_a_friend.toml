@@ -20,7 +20,7 @@ act = 2
 order = 2290
 kind = "secondary"
 region = "velen"
-level = 10                # TODO(phase3): verify the recommended level in game
+level = 6                 # from the game's quest-level table
 summary = """The sorceress in the bog lost a cartload of her things on the road, and you track \
 it through mud, wreckage and the leftovers of a meal something else enjoyed. When you bring back \
 what you can, she has a suggestion for the evening."""

@@ -33,7 +33,7 @@ act = 6
 order = 6040
 kind = "main"
 region = "skellige"
-level = 27                # TODO(phase3): verify the recommended level in game
+level = 31                # from the game's quest-level table
 summary = """An elven sage's hidden laboratory on Skellige holds old secrets about Ciri's bloodline, \
 some of them painful. What she does with a dead woman's keepsake, and whether you take an hour to \
 stand at a young man's grave with her, stays with her longer than either of you expects."""

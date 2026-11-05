@@ -6,6 +6,7 @@ kind = "side"
 region = "velen"
 act = 2
 order = 21016
+level = 10   # from the game's quest-level table
 title_id = 1077096
 fallback_title = "quests/minor_quests/no_mans_land/mq1046_burn_down_the_house"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/243ddb4fbf90704d9a0beb67962c49f9"

@@ -6,6 +6,7 @@ kind = "contract"
 region = "novigrad"
 act = 3
 order = 32003
+level = 14   # from the game's quest-level table
 title_id = 1011771
 fallback_title = "quests/generic_quests/novigrad/mh307_minion"
 journal = "dd4652d4e3db404a939f1e88b285eb20/488a6f25fd333e4f9d301ce13f86ea93"

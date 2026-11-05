@@ -6,6 +6,7 @@ kind = "side"
 region = "velen"
 act = 2
 order = 21018
+level = 12   # from the game's quest-level table
 title_id = 540320
 fallback_title = "quests/minor_quests/no_mans_land/quest_files/mq1055_nilfgaard_mom/phases/mq1055_quest_start"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/c827bbbc74e3a74f8f40c13c77acd28c"

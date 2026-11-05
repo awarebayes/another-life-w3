@@ -6,6 +6,7 @@ kind = "side"
 region = "kaer_morhen"
 act = 5
 order = 51002
+level = 23   # from the game's quest-level table
 title_id = 1029387
 fallback_title = "quests/minor_quests/kaer_morhen/mq4004_bastion"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/f0c2688af4762b46be094e3c3a847b39"

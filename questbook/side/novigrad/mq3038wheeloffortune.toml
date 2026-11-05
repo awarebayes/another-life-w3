@@ -6,6 +6,7 @@ kind = "side"
 region = "novigrad"
 act = 3
 order = 31009
+level = 13   # from the game's quest-level table
 title_id = 547583
 fallback_title = "quests/minor_quests/novigrad/mq3038_wheel_of_fortune"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/a977b1a1b7231d45b58d7258519e317d"

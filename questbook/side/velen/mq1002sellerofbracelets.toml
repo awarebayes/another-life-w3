@@ -6,6 +6,7 @@ kind = "side"
 region = "velen"
 act = 2
 order = 21003
+level = 9   # from the game's quest-level table
 title_id = 353938
 fallback_title = "quests/minor_quests/no_mans_land/mq1002_seller_of_bracelets"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/b4695fb896b86345a633973384a92392"

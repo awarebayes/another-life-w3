@@ -20,7 +20,7 @@ act = 3
 order = 3920
 kind = "secondary"
 region = "skellige"
-level = 18                # TODO(phase3): verify the recommended level in game
+level = 15                # from the game's quest-level table
 summary = """Yennefer wants a djinn, and she wants you along when she finds it. A sea of wrecks, \
 a mountaintop and an old wish later, the bond that tied you two together is gone, and she \
 asks what is left between you when nothing holds you to her any more."""

@@ -1,0 +1,15 @@
+# Test fixture: a quest with NO choices and a placeholder `done` effect (resolve/export semantics).
+id = "lilac_and_gooseberries"
+title = "Lilac and Gooseberries"
+act = 1
+order = 1010
+kind = "main"
+region = "white_orchard"
+level = 1
+summary = "Test fixture."
+done_effects = "done"
+
+[effects.done]
+source = "PLACEHOLDER: test fixture"
+placeholder = true
+quests = { "PLACEHOLDER_lilac_and_gooseberries" = "completed" }

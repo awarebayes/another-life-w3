@@ -6,6 +6,7 @@ kind = "side"
 region = "velen"
 act = 2
 order = 21001
+level = 25   # from the game's quest-level table
 title_id = 1089166
 fallback_title = "dlc/dlc15/data/quests/mq1058_lynx_witcher"
 journal = "50326a2d773e894d979af2d4f6a7ebc0/0acbcc359087514cb4341cd177eadb6c"

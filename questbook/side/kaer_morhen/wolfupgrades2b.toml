@@ -6,6 +6,7 @@ kind = "scavenger"
 region = "kaer_morhen"
 act = 5
 order = 54002
+level = 29   # from the game's quest-level table
 title_id = 1104352
 fallback_title = "dlc/dlc10/data/quests/th1009_wolf/th1009_wolf"
 journal = "b3edb7307d1ad045adfb54b97e54ac85/f1eba3b52740584888bd5c03d1e75ac6"

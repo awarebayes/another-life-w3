@@ -6,6 +6,7 @@ kind = "side"
 region = "novigrad"
 act = 3
 order = 31008
+level = 13   # from the game's quest-level table
 title_id = 1011723
 fallback_title = "quests/minor_quests/novigrad/mq3037_sleeping_vampire"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/4073c408c256174699547cb118695333"

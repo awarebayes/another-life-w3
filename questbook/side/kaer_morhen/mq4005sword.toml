@@ -6,6 +6,7 @@ kind = "side"
 region = "kaer_morhen"
 act = 5
 order = 51003
+level = 27   # from the game's quest-level table
 title_id = 1028037
 fallback_title = "quests/minor_quests/kaer_morhen/mq4005_sword"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/4cb0c6391331f44fac1c1d00fe0da8c6"

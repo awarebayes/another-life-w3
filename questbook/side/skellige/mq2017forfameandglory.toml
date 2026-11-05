@@ -6,6 +6,7 @@ kind = "side"
 region = "skellige"
 act = 4
 order = 41010
+level = 15   # from the game's quest-level table
 title_id = 1046212
 fallback_title = "quests/minor_quests/skellige/mq2017_for_fame_and_glory"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/c40738ec6352a44e8798a810f85b9a40"

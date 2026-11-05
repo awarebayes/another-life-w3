@@ -6,6 +6,7 @@ kind = "side"
 region = "skellige"
 act = 4
 order = 41018
+level = 18   # from the game's quest-level table
 title_id = 1028148
 fallback_title = "quests/minor_quests/skellige/mq2045_chains"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/34aa25643063114c8a781084884bf6c2"

@@ -37,7 +37,7 @@ act = 5
 order = 5010
 kind = "main"
 region = "kaer_morhen"
-level = 22                # TODO(phase3): verify the recommended level in game
+level = 22                # from the game's quest-level table
 requires = ["ugly_baby"]
 summary = """The Wild Hunt is coming to Kaer Morhen, and a handful of witchers will not hold \
 the walls alone. You ride from the islands to the city to the swamps, calling in every debt \

@@ -6,6 +6,7 @@ kind = "side"
 region = "velen"
 act = 2
 order = 21005
+level = 9   # from the game's quest-level table
 title_id = 358211
 fallback_title = "quests/minor_quests/no_mans_land/mq1005_battlefield_scavengers"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/69df67874036264bb9102758bafd01f5"

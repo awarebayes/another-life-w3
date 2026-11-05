@@ -6,6 +6,7 @@ kind = "side"
 region = "velen"
 act = 2
 order = 21007
+level = 10   # from the game's quest-level table
 title_id = 431183
 fallback_title = "quests/minor_quests/no_mans_land/mq1013_the_pretender"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/6811004d8c9eff4192ef3c6a8f67dafd"

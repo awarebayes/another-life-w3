@@ -6,6 +6,7 @@ kind = "side"
 region = "skellige"
 act = 4
 order = 41003
+level = 24   # from the game's quest-level table
 title_id = 440795
 fallback_title = "quests/minor_quests/skellige/mq2002_pirate_scavengers"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/ae079ad7b18ebb468eb10f8e44eead99"

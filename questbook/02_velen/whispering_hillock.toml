@@ -13,7 +13,7 @@ act = 2
 order = 2050
 kind = "secondary"
 region = "velen"
-level = 7                 # TODO(phase3): verify the recommended level in game
+level = 5                 # from the game's quest-level table
 summary = """Something old is sealed inside a tree on a hill above the marsh, and it bargains \
 like a merchant who knows you need what it sells. The three sisters of the bog want it kept \
 there. Whichever way you decide, someone in Velen pays for it."""

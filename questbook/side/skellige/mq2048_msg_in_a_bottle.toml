@@ -6,6 +6,7 @@ kind = "side"
 region = "skellige"
 act = 4
 order = 41019
+level = 13   # from the game's quest-level table
 title_id = 1028150
 fallback_title = "quests/minor_quests/skellige/mq2048_msg_in_a_bottle"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/d18a18fad7eab0409ad867de1798c31b"

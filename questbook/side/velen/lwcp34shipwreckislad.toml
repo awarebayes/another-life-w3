@@ -6,6 +6,7 @@ kind = "treasure"
 region = "velen"
 act = 2
 order = 23001
+level = 13   # from the game's quest-level table
 title_id = 1083524
 fallback_title = "living_world/phases/no_mans_land/crows_perch/cp34_shipwreck_island"
 journal = "0edce69b087c424593651e1d81516a1a/3c036163cf9a1b4e874b94839d0932ff"

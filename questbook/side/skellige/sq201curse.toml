@@ -6,6 +6,7 @@ kind = "side"
 region = "skellige"
 act = 4
 order = 41023
+level = 15   # from the game's quest-level table
 title_id = 503314
 fallback_title = "quests/sidequests/skellige/sq201_curse"
 journal = "a93885ce3a22194c955e802d55358928/837b43fe255799499a08f639277ca8d2"

@@ -6,6 +6,7 @@ kind = "contract"
 region = "velen"
 act = 2
 order = 22003
+level = 23   # from the game's quest-level table
 title_id = 557974
 fallback_title = "quests/generic_quests/no_mans_land/mh105_wyvern"
 journal = "dd4652d4e3db404a939f1e88b285eb20/bf915c91de69b847beed9c0b373a1144"

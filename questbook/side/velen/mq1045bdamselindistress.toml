@@ -6,6 +6,7 @@ kind = "side"
 region = "velen"
 act = 2
 order = 21015
+level = 10   # from the game's quest-level table
 title_id = 507108
 fallback_title = "quests/minor_quests/no_mans_land/mq1045_damsel_in_distress"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/3d2ae12ef7fa2b439a7508090e89e78d"

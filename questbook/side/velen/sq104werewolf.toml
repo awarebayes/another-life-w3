@@ -6,6 +6,7 @@ kind = "side"
 region = "velen"
 act = 2
 order = 21020
+level = 7   # from the game's quest-level table
 title_id = 471968
 fallback_title = "quests/sidequests/no_mans_land/sq104_werewolf"
 journal = "a93885ce3a22194c955e802d55358928/78facb15b1d1a54dad3e62fc73ce739f"

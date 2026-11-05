@@ -6,6 +6,7 @@ kind = "treasure"
 region = "skellige"
 act = 4
 order = 43001
+level = 12   # from the game's quest-level table
 title_id = 347102
 fallback_title = "quests/minor_quests/skellige/mq2006_key_to_the_chest"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/7d6de01bb055e74cb2e087fac96d0b57"

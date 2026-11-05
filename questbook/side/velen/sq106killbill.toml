@@ -6,6 +6,7 @@ kind = "side"
 region = "velen"
 act = 2
 order = 21021
+level = 11   # from the game's quest-level table
 title_id = 592254
 fallback_title = "quests/sidequests/no_mans_land/sq106_killbill"
 journal = "a93885ce3a22194c955e802d55358928/9cf4eb23b5bfd24c94fbd8a2a64070b2"

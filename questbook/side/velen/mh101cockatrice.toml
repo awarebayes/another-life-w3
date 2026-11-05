@@ -6,6 +6,7 @@ kind = "contract"
 region = "velen"
 act = 2
 order = 22001
+level = 8   # from the game's quest-level table
 title_id = 410130
 fallback_title = "quests/generic_quests/no_mans_land/mh101_cockatrice"
 journal = "dd4652d4e3db404a939f1e88b285eb20/4d43dbae23548c4398d8a76194f8c96d"

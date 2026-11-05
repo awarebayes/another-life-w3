@@ -6,6 +6,7 @@ kind = "side"
 region = "novigrad"
 act = 3
 order = 31010
+level = 20   # from the game's quest-level table
 title_id = 548706
 fallback_title = "quests/minor_quests/novigrad/mq3039_crows"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/75a1065e42609a4295b8752f6ae23eaa"

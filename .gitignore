@@ -29,3 +29,7 @@ node_modules/
 *.log
 .DS_Store
 Thumbs.db
+
+# Release staging (scripts/package-portable.ps1, release workflow)
+/dist/
+/src-tauri/bundle-extra/*

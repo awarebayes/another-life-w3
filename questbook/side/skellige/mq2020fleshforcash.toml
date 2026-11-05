@@ -6,6 +6,7 @@ kind = "side"
 region = "skellige"
 act = 4
 order = 41012
+level = 12   # from the game's quest-level table
 title_id = 1043323
 fallback_title = "quests/minor_quests/skellige/mq2020_flesh_for_cash_business"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/0057ce75be1b1f4bae3792060fca206d"

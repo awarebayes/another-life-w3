@@ -6,6 +6,7 @@ kind = "treasure"
 region = "white_orchard"
 act = 1
 order = 13001
+level = 2   # from the game's quest-level table
 title_id = 1083525
 fallback_title = "gameplay/community/shops_and_craftsmen/prologue_shops_and_craftsmen"
 journal = "0edce69b087c424593651e1d81516a1a/6f3121633956124881a1f5754eebecd5"

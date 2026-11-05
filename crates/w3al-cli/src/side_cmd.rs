@@ -262,6 +262,12 @@ pub fn gen_side_quests_cmd(a: &GenArgs) -> Result<ExitCode> {
         temps.push((t.id.clone(), t.line, d, f));
     }
     eprintln!("{} quests in the install, {} templates", idx.quests.len(), temps.len());
+    // The game's recommended levels (`gameplay\globals\quest_levels.csv` and the DLC tables), by journal GUID.
+    let levels: std::collections::HashMap<String, u32> = w3graph::names::quest_levels(a.install)
+        .map_err(|e| anyhow!("{e}"))?
+        .into_iter()
+        .filter_map(|l| Some((l.guid, l.level?)))
+        .collect();
 
     struct Row {
         q: JournalQuest,
@@ -355,6 +361,9 @@ pub fn gen_side_quests_cmd(a: &GenArgs) -> Result<ExitCode> {
         t.push_str("# only, no game text (the official title is read from the install at run time by `title_id`). Re-run the\n");
         t.push_str("# generator instead of editing. Schema: questbook/SCHEMA.md \"Side quests\". Licensed CC BY-SA 4.0.\n");
         t.push_str(&format!("id = \"{id}\"\nkind = \"{kind}\"\nregion = \"{}\"\nact = {}\norder = {order}\n", r.region, r.act));
+        if let Some(lv) = levels.get(&guid_hex(&r.q.guid)) {
+            t.push_str(&format!("level = {lv}   # from the game's quest-level table\n"));
+        }
         if let Some(tid) = r.q.title_id {
             t.push_str(&format!("title_id = {tid}\n"));
         }

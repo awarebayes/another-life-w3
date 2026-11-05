@@ -6,6 +6,7 @@ kind = "contract"
 region = "velen"
 act = 2
 order = 22008
+level = 24   # from the game's quest-level table
 title_id = 1038351
 fallback_title = "quests/sidequests/no_mans_land/quest_files/sq108_master_blacksmith/phases/sq108_griffon_contract"
 journal = "dd4652d4e3db404a939f1e88b285eb20/bf603532f7ec1444ba6c9a1a371de503"

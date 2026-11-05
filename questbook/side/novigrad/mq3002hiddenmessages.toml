@@ -6,6 +6,7 @@ kind = "side"
 region = "novigrad"
 act = 3
 order = 31001
+level = 8   # from the game's quest-level table
 title_id = 535628
 fallback_title = "quests/minor_quests/novigrad/mq3002_hidden_messages"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/6220d4a68c57bf41a6120ed82df8fe55"

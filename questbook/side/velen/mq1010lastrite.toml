@@ -6,6 +6,7 @@ kind = "side"
 region = "velen"
 act = 2
 order = 21006
+level = 9   # from the game's quest-level table
 title_id = 389089
 fallback_title = "quests/minor_quests/no_mans_land/mq1010_last_rite"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/7da737d6b2b7374fa695d6bb080c09e1"

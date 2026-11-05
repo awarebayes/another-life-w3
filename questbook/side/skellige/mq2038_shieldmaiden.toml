@@ -6,6 +6,7 @@ kind = "side"
 region = "skellige"
 act = 4
 order = 41017
+level = 19   # from the game's quest-level table
 title_id = 1018189
 fallback_title = "quests/minor_quests/skellige/mq2038_shieldmaiden"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/29799f1d67c55241a4750632ce72cb7d"

@@ -32,7 +32,7 @@ act = 4
 order = 4020
 kind = "secondary"
 region = "skellige"
-level = 16                # TODO(phase3): verify the recommended level in game
+level = 18                # from the game's quest-level table
 summary = """The jarls gather in Kaer Trolde to drink to the dead king and to eye his empty seat. \
 The feast ends in blood when bears that walk like men tear into the hall, and every claimant for \
 the crown suddenly wants a witcher on their side."""

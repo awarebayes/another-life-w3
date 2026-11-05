@@ -4,10 +4,31 @@ Walk The Witcher 3's story as an illustrated text RPG, make the real choices, th
 Vizima with a save whose world state matches. Think Skyrim's *Alternate Start - Live Another
 Life*, except you decide the past: who lived, who joined you, who you loved.
 
-<!-- TODO: add a screenshot of the story screen and the Review screen here (docs/img/, own screenshots only). -->
-
 *Unofficial fan tool. Not affiliated with or endorsed by CD PROJEKT RED. The Witcher is a
 trademark of CD PROJEKT S.A. No game files are included. See [NOTICE.md](NOTICE.md).*
+
+## Why this exists
+
+I lost my save. I did not want to replay the game from the start, and I did not need to: I
+remember roughly what I had done. White Orchard, every Novigrad quest below level 16, and I had
+just arrived in Skellige at level 18 with about 17,000 crowns and some armour.
+
+What I wanted was a tool that turns "here is what I did" into a save that matches it. This is
+that tool. It is early, and it only claims what has been tested in the game (see Status below).
+
+## Screenshots
+
+The screenshots come from the browser preview with invented data and the Witcher Wiki
+illustrations switched off. They show the screens, not a real save.
+
+| | |
+| --- | --- |
+| ![Welcome screen](docs/img/welcome.png) | ![A story page with a decision](docs/img/story-decision.png) |
+| Welcome: create a save from your story, or edit one of your saves. | A quest page: what happened, then each decision with what it changes. |
+| ![Your story so far, with the start kit](docs/img/review-start-kit.png) | ![Side quests](docs/img/side-quests.png) |
+| Review ("You wake up"): every answer in one list, plus the optional start kit (level, crowns, supplies). | Side quests: tick what Geralt has finished. |
+| ![Edit one of my saves: the plan](docs/img/edit-save-plan.png) | ![The same story page in Russian](docs/img/story-decision-ru.png) |
+| Edit my save: where the save stands and which decisions can be changed (invented plan in the preview). | The interface and the questbook texts also come in Russian. |
 
 ## Status
 
@@ -38,9 +59,11 @@ Out of scope for v1: level and gold (the in-game console already does it on any 
 
 ## Install
 
-- **Player:** download the Windows installer from the repository's Releases page, run it, and
-  read the [player guide](docs/PLAYER_GUIDE.md) ([Russian](docs/PLAYER_GUIDE_RU.md)).
+- **Player:** download the Windows installer (or the portable zip) from the repository's Releases page,
+  run it, and read the [player guide](docs/PLAYER_GUIDE.md) ([Russian](docs/PLAYER_GUIDE_RU.md)).
   Needs The Witcher 3 Remastered (PC, patch 5.01) and the WebView2 runtime (ships with Windows 11).
+  The builds are not code signed, so SmartScreen may warn: More info, Run anyway.
+  Both include the `w3al` command line tool next to the app; see [docs/DISTRIBUTION.md](docs/DISTRIBUTION.md).
 - **From source:** needs Rust stable (MSVC toolchain on Windows) and the Tauri CLI.
 
 ```bash
@@ -57,7 +80,20 @@ working installer, put copies of your own saves in a folder, set `W3AL_FIXTURES`
 `pwsh scripts/collect-templates.ps1` (see [templates/README.md](templates/README.md)).
 A build without them runs, but cannot export.
 
-CLI: `cargo run -p w3al-cli -- <dump|roundtrip|diff|facts|lint|check-save|export|edit-fact|journal|journal-diff|journal-set|tree|graph-diff|questbook-json> ...`
+**CLI.** The installer puts `w3al.exe` next to the app and the portable zip has it in its root; it finds
+`questbook/` and `templates/` next to itself. From the install or unzipped folder:
+
+```powershell
+.\w3al.exe --help
+.\w3al.exe export --run my.toml --out-dir .      # write a new save from a run file
+.\w3al.exe edit-plan "C:\copies\my.sav"          # where a save of yours stands in the questbook
+.\w3al.exe character "C:\copies\my.sav"          # read level, items and the like from a save
+.\w3al.exe lint                                  # validate the questbook
+```
+
+Other subcommands: `dump`, `roundtrip`, `diff`, `facts`, `check-save`, `edit-fact`, `journal`,
+`journal-diff`, `journal-set`, `tree`, `graph-diff`, `questbook-json` (from source:
+`cargo run -p w3al-cli -- <subcommand>`).
 
 ## How it works
 
