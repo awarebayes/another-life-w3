@@ -1,0 +1,65 @@
+# template: pack 42 ManualSave_54142_7ea51000_3f8aed5 (5.01 re-save, C:\w3-fixtures\pack_501; original
+# ManualSave_54142_7e109000_5deed1a)
+#
+# Decision window W5, decision D9 (docs/plan/decision-catalogue.md section 4). Licensed CC BY-SA 4.0. A Skellige
+# quest, kept in this folder because it shares the W5 template with now_or_never.toml.
+# Quest sidequests/sq202yen. Template state: Larvik, waiting for the player to walk into the tavern (fe760739).
+# Decided in sq202_yen.w2phase, ending scene b0225ae2 (ONE output; the answer lives only in the scene facts
+# `sq202_yen_girlfriend` / `sq202_yen_just_friends`), so both branches walk the same graph and differ by one fact.
+# The facts are read by the ending boards, q401_konsylium, q310, q504 and the character journal listener 846c4bdc
+# (`love`: girlfriend >= 1 / `no_love`: just_friends >= 1); the walk parks 846c4bdc, which fires on load once the
+# effect's fact is set (gate J2: the game fires fact listeners on load).
+# Walk: --start fe760739 --through, picks b3ef15c1=True (Yennefer is in the tavern), e237ef53=start (agree to the djinn
+# hunt; `fail` ends the quest), stops 5883debb (the "left the diving area" failsafe of phase Secure, which would
+# otherwise fail the quest the moment the walk sets sq202_left_diving_area), d4756a57 / 551d21c9 / d52fa286 (three
+# position checks reached only after their scopes ended: walker issue W-1).
+# Composition with now_or_never.toml: both walks start from pack 42 and touch different quests; not yet run together.
+id = "the_last_wish"
+title = "The Last Wish"
+act = 3
+order = 3920
+kind = "secondary"
+region = "skellige"
+level = 18                # TODO(phase3): verify the recommended level in game
+summary = """Yennefer wants a djinn, and she wants you along when she finds it. A sea of wrecks, \
+a mountaintop and an old wish later, the bond that tied you two together is gone, and she \
+asks what is left between you when nothing holds you to her any more."""
+
+[[choices]]
+id = "yennefer"
+prompt = "Freed of the old wish, Yennefer asks what you feel. What do you say?"
+default = "love"
+options = [
+  { id = "love",    text = "Tell her you love her (romance with Yennefer; she stays your partner)",                 effects = "love" },
+  { id = "friends", text = "Tell her you don't (you part as friends; no romance with Yennefer)",  effects = "friends" },
+]
+
+[effects.love]
+# graph-only for this branch (the pack player answered "friends"). `sq202_yen_girlfriend` is named by the graph's
+# readers (846c4bdc, ending boards); value 1 per 846c4bdc's condition (>= 1).
+source = "quest graph sq202_yen (w3al synth-walk on pack 42); sq202_yen_girlfriend from listener 846c4bdc"
+placeholder = false
+facts = { sq202_yen_girlfriend = 1 }
+
+[effects.love.synth]
+start = ["fe760739"]
+through = true
+pick = ["b3ef15c1=True", "e237ef53=start"]
+scene_pick = ["b0225ae2=sq202_10_lets_stay_together"]
+stop = ["5883debb", "d4756a57", "551d21c9", "d52fa286"]
+
+[effects.friends]
+# checked against pack 43 (ManualSave_100840_7ea51000_3f9b30a, much later): blocks hit/miss/extra 11/86/8, facts
+# 11/79/3, journal 44/82/1. Extras: phase wrappers of ended scopes (walker issue W-1: 576c516b, a6c8e2db, cffc63e2,
+# 0c1a38c9, 1454f07e, plus the stops 551d21c9 / d52fa286), 846c4bdc (fires on load, see above), journal ef808288
+# Success (the donor has it Active). Misses: the play between the saves and scene facts (sq202_love_music, ...).
+source = "quest graph sq202_yen (w3al synth-walk on pack 42; checked against pack 43: blocks 11/86/8); sq202_yen_just_friends from facts pack 42 -> pack 43"
+placeholder = false
+facts = { sq202_yen_just_friends = 1 }
+
+[effects.friends.synth]
+start = ["fe760739"]
+through = true
+pick = ["b3ef15c1=True", "e237ef53=start"]
+scene_pick = ["b0225ae2=sq202_10_forever_alone"]
+stop = ["5883debb", "d4756a57", "551d21c9", "d52fa286"]

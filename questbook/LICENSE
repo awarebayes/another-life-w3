@@ -1,0 +1,17 @@
+The questbook (everything under this folder: the quest TOML files, `SCHEMA.md`, narration,
+choice text, fact/effect mappings and the image link list) is licensed under the
+Creative Commons Attribution-ShareAlike 4.0 International licence (CC BY-SA 4.0).
+
+    https://creativecommons.org/licenses/by-sa/4.0/
+    https://creativecommons.org/licenses/by-sa/4.0/legalcode
+
+You may share and adapt it, including commercially, if you give appropriate credit
+("Another Life contributors"), link the licence, indicate changes, and distribute your
+contributions under the same licence.
+
+The narration is original text written for this project. It contains no text or images from
+the game or from the Witcher Wiki. Image entries in `images.toml` are links to images hosted
+by the Witcher Wiki on Fandom; the images themselves are not part of this licence and remain
+the property of their owners (mostly CD PROJEKT RED). See NOTICE.md at the repository root.
+
+The code outside this folder is licensed separately (MIT OR Apache-2.0).

@@ -1,0 +1,12 @@
+[package]
+name = "w3save"
+description = "Reader/writer for The Witcher 3 (Remastered 5.x) save files"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+lz4_flex = { workspace = true }
+serde = { workspace = true }
+thiserror = { workspace = true }

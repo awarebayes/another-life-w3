@@ -1,0 +1,108 @@
+# template: pack 43 ManualSave_100840_7ea51000_3f9b30a (5.01 re-save, C:\w3-fixtures\pack_501) PLUS the `done_effects`
+# of ugly_baby.toml (`requires`), which walk Ugly Baby to its end and start q402_ciri's "gathering allies" phase
+# b74543d1 with nobody asked yet. No save in hand is inside b74543d1 with no ally invited (every save that has the q402
+# scope has all four: pack 44 and the two 6b4a7 fixtures), so the window's template is synthesized (docs/research.md
+# 2026-11-05 "W6 template synthesized"; `w3al synth-apply` writes it as a file for checks). Licensed CC BY-SA 4.0.
+#
+# Act 5, Kaer Morhen decision window W6, decision D12 x4 (docs/plan/decision-catalogue.md section 4). From
+# q402_ciri.w2phase, phase "gathering allies" b74543d1 (one sub-phase per ally, all started from its input 44f1e120):
+#   Mousesack (Ermion) 06e98eb7: context dialogue 4075a745 `q402_ask_mousesack_for_help_out` (one output) -> despawn,
+#                     1s, journal c5b5ef4b, e7faac69 `q402_invited_mousesack_to_km`, checkpoint 004e151f
+#   Hjalmar ab81de6c: on the pack line Cerys is queen and q208 is done, so the live Hjalmar dialogue is c9e4e916 in
+#                     "Context to default" 26a1b620, gated by 488dee9d [q402_cerys_sent_hjalmar]; that fact comes from
+#                     the Cerys dialogue 0cd4179d (phase 1b58e89a) output `q402_cerys_sends_hjalmar` (89b38833). Cerys
+#                     herself never comes (01e45e4e `q402_cerys_refused_km` closes her phase either way). c9e4e916
+#                     `q402_ask_hjalmar_for_help_out` -> 7ac368c6 -> "Invited" -> 0d9600fd [q208_hjalmar_back_to_kt_aft_q208]
+#                     -> despawn -> journal e77b64b7 -> 2b758a00 `q402_invited_hjalmar_to_km`; the scene file sets
+#                     `q402_hjalmar_invited_to_q403` on that line (read by the Cerys scene).
+#   Roche 173c9b97:   context dialogue 4a92523c `q402_ask_roche_for_help_out` (`Output_ves_died` is the other ending;
+#                     Ves lives on the pack line) -> despawn, 1s, journal-status conditions 07c9c338 / 802f7cb6 (both
+#                     entries 222c7839 / 8b7d783e already set by then: False / False), 8b4e40e6 `q402_invited_roche_to_km`;
+#                     the scene sets `q402_roche_helps_context_dialogue`
+#   Zoltan 01d9fadd:  context dialogue 22f5025a `q402_zoltan_km_ally_out` (one output) -> journal d53b332c, despawn, 1s,
+#                     2fa97832 `q402_invited_zoltan_to_km`
+# Read by q403_battle (burial, replacers, council and battle scenes) and q208. Each ally's checkpoint feeds the And
+# blocks 377b6ab2 (all five KM allies -> f352a624 `q402_allies_gathered`), fecfad90 (Skellige) and 73ef275d (Novigrad);
+# the latter two also need Crach / Dijkstra, which this quest does not decide (their dialogues keep waiting for play).
+# "Not invited" = that ally's phase keeps waiting (no effect). Keira, Letho and Triss come from D2, D5, D8.
+# Validation (2026-11-05): each effect walked with `w3al synth-walk` on the synthesized template, no unresolved point;
+# all four together compared with pack 44 (old-gen, all four invited): the eight decision facts hit
+# (q402_invited_{mousesack,hjalmar,roche,zoltan}_to_km, q402_allies_gathered, q402_cerys_sent_hjalmar,
+# q402_cerys_refused_km, q402_hjalmar_invited_to_q403), 1 extra (q402_roche_helps_context_dialogue, from the 5.01 scene
+# file), block misses = Crach / Emhyr / Dijkstra, which the pack line talked to. Exports VERIFIED for all four, none,
+# Ermion + Roche, Hjalmar + Zoltan.
+id = "brothers_in_arms"
+title = "Brothers in Arms"
+act = 5
+order = 5010
+kind = "main"
+region = "kaer_morhen"
+level = 22                # TODO(phase3): verify the recommended level in game
+requires = ["ugly_baby"]
+summary = """The Wild Hunt is coming to Kaer Morhen, and a handful of witchers will not hold \
+the walls alone. You ride from the islands to the city to the swamps, calling in every debt \
+and friendship you have. Not everyone you ask owes you this."""
+
+[[choices]]
+id = "ermion"
+prompt = "Do you ask the old druid of Skellige to stand with you?"
+default = "invite"
+options = [
+  { id = "invite", text = "Ask him (Ermion leaves Kaer Trolde and fights at Kaer Morhen; counts toward the full crew)", effects = "ermion_invited" },
+  { id = "skip",   text = "Leave him be (Ermion stays on the islands; you can still ask him in game)" },
+]
+
+[[choices]]
+id = "hjalmar"
+prompt = "Do you ask Hjalmar and his warriors to come?"
+default = "invite"
+options = [
+  { id = "invite", text = "Ask through Cerys (she stays to rule, sends Hjalmar and his men to Kaer Morhen; counts toward the full crew)", effects = "hjalmar_invited" },
+  { id = "skip",   text = "Leave them be (Cerys and Hjalmar stay on Skellige; you can still ask in game)" },
+]
+
+[[choices]]
+id = "roche"
+prompt = "Do you ask Roche and his partisans for help?"
+default = "invite"
+options = [
+  { id = "invite", text = "Ask him (Roche and Ves leave the camp and fight at Kaer Morhen; counts toward the full crew)", effects = "roche_invited" },
+  { id = "skip",   text = "Leave him be (Roche stays in the woods; you can still ask him in game)" },
+]
+
+[[choices]]
+id = "zoltan"
+prompt = "Do you ask Zoltan and his friends to come north?"
+default = "invite"
+options = [
+  { id = "invite", text = "Ask him (Zoltan leaves Novigrad and fights at Kaer Morhen; counts toward the full crew)", effects = "zoltan_invited" },
+  { id = "skip",   text = "Leave him be (Zoltan stays in Novigrad; you can still ask him in game)" },
+]
+
+[effects.ermion_invited]
+source = "quest graph q402_ciri.w2phase phase 06e98eb7: context dialogue 4075a745 q402_ask_mousesack_for_help_out -> e7faac69 q402_invited_mousesack_to_km (w3al synth-walk on the synthesized W6 template: 12 steps, 1 fact, 2 journal items; all-four walk checked against pack 44 old-gen)"
+
+[effects.ermion_invited.synth]
+start = ["4075a745"]
+pick  = ["4075a745=q402_ask_mousesack_for_help_out"]
+
+[effects.hjalmar_invited]
+source = "quest graph q402_ciri.w2phase phases 1b58e89a (Cerys) and ab81de6c (Hjalmar): 0cd4179d q402_cerys_sends_hjalmar -> 89b38833 q402_cerys_sent_hjalmar (+ 01e45e4e q402_cerys_refused_km), listener 488dee9d -> c9e4e916 q402_ask_hjalmar_for_help_out -> 2b758a00 q402_invited_hjalmar_to_km; scene q402_1_ally_hjalmar sets q402_hjalmar_invited_to_q403 (w3al synth-walk on the synthesized W6 template: 30 steps, 4 facts, 5 journal items; all-four walk checked against pack 44 old-gen, which has the same four facts)"
+
+[effects.hjalmar_invited.synth]
+start = ["0cd4179d"]
+pick  = ["0cd4179d=q402_cerys_sends_hjalmar", "c9e4e916=q402_ask_hjalmar_for_help_out"]
+
+[effects.roche_invited]
+source = "quest graph q402_ciri.w2phase phase 173c9b97: context dialogue 4a92523c q402_ask_roche_for_help_out -> 8b4e40e6 q402_invited_roche_to_km, journal-status conditions 07c9c338 / 802f7cb6 taken False (entries 222c7839 / 8b7d783e already set); scene q402_1_ally_roche sets q402_roche_helps_context_dialogue (w3al synth-walk on the synthesized W6 template: 17 steps, 2 facts, 3 journal items; all-four walk checked against pack 44 old-gen)"
+
+[effects.roche_invited.synth]
+start = ["4a92523c"]
+pick  = ["4a92523c=q402_ask_roche_for_help_out", "07c9c338=False", "802f7cb6=False"]
+
+[effects.zoltan_invited]
+source = "quest graph q402_ciri.w2phase phase 01d9fadd: context dialogue 22f5025a q402_zoltan_km_ally_out -> 2fa97832 q402_invited_zoltan_to_km (w3al synth-walk on the synthesized W6 template: 10 steps, 1 fact, 1 journal item; all-four walk checked against pack 44 old-gen)"
+
+[effects.zoltan_invited.synth]
+start = ["22f5025a"]
+pick  = ["22f5025a=q402_zoltan_km_ally_out"]

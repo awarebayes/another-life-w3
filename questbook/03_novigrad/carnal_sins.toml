@@ -1,0 +1,66 @@
+# template: pack 29 ManualSave_68fb9_7e105800_5df4ef9 (OLD-GEN, C:\w3-extract\nexus2394\gamesaves). NO 5.01 RE-SAVE EXISTS YET: the
+# user must load it in the 5.01 game and save at once (docs/research.md 2026-11-05 "content C": re-save list). Everything below
+# was walked and exported on the old-gen file as a stand-in. Licensed CC BY-SA 4.0.
+#
+# Act 3 (Novigrad), secondary quest "Carnal Sins" (q308psycho). Template state: the investigation is under way; the phase
+# "Nathanel 2nd talk" 6f6adec5 (q308_psycho.w2phase) waits at the trigger 9632d64b [nathanel room] (and b61424f1
+# [q308_nathanel_room_op]). Decided in that phase by scene 39a73bb3 (q308_07_nathanel_hypno_talk, parent p=236):
+#   `nathanel_dead`                 -> 11845f3a `q308_nath_guilty` (+ q308_nathanel_killed, q308_got_that_wrong, q308_im_an_idiot,
+#                                      q308_seen_next_victim, q308_found_new_body_at_end): Geralt cuts Nathaniel down, the real
+#                                      killer is never caught
+#   `player_understands`            -> 3b2cd62c `q308_nath_not_guilty`, 5f2372cd `q308_nath_alive`, then the vampire (Rejk) hunt:
+#                                      q308_murderous_invite, q308_entered_warehouse, q308_murderer_coroner,
+#                                      q308_vampire_psycho_killed
+#   `player understands and kills`  -> d087432f `q308_nath_not_guilty` + b14563a3 `q308_nath_killed` (+ q308_killed_him_anyway,
+#                                      q308_nathanel_killed, the same vampire facts): Geralt sees the truth and kills him anyway
+# All three walk to q308_psycho_completed and q308_priscila_healed. Walk: `--start 9632d64b --through --pick 39a73bb3=<output>`,
+# no unresolved point, ~130-150 steps, frontier = the default dialogue waits of Dandelion and Priscilla.
+# Donor check of `player understands and kills` against pack 30 old-gen ManualSave_1004de_7e105c00_5194cfa (the pack line):
+# the 51 q308_psycho.w2phase blocks the walk removes are all removed in pack 30 (51 ok, 0 miss, 0 extra), the 12 decision and
+# completion facts (q308_nath_killed, q308_nath_not_guilty, q308_nathanel_killed, q308_killed_him_anyway, q308_vampire_psycho_killed,
+# q308_psycho_completed, ...) are all in pack 30; totals blocks 60/146/0, facts 14/152/0, journal 21/126/1 (the misses are the
+# play between the two saves). `player_understands` and `nathanel_dead` are graph-only. Read later by character-journal entries
+# and mq3041 (flavour); no ending board.
+id = "carnal_sins"
+title = "Carnal Sins"
+act = 3
+order = 3300
+kind = "secondary"
+region = "novigrad"
+level = 14                # TODO(phase3): verify the recommended level in game
+summary = """Someone is killing women in Novigrad's brothels and leaving them posed like statues. You follow \
+a carpenter's clues, hear a suspect out and, at the end, decide whether he is the man you are hunting."""
+
+[[choices]]
+id = "nathaniel"
+prompt = "The suspect is on his knees in front of you. What do you do?"
+default = "understands"
+options = [
+  { id = "understands", text = "Hear him out and let him live (Nathaniel is cleared and the hunt moves on to the real killer)", effects = "not_guilty" },
+  { id = "kills_anyway", text = "Hear him out and kill him anyway (Nathaniel is cleared on paper and dead)",                      effects = "killed_anyway" },
+  { id = "guilty",       text = "Cut him down as the killer (Nathaniel dies, the real killer is never caught)",                    effects = "guilty" },
+]
+
+[effects.not_guilty]
+source = "quest graph q308_psycho.w2phase scene 39a73bb3 player_understands -> 3b2cd62c q308_nath_not_guilty, 5f2372cd q308_nath_alive (w3al synth-walk on pack 29 old-gen, 142 steps, no unresolved point, graph-only)"
+
+[effects.not_guilty.synth]
+start = ["9632d64b"]
+through = true
+pick = ["39a73bb3=player_understands"]
+
+[effects.killed_anyway]
+source = "quest graph q308_psycho.w2phase scene 39a73bb3 `player understands and kills` -> d087432f q308_nath_not_guilty, b14563a3 q308_nath_killed (w3al synth-walk on pack 29 old-gen, 152 steps, no unresolved point; donor-checked vs pack 30 old-gen: 51/0/0 q308 blocks, all decision facts hit)"
+
+[effects.killed_anyway.synth]
+start = ["9632d64b"]
+through = true
+pick = ["39a73bb3=player understands and kills"]
+
+[effects.guilty]
+source = "quest graph q308_psycho.w2phase scene 39a73bb3 nathanel_dead -> 11845f3a q308_nath_guilty (w3al synth-walk on pack 29 old-gen, 127 steps, no unresolved point, graph-only)"
+
+[effects.guilty.synth]
+start = ["9632d64b"]
+through = true
+pick = ["39a73bb3=nathanel_dead"]

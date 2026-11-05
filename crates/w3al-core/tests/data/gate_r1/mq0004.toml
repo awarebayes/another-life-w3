@@ -1,0 +1,176 @@
+# TEST DATA (not questbook content): reproduces an in-game gate save from its delta files
+# (C:\w3-out\gate_*\deltas), as the questbook path sees them. GUIDs, paths and guard hashes come from
+# third-party / user saves; they are test data for crates/w3al-core/tests/export_fixtures.rs.
+id = "mq0004_done"
+title = "Granny and the frying pan (gate R1, donor lukwraith 23)"
+act = 1
+order = 10
+kind = "secondary"
+region = "white_orchard"
+level = 1
+summary = "Test quest built from gate deltas."
+done_effects = "done"
+
+[effects.done]
+source = "save diff ManualSave_8559a_7ea4d800_4038706 -> ManualSave_8559a_7ea4d800_40f1086 (w3al journal-diff)"
+placeholder = false
+facts = { mq0004_accepted_quest = 1, mq0004_all_clues_found = 1, mq0004_breakable_door_destroyed = 1, mq0004_burnt_papers_found = 1, mq0004_clues_found = 3, mq0004_completed = 1, mq0004_items_found = 4, mq0004_met_woman = 1, mq0004_quest_accepted = 1, mq0004_talking_to_woman = 1, mq0004_thalers_monocle_found = 1 }
+
+[[effects.done.journal_append]]
+label = "minorquests/mq0004lockedshed/e74de32b"
+status = "JS_Active"
+unread = true
+steps = [
+  { guid = "67e5afe3ceb5c148a9cde5c4a99c7a84", resource = 'gameplay\journal\quests\minorquests.journal' },
+  { guid = "16c6c2f7e7a7bf4fa1fb373ac8cfb80f", resource = 'gameplay\journal\quests\mq0004lockedshed.journal' },
+  { guid = "e74de32b95c83c41bcaa57a9d5b73835", resource = "" },
+]
+
+[[effects.done.journal_append]]
+label = "minorquests/mq0004lockedshed/e74de32b/db56ea16"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "67e5afe3ceb5c148a9cde5c4a99c7a84", resource = 'gameplay\journal\quests\minorquests.journal' },
+  { guid = "16c6c2f7e7a7bf4fa1fb373ac8cfb80f", resource = 'gameplay\journal\quests\mq0004lockedshed.journal' },
+  { guid = "e74de32b95c83c41bcaa57a9d5b73835", resource = "" },
+  { guid = "db56ea162c8b9744af4b43ee4cb1d247", resource = "" },
+]
+
+[[effects.done.journal_append]]
+label = "minorquests/mq0004lockedshed"
+status = "JS_Success"
+unread = false
+steps = [
+  { guid = "67e5afe3ceb5c148a9cde5c4a99c7a84", resource = 'gameplay\journal\quests\minorquests.journal' },
+  { guid = "16c6c2f7e7a7bf4fa1fb373ac8cfb80f", resource = 'gameplay\journal\quests\mq0004lockedshed.journal' },
+]
+
+[[effects.done.journal_append]]
+label = "minorquests/mq0004lockedshed/99b10a32"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "67e5afe3ceb5c148a9cde5c4a99c7a84", resource = 'gameplay\journal\quests\minorquests.journal' },
+  { guid = "16c6c2f7e7a7bf4fa1fb373ac8cfb80f", resource = 'gameplay\journal\quests\mq0004lockedshed.journal' },
+  { guid = "99b10a3209a33e4e9971f5b92ebbc763", resource = "" },
+]
+
+[[effects.done.journal_append]]
+label = "minorquests/mq0004lockedshed/99b10a32/c3299e4a"
+status = "JS_Success"
+unread = false
+steps = [
+  { guid = "67e5afe3ceb5c148a9cde5c4a99c7a84", resource = 'gameplay\journal\quests\minorquests.journal' },
+  { guid = "16c6c2f7e7a7bf4fa1fb373ac8cfb80f", resource = 'gameplay\journal\quests\mq0004lockedshed.journal' },
+  { guid = "99b10a3209a33e4e9971f5b92ebbc763", resource = "" },
+  { guid = "c3299e4a6e4ada41b07073322bc739b4", resource = "" },
+]
+
+[[effects.done.journal_append]]
+label = "minorquests/mq0004lockedshed/99b10a32/f960b5a9"
+status = "JS_Success"
+unread = false
+steps = [
+  { guid = "67e5afe3ceb5c148a9cde5c4a99c7a84", resource = 'gameplay\journal\quests\minorquests.journal' },
+  { guid = "16c6c2f7e7a7bf4fa1fb373ac8cfb80f", resource = 'gameplay\journal\quests\mq0004lockedshed.journal' },
+  { guid = "99b10a3209a33e4e9971f5b92ebbc763", resource = "" },
+  { guid = "f960b5a938827f40b5cfd3a1d00aad2b", resource = "" },
+]
+
+[[effects.done.journal_append]]
+label = "minorquests/mq0004lockedshed/99b10a32/9ac98b5b"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "67e5afe3ceb5c148a9cde5c4a99c7a84", resource = 'gameplay\journal\quests\minorquests.journal' },
+  { guid = "16c6c2f7e7a7bf4fa1fb373ac8cfb80f", resource = 'gameplay\journal\quests\mq0004lockedshed.journal' },
+  { guid = "99b10a3209a33e4e9971f5b92ebbc763", resource = "" },
+  { guid = "9ac98b5b1897a24abc061c72b7379e57", resource = "" },
+]
+
+[[effects.done.journal_append]]
+label = "minorquests/mq0004lockedshed/e74de32b/55eafdfb"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "67e5afe3ceb5c148a9cde5c4a99c7a84", resource = 'gameplay\journal\quests\minorquests.journal' },
+  { guid = "16c6c2f7e7a7bf4fa1fb373ac8cfb80f", resource = 'gameplay\journal\quests\mq0004lockedshed.journal' },
+  { guid = "e74de32b95c83c41bcaa57a9d5b73835", resource = "" },
+  { guid = "55eafdfbaed09a41adb0087f05056e50", resource = "" },
+]
+
+[[effects.done.journal_append]]
+label = "minorquests/mq0004lockedshed/99b10a32/9e26b65e"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "67e5afe3ceb5c148a9cde5c4a99c7a84", resource = 'gameplay\journal\quests\minorquests.journal' },
+  { guid = "16c6c2f7e7a7bf4fa1fb373ac8cfb80f", resource = 'gameplay\journal\quests\mq0004lockedshed.journal' },
+  { guid = "99b10a3209a33e4e9971f5b92ebbc763", resource = "" },
+  { guid = "9e26b65e64d29b459e2e5f336f27c59b", resource = "" },
+]
+
+[[effects.done.journal_append]]
+label = "minorquests/mq0004lockedshed/e74de32b/9c8e6fd5"
+status = "JS_Active"
+unread = true
+steps = [
+  { guid = "67e5afe3ceb5c148a9cde5c4a99c7a84", resource = 'gameplay\journal\quests\minorquests.journal' },
+  { guid = "16c6c2f7e7a7bf4fa1fb373ac8cfb80f", resource = 'gameplay\journal\quests\mq0004lockedshed.journal' },
+  { guid = "e74de32b95c83c41bcaa57a9d5b73835", resource = "" },
+  { guid = "9c8e6fd5566c1949b00b4af68f3c0b91", resource = "" },
+]
+
+[[effects.done.journal_counters]]   # minorquests/mq0004lockedshed/99b10a32/c3299e4a
+guid = "c3299e4a6e4ada41b07073322bc739b4"
+count = 0
+at = 7   # position in the 'after' save (hash order); drop it for another template
+
+[[effects.done.journal_counters]]   # minorquests/mq0004lockedshed/99b10a32/f960b5a9
+guid = "f960b5a938827f40b5cfd3a1d00aad2b"
+count = 0
+at = 22   # position in the 'after' save (hash order); drop it for another template
+
+[[effects.done.journal_counters]]   # minorquests/mq0004lockedshed/99b10a32/9ac98b5b
+guid = "9ac98b5b1897a24abc061c72b7379e57"
+count = 0
+at = 28   # position in the 'after' save (hash order); drop it for another template
+
+[[effects.done.journal_counters]]   # minorquests/mq0004lockedshed/99b10a32/9e26b65e
+guid = "9e26b65e64d29b459e2e5f336f27c59b"
+count = 0
+at = 32   # position in the 'after' save (hash order); drop it for another template
+
+# mq0004 delta (gate F) re-guarded for a template one save EARLIER (lukwraith 21 + donor S branch): only two guards differ,
+# both on nodes that are REMOVED whole: the quest scope thread 90836e08 (lukwraith walked up to the granny between 21 and 22,
+# which advanced blocks inside it) and the granny stub a#3 (same NPC, other runtime position/state). Removal does not depend on
+# their inner state; every other guard matches.
+# Frying pan / locked shed (mq0004, journal mq0004lockedshed) started AND completed: lukwraith 22 -> 23. Selected by hand from
+# graph-diff 22 23 and the quest catalogue: the phase scope 90836e08 leaves the hub b4e73851; listener threads 54a06fcf (in 8e15d30f)
+# and b51838dc (in de9fd0af) leave; the scene ExternalDialog[mq0004_old_woman] and her spawn set + stub leave. Blocks use swap-remove,
+# threads too (both reproduce the child orders of 22 -> 23; in 24 -> 25 the thread list kept its order, so thread order is not explained yet). Not taken: toggling scopes 7456b86a, fbda3c84 (change in many unrelated pairs).
+[effects.done.graph]
+source = "save diff ManualSave_8559a_7ea4d800_4038706 -> ManualSave_8559a_7ea4d800_40f1086 (w3al graph-diff), selected by hand"
+donor = "ManualSave_8559a_7ea4d800_40f1086"
+ops = [
+  { op = "remove", path = "questSystem/questExternalScenePlayers/CQuestExternalScenePlayer/ExternalDialog[mq0004_old_woman]", before = "#7f7c07b2" },
+  { op = "recount", path = "questSystem/questExternalScenePlayers/CQuestExternalScenePlayer/tagsCount", of = "ExternalDialog" },
+  { op = "swap-remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[b4e73851]/questThread/questBlock[90836e08]", before = "#43c845bc" },
+  { op = "swap-remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[b4e73851]/questThread/questThread[90836e08]", before = "#dd012a47" },
+  { op = "recount", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[b4e73851]/questThread/numBlocks", of = "questBlock" },
+  { op = "recount", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[b4e73851]/questThread/numThreads", of = "questThread" },
+  { op = "swap-remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[61545c9b]/questThread/questThread[a43cea18]/questThread/questThread[ce9ab359]/questThread/questThread[8e15d30f]/questThread/questBlock[54a06fcf]", before = "#8294a4e6" },
+  { op = "swap-remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[61545c9b]/questThread/questThread[a43cea18]/questThread/questThread[ce9ab359]/questThread/questThread[8e15d30f]/questThread/questThread[54a06fcf]", before = "#efea7c14" },
+  { op = "recount", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[61545c9b]/questThread/questThread[a43cea18]/questThread/questThread[ce9ab359]/questThread/questThread[8e15d30f]/questThread/numBlocks", of = "questBlock" },
+  { op = "recount", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[61545c9b]/questThread/questThread[a43cea18]/questThread/questThread[ce9ab359]/questThread/questThread[8e15d30f]/questThread/numThreads", of = "questThread" },
+  { op = "swap-remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[61545c9b]/questThread/questThread[de9fd0af]/questThread/questBlock[b51838dc]", before = "#0b12cfba" },
+  { op = "swap-remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[61545c9b]/questThread/questThread[de9fd0af]/questThread/questThread[b51838dc]", before = "#da4c3562" },
+  { op = "recount", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[61545c9b]/questThread/questThread[de9fd0af]/questThread/numBlocks", of = "questBlock" },
+  { op = "recount", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[61545c9b]/questThread/questThread[de9fd0af]/questThread/numThreads", of = "questThread" },
+  { op = "remove", path = "community/communities/c[mq0004_old_woman.w2comm]", before = "#5cc81d18" },
+  { op = "recount", path = "community/communities/numCommunities", of = "c" },
+  # the stub with appearance __mq0004_old_woman
+  { op = "swap-remove", path = "community/stubs/a#3", before = "#25da0522" },
+  { op = "recount", path = "community/stubs/numStubs", of = "a" },
+]

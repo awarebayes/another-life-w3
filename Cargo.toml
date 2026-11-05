@@ -1,0 +1,29 @@
+[workspace]
+resolver = "2"
+members = ["crates/w3save", "crates/w3al-core", "crates/w3al-cli", "crates/w3graph", "src-tauri"]
+# `cargo build` / `cargo test` at the root skip the Tauri shell (slow, needs WebView2);
+# build it with `cargo tauri build` or `cargo build -p w3al-app`.
+default-members = ["crates/w3save", "crates/w3al-core", "crates/w3al-cli", "crates/w3graph"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/awarebayes/another-life-w3"
+rust-version = "1.82"
+
+[workspace.dependencies]
+anyhow = "1"
+clap = { version = "4", features = ["derive"] }
+lz4_flex = "0.11"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2"
+toml = "0.8"
+w3save = { path = "crates/w3save" }
+w3al-core = { path = "crates/w3al-core" }
+w3graph = { path = "crates/w3graph" }
+
+[profile.release]
+lto = "thin"
+codegen-units = 1

@@ -1,0 +1,993 @@
+# Act 2, Velen decision window W2 (prototype; docs/plan/prototype-velen.md). Licensed CC BY-SA 4.0.
+#
+# Template: T_keira = ManualSave_568ef_7ea51000_923cb5 (sq102 not started yet). Both donors were played from
+# T_letho (ManualSave_6b9be_7ea51000_9bb30d, a later save of the same playthrough), so each effect is a
+# CLOSURE: the diff from T_keira to the donor, which also removes the quest's start triggers that still wait
+# on T_keira (72a761d5, 15601b24, 8fdb44ab; docs/plan/decision-chaining.md, section C). The donors' NM names
+# do not extend the template's: export needs `allow_name_remap`. Captured with
+# `w3al graph-diff T_keira DONOR --stub-id --toml KEY --scope ...` on the quest's own nodes only (scene entries
+# `letho` and `sq102_dolores`; b531a276, b8f04d50 and, for "elsewhere", thread 6850c728 of hub 279a1a03; the
+# spawn sets letho / sq102_*; the stubs of Letho, Dolores and the evictor); journal: `journal-diff --grep letho`
+# and `--grep sq102dolores`; facts: the donor's `q402_*` / `sq102_*` facts with records, `*_hit*` left out,
+# multi-record facts summed. The invited effect equals gate X1's Letho delta (C:\w3-out\gate_X\deltas).
+# Each donor also carries a side outcome inside the quest: invited = headhunters let go
+# (`sq102_let_headhunters_go`), elsewhere = headhunters killed (`sq102_killed_headhunters`).
+#
+# template: T_keira = ManualSave_568ef_7ea51000_923cb5 for `invited` / `elsewhere` (graph closures above);
+# template: T_letho = ManualSave_6b9be_7ea51000_9bb30d (pack 14, 5.01 re-save) for `abandoned` (synth walk below).
+# The per-window template mechanism is not built yet: on T_keira the `abandoned` walk is refused at export (its start
+# 2da9cd80 is not waiting there), on T_letho the closures' guards do not match. Decision D4 (help Letho or not) is the
+# third option of the same choice because it excludes D5: a Letho who is left behind is never sent anywhere.
+# D4 in the graph (sq102_letho.w2phase): refusing at the farm (scene 4ad6d8f9 `NotHelp` -> `sq102_told_letho_not_helping`)
+# only changes journal lines; the quest really ends "Lost Letho" when Geralt leaves him (`LostLetho` on the ride,
+# 844eee73 distance > 1200, or `AbandonedLetho` from Letho's Trick f43ea017: scene 70d40ee9 `Fight`, then 22f54f6c
+# "outside sq102_tr_approaching_midcotts") -> phase f19f767a: `sq102_didnt_help_letho`, `sq102_lost_letho`, journal
+# Failure, Letho's spawn sets off. T_letho is already past the farm (Letho rides to Midcots), so the branch walked here
+# is the abandonment at Midcots. Read later by the q402 Letho ally phase (no Letho at Kaer Morhen).
+id = "ghosts_of_the_past"
+title = "Ghosts of the Past"
+act = 2
+order = 2310
+kind = "secondary"
+region = "velen"
+level = 12                # TODO(phase3): verify the recommended level in game
+summary = """A widow's notice brings you to a farmstead full of traps and a guest who was never \
+supposed to be found. Bounty hunters close in on him, and once the dust settles you decide where \
+an old enemy goes to wait out the war."""
+
+[[choices]]
+id = "letho"
+prompt = "Letho needs a place to hide. Where do you send him?"
+default = "kaer_morhen"
+options = [
+  { id = "kaer_morhen", text = "Invite him to Kaer Morhen (you let the hunters walk)", effects = "invited" },
+  { id = "elsewhere",   text = "Tell him to go elsewhere (the hunters die)",           effects = "elsewhere" },
+  { id = "abandoned",   text = "Walk away when the hunters come for him (Letho is lost for good and never reaches Kaer Morhen)", effects = "abandoned" },
+]
+
+[effects.invited]
+source = "save diff ManualSave_568ef_7ea51000_923cb5 -> ManualSave_52584_7ea51000_a4841f (w3al journal-diff, facts --diff, graph-diff --stub-id --toml)"
+placeholder = false
+facts = { q402_invited_letho_to_km = 1, sq102_arrow_trap_triggered = 1, sq102_blacksmith_evicted = 1, sq102_dolores_diary_found = 1, sq102_dolores_gave_quest = 1, sq102_entered_farmstead = 1, sq102_first_arrow_trap_unique = 1, sq102_first_trap_unique = 1, sq102_first_viper_unique = 1, sq102_go_find_ladder = 1, sq102_helped_letho = 1, sq102_hide_community = 0, sq102_humberts_corpse_found = 2, sq102_ladder_found = 1, sq102_let_headhunters_go = 1, sq102_letho_completed = 1, sq102_letho_lost_medallion = 1, sq102_letho_met = 1, sq102_lockbox_contents_obtained = 1, sq102_loose_papers_found = 1, sq102_loose_plank_found = 1, sq102_next_traps_unique = 1, sq102_portrait_found = 1, sq102_sound_source_found = 1, sq102_suspend_1003 = 1, sq102_trap_disarmed = 1, sq102_traps_set_off = 2, sq102_traps_triggered = 1, sq102_tripwire_disarmed = 1, sq102_weak_wall_found = 1 }
+
+[[effects.invited.journal_append]]
+label = "sidequests/sq102letho"
+status = "JS_Success"
+unread = false
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "bab81446f127b449968f5b8df6fb94ab", resource = 'gameplay\journal\quests\sq102letho.journal' },
+]
+
+[[effects.invited.journal_append]]
+label = "sidequests/sq102letho/f4324605"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "bab81446f127b449968f5b8df6fb94ab", resource = 'gameplay\journal\quests\sq102letho.journal' },
+  { guid = "f4324605fb14b443a666d542376cfec9", resource = "" },
+]
+
+[[effects.invited.journal_append]]
+label = "sidequests/sq102letho/f4324605/43d26125"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "bab81446f127b449968f5b8df6fb94ab", resource = 'gameplay\journal\quests\sq102letho.journal' },
+  { guid = "f4324605fb14b443a666d542376cfec9", resource = "" },
+  { guid = "43d261255e4b6a498b9236566f2eb89e", resource = "" },
+]
+
+[[effects.invited.journal_append]]
+label = "sidequests/sq102letho/903700f4"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "bab81446f127b449968f5b8df6fb94ab", resource = 'gameplay\journal\quests\sq102letho.journal' },
+  { guid = "903700f4f061474c83f858343b5ade56", resource = "" },
+]
+
+[[effects.invited.journal_append]]
+label = "sidequests/sq102letho/903700f4/b8a19e67"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "bab81446f127b449968f5b8df6fb94ab", resource = 'gameplay\journal\quests\sq102letho.journal' },
+  { guid = "903700f4f061474c83f858343b5ade56", resource = "" },
+  { guid = "b8a19e67e400de43a051431c1cf828d6", resource = "" },
+]
+
+[[effects.invited.journal_append]]
+label = "sidequests/sq102letho/df839de1"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "bab81446f127b449968f5b8df6fb94ab", resource = 'gameplay\journal\quests\sq102letho.journal' },
+  { guid = "df839de13fefcc4a977bfa8045e22564", resource = "" },
+]
+
+[[effects.invited.journal_append]]
+label = "sidequests/sq102letho/df839de1/142e4d53"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "bab81446f127b449968f5b8df6fb94ab", resource = 'gameplay\journal\quests\sq102letho.journal' },
+  { guid = "df839de13fefcc4a977bfa8045e22564", resource = "" },
+  { guid = "142e4d533da3044c938a0f984c64b9b3", resource = "" },
+]
+
+[[effects.invited.journal_append]]
+label = "sidequests/sq102letho/df839de1/cbb36eb0"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "bab81446f127b449968f5b8df6fb94ab", resource = 'gameplay\journal\quests\sq102letho.journal' },
+  { guid = "df839de13fefcc4a977bfa8045e22564", resource = "" },
+  { guid = "cbb36eb037c67a428b4af3ce04b7d743", resource = "" },
+]
+
+[[effects.invited.journal_append]]
+label = "sidequests/sq102letho/f4324605/be79a9ae"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "bab81446f127b449968f5b8df6fb94ab", resource = 'gameplay\journal\quests\sq102letho.journal' },
+  { guid = "f4324605fb14b443a666d542376cfec9", resource = "" },
+  { guid = "be79a9ae14001a4fb4111ebcef05b3fc", resource = "" },
+]
+
+[[effects.invited.journal_append]]
+label = "sidequests/sq102letho/f4324605/6b6aee97"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "bab81446f127b449968f5b8df6fb94ab", resource = 'gameplay\journal\quests\sq102letho.journal' },
+  { guid = "f4324605fb14b443a666d542376cfec9", resource = "" },
+  { guid = "6b6aee972d9b864aa7ffe2d317830469", resource = "" },
+]
+
+[[effects.invited.journal_append]]
+label = "sceondarycharacters/letho"
+status = "JS_Active"
+unread = true
+steps = [
+  { guid = "8efa62e10a415b499608256195453836", resource = 'gameplay\journal\characters\sceondarycharacters.journal' },
+  { guid = "6382b87fdef54443a86a953e5805edb1", resource = 'gameplay\journal\characters\letho.journal' },
+]
+
+[[effects.invited.journal_append]]
+label = "sceondarycharacters/letho/0a5afb89"
+status = "JS_Active"
+unread = true
+steps = [
+  { guid = "8efa62e10a415b499608256195453836", resource = 'gameplay\journal\characters\sceondarycharacters.journal' },
+  { guid = "6382b87fdef54443a86a953e5805edb1", resource = 'gameplay\journal\characters\letho.journal' },
+  { guid = "0a5afb89efd80748a80ec92538272f0d", resource = "" },
+]
+
+[[effects.invited.journal_append]]
+label = "sidequests/sq102letho/903700f4/33ce0fc1"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "bab81446f127b449968f5b8df6fb94ab", resource = 'gameplay\journal\quests\sq102letho.journal' },
+  { guid = "903700f4f061474c83f858343b5ade56", resource = "" },
+  { guid = "33ce0fc12ad0a848ad7eb505a9c9abbe", resource = "" },
+]
+
+[[effects.invited.journal_append]]
+label = "sidequests/sq102letho/6adb31c2"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "bab81446f127b449968f5b8df6fb94ab", resource = 'gameplay\journal\quests\sq102letho.journal' },
+  { guid = "6adb31c2e3aff34aad90bf7ede2937f6", resource = "" },
+]
+
+[[effects.invited.journal_append]]
+label = "sidequests/sq102letho/6adb31c2/06a11b8f"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "bab81446f127b449968f5b8df6fb94ab", resource = 'gameplay\journal\quests\sq102letho.journal' },
+  { guid = "6adb31c2e3aff34aad90bf7ede2937f6", resource = "" },
+  { guid = "06a11b8fdcf353488849927a0bc83f17", resource = "" },
+]
+
+[[effects.invited.journal_append]]
+label = "sidequests/sq102letho/6adb31c2/e1b9e4d8"
+status = "JS_Success"
+unread = false
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "bab81446f127b449968f5b8df6fb94ab", resource = 'gameplay\journal\quests\sq102letho.journal' },
+  { guid = "6adb31c2e3aff34aad90bf7ede2937f6", resource = "" },
+  { guid = "e1b9e4d832c73f4e95996fa0baa55d88", resource = "" },
+]
+
+[[effects.invited.journal_append]]
+label = "sidequests/sq102letho/6adb31c2/9272986f"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "bab81446f127b449968f5b8df6fb94ab", resource = 'gameplay\journal\quests\sq102letho.journal' },
+  { guid = "6adb31c2e3aff34aad90bf7ede2937f6", resource = "" },
+  { guid = "9272986fe863744c9a5a31c5d9a684f5", resource = "" },
+]
+
+[[effects.invited.journal_append]]
+label = "sidequests/sq102letho/6adb31c2/d7bd2fe6"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "bab81446f127b449968f5b8df6fb94ab", resource = 'gameplay\journal\quests\sq102letho.journal' },
+  { guid = "6adb31c2e3aff34aad90bf7ede2937f6", resource = "" },
+  { guid = "d7bd2fe63a880347b350ea4b0461fe90", resource = "" },
+]
+
+[[effects.invited.journal_append]]
+label = "sidequests/sq102letho/6adb31c2/23c3fa81"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "bab81446f127b449968f5b8df6fb94ab", resource = 'gameplay\journal\quests\sq102letho.journal' },
+  { guid = "6adb31c2e3aff34aad90bf7ede2937f6", resource = "" },
+  { guid = "23c3fa81098d234680798f695df0cb28", resource = "" },
+]
+
+[[effects.invited.journal_append]]
+label = "sidequests/sq102letho/903700f4/4b98797b"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "bab81446f127b449968f5b8df6fb94ab", resource = 'gameplay\journal\quests\sq102letho.journal' },
+  { guid = "903700f4f061474c83f858343b5ade56", resource = "" },
+  { guid = "4b98797b8b7bb84c891bba412d6c7128", resource = "" },
+]
+
+[[effects.invited.journal_append]]
+label = "sceondarycharacters/letho/c9014771"
+status = "JS_Active"
+unread = true
+steps = [
+  { guid = "8efa62e10a415b499608256195453836", resource = 'gameplay\journal\characters\sceondarycharacters.journal' },
+  { guid = "6382b87fdef54443a86a953e5805edb1", resource = 'gameplay\journal\characters\letho.journal' },
+  { guid = "c9014771cb6dad4b9979f4030eeb6af6", resource = "" },
+]
+
+[[effects.invited.journal_append]]
+label = "sidequests/sq102letho/903700f4/b1ddb752"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "bab81446f127b449968f5b8df6fb94ab", resource = 'gameplay\journal\quests\sq102letho.journal' },
+  { guid = "903700f4f061474c83f858343b5ade56", resource = "" },
+  { guid = "b1ddb752b8042a48b0c4fb656fa55bb3", resource = "" },
+]
+
+[[effects.invited.journal_append]]
+label = "sceondarycharacters/letho/ee83d638"
+status = "JS_Active"
+unread = true
+steps = [
+  { guid = "8efa62e10a415b499608256195453836", resource = 'gameplay\journal\characters\sceondarycharacters.journal' },
+  { guid = "6382b87fdef54443a86a953e5805edb1", resource = 'gameplay\journal\characters\letho.journal' },
+  { guid = "ee83d63859aee24cacbbbcc600c97374", resource = "" },
+]
+
+[[effects.invited.journal_append]]
+label = "sceondarycharacters/letho/1c0e087b"
+status = "JS_Active"
+unread = true
+steps = [
+  { guid = "8efa62e10a415b499608256195453836", resource = 'gameplay\journal\characters\sceondarycharacters.journal' },
+  { guid = "6382b87fdef54443a86a953e5805edb1", resource = 'gameplay\journal\characters\letho.journal' },
+  { guid = "1c0e087b15434d44b7508060e77f9c4a", resource = "" },
+]
+
+[[effects.invited.journal_append]]
+label = "sidequests/sq102dolores/9f46dd92/500de9ce"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "e86af24f857a26458e1503913d163119", resource = 'gameplay\journal\quests\sq102dolores.journal' },
+  { guid = "9f46dd92045cb04ead3a88bf2ecbddbd", resource = "" },
+  { guid = "500de9cee6531246b69458a27e0389ad", resource = "" },
+]
+
+[[effects.invited.journal_append]]
+label = "sidequests/sq102dolores/64f47df6"
+status = "JS_Active"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "e86af24f857a26458e1503913d163119", resource = 'gameplay\journal\quests\sq102dolores.journal' },
+  { guid = "64f47df6e4fd6545b01e70f4ff8f8374", resource = "" },
+]
+
+[[effects.invited.journal_append]]
+label = "sidequests/sq102dolores/64f47df6/0254d898"
+status = "JS_Active"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "e86af24f857a26458e1503913d163119", resource = 'gameplay\journal\quests\sq102dolores.journal' },
+  { guid = "64f47df6e4fd6545b01e70f4ff8f8374", resource = "" },
+  { guid = "0254d898f212454e978e61505477fed3", resource = "" },
+]
+
+[[effects.invited.journal_append]]
+label = "sidequests/sq102dolores"
+status = "JS_Active"
+unread = false
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "e86af24f857a26458e1503913d163119", resource = 'gameplay\journal\quests\sq102dolores.journal' },
+]
+
+[[effects.invited.journal_append]]
+label = "sidequests/sq102dolores/9f46dd92"
+status = "JS_Active"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "e86af24f857a26458e1503913d163119", resource = 'gameplay\journal\quests\sq102dolores.journal' },
+  { guid = "9f46dd92045cb04ead3a88bf2ecbddbd", resource = "" },
+]
+
+[[effects.invited.journal_append]]
+label = "sidequests/sq102dolores/9f46dd92/27361ae5"
+status = "JS_Success"
+unread = false
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "e86af24f857a26458e1503913d163119", resource = 'gameplay\journal\quests\sq102dolores.journal' },
+  { guid = "9f46dd92045cb04ead3a88bf2ecbddbd", resource = "" },
+  { guid = "27361ae55086c84788f7f06e1f16d8af", resource = "" },
+]
+
+[[effects.invited.journal_append]]
+label = "sidequests/sq102dolores/9f46dd92/e1f6114b"
+status = "JS_Success"
+unread = false
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "e86af24f857a26458e1503913d163119", resource = 'gameplay\journal\quests\sq102dolores.journal' },
+  { guid = "9f46dd92045cb04ead3a88bf2ecbddbd", resource = "" },
+  { guid = "e1f6114bce947646a10de068b13a0565", resource = "" },
+]
+
+[[effects.invited.journal_append]]
+label = "sidequests/sq102dolores/3c14260e"
+status = "JS_Active"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "e86af24f857a26458e1503913d163119", resource = 'gameplay\journal\quests\sq102dolores.journal' },
+  { guid = "3c14260e5006a146b2c58aee5a300c36", resource = "" },
+]
+
+[[effects.invited.journal_append]]
+label = "sidequests/sq102dolores/3c14260e/b9990d19"
+status = "JS_Active"
+unread = false
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "e86af24f857a26458e1503913d163119", resource = 'gameplay\journal\quests\sq102dolores.journal' },
+  { guid = "3c14260e5006a146b2c58aee5a300c36", resource = "" },
+  { guid = "b9990d193f861844a92e45587160cba8", resource = "" },
+]
+
+[[effects.invited.journal_counters]]   # sidequests/sq102letho/6adb31c2/d7bd2fe6
+guid = "d7bd2fe63a880347b350ea4b0461fe90"
+count = 0
+at = 25   # position in the 'after' save (hash order); drop it for another template
+
+[[effects.invited.journal_counters]]   # sidequests/sq102letho/f4324605/be79a9ae
+guid = "be79a9ae14001a4fb4111ebcef05b3fc"
+count = 0
+at = 46   # position in the 'after' save (hash order); drop it for another template
+
+[[effects.invited.journal_counters]]   # sidequests/sq102letho/df839de1/cbb36eb0
+guid = "cbb36eb037c67a428b4af3ce04b7d743"
+count = 0
+at = 56   # position in the 'after' save (hash order); drop it for another template
+
+[[effects.invited.journal_counters]]   # sidequests/sq102letho/6adb31c2/e1b9e4d8
+guid = "e1b9e4d832c73f4e95996fa0baa55d88"
+count = 0
+at = 59   # position in the 'after' save (hash order); drop it for another template
+
+[[effects.invited.journal_counters]]   # sidequests/sq102letho/6adb31c2/06a11b8f
+guid = "06a11b8fdcf353488849927a0bc83f17"
+count = 0
+at = 129   # position in the 'after' save (hash order); drop it for another template
+
+[[effects.invited.journal_counters]]   # sidequests/sq102letho/f4324605/6b6aee97
+guid = "6b6aee972d9b864aa7ffe2d317830469"
+count = 0
+at = 157   # position in the 'after' save (hash order); drop it for another template
+
+[[effects.invited.journal_counters]]   # sidequests/sq102letho/6adb31c2/23c3fa81
+guid = "23c3fa81098d234680798f695df0cb28"
+count = 0
+at = 159   # position in the 'after' save (hash order); drop it for another template
+
+[[effects.invited.journal_counters]]   # sidequests/sq102letho/f4324605/43d26125
+guid = "43d261255e4b6a498b9236566f2eb89e"
+count = 0
+at = 161   # position in the 'after' save (hash order); drop it for another template
+
+[[effects.invited.journal_counters]]   # sidequests/sq102letho/df839de1/142e4d53
+guid = "142e4d533da3044c938a0f984c64b9b3"
+count = 0
+at = 176   # position in the 'after' save (hash order); drop it for another template
+
+[[effects.invited.journal_counters]]   # sidequests/sq102letho/6adb31c2/9272986f
+guid = "9272986fe863744c9a5a31c5d9a684f5"
+count = 0
+at = 181   # position in the 'after' save (hash order); drop it for another template
+
+[[effects.invited.journal_counters]]   # sidequests/sq102dolores/9f46dd92/e1f6114b
+guid = "e1f6114bce947646a10de068b13a0565"
+count = 0
+at = 18   # position in the 'after' save (hash order); drop it for another template
+
+[[effects.invited.journal_counters]]   # sidequests/sq102dolores/9f46dd92/500de9ce
+guid = "500de9cee6531246b69458a27e0389ad"
+count = 0
+at = 53   # position in the 'after' save (hash order); drop it for another template
+
+[[effects.invited.journal_counters]]   # sidequests/sq102dolores/9f46dd92/27361ae5
+guid = "27361ae55086c84788f7f06e1f16d8af"
+count = 0
+at = 127   # position in the 'after' save (hash order); drop it for another template
+
+[[effects.invited.journal_counters]]   # sidequests/sq102dolores/3c14260e/b9990d19
+guid = "b9990d193f861844a92e45587160cba8"
+count = 0
+at = 135   # position in the 'after' save (hash order); drop it for another template
+
+[effects.invited.graph]
+source = "save diff ManualSave_568ef_7ea51000_923cb5 -> ManualSave_52584_7ea51000_a4841f (w3al graph-diff)"
+donor = "ManualSave_52584_7ea51000_a4841f"
+ops = [
+  { op = "remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[37028f15]/questThread/questThread[279a1a03]/questThread/questThread[6850c728]/questThread/questBlock[72a761d5]", before = "#ec351bb5" },
+  { op = "remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[55d4b37b]/questThread/questThread[b531a276]/questThread/questBlock[b48b318d]", before = "#d038ee03" },
+  { op = "remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questThread[b8f04d50]/questThread/questBlock[8fdb44ab]", before = "#c56a3b10" },
+  { op = "remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questThread[b8f04d50]/questThread/questBlock[15601b24]", before = "#0ae13468" },
+  { op = "remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questThread[b8f04d50]/questThread/questThread[8fdb44ab]", before = "#0ab35bbf" },
+  { op = "remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questThread[b8f04d50]/questThread/questThread[15601b24]", before = "#3513b1ea" },
+  { op = "remove", path = "community/communities/c[letho.w2comm]", before = "#fa831ef3" },
+  { op = "swap-remove", path = "community/stubs/a{idTag=0128b9921cd052c3e600000000cf010000}", before = "#e05166db" },
+  { op = "insert", path = "questSystem/questExternalScenePlayers/CQuestExternalScenePlayer/ExternalDialog[sq102_dolores]", after = "#a94f20a6" },
+  { op = "insert", path = "questSystem/questExternalScenePlayers/CQuestExternalScenePlayer/ExternalDialog[letho]", after = "#7f546044" },
+  { op = "insert", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[37028f15]/questThread/questThread[279a1a03]/questThread/questThread[6850c728]/questThread/questBlock[7573f7fb]", after = "#3e7c0b5d" },
+  { op = "insert", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[55d4b37b]/questThread/questThread[b531a276]/questThread/questBlock[980d81e0]", after = "#ccde95c8" },
+  { op = "insert", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[55d4b37b]/questThread/questThread[b531a276]/questThread/questThread[980d81e0]", after = "#85a5fe74" },
+  { op = "insert", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questThread[b8f04d50]/questThread/questBlock[2aebb444]", after = "#72be35a3" },
+  { op = "insert", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questThread[b8f04d50]/questThread/questBlock[974e8877]", after = "#07cba726" },
+  { op = "insert", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questThread[b8f04d50]/questThread/questBlock[4c121657]", after = "#b96b83c6" },
+  { op = "insert", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questThread[b8f04d50]/questThread/questBlock[d8b0024d]", after = "#487ed3a7" },
+  { op = "insert", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questThread[b8f04d50]/questThread/questThread[2aebb444]", after = "#c72d19a4" },
+  { op = "insert", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questThread[b8f04d50]/questThread/questThread[974e8877]", after = "#c4406fdd" },
+  { op = "insert", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questThread[b8f04d50]/questThread/questThread[4c121657]", after = "#176b8976" },
+  { op = "insert", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questThread[b8f04d50]/questThread/questThread[d8b0024d]", after = "#59d796fd" },
+  { op = "insert", path = "community/communities/c[sq102_dolores.w2comm]", after = "#0a2d9f2d" },
+  { op = "insert", path = "community/communities/c[sq102_dolores_evictor.w2comm]", after = "#52f7aaf4" },
+  { op = "insert", path = "community/communities/c[sq102_farm_headhunters.w2comm]", after = "#69ea7355" },
+  { op = "insert", path = "community/communities/c[sq102_bandits.w2comm]", after = "#b0012f99" },
+  { op = "insert", path = "community/communities/c[sq102_bandit_lookout.w2comm]", after = "#067af851" },
+  { op = "insert", path = "community/stubs/a{idTag=01217fb0c8ddf5311300000000e0070000}", after = "#b8106ca4" },
+  { op = "insert", path = "community/stubs/a{idTag=01c50e1ef729a41ffa00000000e1070000}", after = "#02205028" },
+  { op = "recount", path = "questSystem/questExternalScenePlayers/CQuestExternalScenePlayer/tagsCount", of = "ExternalDialog" },
+  { op = "recount", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[55d4b37b]/questThread/questThread[b531a276]/questThread/numThreads", of = "questThread" },
+  { op = "recount", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questThread[b8f04d50]/questThread/numBlocks", of = "questBlock" },
+  { op = "recount", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questThread[b8f04d50]/questThread/numThreads", of = "questThread" },
+  { op = "recount", path = "community/communities/numCommunities", of = "c" },
+  { op = "recount", path = "community/stubs/numStubs", of = "a" },
+]
+
+
+[effects.elsewhere]
+source = "save diff ManualSave_568ef_7ea51000_923cb5 -> ManualSave_52584_7ea51000_9d341b (w3al journal-diff, facts --diff, graph-diff --stub-id --toml)"
+placeholder = false
+facts = { q402_told_letho_to_go_elsewhere = 1, sq102_arrow_trap_triggered = 1, sq102_blacksmith_evicted = 1, sq102_dolores_diary_found = 1, sq102_dolores_gave_quest = 1, sq102_entered_farmstead = 1, sq102_first_arrow_trap_unique = 1, sq102_first_trap_unique = 1, sq102_first_viper_unique = 1, sq102_go_find_ladder = 1, sq102_helped_letho = 1, sq102_hide_community = 0, sq102_humberts_corpse_found = 2, sq102_killed_headhunters = 1, sq102_ladder_found = 1, sq102_letho_completed = 1, sq102_letho_met = 1, sq102_lockbox_contents_obtained = 1, sq102_loose_papers_found = 1, sq102_loose_plank_found = 1, sq102_next_traps_unique = 1, sq102_portrait_found = 1, sq102_sound_source_found = 1, sq102_suspend_1003 = 1, sq102_trap_disarmed = 1, sq102_traps_set_off = 2, sq102_traps_triggered = 1, sq102_tripwire_disarmed = 1, sq102_weak_wall_found = 1 }
+
+[[effects.elsewhere.journal_append]]
+label = "sidequests/sq102letho"
+status = "JS_Success"
+unread = false
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "bab81446f127b449968f5b8df6fb94ab", resource = 'gameplay\journal\quests\sq102letho.journal' },
+]
+
+[[effects.elsewhere.journal_append]]
+label = "sidequests/sq102letho/f4324605"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "bab81446f127b449968f5b8df6fb94ab", resource = 'gameplay\journal\quests\sq102letho.journal' },
+  { guid = "f4324605fb14b443a666d542376cfec9", resource = "" },
+]
+
+[[effects.elsewhere.journal_append]]
+label = "sidequests/sq102letho/f4324605/43d26125"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "bab81446f127b449968f5b8df6fb94ab", resource = 'gameplay\journal\quests\sq102letho.journal' },
+  { guid = "f4324605fb14b443a666d542376cfec9", resource = "" },
+  { guid = "43d261255e4b6a498b9236566f2eb89e", resource = "" },
+]
+
+[[effects.elsewhere.journal_append]]
+label = "sidequests/sq102letho/903700f4"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "bab81446f127b449968f5b8df6fb94ab", resource = 'gameplay\journal\quests\sq102letho.journal' },
+  { guid = "903700f4f061474c83f858343b5ade56", resource = "" },
+]
+
+[[effects.elsewhere.journal_append]]
+label = "sidequests/sq102letho/903700f4/b8a19e67"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "bab81446f127b449968f5b8df6fb94ab", resource = 'gameplay\journal\quests\sq102letho.journal' },
+  { guid = "903700f4f061474c83f858343b5ade56", resource = "" },
+  { guid = "b8a19e67e400de43a051431c1cf828d6", resource = "" },
+]
+
+[[effects.elsewhere.journal_append]]
+label = "sidequests/sq102letho/df839de1"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "bab81446f127b449968f5b8df6fb94ab", resource = 'gameplay\journal\quests\sq102letho.journal' },
+  { guid = "df839de13fefcc4a977bfa8045e22564", resource = "" },
+]
+
+[[effects.elsewhere.journal_append]]
+label = "sidequests/sq102letho/df839de1/142e4d53"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "bab81446f127b449968f5b8df6fb94ab", resource = 'gameplay\journal\quests\sq102letho.journal' },
+  { guid = "df839de13fefcc4a977bfa8045e22564", resource = "" },
+  { guid = "142e4d533da3044c938a0f984c64b9b3", resource = "" },
+]
+
+[[effects.elsewhere.journal_append]]
+label = "sidequests/sq102letho/df839de1/cbb36eb0"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "bab81446f127b449968f5b8df6fb94ab", resource = 'gameplay\journal\quests\sq102letho.journal' },
+  { guid = "df839de13fefcc4a977bfa8045e22564", resource = "" },
+  { guid = "cbb36eb037c67a428b4af3ce04b7d743", resource = "" },
+]
+
+[[effects.elsewhere.journal_append]]
+label = "sidequests/sq102letho/f4324605/be79a9ae"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "bab81446f127b449968f5b8df6fb94ab", resource = 'gameplay\journal\quests\sq102letho.journal' },
+  { guid = "f4324605fb14b443a666d542376cfec9", resource = "" },
+  { guid = "be79a9ae14001a4fb4111ebcef05b3fc", resource = "" },
+]
+
+[[effects.elsewhere.journal_append]]
+label = "sidequests/sq102letho/f4324605/6b6aee97"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "bab81446f127b449968f5b8df6fb94ab", resource = 'gameplay\journal\quests\sq102letho.journal' },
+  { guid = "f4324605fb14b443a666d542376cfec9", resource = "" },
+  { guid = "6b6aee972d9b864aa7ffe2d317830469", resource = "" },
+]
+
+[[effects.elsewhere.journal_append]]
+label = "sceondarycharacters/letho"
+status = "JS_Active"
+unread = true
+steps = [
+  { guid = "8efa62e10a415b499608256195453836", resource = 'gameplay\journal\characters\sceondarycharacters.journal' },
+  { guid = "6382b87fdef54443a86a953e5805edb1", resource = 'gameplay\journal\characters\letho.journal' },
+]
+
+[[effects.elsewhere.journal_append]]
+label = "sceondarycharacters/letho/0a5afb89"
+status = "JS_Active"
+unread = true
+steps = [
+  { guid = "8efa62e10a415b499608256195453836", resource = 'gameplay\journal\characters\sceondarycharacters.journal' },
+  { guid = "6382b87fdef54443a86a953e5805edb1", resource = 'gameplay\journal\characters\letho.journal' },
+  { guid = "0a5afb89efd80748a80ec92538272f0d", resource = "" },
+]
+
+[[effects.elsewhere.journal_append]]
+label = "sidequests/sq102letho/903700f4/33ce0fc1"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "bab81446f127b449968f5b8df6fb94ab", resource = 'gameplay\journal\quests\sq102letho.journal' },
+  { guid = "903700f4f061474c83f858343b5ade56", resource = "" },
+  { guid = "33ce0fc12ad0a848ad7eb505a9c9abbe", resource = "" },
+]
+
+[[effects.elsewhere.journal_append]]
+label = "sidequests/sq102letho/6adb31c2"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "bab81446f127b449968f5b8df6fb94ab", resource = 'gameplay\journal\quests\sq102letho.journal' },
+  { guid = "6adb31c2e3aff34aad90bf7ede2937f6", resource = "" },
+]
+
+[[effects.elsewhere.journal_append]]
+label = "sidequests/sq102letho/6adb31c2/06a11b8f"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "bab81446f127b449968f5b8df6fb94ab", resource = 'gameplay\journal\quests\sq102letho.journal' },
+  { guid = "6adb31c2e3aff34aad90bf7ede2937f6", resource = "" },
+  { guid = "06a11b8fdcf353488849927a0bc83f17", resource = "" },
+]
+
+[[effects.elsewhere.journal_append]]
+label = "sidequests/sq102letho/6adb31c2/e1b9e4d8"
+status = "JS_Success"
+unread = false
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "bab81446f127b449968f5b8df6fb94ab", resource = 'gameplay\journal\quests\sq102letho.journal' },
+  { guid = "6adb31c2e3aff34aad90bf7ede2937f6", resource = "" },
+  { guid = "e1b9e4d832c73f4e95996fa0baa55d88", resource = "" },
+]
+
+[[effects.elsewhere.journal_append]]
+label = "sidequests/sq102letho/6adb31c2/9272986f"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "bab81446f127b449968f5b8df6fb94ab", resource = 'gameplay\journal\quests\sq102letho.journal' },
+  { guid = "6adb31c2e3aff34aad90bf7ede2937f6", resource = "" },
+  { guid = "9272986fe863744c9a5a31c5d9a684f5", resource = "" },
+]
+
+[[effects.elsewhere.journal_append]]
+label = "sidequests/sq102letho/6adb31c2/d7bd2fe6"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "bab81446f127b449968f5b8df6fb94ab", resource = 'gameplay\journal\quests\sq102letho.journal' },
+  { guid = "6adb31c2e3aff34aad90bf7ede2937f6", resource = "" },
+  { guid = "d7bd2fe63a880347b350ea4b0461fe90", resource = "" },
+]
+
+[[effects.elsewhere.journal_append]]
+label = "sidequests/sq102letho/6adb31c2/23c3fa81"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "bab81446f127b449968f5b8df6fb94ab", resource = 'gameplay\journal\quests\sq102letho.journal' },
+  { guid = "6adb31c2e3aff34aad90bf7ede2937f6", resource = "" },
+  { guid = "23c3fa81098d234680798f695df0cb28", resource = "" },
+]
+
+[[effects.elsewhere.journal_append]]
+label = "sidequests/sq102letho/6adb31c2/dfba0cf9"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "bab81446f127b449968f5b8df6fb94ab", resource = 'gameplay\journal\quests\sq102letho.journal' },
+  { guid = "6adb31c2e3aff34aad90bf7ede2937f6", resource = "" },
+  { guid = "dfba0cf92bedfe45a65af0bf16946df2", resource = "" },
+]
+
+[[effects.elsewhere.journal_append]]
+label = "sidequests/sq102letho/903700f4/67c71a77"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "bab81446f127b449968f5b8df6fb94ab", resource = 'gameplay\journal\quests\sq102letho.journal' },
+  { guid = "903700f4f061474c83f858343b5ade56", resource = "" },
+  { guid = "67c71a7775a2cd45b8271929d78f7095", resource = "" },
+]
+
+[[effects.elsewhere.journal_append]]
+label = "sceondarycharacters/letho/c9014771"
+status = "JS_Active"
+unread = true
+steps = [
+  { guid = "8efa62e10a415b499608256195453836", resource = 'gameplay\journal\characters\sceondarycharacters.journal' },
+  { guid = "6382b87fdef54443a86a953e5805edb1", resource = 'gameplay\journal\characters\letho.journal' },
+  { guid = "c9014771cb6dad4b9979f4030eeb6af6", resource = "" },
+]
+
+[[effects.elsewhere.journal_append]]
+label = "sceondarycharacters/letho/29a4c204"
+status = "JS_Active"
+unread = true
+steps = [
+  { guid = "8efa62e10a415b499608256195453836", resource = 'gameplay\journal\characters\sceondarycharacters.journal' },
+  { guid = "6382b87fdef54443a86a953e5805edb1", resource = 'gameplay\journal\characters\letho.journal' },
+  { guid = "29a4c204d5ff4449a7bbca6c41766767", resource = "" },
+]
+
+[[effects.elsewhere.journal_append]]
+label = "sceondarycharacters/letho/a9539f68"
+status = "JS_Active"
+unread = true
+steps = [
+  { guid = "8efa62e10a415b499608256195453836", resource = 'gameplay\journal\characters\sceondarycharacters.journal' },
+  { guid = "6382b87fdef54443a86a953e5805edb1", resource = 'gameplay\journal\characters\letho.journal' },
+  { guid = "a9539f6845f8e54296990558d8b3189c", resource = "" },
+]
+
+[[effects.elsewhere.journal_append]]
+label = "sidequests/sq102dolores/9f46dd92/500de9ce"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "e86af24f857a26458e1503913d163119", resource = 'gameplay\journal\quests\sq102dolores.journal' },
+  { guid = "9f46dd92045cb04ead3a88bf2ecbddbd", resource = "" },
+  { guid = "500de9cee6531246b69458a27e0389ad", resource = "" },
+]
+
+[[effects.elsewhere.journal_append]]
+label = "sidequests/sq102dolores/64f47df6"
+status = "JS_Active"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "e86af24f857a26458e1503913d163119", resource = 'gameplay\journal\quests\sq102dolores.journal' },
+  { guid = "64f47df6e4fd6545b01e70f4ff8f8374", resource = "" },
+]
+
+[[effects.elsewhere.journal_append]]
+label = "sidequests/sq102dolores/64f47df6/0254d898"
+status = "JS_Active"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "e86af24f857a26458e1503913d163119", resource = 'gameplay\journal\quests\sq102dolores.journal' },
+  { guid = "64f47df6e4fd6545b01e70f4ff8f8374", resource = "" },
+  { guid = "0254d898f212454e978e61505477fed3", resource = "" },
+]
+
+[[effects.elsewhere.journal_append]]
+label = "sidequests/sq102dolores"
+status = "JS_Active"
+unread = false
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "e86af24f857a26458e1503913d163119", resource = 'gameplay\journal\quests\sq102dolores.journal' },
+]
+
+[[effects.elsewhere.journal_append]]
+label = "sidequests/sq102dolores/9f46dd92"
+status = "JS_Active"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "e86af24f857a26458e1503913d163119", resource = 'gameplay\journal\quests\sq102dolores.journal' },
+  { guid = "9f46dd92045cb04ead3a88bf2ecbddbd", resource = "" },
+]
+
+[[effects.elsewhere.journal_append]]
+label = "sidequests/sq102dolores/9f46dd92/27361ae5"
+status = "JS_Success"
+unread = false
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "e86af24f857a26458e1503913d163119", resource = 'gameplay\journal\quests\sq102dolores.journal' },
+  { guid = "9f46dd92045cb04ead3a88bf2ecbddbd", resource = "" },
+  { guid = "27361ae55086c84788f7f06e1f16d8af", resource = "" },
+]
+
+[[effects.elsewhere.journal_append]]
+label = "sidequests/sq102dolores/9f46dd92/e1f6114b"
+status = "JS_Success"
+unread = false
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "e86af24f857a26458e1503913d163119", resource = 'gameplay\journal\quests\sq102dolores.journal' },
+  { guid = "9f46dd92045cb04ead3a88bf2ecbddbd", resource = "" },
+  { guid = "e1f6114bce947646a10de068b13a0565", resource = "" },
+]
+
+[[effects.elsewhere.journal_append]]
+label = "sidequests/sq102dolores/3c14260e"
+status = "JS_Active"
+unread = true
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "e86af24f857a26458e1503913d163119", resource = 'gameplay\journal\quests\sq102dolores.journal' },
+  { guid = "3c14260e5006a146b2c58aee5a300c36", resource = "" },
+]
+
+[[effects.elsewhere.journal_append]]
+label = "sidequests/sq102dolores/3c14260e/b9990d19"
+status = "JS_Active"
+unread = false
+steps = [
+  { guid = "a93885ce3a22194c955e802d55358928", resource = 'gameplay\journal\quests\sidequests.journal' },
+  { guid = "e86af24f857a26458e1503913d163119", resource = 'gameplay\journal\quests\sq102dolores.journal' },
+  { guid = "3c14260e5006a146b2c58aee5a300c36", resource = "" },
+  { guid = "b9990d193f861844a92e45587160cba8", resource = "" },
+]
+
+[[effects.elsewhere.journal_counters]]   # sidequests/sq102letho/6adb31c2/d7bd2fe6
+guid = "d7bd2fe63a880347b350ea4b0461fe90"
+count = 0
+at = 25   # position in the 'after' save (hash order); drop it for another template
+
+[[effects.elsewhere.journal_counters]]   # sidequests/sq102letho/f4324605/be79a9ae
+guid = "be79a9ae14001a4fb4111ebcef05b3fc"
+count = 0
+at = 46   # position in the 'after' save (hash order); drop it for another template
+
+[[effects.elsewhere.journal_counters]]   # sidequests/sq102letho/df839de1/cbb36eb0
+guid = "cbb36eb037c67a428b4af3ce04b7d743"
+count = 0
+at = 56   # position in the 'after' save (hash order); drop it for another template
+
+[[effects.elsewhere.journal_counters]]   # sidequests/sq102letho/6adb31c2/e1b9e4d8
+guid = "e1b9e4d832c73f4e95996fa0baa55d88"
+count = 0
+at = 59   # position in the 'after' save (hash order); drop it for another template
+
+[[effects.elsewhere.journal_counters]]   # sidequests/sq102letho/6adb31c2/dfba0cf9
+guid = "dfba0cf92bedfe45a65af0bf16946df2"
+count = 0
+at = 127   # position in the 'after' save (hash order); drop it for another template
+
+[[effects.elsewhere.journal_counters]]   # sidequests/sq102letho/6adb31c2/06a11b8f
+guid = "06a11b8fdcf353488849927a0bc83f17"
+count = 0
+at = 130   # position in the 'after' save (hash order); drop it for another template
+
+[[effects.elsewhere.journal_counters]]   # sidequests/sq102letho/f4324605/6b6aee97
+guid = "6b6aee972d9b864aa7ffe2d317830469"
+count = 0
+at = 158   # position in the 'after' save (hash order); drop it for another template
+
+[[effects.elsewhere.journal_counters]]   # sidequests/sq102letho/6adb31c2/23c3fa81
+guid = "23c3fa81098d234680798f695df0cb28"
+count = 0
+at = 160   # position in the 'after' save (hash order); drop it for another template
+
+[[effects.elsewhere.journal_counters]]   # sidequests/sq102letho/f4324605/43d26125
+guid = "43d261255e4b6a498b9236566f2eb89e"
+count = 0
+at = 162   # position in the 'after' save (hash order); drop it for another template
+
+[[effects.elsewhere.journal_counters]]   # sidequests/sq102letho/df839de1/142e4d53
+guid = "142e4d533da3044c938a0f984c64b9b3"
+count = 0
+at = 177   # position in the 'after' save (hash order); drop it for another template
+
+[[effects.elsewhere.journal_counters]]   # sidequests/sq102letho/6adb31c2/9272986f
+guid = "9272986fe863744c9a5a31c5d9a684f5"
+count = 0
+at = 182   # position in the 'after' save (hash order); drop it for another template
+
+[[effects.elsewhere.journal_counters]]   # sidequests/sq102dolores/9f46dd92/e1f6114b
+guid = "e1f6114bce947646a10de068b13a0565"
+count = 0
+at = 18   # position in the 'after' save (hash order); drop it for another template
+
+[[effects.elsewhere.journal_counters]]   # sidequests/sq102dolores/9f46dd92/500de9ce
+guid = "500de9cee6531246b69458a27e0389ad"
+count = 0
+at = 53   # position in the 'after' save (hash order); drop it for another template
+
+[[effects.elsewhere.journal_counters]]   # sidequests/sq102dolores/9f46dd92/27361ae5
+guid = "27361ae55086c84788f7f06e1f16d8af"
+count = 0
+at = 128   # position in the 'after' save (hash order); drop it for another template
+
+[[effects.elsewhere.journal_counters]]   # sidequests/sq102dolores/3c14260e/b9990d19
+guid = "b9990d193f861844a92e45587160cba8"
+count = 0
+at = 136   # position in the 'after' save (hash order); drop it for another template
+
+[effects.elsewhere.graph]
+source = "save diff ManualSave_568ef_7ea51000_923cb5 -> ManualSave_52584_7ea51000_9d341b (w3al graph-diff)"
+donor = "ManualSave_52584_7ea51000_9d341b"
+ops = [
+  { op = "remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[37028f15]/questThread/questThread[279a1a03]/questThread/questBlock[6850c728]", before = "#da748295" },
+  { op = "remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[37028f15]/questThread/questThread[279a1a03]/questThread/questThread[6850c728]", before = "#3a7db333" },
+  { op = "remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[55d4b37b]/questThread/questThread[b531a276]/questThread/questBlock[b48b318d]", before = "#d038ee03" },
+  { op = "remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questThread[b8f04d50]/questThread/questBlock[8fdb44ab]", before = "#c56a3b10" },
+  { op = "remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questThread[b8f04d50]/questThread/questBlock[15601b24]", before = "#0ae13468" },
+  { op = "remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questThread[b8f04d50]/questThread/questThread[8fdb44ab]", before = "#0ab35bbf" },
+  { op = "remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questThread[b8f04d50]/questThread/questThread[15601b24]", before = "#3513b1ea" },
+  { op = "remove", path = "community/communities/c[letho.w2comm]", before = "#fa831ef3" },
+  { op = "swap-remove", path = "community/stubs/a{idTag=0128b9921cd052c3e600000000cf010000}", before = "#e05166db" },
+  { op = "insert", path = "questSystem/questExternalScenePlayers/CQuestExternalScenePlayer/ExternalDialog[sq102_dolores]", after = "#a94f20a6" },
+  { op = "insert", path = "questSystem/questExternalScenePlayers/CQuestExternalScenePlayer/ExternalDialog[letho]", after = "#7f546044" },
+  { op = "insert", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[55d4b37b]/questThread/questThread[b531a276]/questThread/questBlock[980d81e0]", after = "#ccde95c8" },
+  { op = "insert", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[55d4b37b]/questThread/questThread[b531a276]/questThread/questThread[980d81e0]", after = "#85a5fe74" },
+  { op = "insert", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questThread[b8f04d50]/questThread/questBlock[2aebb444]", after = "#72be35a3" },
+  { op = "insert", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questThread[b8f04d50]/questThread/questBlock[974e8877]", after = "#07cba726" },
+  { op = "insert", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questThread[b8f04d50]/questThread/questBlock[d8b0024d]", after = "#487ed3a7" },
+  { op = "insert", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questThread[b8f04d50]/questThread/questThread[2aebb444]", after = "#c72d19a4" },
+  { op = "insert", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questThread[b8f04d50]/questThread/questThread[974e8877]", after = "#aeb7ba4b" },
+  { op = "insert", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questThread[b8f04d50]/questThread/questThread[d8b0024d]", after = "#59d796fd" },
+  { op = "insert", path = "community/communities/c[sq102_dolores.w2comm]", after = "#0a2d9f2d" },
+  { op = "insert", path = "community/communities/c[sq102_dolores_evictor.w2comm]", after = "#52f7aaf4" },
+  { op = "insert", path = "community/communities/c[sq102_farm_headhunters.w2comm]", after = "#69ea7355" },
+  { op = "insert", path = "community/communities/c[sq102_bandits.w2comm]", after = "#b0012f99" },
+  { op = "insert", path = "community/communities/c[sq102_bandit_lookout.w2comm]", after = "#067af851" },
+  { op = "insert", path = "community/communities/c[sq102_midcots_headhunters.w2comm]", after = "#e009a3c3" },
+  { op = "insert", path = "community/stubs/a{idTag=01217fb0c8ddf5311300000000e0070000}", after = "#1a555905" },
+  { op = "insert", path = "community/stubs/a{idTag=01c50e1ef729a41ffa00000000e1070000}", after = "#54937e51" },
+  { op = "recount", path = "questSystem/questExternalScenePlayers/CQuestExternalScenePlayer/tagsCount", of = "ExternalDialog" },
+  { op = "recount", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[37028f15]/questThread/questThread[279a1a03]/questThread/numBlocks", of = "questBlock" },
+  { op = "recount", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[37028f15]/questThread/questThread[279a1a03]/questThread/numThreads", of = "questThread" },
+  { op = "recount", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[55d4b37b]/questThread/questThread[b531a276]/questThread/numThreads", of = "questThread" },
+  { op = "recount", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questThread[b8f04d50]/questThread/numBlocks", of = "questBlock" },
+  { op = "recount", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questThread[b8f04d50]/questThread/numThreads", of = "questThread" },
+  { op = "recount", path = "community/communities/numCommunities", of = "c" },
+  { op = "recount", path = "community/stubs/numStubs", of = "a" },
+]
+
+
+[effects.abandoned]
+# graph-only (no played save holds this branch; the catalogue's "not-help missing"). Walk on T_letho: Letho parks at
+# Midcots (2da9cd80 assumed), Letho's Trick, scene 70d40ee9 `Fight`, Geralt leaves the trigger (22f54f6c) ->
+# `AbandonedLetho` -> Letho Ending (`LeftLethoAtAssassins`) -> Lost Letho f19f767a -> End: facts sq102_didnt_help_letho,
+# sq102_lost_letho, sq102_letho_completed, sq102_completed; the quest leaves the frontier (b8f04d50 exits).
+# The stop a4a4f995 (headhunters killed > 3) keeps the other ending of the fight from firing; the walker still parks it
+# in the already ended scope (walker issue W-1, docs/research.md). The quest root and objective a66421b0 get the
+# input `Failure`, which the walker writes as JS_Active (walker issue W-2) until fixed.
+source = "quest graph sq102_letho (w3al synth-walk on T_letho, graph only)"
+placeholder = false
+
+[effects.abandoned.synth]
+start = ["2da9cd80"]
+through = true
+pick = ["70d40ee9=Fight"]
+stop = ["a4a4f995"]

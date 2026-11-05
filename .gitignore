@@ -1,0 +1,31 @@
+# Build output
+/target
+/src-tauri/target
+/src-tauri/gen
+node_modules/
+
+# Saves are large and personal; fixtures live outside the repo (W3AL_FIXTURES).
+*.sav
+*.sav.*
+# Save sidecars (screenshots / metadata the game writes next to a save)
+/templates/*
+!/templates/README.md
+
+# Game files and extracts must never be committed (CLAUDE.md rule 7, NOTICE.md)
+*.bundle
+*.w2*
+*.w3strings
+*.xbm
+*.journal
+*.ws
+*.redscripts
+
+# Generated UI preview data (`w3al questbook-json > ui/dev-questbook.json`)
+/ui/dev-*.json
+
+# Local agent / editor session config and scratch
+/.claude/
+/scratch/
+*.log
+.DS_Store
+Thumbs.db

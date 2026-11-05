@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Another Life</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="side">
+      <div class="brand">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><circle cx="14" cy="14" r="12"/><path d="M14 4v20M4 14h20" opacity=".45"/><path d="M14 8l4 6-4 6-4-6z" fill="currentColor" stroke="none"/></svg>
+        <div><div class="brand-name">Another Life</div><div class="brand-sub" data-i18n="brand.sub">Rewrite a Witcher 3 save. Unofficial.</div></div>
+      </div>
+      <div class="side-card" id="sidecard"></div>
+      <nav class="side-nav" id="nav"></nav>
+      <div class="side-foot" id="sidefoot">
+        <div id="lang-slot"></div>
+        <div id="img-slot"></div>
+        <button class="link-quiet" id="safety-btn" type="button" data-i18n="safety.btn">Safety notes</button>
+      </div>
+    </aside>
+    <div class="col">
+      <header class="topbar">
+        <div class="ctx" id="ctx"></div>
+        <div class="top-actions" id="topactions"></div>
+      </header>
+      <div id="banner" class="banner" hidden></div>
+      <div class="body" id="body">
+        <main id="app" tabindex="-1"></main>
+        <aside class="ledger" id="ledger" aria-label="Pending changes" data-i18n-aria="ledger.aria"></aside>
+      </div>
+      <footer class="hints" id="hints"></footer>
+    </div>
+  </div>
+  <script src="i18n.js"></script>
+  <script src="gametext.js"></script>
+  <script src="app.js"></script>
+  <script src="edit.js"></script>
+  <script src="side.js"></script>
+</body>
+</html>

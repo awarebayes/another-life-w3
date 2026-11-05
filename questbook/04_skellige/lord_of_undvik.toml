@@ -1,0 +1,85 @@
+# template: pack 33 ManualSave_8c0ab_7ea51000_3f73208 (5.01 re-save, C:\w3-fixtures\pack_501; old-gen original
+# ManualSave_8c0ab_7e106000_5150487). Licensed CC BY-SA 4.0.
+#
+# Act 4, Skellige decision window W4, decision D10 (docs/plan/decision-catalogue.md section 4). The template has just landed
+# on Undvik: q202's island phase 688fad09 runs, the troll village waits at 75656f29 [inside troll village trigger].
+# What the graph (q202_giant.w2phase) shows:
+#   * Folan is a real dialogue choice: scene 98ac08c2 (q202_05c_3_trolls_cooking_folan) with outputs
+#     `talked_with_trolls_folan_lives` (-> phase "folan saved" 3ddbb5a1, a2aeb601 `q202_folan_lives`, `q202_folan_party`),
+#     `talked_with_trolls_folan_dies` (-> eb4013af `q202_folan_boiled`, phase output folan_died) and `attack_trolls`
+#     (a fight; its outcome is play, so it is not offered: a through-walk sets both `q202_folan_lives` and
+#     `q202_folan_boiled`).
+#   * Vigi is NOT a dialogue choice: in the lair the cage scene e485db7a (Vigi dies, aaab9c90 `q202_vigi_dead`) or 4cdfd32c
+#     (`out_no_hjalmar`, a815a714 `q202_vigi_saved`) is chosen by condition e94bf2dc on `q202_geralt_went_for_giant`, which
+#     3f497c4f sets when the player wakes the giant before freeing the cage (sign/hit Xor 777bc6d1). Hjalmar is saved by
+#     a29709f5 after the giant fight. Both are left to play; docs/research.md (W4 entry).
+# Vigi (re-walked 2026-11-05 later, content C): the walk `--start 054edfa3 --through` (the "inside triggers" wait of the
+# phase "hjalmar introduction" adf182d3, already waiting in this template) goes to the lair, "where_to_go" 45f6cc81 and the
+# giant. `--through` assumes every single-output wait satisfied, i.e. the player woke the giant before freeing the cage
+# (woke_giant_up 459386c9 -> 3f497c4f `q202_geralt_went_for_giant` -> condition e94bf2dc True -> cage scene e485db7a ->
+# aaab9c90 `q202_vigi_dead`; the giant dies, `q202_hjalmar_saved`, `q202_finished`). The multi-output waits need picks:
+# a9621f43=1 and 55d1b69c=hit (both lead to the same And 990), scene 57bad691=Output. That is the only branch the walker can
+# reach: "Vigi saved" is the race the other way round (cage freed before the giant wakes, `a815a714 q202_vigi_saved`), which a
+# through-walk cannot express (every wait counts as done; stops at 459386c9, a9621f43 and 55d1b69c do not change the result,
+# the facts stay `q202_geralt_went_for_giant` + `q202_vigi_dead`). Saved = left to play, or a donor: pack 34 (old-gen
+# ManualSave_4dcea_7e106000_5537644) re-saved in 5.01 would let `w3al graph-diff` capture it (docs/research.md).
+# So this window decides Folan and offers Vigi dead; "leave the lair" keeps the template as is and the player frees the cage.
+#
+# Walk arguments (both validated with `w3al synth-walk` and written with `synth-apply` on the 5.01 template, no unresolved
+# point): start 75656f29 --through --pick 98ac08c2=<output> --stop f1407f6e --stop fd4d4be9 --stop d02ec72f. The stops keep
+# Folan's "killed" listener (f1407f6e [q202_folan_killed]) and the follower's "out of island" world checks (fd4d4be9, a pause
+# with one output per world, and d02ec72f) waiting, as the game leaves them.
+id = "lord_of_undvik"
+title = "The Lord of Undvik"
+act = 4
+order = 4010
+kind = "main"
+region = "skellige"
+level = 15                # TODO(phase3): verify the recommended level in game
+summary = """An island gone silent, a wrecked fleet on its shore and a jarl's son somewhere in the \
+snow. You wade through bones and broken longships looking for Hjalmar, and the first living soul \
+you find is a hunter about to become somebody's supper."""
+
+[[choices]]
+id = "folan"
+prompt = "Trolls have a hunter in their cooking pot and want to finish the recipe. How do you handle it?"
+default = "folan_lives"
+options = [
+  { id = "folan_lives", text = "Talk the trolls out of their supper (Folan lives and joins you)", effects = "folan_lives" },
+  { id = "folan_dies",  text = "Let the trolls have their way (Folan dies in the pot)",           effects = "folan_dies" },
+]
+
+[[choices]]
+id = "vigi"
+prompt = "Hjalmar and Vigi are caged in the giant's lair. How does it go?"
+default = "play"
+options = [
+  { id = "play", text = "Leave the lair for later (you play the giant and the cage yourself; freeing the cage first saves Vigi)" },
+  { id = "dead", text = "Wake the giant first (Vigi dies in the cage, Hjalmar is saved, the giant is dead and Undvik is finished)", effects = "vigi_dead" },
+]
+
+[effects.folan_lives]
+source = "quest graph q202_giant.w2phase scene 98ac08c2 talked_with_trolls_folan_lives (w3al synth-walk on pack 33 5.01 re-save; donor-checked vs pack 34 old-gen ManualSave_4dcea_7e106000_5537644, which played the whole island past this point: decision facts q202_folan_lives, q202_folan_default_init, q202_folan_party, q202_met_trolls_cave hit 4/0 miss in the fact table, blocks 4 hit / 9 extra = the waits the donor has since left; synth-apply writes the save)"
+
+[effects.folan_lives.synth]
+start = ["75656f29"]
+through = true
+pick = ["98ac08c2=talked_with_trolls_folan_lives"]
+stop = ["f1407f6e", "fd4d4be9", "d02ec72f"]
+
+[effects.folan_dies]
+source = "quest graph q202_giant.w2phase scene 98ac08c2 talked_with_trolls_folan_dies -> eb4013af q202_folan_boiled (w3al synth-walk on pack 33 5.01 re-save, graph-only: no played save of this branch; the pack line saved Folan; synth-apply writes the save)"
+
+[effects.folan_dies.synth]
+start = ["75656f29"]
+through = true
+pick = ["98ac08c2=talked_with_trolls_folan_dies"]
+stop = ["f1407f6e", "fd4d4be9", "d02ec72f"]
+
+[effects.vigi_dead]
+source = "quest graph q202_giant.w2phase: 3f497c4f q202_geralt_went_for_giant (phase 19dcb4d6 ice giant lair) -> condition e94bf2dc True -> cage scene e485db7a -> aaab9c90 q202_vigi_dead, a29709f5 q202_hjalmar_saved, q202_finished (w3al synth-walk on pack 33 5.01 re-save, 381 steps, no unresolved point, graph-only: the pack line saved Vigi; this branch is what a through-walk takes)"
+
+[effects.vigi_dead.synth]
+start = ["054edfa3"]
+through = true
+pick = ["a9621f43=1", "55d1b69c=hit", "57bad691=Output"]

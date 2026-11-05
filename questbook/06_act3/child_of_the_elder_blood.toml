@@ -1,0 +1,96 @@
+# template: pack 54 ManualSave_4dcef_7ea51000_400b253 (5.01 re-save, C:\w3-fixtures\pack_501; old-gen original
+# ManualSave_4dcef_7e110400_57a690b). Licensed CC BY-SA 4.0.
+#
+# Act 6, Skellige decision window W9: D19 Lara's necklace and D20 Skjall's grave (docs/plan/decision-catalogue.md section 4).
+# The template waits in q210_precanaris' phase "tell filippa" bbfd42ea at the sorceresses' dialog e6895618 [what next girls].
+# The two choices are applied in file order (D20's start block appears only after D19's walk).
+#   D19: start e6895618, through Avallach's laboratory (phase 8b69cc69) to the rift scene c6890bb5. That scene has ONE output;
+#        the necklace choice is inside the scene file, so the facts come from the effect: `q210_gave_lara_necklace`
+#        (read by q502_avallach 7696dda7 and persistent_content listener 1f3226ea, which the game fires on load) or
+#        `q210_cs_ciri_destroy_lab` (read by condition 1efc2270 -> layers 3940d2b4 "trashed deco"; in pack 55). The walk
+#        cannot see the scene fact, so 1efc2270 is picked by hand: True = lab wrecked, False = necklace.
+#        2ab66622 [golem killed?] has only a `False` socket (-> phase d9a65a01 "open door kill golem"): picked False.
+#        Stops: 4624122f (the scene outside the lab, D20's decision) and 813c777e [q210_tr_girls_goto_morszczynka]: the
+#        vault/ruins part (phase b043683c) starts in parallel; the pack line did the lab and Skjall first, the ruins later.
+#   D20: start 4624122f (q210_13k_outside_lab_skjall): `Output_goto_skjall_teleport` (pack line; the walk-there variant
+#        `Output_goto_skjall_no_tele` is equivalent for the fate count) -> phase 36d46dd1, scene b553b871 picked
+#        `Output_teleport`; the grave scene sets `q210_skjall_done` inside the scene file (read by q502 b241493a; in pack
+#        55), so the effect sets it. `Output_notime_skjall` -> phase output 3Out, which is not connected: the grave visit is
+#        gone for good. Stop 4c3a485b [q210_lab_done] (q210 "avallach on ship"): a listener that leads to a journal-status
+#        condition 14b365b1 the walker cannot evaluate; it stays waiting and the game runs it after load.
+# Ciri's fate (q502_avallach.w2phase): necklace = weak, no necklace = strong; Skjall's grave visited = strong, else weak.
+# Validation (5.01 template): D19 both and D20 both written with `w3al synth-apply` (D20 from the D19 result). Lab wrecked +
+# grave visited donor-checked vs pack 55 old-gen ManualSave_100b2c_7e110400_5f899dc (the pack line; the donor went on to the
+# ruins and Emhyr): D19 decision/lab facts hit (q210_met_ava_lover, q210_ava_golem_alive, q210_going_with_ciri_to_morszczynka,
+# q210_ruins_and_lab_start), q210 journal 28 hit / 2 extra; D20 lab and Skjall blocks 28 hit / 5 extra (the q210_tell_ava
+# listeners and Yennefer's chat wait the donor has since passed), facts q210_lab_done, q210_skjall_grave_visited,
+# q210_teleport_from_skjall hit; q210 journal 20 hit, 0 extra. Necklace and no-visit: graph-only.
+# Known walk artefact: CutControl 6d9a2260 stays listed in the ended phase 6842c7e0 (walker issue W-3); synth-apply still
+# writes the save here because the parent scope 8b69cc69 is alive.
+id = "child_of_the_elder_blood"
+title = "Child of the Elder Blood"
+act = 6
+order = 6040
+kind = "main"
+region = "skellige"
+level = 27                # TODO(phase3): verify the recommended level in game
+summary = """An elven sage's hidden laboratory on Skellige holds old secrets about Ciri's bloodline, \
+some of them painful. What she does with a dead woman's keepsake, and whether you take an hour to \
+stand at a young man's grave with her, stays with her longer than either of you expects."""
+
+[[choices]]
+id = "necklace"
+prompt = "In the laboratory Ciri finds a necklace that belonged to her ancestor. What happens?"
+default = "wrecked"
+options = [
+  { id = "necklace", text = "Ciri keeps Lara's necklace and stays calm (counts against Ciri's survival at the end)",  effects = "necklace" },
+  { id = "wrecked",  text = "Ciri lets her anger out and wrecks the lab (counts toward Ciri's survival at the end)", effects = "lab_wrecked" },
+]
+
+[[choices]]
+id = "grave"
+prompt = "Ciri wants to visit Skjall's grave on Hindarsfjall. Do you go with her?"
+default = "visit"
+options = [
+  { id = "visit", text = "Go with her to the grave (counts toward Ciri's survival at the end)",               effects = "grave_visited" },
+  { id = "skip",  text = "Say there is no time (the visit is lost; counts against Ciri's survival at the end)", effects = "grave_skipped" },
+]
+
+[effects.necklace]
+source = "quest graph q210_precanaris.w2phase phase 8b69cc69 scene c6890bb5 (one output) + condition 1efc2270 False; fact read by q502_avallach 7696dda7 and persistent_content 1f3226ea (w3al synth-apply on pack 54 5.01 re-save, graph-only)"
+facts = { q210_gave_lara_necklace = 1 }
+
+[effects.necklace.synth]
+start = ["e6895618"]
+through = true
+pick = ["1efc2270=False", "2ab66622=False"]
+stop = ["4624122f", "813c777e"]
+
+[effects.lab_wrecked]
+source = "quest graph q210_precanaris.w2phase scene c6890bb5 + condition 1efc2270 True -> layers 3940d2b4; fact q210_cs_ciri_destroy_lab read by 1efc2270, in pack 55 (w3al synth-apply on pack 54 5.01 re-save; donor-checked vs pack 55 old-gen: lab facts hit, q210 journal 28 hit / 2 extra, blocks 6 hit / 20 extra = waits the far-ahead donor has left)"
+facts = { q210_cs_ciri_destroy_lab = 1 }
+
+[effects.lab_wrecked.synth]
+start = ["e6895618"]
+through = true
+pick = ["1efc2270=True", "2ab66622=False"]
+stop = ["4624122f", "813c777e"]
+
+[effects.grave_visited]
+source = "quest graph q210_precanaris.w2phase scene 4624122f Output_goto_skjall_teleport -> phase 36d46dd1, scene b553b871 Output_teleport; q210_skjall_done set in q210_14a_talk_by_grave.w2scene, read by q502 b241493a, in pack 55 (w3al synth-apply on the D19 result; donor-checked vs pack 55 old-gen: 28 hit / 5 extra blocks, q210_lab_done, q210_skjall_grave_visited, q210_teleport_from_skjall hit, q210 journal 20 hit / 0 extra)"
+facts = { q210_skjall_done = 1 }
+
+[effects.grave_visited.synth]
+start = ["4624122f"]
+through = true
+pick = ["4624122f=Output_goto_skjall_teleport", "b553b871=Output_teleport"]
+stop = ["4c3a485b"]
+
+[effects.grave_skipped]
+source = "quest graph q210_precanaris.w2phase scene 4624122f Output_notime_skjall -> journal d182f807, q210_lab_done, phase output 3Out (unconnected: Skjall's grave phase 36d46dd1 never runs) (w3al synth-apply on the D19 result, graph-only)"
+
+[effects.grave_skipped.synth]
+start = ["4624122f"]
+through = true
+pick = ["4624122f=Output_notime_skjall"]
+stop = ["4c3a485b"]

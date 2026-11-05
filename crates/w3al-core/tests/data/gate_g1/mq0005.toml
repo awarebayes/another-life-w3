@@ -1,0 +1,175 @@
+# TEST DATA (not questbook content): reproduces an in-game gate save from its delta files
+# (C:\w3-out\gate_*\deltas), as the questbook path sees them. GUIDs, paths and guard hashes come from
+# third-party / user saves; they are test data for crates/w3al-core/tests/export_fixtures.rs.
+id = "mq0005_done"
+title = "Napp brought to the smith (gate G1)"
+act = 1
+order = 10
+kind = "secondary"
+region = "white_orchard"
+level = 1
+summary = "Test quest built from gate deltas."
+done_effects = "done"
+
+[effects.done]
+source = "save diff ManualSave_fd3e1_7ea4d800_3f4cf08 -> ManualSave_8559a_7ea4d800_4038706 (w3al journal-diff)"
+placeholder = false
+facts = { mq0005_arsonist_gets_up = 1, mq0005_axiid_arsonist = 1, mq0005_brought_arsonist = 1, mq0005_complete = 1, mq0005_stop_hypnosis = 1, prologue_smith_as_community = 1 }
+
+[[effects.done.journal_status]]
+label = "minorquests/mq0005dwarfsmith/3eb16b1a"
+path = ["67e5afe3ceb5c148a9cde5c4a99c7a84", "0f3305c02a250d4aa75c6fba97048763", "3eb16b1a55985e4faa9af0c333034adb"]
+from = "JS_Active"
+to = "JS_Success"
+
+[[effects.done.journal_status]]
+label = "minorquests/mq0005dwarfsmith/3eb16b1a/5dd2f404"
+path = ["67e5afe3ceb5c148a9cde5c4a99c7a84", "0f3305c02a250d4aa75c6fba97048763", "3eb16b1a55985e4faa9af0c333034adb", "5dd2f404c6392645b47459198e3112a2"]
+from = "JS_Active"
+to = "JS_Success"
+
+[[effects.done.journal_status]]
+label = "minorquests/mq0005dwarfsmith"
+path = ["67e5afe3ceb5c148a9cde5c4a99c7a84", "0f3305c02a250d4aa75c6fba97048763"]
+from = "JS_Active"
+to = "JS_Success"
+
+[[effects.done.journal_status]]
+label = "minorquests/mq0005dwarfsmith/f02a0417"
+path = ["67e5afe3ceb5c148a9cde5c4a99c7a84", "0f3305c02a250d4aa75c6fba97048763", "f02a04176a249e4db9ce2c27f4810491"]
+from = "JS_Active"
+to = "JS_Success"
+
+[[effects.done.journal_status]]
+label = "minorquests/mq0005dwarfsmith/f02a0417/b1b2703e"
+path = ["67e5afe3ceb5c148a9cde5c4a99c7a84", "0f3305c02a250d4aa75c6fba97048763", "f02a04176a249e4db9ce2c27f4810491", "b1b2703e07bb0645bbf3b2e9c37ac2ed"]
+from = "JS_Active"
+to = "JS_Success"
+
+[[effects.done.journal_append]]
+label = "minorquests/mq0005dwarfsmith/f02a0417/753019eb"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "67e5afe3ceb5c148a9cde5c4a99c7a84", resource = 'gameplay\journal\quests\minorquests.journal' },
+  { guid = "0f3305c02a250d4aa75c6fba97048763", resource = 'gameplay\journal\quests\mq0005dwarfsmith.journal' },
+  { guid = "f02a04176a249e4db9ce2c27f4810491", resource = "" },
+  { guid = "753019eba7b3cf48ae3f0b4af472783c", resource = "" },
+]
+
+[[effects.done.journal_append]]
+label = "minorquests/mq0005dwarfsmith/3eb16b1a/2734d586"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "67e5afe3ceb5c148a9cde5c4a99c7a84", resource = 'gameplay\journal\quests\minorquests.journal' },
+  { guid = "0f3305c02a250d4aa75c6fba97048763", resource = 'gameplay\journal\quests\mq0005dwarfsmith.journal' },
+  { guid = "3eb16b1a55985e4faa9af0c333034adb", resource = "" },
+  { guid = "2734d5861b7fde4e8fd29ab998bf317a", resource = "" },
+]
+
+[[effects.done.journal_append]]
+label = "entriescharacterdevelopment"
+status = "JS_Active"
+unread = true
+steps = [
+  { guid = "a9118511037de74bbf26913376247eec", resource = 'gameplay\journal\tutorial\entriescharacterdevelopment.journal' },
+]
+
+[[effects.done.journal_append]]
+label = "entriescharacterdevelopment/jechardevmutagens"
+status = "JS_Active"
+unread = false
+steps = [
+  { guid = "a9118511037de74bbf26913376247eec", resource = 'gameplay\journal\tutorial\entriescharacterdevelopment.journal' },
+  { guid = "a80e3cefd15b8b4faf2da2572ae851ea", resource = 'gameplay\journal\tutorial\jechardevmutagens.journal' },
+]
+
+[[effects.done.journal_append]]
+label = "entriesmutagens"
+status = "JS_Active"
+unread = true
+steps = [
+  { guid = "99c8fb1b4bf16d4daf8476e119d19fb9", resource = 'gameplay\journal\tutorial\entriesmutagens.journal' },
+]
+
+[[effects.done.journal_append]]
+label = "entriesmutagens/jemutagensingredient"
+status = "JS_Active"
+unread = false
+steps = [
+  { guid = "99c8fb1b4bf16d4daf8476e119d19fb9", resource = 'gameplay\journal\tutorial\entriesmutagens.journal' },
+  { guid = "3dbd13ce8712984f9999989ff40e09c0", resource = 'gameplay\journal\tutorial\jemutagensingredient.journal' },
+]
+
+[[effects.done.journal_counters]]   # minorquests/mq0005dwarfsmith/f02a0417/753019eb
+guid = "753019eba7b3cf48ae3f0b4af472783c"
+count = 0
+at = 27   # position in the 'after' save (hash order); drop it for another template
+
+[effects.done.journal_track]
+quest = "7c198a768adc3046b34b5a730b5b53c9"   # questactprologue/q001yennsearch
+objective = "6b9fcac1d1bc9946990bdc429ea8978c"   # questactprologue/q001yennsearch/ce8e9b43/6b9fcac1
+
+[effects.done.graph]
+source = "save diff ManualSave_fd3e1_7ea4d800_3f4cf08 -> ManualSave_8559a_7ea4d800_4038706 (w3al graph-diff)"
+donor = "ManualSave_8559a_7ea4d800_4038706"
+ops = [
+  # A: BS ExternalDialog
+  # B: (absent)
+  { op = "remove", path = "questSystem/questExternalScenePlayers/CQuestExternalScenePlayer/ExternalDialog[mq0005_arsonist]", before = "#91b604b6" },
+  # A: BS questBlock
+  # B: (absent)
+  { op = "remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[b4e73851]/questThread/questThread[38424c39]/questThread/questBlock[62a65bce]", before = "#d5942b6b" },
+  # A: BS questBlock
+  # B: (absent)
+  { op = "remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[b4e73851]/questThread/questThread[38424c39]/questThread/questBlock[3446e000]", before = "#5064f6ff" },
+  # A: BS questThread
+  # B: (absent)
+  { op = "remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[b4e73851]/questThread/questThread[38424c39]/questThread/questThread[62a65bce]", before = "#c098f775" },
+  # A: BS questThread
+  # B: (absent)
+  { op = "remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[b4e73851]/questThread/questThread[38424c39]/questThread/questThread[3446e000]", before = "#cae82e82" },
+  # A: BS questBlock
+  # B: (absent)
+  { op = "remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[55d4b37b]/questThread/questThread[83ca614d]/questThread/questBlock[fd4ddac0]", before = "#0455db5a" },
+  # A: BS questBlock
+  # B: (absent)
+  { op = "remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[61545c9b]/questThread/questThread[a43cea18]/questThread/questThread[089c7277]/questThread/questThread[408d8753]/questThread/questBlock[080f5fdd]", before = "#f9ff49ca" },
+  # A: (absent)
+  # B: BS ExternalDialog
+  { op = "insert", path = "questSystem/questExternalScenePlayers/CQuestExternalScenePlayer/ExternalDialog[prologue_smith]", after = "#124eaf12" },
+  # A: (absent)
+  # B: BS questBlock
+  { op = "insert", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[b4e73851]/questThread/questThread[38424c39]/questThread/questBlock[7fd9eeae]", after = "#3f4cebad" },
+  # A: (absent)
+  # B: BS questThread
+  { op = "insert", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[b4e73851]/questThread/questThread[38424c39]/questThread/questThread[7fd9eeae]", after = "#20d584ac" },
+  # A: (absent)
+  # B: BS questBlock
+  { op = "insert", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[55d4b37b]/questThread/questThread[83ca614d]/questThread/questBlock[63dc5c18]", after = "#f2a7151d" },
+  # A: (absent)
+  # B: BS questThread
+  { op = "insert", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[55d4b37b]/questThread/questThread[83ca614d]/questThread/questThread[63dc5c18]", after = "#9cf99afc" },
+  # A: VL numBlocks:Uint32 = 3
+  # B: VL numBlocks:Uint32 = 2
+  { op = "recount", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[b4e73851]/questThread/questThread[38424c39]/questThread/numBlocks", of = "questBlock" },
+  # A: VL numThreads:Uint32 = 3
+  # B: VL numThreads:Uint32 = 2
+  { op = "recount", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[b4e73851]/questThread/questThread[38424c39]/questThread/numThreads", of = "questThread" },
+  # A: VL numThreads:Uint32 = 1
+  # B: VL numThreads:Uint32 = 2
+  { op = "recount", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[55d4b37b]/questThread/questThread[83ca614d]/questThread/numThreads", of = "questThread" },
+  # A: VL numBlocks:Uint32 = 1
+  # B: VL numBlocks:Uint32 = 0
+  { op = "recount", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[61545c9b]/questThread/questThread[a43cea18]/questThread/questThread[089c7277]/questThread/questThread[408d8753]/questThread/numBlocks", of = "questBlock" },
+  # Community (spawn sets) side of mq0005's completion. Selected by hand from two real completions:
+  # lukwraith 21 -> 22 and the user's own J1 play (gate_J -> after_gate_J/ManualSave_8559a_7ea50c00_5f2c555):
+  # both drop the c[mq0005_arsonist.w2comm] community and the arsonist's stub (swap-remove: the last stub
+  # takes its slot). The smith's community (prologue_smith.w2comm) is dropped in lukwraith's 22 only, so it stays.
+  { op = "remove", path = "community/communities/c[mq0005_arsonist.w2comm]", before = "#e55c8406" },
+  { op = "recount", path = "community/communities/numCommunities", of = "c" },
+  # the stub whose storyPhaseLocation/community is mq0005_arsonist.w2comm (appearance __mq0005_arsonist)
+  { op = "swap-remove", path = "community/stubs/a#8", before = "#dda3a33e" },
+  { op = "recount", path = "community/stubs/numStubs", of = "a" },
+]

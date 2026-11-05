@@ -1,0 +1,353 @@
+# Act 2, Velen decision window W2 (prototype; docs/plan/prototype-velen.md). Licensed CC BY-SA 4.0.
+#
+# Template: T_keira = ManualSave_568ef_7ea51000_923cb5 (quest log: questact2/q109wrapup Active, before the
+# final talk with Keira). Every effect below is a save diff from that template to a donor the user played
+# from it (C:\w3-fixtures\session_V1, BRANCHES.txt); the effects only apply to that template (graph guards).
+# Facts: the donor's new quest facts; left out as noise: dialogue ids (128726629_*), timers and *_hit*
+# facts, tutorials, statistics, achievements, `mh305_merchant_spawned` (a merchant spawned before the talk),
+# and the `_by_GERALT` / `_by_PLAYER` kill facts. The donors also REMOVE `keira_part1_dd_start`, which the
+# schema cannot express yet (no fact removal): it stays in the template's state (docs/plan/prototype-velen.md).
+# Graph ops: Keira's own scope (a536c75d under 143c1d62), q109's own thread bb109b9f (the pre-decision trigger
+# 215f2719 leaves; d5740aa4 and the branch block/thread arrive), the listener blocks 7ffa6436 / 973a4357, the
+# scene entry `keira`, the spawn set `keira_metz.w2comm` and her stub (by idTag); timers and toggling scopes
+# (also changed in the null saves) are noise (docs/plan/decision-chaining.md, section A).
+id = "for_the_advancement_of_learning"
+title = "For the Advancement of Learning"
+act = 2
+order = 2300
+kind = "secondary"
+region = "velen"
+level = 11                # TODO(phase3): verify the recommended level in game
+summary = """The sorceress from the bog has been digging through a mage's tower for more than \
+curiosity. Once her real plan is out in the open, she asks you to look the other way. What you \
+say decides where she spends the coming war."""
+
+[[choices]]
+id = "keira"
+prompt = "Keira wants to take what she found to the king's court. What do you do?"
+default = "kaer_morhen"
+options = [
+  { id = "kaer_morhen", text = "Talk her into going to Kaer Morhen instead", effects = "to_kaer_morhen" },
+  { id = "radovid",     text = "Let her go to Radovid",                       effects = "to_radovid" },
+  { id = "killed",      text = "Stop her with your sword",                    effects = "killed" },
+]
+
+# Kaer Morhen and Radovid: donors saved right after the talk (the quest log still shows q109 Active);
+# killed: donor saved after the fight (q109 Success, tracked quest moved to the main quest).
+
+[effects.to_kaer_morhen]
+source = "save diff ManualSave_568ef_7ea51000_923cb5 -> ManualSave_568ef_7ea51000_94abd5 (w3al journal-diff, facts --diff, graph-diff --stub-id --toml)"
+placeholder = false
+facts = { keira_part1_dd_stop = 1, q109_confronted_keira = 1, q109_keira_to_km = 1 }
+facts_remove = ["keira_part1_dd_start"]   # every Keira donor drops it (facts --diff T_keira -> donor)
+
+[[effects.to_kaer_morhen.journal_status]]
+label = "questact2/q109wrapup/fe6b1b08/ebd1a189"
+path = ["419f978ff624ed49a444903714632529", "ddd5713ddef70240beecc5f8d026e213", "fe6b1b08a753404d97e32e164efbaece", "ebd1a189ee3e2c4c9c26975754051b51"]
+from = "JS_Active"
+to = "JS_Success"
+
+[[effects.to_kaer_morhen.journal_append]]
+label = "questact2/q109wrapup/fe6b1b08/b47bfb41"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "419f978ff624ed49a444903714632529", resource = 'gameplay\journal\quests\questact2.journal' },
+  { guid = "ddd5713ddef70240beecc5f8d026e213", resource = 'gameplay\journal\quests\q109wrapup.journal' },
+  { guid = "fe6b1b08a753404d97e32e164efbaece", resource = "" },
+  { guid = "b47bfb415fc1e746ba2e4b78da1d792a", resource = "" },
+]
+
+[[effects.to_kaer_morhen.journal_append]]
+label = "sceondarycharacters/keira/7bd54b92"
+status = "JS_Active"
+unread = true
+steps = [
+  { guid = "8efa62e10a415b499608256195453836", resource = 'gameplay\journal\characters\sceondarycharacters.journal' },
+  { guid = "80e826de895d434d903c39946c0246b3", resource = 'gameplay\journal\characters\keira.journal' },
+  { guid = "7bd54b92f235e44aa72891870c29bbba", resource = "" },
+]
+
+[[effects.to_kaer_morhen.journal_append]]
+label = "questact2/q109wrapup/5a772866/7801de37"
+status = "JS_Active"
+unread = true
+steps = [
+  { guid = "419f978ff624ed49a444903714632529", resource = 'gameplay\journal\quests\questact2.journal' },
+  { guid = "ddd5713ddef70240beecc5f8d026e213", resource = 'gameplay\journal\quests\q109wrapup.journal' },
+  { guid = "5a77286675444c4caf1c78015fa765a5", resource = "" },
+  { guid = "7801de377aab6a4381fee5b713690733", resource = "" },
+]
+
+[[effects.to_kaer_morhen.journal_append]]
+label = "sceondarycharacters/keira/efa7c8fb"
+status = "JS_Active"
+unread = true
+steps = [
+  { guid = "8efa62e10a415b499608256195453836", resource = 'gameplay\journal\characters\sceondarycharacters.journal' },
+  { guid = "80e826de895d434d903c39946c0246b3", resource = 'gameplay\journal\characters\keira.journal' },
+  { guid = "efa7c8fb78127441aa2bb4058e749251", resource = "" },
+]
+
+[[effects.to_kaer_morhen.journal_counters]]   # questact2/q109wrapup/fe6b1b08/b47bfb41
+guid = "b47bfb415fc1e746ba2e4b78da1d792a"
+count = 0
+at = 45   # position in the 'after' save (hash order); drop it for another template
+
+[effects.to_kaer_morhen.journal_track]
+objective = "00000000000000000000000000000000"   # (no entry)
+
+[effects.to_kaer_morhen.graph]
+source = "save diff ManualSave_568ef_7ea51000_923cb5 -> ManualSave_568ef_7ea51000_94abd5 (w3al graph-diff)"
+donor = "ManualSave_568ef_7ea51000_94abd5"
+ops = [
+  { op = "remove", path = "questSystem/questExternalScenePlayers/CQuestExternalScenePlayer/ExternalDialog[keira]", before = "#d78ce358" },
+  { op = "remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[37028f15]/questThread/questThread[143c1d62]/questThread/questThread[a536c75d]/questThread/questBlock[b3a72321]", before = "#050b817d" },
+  { op = "remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[55d4b37b]/questThread/questThread[3560bc4e]/questThread/questThread[20babdd8]/questThread/questThread[973a4357]/questThread/questBlock[3552699c]", before = "#9ec8af51" },
+  { op = "remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[55d4b37b]/questThread/questThread[3560bc4e]/questThread/questThread[20babdd8]/questThread/questThread[973a4357]/questThread/questBlock[e16e90d4]", before = "#fbd26de4" },
+  { op = "remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questBlock[7ffa6436]", before = "#128ab9e8" },
+  { op = "remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questThread[3673c07f]/questThread/questThread[bb109b9f]/questThread/questBlock[215f2719]", before = "#bfe85a81" },
+  { op = "insert", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[37028f15]/questThread/questThread[143c1d62]/questThread/questThread[a536c75d]/questThread/questBlock[f5290e77]", after = "#3b2afd06" },
+  { op = "replace", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[55d4b37b]/questThread/questThread[3560bc4e]/questThread/questThread[20babdd8]/questThread/questBlock[973a4357]/inputName", before = "#d0772c5a", after = "#1db1c013" },
+  { op = "insert", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[55d4b37b]/questThread/questThread[3560bc4e]/questThread/questThread[20babdd8]/questThread/questThread[973a4357]/questThread/questBlock[ad92bd6b]", after = "#205d3618" },
+  { op = "insert", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questThread[3673c07f]/questThread/questThread[bb109b9f]/questThread/questBlock[d5740aa4]", after = "#628fe42e" },
+  { op = "insert", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questThread[3673c07f]/questThread/questThread[bb109b9f]/questThread/questBlock[f61db075]", after = "#a758f3f1" },
+  { op = "insert", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questThread[3673c07f]/questThread/questThread[bb109b9f]/questThread/questThread[f61db075]", after = "#37c4f7fa" },
+  { op = "replace", path = "community/communities/c[keira_metz.w2comm]/communityData/activePhase", before = "#da9ad1f9", after = "#f515f12c" },
+  { op = "replace", path = "community/stubs/a{idTag=0121659951849b055c00000000db070000}/storyPhaseLocation/storyEntry", before = "#6fd765dd", after = "#94a85046" },
+  { op = "replace", path = "community/stubs/a{idTag=0121659951849b055c00000000db070000}/position", before = "#99021910", after = "#eab74334" },
+  { op = "replace", path = "community/stubs/a{idTag=0121659951849b055c00000000db070000}/rotation", before = "#15957ea4", after = "#1dec9a3c" },
+  { op = "replace", path = "community/stubs/a{idTag=0121659951849b055c00000000db070000}/teleportToDestination", before = "#811c4f07", after = "#21277272" },
+  { op = "replace", path = "community/stubs/a{idTag=0121659951849b055c00000000db070000}/processingTimer", before = "#20d7cafb", after = "#422fb2ad" },
+  { op = "replace", path = "community/stubs/a{idTag=0121659951849b055c00000000db070000}/appearance", before = "#72a516b3", after = "#b817f687" },
+  { op = "replace", path = "community/stubs/a{idTag=0121659951849b055c00000000db070000}/state", before = "#810b4c60", after = "#80faaa22" },
+  { op = "recount", path = "questSystem/questExternalScenePlayers/CQuestExternalScenePlayer/tagsCount", of = "ExternalDialog" },
+  { op = "recount", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[55d4b37b]/questThread/questThread[3560bc4e]/questThread/questThread[20babdd8]/questThread/questThread[973a4357]/questThread/numBlocks", of = "questBlock" },
+  { op = "recount", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/numBlocks", of = "questBlock" },
+  { op = "recount", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questThread[3673c07f]/questThread/questThread[bb109b9f]/questThread/numBlocks", of = "questBlock" },
+  { op = "recount", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questThread[3673c07f]/questThread/questThread[bb109b9f]/questThread/numThreads", of = "questThread" },
+]
+
+
+[effects.to_radovid]
+source = "save diff ManualSave_568ef_7ea51000_923cb5 -> ManualSave_568ef_7ea51000_97cdc9 (w3al journal-diff, facts --diff, graph-diff --stub-id --toml)"
+placeholder = false
+facts = { keira_part1_dd_stop = 1, q109_confronted_keira = 1, q109_keira_to_radovid = 1 }
+facts_remove = ["keira_part1_dd_start"]   # every Keira donor drops it (facts --diff T_keira -> donor)
+
+[[effects.to_radovid.journal_status]]
+label = "questact2/q109wrapup/fe6b1b08/ebd1a189"
+path = ["419f978ff624ed49a444903714632529", "ddd5713ddef70240beecc5f8d026e213", "fe6b1b08a753404d97e32e164efbaece", "ebd1a189ee3e2c4c9c26975754051b51"]
+from = "JS_Active"
+to = "JS_Success"
+
+[[effects.to_radovid.journal_append]]
+label = "questact2/q109wrapup/fe6b1b08/b47bfb41"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "419f978ff624ed49a444903714632529", resource = 'gameplay\journal\quests\questact2.journal' },
+  { guid = "ddd5713ddef70240beecc5f8d026e213", resource = 'gameplay\journal\quests\q109wrapup.journal' },
+  { guid = "fe6b1b08a753404d97e32e164efbaece", resource = "" },
+  { guid = "b47bfb415fc1e746ba2e4b78da1d792a", resource = "" },
+]
+
+[[effects.to_radovid.journal_append]]
+label = "sceondarycharacters/keira/7bd54b92"
+status = "JS_Active"
+unread = true
+steps = [
+  { guid = "8efa62e10a415b499608256195453836", resource = 'gameplay\journal\characters\sceondarycharacters.journal' },
+  { guid = "80e826de895d434d903c39946c0246b3", resource = 'gameplay\journal\characters\keira.journal' },
+  { guid = "7bd54b92f235e44aa72891870c29bbba", resource = "" },
+]
+
+[[effects.to_radovid.journal_append]]
+label = "questact2/q109wrapup/5a772866/fdcc6168"
+status = "JS_Active"
+unread = true
+steps = [
+  { guid = "419f978ff624ed49a444903714632529", resource = 'gameplay\journal\quests\questact2.journal' },
+  { guid = "ddd5713ddef70240beecc5f8d026e213", resource = 'gameplay\journal\quests\q109wrapup.journal' },
+  { guid = "5a77286675444c4caf1c78015fa765a5", resource = "" },
+  { guid = "fdcc61685ad3364fb611b82ed5a6f23d", resource = "" },
+]
+
+[[effects.to_radovid.journal_append]]
+label = "sceondarycharacters/keira/aed9149d"
+status = "JS_Active"
+unread = true
+steps = [
+  { guid = "8efa62e10a415b499608256195453836", resource = 'gameplay\journal\characters\sceondarycharacters.journal' },
+  { guid = "80e826de895d434d903c39946c0246b3", resource = 'gameplay\journal\characters\keira.journal' },
+  { guid = "aed9149df836eb4e88a7fc4c8c530276", resource = "" },
+]
+
+[[effects.to_radovid.journal_counters]]   # questact2/q109wrapup/fe6b1b08/b47bfb41
+guid = "b47bfb415fc1e746ba2e4b78da1d792a"
+count = 0
+at = 45   # position in the 'after' save (hash order); drop it for another template
+
+[effects.to_radovid.journal_track]
+objective = "00000000000000000000000000000000"   # (no entry)
+
+[effects.to_radovid.graph]
+source = "save diff ManualSave_568ef_7ea51000_923cb5 -> ManualSave_568ef_7ea51000_97cdc9 (w3al graph-diff)"
+donor = "ManualSave_568ef_7ea51000_97cdc9"
+ops = [
+  { op = "remove", path = "questSystem/questExternalScenePlayers/CQuestExternalScenePlayer/ExternalDialog[keira]", before = "#d78ce358" },
+  { op = "remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[37028f15]/questThread/questThread[143c1d62]/questThread/questThread[a536c75d]/questThread/questBlock[b3a72321]", before = "#050b817d" },
+  { op = "remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[55d4b37b]/questThread/questThread[3560bc4e]/questThread/questThread[20babdd8]/questThread/questThread[973a4357]/questThread/questBlock[3552699c]", before = "#9ec8af51" },
+  { op = "remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[55d4b37b]/questThread/questThread[3560bc4e]/questThread/questThread[20babdd8]/questThread/questThread[973a4357]/questThread/questBlock[e16e90d4]", before = "#fbd26de4" },
+  { op = "remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questBlock[7ffa6436]", before = "#128ab9e8" },
+  { op = "remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questThread[3673c07f]/questThread/questThread[bb109b9f]/questThread/questBlock[215f2719]", before = "#bfe85a81" },
+  { op = "insert", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[37028f15]/questThread/questThread[143c1d62]/questThread/questThread[a536c75d]/questThread/questBlock[c133524a]", after = "#6bd77654" },
+  { op = "replace", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[55d4b37b]/questThread/questThread[3560bc4e]/questThread/questThread[20babdd8]/questThread/questBlock[973a4357]/inputName", before = "#d0772c5a", after = "#1db1c013" },
+  { op = "insert", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[55d4b37b]/questThread/questThread[3560bc4e]/questThread/questThread[20babdd8]/questThread/questThread[973a4357]/questThread/questBlock[ad92bd6b]", after = "#205d3618" },
+  { op = "insert", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questThread[3673c07f]/questThread/questThread[bb109b9f]/questThread/questBlock[d5740aa4]", after = "#628fe42e" },
+  { op = "insert", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questThread[3673c07f]/questThread/questThread[bb109b9f]/questThread/questBlock[f61db075]", after = "#a758f3f1" },
+  { op = "insert", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questThread[3673c07f]/questThread/questThread[bb109b9f]/questThread/questThread[f61db075]", after = "#37c4f7fa" },
+  { op = "replace", path = "community/communities/c[keira_metz.w2comm]/communityData/activePhase", before = "#da9ad1f9", after = "#f515f12c" },
+  { op = "replace", path = "community/stubs/a{idTag=0121659951849b055c00000000db070000}/storyPhaseLocation/storyEntry", before = "#6fd765dd", after = "#94a85046" },
+  { op = "replace", path = "community/stubs/a{idTag=0121659951849b055c00000000db070000}/position", before = "#99021910", after = "#aac02aa9" },
+  { op = "replace", path = "community/stubs/a{idTag=0121659951849b055c00000000db070000}/rotation", before = "#15957ea4", after = "#c30bb0ca" },
+  { op = "replace", path = "community/stubs/a{idTag=0121659951849b055c00000000db070000}/teleportToDestination", before = "#811c4f07", after = "#21277272" },
+  { op = "replace", path = "community/stubs/a{idTag=0121659951849b055c00000000db070000}/processingTimer", before = "#20d7cafb", after = "#422fb2ad" },
+  { op = "replace", path = "community/stubs/a{idTag=0121659951849b055c00000000db070000}/appearance", before = "#72a516b3", after = "#b817f687" },
+  { op = "replace", path = "community/stubs/a{idTag=0121659951849b055c00000000db070000}/state", before = "#810b4c60", after = "#80faaa22" },
+  { op = "recount", path = "questSystem/questExternalScenePlayers/CQuestExternalScenePlayer/tagsCount", of = "ExternalDialog" },
+  { op = "recount", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[55d4b37b]/questThread/questThread[3560bc4e]/questThread/questThread[20babdd8]/questThread/questThread[973a4357]/questThread/numBlocks", of = "questBlock" },
+  { op = "recount", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/numBlocks", of = "questBlock" },
+  { op = "recount", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questThread[3673c07f]/questThread/questThread[bb109b9f]/questThread/numBlocks", of = "questBlock" },
+  { op = "recount", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questThread[3673c07f]/questThread/questThread[bb109b9f]/questThread/numThreads", of = "questThread" },
+]
+
+
+[effects.killed]
+source = "save diff ManualSave_568ef_7ea51000_923cb5 -> ManualSave_52584_7ea51000_96b66e (w3al journal-diff, facts --diff, graph-diff --stub-id --toml)"
+placeholder = false
+facts = { actor_keira_metz_was_killed = 1, actor_keira_was_killed = 1, keira_part1_dd_stop = 1, q109_confronted_keira = 1, q109_geralt_offended_keira = 1, q109_keira_defeated = 1 }
+facts_remove = ["keira_part1_dd_start"]   # every Keira donor drops it (facts --diff T_keira -> donor)
+
+[[effects.killed.journal_status]]
+label = "questact2/q109wrapup"
+path = ["419f978ff624ed49a444903714632529", "ddd5713ddef70240beecc5f8d026e213"]
+from = "JS_Active"
+to = "JS_Success"
+
+[[effects.killed.journal_status]]
+label = "questact2/q109wrapup/fe6b1b08"
+path = ["419f978ff624ed49a444903714632529", "ddd5713ddef70240beecc5f8d026e213", "fe6b1b08a753404d97e32e164efbaece"]
+from = "JS_Active"
+to = "JS_Success"
+
+[[effects.killed.journal_status]]
+label = "questact2/q109wrapup/fe6b1b08/ebd1a189"
+path = ["419f978ff624ed49a444903714632529", "ddd5713ddef70240beecc5f8d026e213", "fe6b1b08a753404d97e32e164efbaece", "ebd1a189ee3e2c4c9c26975754051b51"]
+from = "JS_Active"
+to = "JS_Success"
+
+[[effects.killed.journal_status]]
+label = "questact2/q109wrapup/5a772866"
+path = ["419f978ff624ed49a444903714632529", "ddd5713ddef70240beecc5f8d026e213", "5a77286675444c4caf1c78015fa765a5"]
+from = "JS_Active"
+to = "JS_Success"
+
+[[effects.killed.journal_status]]
+label = "questact2/q109wrapup/5a772866/b913c1da"
+path = ["419f978ff624ed49a444903714632529", "ddd5713ddef70240beecc5f8d026e213", "5a77286675444c4caf1c78015fa765a5", "b913c1da3a6e64489777da31f94faf72"]
+from = "JS_Active"
+to = "JS_Success"
+
+[[effects.killed.journal_append]]
+label = "questact2/q109wrapup/fe6b1b08/b47bfb41"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "419f978ff624ed49a444903714632529", resource = 'gameplay\journal\quests\questact2.journal' },
+  { guid = "ddd5713ddef70240beecc5f8d026e213", resource = 'gameplay\journal\quests\q109wrapup.journal' },
+  { guid = "fe6b1b08a753404d97e32e164efbaece", resource = "" },
+  { guid = "b47bfb415fc1e746ba2e4b78da1d792a", resource = "" },
+]
+
+[[effects.killed.journal_append]]
+label = "sceondarycharacters/keira/7bd54b92"
+status = "JS_Active"
+unread = true
+steps = [
+  { guid = "8efa62e10a415b499608256195453836", resource = 'gameplay\journal\characters\sceondarycharacters.journal' },
+  { guid = "80e826de895d434d903c39946c0246b3", resource = 'gameplay\journal\characters\keira.journal' },
+  { guid = "7bd54b92f235e44aa72891870c29bbba", resource = "" },
+]
+
+[[effects.killed.journal_append]]
+label = "questact2/q109wrapup/fe6b1b08/b91bf310"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "419f978ff624ed49a444903714632529", resource = 'gameplay\journal\quests\questact2.journal' },
+  { guid = "ddd5713ddef70240beecc5f8d026e213", resource = 'gameplay\journal\quests\q109wrapup.journal' },
+  { guid = "fe6b1b08a753404d97e32e164efbaece", resource = "" },
+  { guid = "b91bf3104549264b9bf1cc0660d41ac4", resource = "" },
+]
+
+[[effects.killed.journal_append]]
+label = "sceondarycharacters/keira/5ad2e4ad"
+status = "JS_Active"
+unread = true
+steps = [
+  { guid = "8efa62e10a415b499608256195453836", resource = 'gameplay\journal\characters\sceondarycharacters.journal' },
+  { guid = "80e826de895d434d903c39946c0246b3", resource = 'gameplay\journal\characters\keira.journal' },
+  { guid = "5ad2e4adfdc38a4ba0ba1681870fc07d", resource = "" },
+]
+
+[[effects.killed.journal_append]]
+label = "questact2/q109wrapup/5a772866/74124795"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "419f978ff624ed49a444903714632529", resource = 'gameplay\journal\quests\questact2.journal' },
+  { guid = "ddd5713ddef70240beecc5f8d026e213", resource = 'gameplay\journal\quests\q109wrapup.journal' },
+  { guid = "5a77286675444c4caf1c78015fa765a5", resource = "" },
+  { guid = "741247952190f146af5673e7b6d2d90e", resource = "" },
+]
+
+[[effects.killed.journal_counters]]   # questact2/q109wrapup/fe6b1b08/b47bfb41
+guid = "b47bfb415fc1e746ba2e4b78da1d792a"
+count = 0
+at = 45   # position in the 'after' save (hash order); drop it for another template
+
+[[effects.killed.journal_counters]]   # questact2/q109wrapup/fe6b1b08/b91bf310
+guid = "b91bf3104549264b9bf1cc0660d41ac4"
+count = 0
+at = 71   # position in the 'after' save (hash order); drop it for another template
+
+[effects.killed.journal_track]
+quest = "5e72f778e29eae439f111b3676f4dd28"   # questact1/ch1quest
+objective = "5bc63a35dcab4b4b93657b728b29d5b7"   # questact1/ch1quest/c3975a36/5bc63a35
+
+[effects.killed.graph]
+source = "save diff ManualSave_568ef_7ea51000_923cb5 -> ManualSave_52584_7ea51000_96b66e (w3al graph-diff)"
+donor = "ManualSave_52584_7ea51000_96b66e"
+ops = [
+  { op = "remove", path = "questSystem/questExternalScenePlayers/CQuestExternalScenePlayer/ExternalDialog[keira]", before = "#d78ce358" },
+  { op = "remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[37028f15]/questThread/questThread[143c1d62]/questThread/questBlock[a536c75d]", before = "#ad792fde" },
+  { op = "remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[37028f15]/questThread/questThread[143c1d62]/questThread/questThread[a536c75d]", before = "#916e77f0" },
+  { op = "remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[55d4b37b]/questThread/questThread[3560bc4e]/questThread/questThread[20babdd8]/questThread/questThread[973a4357]/questThread/questBlock[3552699c]", before = "#9ec8af51" },
+  { op = "remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[55d4b37b]/questThread/questThread[3560bc4e]/questThread/questThread[20babdd8]/questThread/questThread[973a4357]/questThread/questBlock[e16e90d4]", before = "#fbd26de4" },
+  { op = "remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questBlock[7ffa6436]", before = "#128ab9e8" },
+  { op = "remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questThread[3673c07f]/questThread/questThread[bb109b9f]/questThread/questBlock[215f2719]", before = "#bfe85a81" },
+  { op = "remove", path = "community/communities/c[keira_metz.w2comm]", before = "#e319ff6f" },
+  { op = "swap-remove", path = "community/stubs/a{idTag=0121659951849b055c00000000db070000}", before = "#8c3c3497" },
+  { op = "replace", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[55d4b37b]/questThread/questThread[3560bc4e]/questThread/questThread[20babdd8]/questThread/questBlock[973a4357]/inputName", before = "#d0772c5a", after = "#1db1c013" },
+  { op = "insert", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[55d4b37b]/questThread/questThread[3560bc4e]/questThread/questThread[20babdd8]/questThread/questThread[973a4357]/questThread/questBlock[ad92bd6b]", after = "#205d3618" },
+  { op = "insert", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questThread[3673c07f]/questThread/questThread[bb109b9f]/questThread/questBlock[d5740aa4]", after = "#628fe42e" },
+  { op = "insert", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questThread[3673c07f]/questThread/questThread[bb109b9f]/questThread/questBlock[c8874cb7]", after = "#3b0db79c" },
+  { op = "recount", path = "questSystem/questExternalScenePlayers/CQuestExternalScenePlayer/tagsCount", of = "ExternalDialog" },
+  { op = "recount", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[37028f15]/questThread/questThread[143c1d62]/questThread/numBlocks", of = "questBlock" },
+  { op = "recount", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[37028f15]/questThread/questThread[143c1d62]/questThread/numThreads", of = "questThread" },
+  { op = "recount", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[55d4b37b]/questThread/questThread[3560bc4e]/questThread/questThread[20babdd8]/questThread/questThread[973a4357]/questThread/numBlocks", of = "questBlock" },
+  { op = "recount", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/numBlocks", of = "questBlock" },
+  { op = "recount", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[117e4006]/questThread/questThread[3673c07f]/questThread/questThread[bb109b9f]/questThread/numBlocks", of = "questBlock" },
+]
+

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Another Life",
+  "version": "0.1.0",
+  "identifier": "org.anotherlife.w3al",
+  "build": {
+    "frontendDist": "../ui"
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "windows": [
+      {
+        "label": "main",
+        "title": "Another Life for The Witcher 3 (unofficial)",
+        "width": 1100,
+        "height": 740,
+        "minWidth": 820,
+        "minHeight": 560
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: https://static.wikia.nocookie.net http://wikiimg.localhost wikiimg:; connect-src 'self' ipc: http://ipc.localhost"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["nsis"],
+    "icon": ["icons/32x32.png", "icons/128x128.png", "icons/128x128@2x.png", "icons/icon.icns", "icons/icon.ico"],
+    "resources": {
+      "../questbook/": "questbook/",
+      "../templates/": "templates/"
+    },
+    "shortDescription": "Live through The Witcher 3's story, then export a matching save."
+  }
+}

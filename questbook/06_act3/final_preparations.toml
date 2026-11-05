@@ -1,0 +1,95 @@
+# template: pack 51 ManualSave_4e4ce_7ea51000_3fb3aa7 (5.01 re-save, C:\w3-fixtures\pack_501; old-gen original
+# ManualSave_4e4ce_7e10e800_5e7aa71). Licensed CC BY-SA 4.0.
+#
+# Act 6, Novigrad decision window W8, decisions D16 (the lodge) and Payback (Dijkstra's other leg) and the derived outcome
+# "It Takes Three to Tango" (docs/plan/decision-catalogue.md section 4). The template is earlier than the catalogue assumed:
+# q310's Ciri part is done (And a73fe883 waits on "In 2"), but Philippa's rescue (phase 6f4bbbf8, wait 22f9e683 [At Fountain?])
+# is still ahead. The two choices walk it in two steps, so each decision owns its own answer:
+#   step 1 (choice `dijkstra`): start 22f9e683, stop d445d2b7 (the lodge scene waits)
+#     25e35e14=Output         troll before the fight: talked, no fight (pack 52 has q310_troll_charmed)
+#     b0cef480 / 91f60b5d     Philippa's combat barks (two outputs each, cosmetic): "Out fight 1"
+#     fc64e6ac                THE PAYBACK DECISION (scene q310_13_philippa_beaten): `out convinced` -> ae4426b3
+#                             q310_dijkstra_spared / `out broken leg` -> 077b0d83 q310_dijkstras_other_leg (+ the
+#                             "in after other leg broken" dialogue wait eefc1a07). Pack 52 holds the first.
+#   step 2 (choice `lodge`): start d445d2b7 (scene q310_43_ciri_to_sorceress_talk, parked by step 1)
+#     d445d2b7               `out no help` -> 3e6f7b3b `q310_ciri_faced_lodge`; `out help` -> scene 2dc2f9bb, 74d7a972
+#                            `q310_geralt_helped_ciri_talk`
+#     cb2fe27e=Output         wait-for-lodge scene (the other output only postpones by a night)
+#     stop 4175df2e           the part_3 And after q310 (keeps q210 from starting; it waits on "In 0" as in the game)
+# It Takes Three to Tango is NOT a choice of this quest: the phase "Girl Talk" 8c5a1fa5 reads q309_triss_stayed (4d8324b0)
+# and sq202_yen_girlfriend (6647d1f6). Both romances in the run (now_or_never `stay` + the_last_wish `love`) make the lodge walk
+# take the trap path: scene q310_46_triss_yen_trap e056f87b -> d14cf990 `q310_triss_yennefer_payback` (+ dandelion scene,
+# q310_completed). The wine check (Has Wine? 7e71a7be) needs q310_has_wine, which the walk sets and the "Lose Wine" waits
+# 4dd402ab / 8fc17d40 would remove again, so both are stops. Checked on a scratch template (pack 51 + edit-fact
+# sq202_yen_girlfriend=1, the pack player was "just friends"): no unresolved point, q310_triss_yennefer_payback set twice
+# (the game's own double write), q310_completed, frontier = the q210 depart-Novigrad waits. No played save has the tango
+# (pack line: Yennefer "just friends"), so it is graph-only.
+# Ciri's fate (q502_avallach.w2phase 13bc77f9): faced the lodge alone = strong, helped = weak.
+# Validation: both steps walked with `w3al synth-walk` on the 5.01 template, no unresolved point; "faced alone" + "spared"
+# donor-checked vs pack 52 old-gen ManualSave_105a8e_7e110000_5e600c3 (blocks 38 hit / 12 miss / 10 extra, facts 21 hit,
+# journal 31 hit / 1 extra; misses are the donor's later mq3035 play, extras the q310 rescue scopes and mq3035 meeting waits
+# the donor has moved past). `w3al synth-apply` writes step 1 (both branches) and step 2 on step 1's file (2026-11-05).
+id = "final_preparations"
+title = "Final Preparations"
+act = 6
+order = 6020
+kind = "main"
+region = "novigrad"
+level = 25                # TODO(phase3): verify the recommended level in game
+summary = """The Lodge of Sorceresses wants a word with Ciri before the last battle, and every one of \
+them would like a say in what she becomes. You pull Philippa out of a trap first, and then Ciri \
+asks whether she should face the sorceresses on her own."""
+
+[[choices]]
+id = "dijkstra"
+prompt = "Dijkstra wants his price for the help he gave you. How do you settle it?"
+default = "spared"
+options = [
+  { id = "spared", text = "Settle it peacefully (Dijkstra lets Philippa go for information; no fight)", effects = "dijkstra_spared" },
+  { id = "leg",    text = "Refuse and break his other leg (Dijkstra is crippled and bitter)",           effects = "dijkstra_leg" },
+]
+
+[[choices]]
+id = "lodge"
+prompt = "Ciri asks if she should face the Lodge by herself. What do you tell her?"
+default = "alone"
+options = [
+  { id = "alone", text = "Let her speak for herself (counts toward Ciri's survival at the end)", effects = "faced_alone" },
+  { id = "help",  text = "Go in and speak for her (counts against Ciri's survival at the end)",   effects = "helped" },
+]
+
+[effects.dijkstra_spared]
+source = "quest graph q310_pregeels_new.w2phase scene fc64e6ac (q310_13_philippa_beaten) out convinced -> ae4426b3 q310_dijkstra_spared (w3al synth-walk on pack 51 5.01 re-save, parked at the lodge scene d445d2b7; donor-checked vs pack 52 old-gen, which holds q310_dijkstra_spared, q310_troll_charmed, q310_philippa_rescued)"
+
+[effects.dijkstra_spared.synth]
+start = ["22f9e683"]
+through = true
+pick = ["25e35e14=Output", "b0cef480=Out fight 1", "91f60b5d=Out fight 1", "fc64e6ac=out convinced"]
+stop = ["d445d2b7", "4175df2e"]
+
+[effects.dijkstra_leg]
+source = "quest graph q310_pregeels_new.w2phase scene fc64e6ac out broken leg -> 077b0d83 q310_dijkstras_other_leg (w3al synth-walk on pack 51 5.01 re-save, graph-only: no played save of this branch, the pack line spared him; walk has no unresolved point, parks at d445d2b7 plus the dialogue wait eefc1a07)"
+
+[effects.dijkstra_leg.synth]
+start = ["22f9e683"]
+through = true
+pick = ["25e35e14=Output", "b0cef480=Out fight 1", "91f60b5d=Out fight 1", "fc64e6ac=out broken leg"]
+stop = ["d445d2b7", "4175df2e"]
+
+[effects.faced_alone]
+source = "quest graph q310_pregeels_new.w2phase phase 54b09c2d scene d445d2b7 out no help -> 3e6f7b3b q310_ciri_faced_lodge, q310_lodge, q310_completed (w3al synth-walk on the file step 1 writes; with both romances in the save it also takes the Girl Talk trap path, see the header)"
+
+[effects.faced_alone.synth]
+start = ["d445d2b7"]
+through = true
+pick = ["d445d2b7=out no help", "cb2fe27e=Output"]
+stop = ["4175df2e", "4dd402ab", "8fc17d40"]
+
+[effects.helped]
+source = "quest graph q310_pregeels_new.w2phase scene d445d2b7 out help -> scene 2dc2f9bb, 74d7a972 q310_geralt_helped_ciri_talk (w3al synth-walk on the file step 1 writes, graph-only)"
+
+[effects.helped.synth]
+start = ["d445d2b7"]
+through = true
+pick = ["d445d2b7=out help", "cb2fe27e=Output"]
+stop = ["4175df2e", "4dd402ab", "8fc17d40"]

@@ -1,0 +1,145 @@
+# TEST DATA (not questbook content): reproduces an in-game gate save from its delta files
+# (C:\w3-out\gate_*\deltas), as the questbook path sees them. GUIDs, paths and guard hashes come from
+# third-party / user saves; they are test data for crates/w3al-core/tests/export_fixtures.rs.
+id = "mq0005_spared"
+title = "Napp spared (gate R1, donor S)"
+act = 1
+order = 20
+kind = "secondary"
+region = "white_orchard"
+level = 1
+summary = "Test quest built from gate deltas."
+done_effects = "done"
+
+[effects.done]
+source = "save diff ManualSave_fd3e1_7ea4d800_3f4cf08 -> ManualSave_8559a_7ea51000_3ad835 (w3al journal-diff)"
+placeholder = false
+facts = { mq0005_arsonist_gets_up = 1, mq0005_complete = 1 }
+
+[[effects.done.journal_status]]
+label = "minorquests/mq0005dwarfsmith/3eb16b1a"
+path = ["67e5afe3ceb5c148a9cde5c4a99c7a84", "0f3305c02a250d4aa75c6fba97048763", "3eb16b1a55985e4faa9af0c333034adb"]
+from = "JS_Active"
+to = "JS_Success"
+
+[[effects.done.journal_status]]
+label = "minorquests/mq0005dwarfsmith/3eb16b1a/5dd2f404"
+path = ["67e5afe3ceb5c148a9cde5c4a99c7a84", "0f3305c02a250d4aa75c6fba97048763", "3eb16b1a55985e4faa9af0c333034adb", "5dd2f404c6392645b47459198e3112a2"]
+from = "JS_Active"
+to = "JS_Success"
+
+[[effects.done.journal_status]]
+label = "minorquests/mq0005dwarfsmith"
+path = ["67e5afe3ceb5c148a9cde5c4a99c7a84", "0f3305c02a250d4aa75c6fba97048763"]
+from = "JS_Active"
+to = "JS_Success"
+
+[[effects.done.journal_status]]
+label = "minorquests/mq0005dwarfsmith/f02a0417"
+path = ["67e5afe3ceb5c148a9cde5c4a99c7a84", "0f3305c02a250d4aa75c6fba97048763", "f02a04176a249e4db9ce2c27f4810491"]
+from = "JS_Active"
+to = "JS_Success"
+
+[[effects.done.journal_status]]
+label = "minorquests/mq0005dwarfsmith/f02a0417/b1b2703e"
+path = ["67e5afe3ceb5c148a9cde5c4a99c7a84", "0f3305c02a250d4aa75c6fba97048763", "f02a04176a249e4db9ce2c27f4810491", "b1b2703e07bb0645bbf3b2e9c37ac2ed"]
+from = "JS_Active"
+to = "JS_Success"
+
+[[effects.done.journal_append]]
+label = "minorquests/mq0005dwarfsmith/3eb16b1a/82123313"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "67e5afe3ceb5c148a9cde5c4a99c7a84", resource = 'gameplay\journal\quests\minorquests.journal' },
+  { guid = "0f3305c02a250d4aa75c6fba97048763", resource = 'gameplay\journal\quests\mq0005dwarfsmith.journal' },
+  { guid = "3eb16b1a55985e4faa9af0c333034adb", resource = "" },
+  { guid = "82123313306c8849ac80f1f25dcfbd07", resource = "" },
+]
+
+[[effects.done.journal_append]]
+label = "minorquests/mq0005dwarfsmith/f02a0417/4d995e13"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "67e5afe3ceb5c148a9cde5c4a99c7a84", resource = 'gameplay\journal\quests\minorquests.journal' },
+  { guid = "0f3305c02a250d4aa75c6fba97048763", resource = 'gameplay\journal\quests\mq0005dwarfsmith.journal' },
+  { guid = "f02a04176a249e4db9ce2c27f4810491", resource = "" },
+  { guid = "4d995e134b1d1746a08f3aa49149cc02", resource = "" },
+]
+
+[[effects.done.journal_append]]
+label = "minorquests/mq0005dwarfsmith/3eb16b1a/cf5c3606"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "67e5afe3ceb5c148a9cde5c4a99c7a84", resource = 'gameplay\journal\quests\minorquests.journal' },
+  { guid = "0f3305c02a250d4aa75c6fba97048763", resource = 'gameplay\journal\quests\mq0005dwarfsmith.journal' },
+  { guid = "3eb16b1a55985e4faa9af0c333034adb", resource = "" },
+  { guid = "cf5c3606724ecf4595201b8ea3cf1d8d", resource = "" },
+]
+
+[[effects.done.journal_counters]]   # minorquests/mq0005dwarfsmith/f02a0417/4d995e13
+guid = "4d995e134b1d1746a08f3aa49149cc02"
+count = 0
+at = 24   # position in the 'after' save (hash order); drop it for another template
+
+[effects.done.journal_track]
+quest = "7c198a768adc3046b34b5a730b5b53c9"   # questactprologue/q001yennsearch
+objective = "6b9fcac1d1bc9946990bdc429ea8978c"   # questactprologue/q001yennsearch/ce8e9b43/6b9fcac1
+
+# Donor S delta with the scene list edited point-wise instead of replaced whole, so it composes with another quest's delta
+# (the whole-list replace would bring back scenes another delta removed, e.g. mq0004_old_woman).
+[effects.done.graph]
+source = "save diff ManualSave_fd3e1_7ea4d800_3f4cf08 -> ManualSave_8559a_7ea51000_3ad835 (w3al graph-diff)"
+donor = "ManualSave_8559a_7ea51000_3ad835"
+ops = [
+  # A: BS questBlock
+  # B: (absent)
+  { op = "remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[b4e73851]/questThread/questThread[38424c39]/questThread/questBlock[62a65bce]", before = "#d5942b6b" },
+  # A: BS questBlock
+  # B: (absent)
+  { op = "remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[b4e73851]/questThread/questThread[38424c39]/questThread/questBlock[3446e000]", before = "#5064f6ff" },
+  # A: BS questThread
+  # B: (absent)
+  { op = "remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[b4e73851]/questThread/questThread[38424c39]/questThread/questThread[62a65bce]", before = "#c098f775" },
+  # A: BS questThread
+  # B: (absent)
+  { op = "remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[b4e73851]/questThread/questThread[38424c39]/questThread/questThread[3446e000]", before = "#cae82e82" },
+  # A: BS questBlock
+  # B: (absent)
+  { op = "remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[55d4b37b]/questThread/questThread[83ca614d]/questThread/questBlock[fd4ddac0]", before = "#0455db5a" },
+  # A: BS questBlock
+  # B: (absent)
+  { op = "remove", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[61545c9b]/questThread/questThread[a43cea18]/questThread/questThread[089c7277]/questThread/questThread[408d8753]/questThread/questBlock[080f5fdd]", before = "#f9ff49ca" },
+  # A: BS CQuestExternalScenePlayer
+  # B: BS CQuestExternalScenePlayer
+  # A: (absent)
+  # B: BS questBlock
+  { op = "insert", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[b4e73851]/questThread/questThread[38424c39]/questThread/questBlock[4f5f58fc]", after = "#8245917a" },
+  # A: (absent)
+  # B: BS questThread
+  { op = "insert", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[b4e73851]/questThread/questThread[38424c39]/questThread/questThread[4f5f58fc]", after = "#f51dc20a" },
+  # A: (absent)
+  # B: BS questBlock
+  { op = "insert", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[55d4b37b]/questThread/questThread[83ca614d]/questThread/questBlock[63dc5c18]", after = "#f2a7151d" },
+  # A: (absent)
+  # B: BS questThread
+  { op = "insert", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[55d4b37b]/questThread/questThread[83ca614d]/questThread/questThread[63dc5c18]", after = "#9cf99afc" },
+  # A: VL numBlocks:Uint32 = 3
+  # B: VL numBlocks:Uint32 = 2
+  { op = "recount", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[b4e73851]/questThread/questThread[38424c39]/questThread/numBlocks", of = "questBlock" },
+  # A: VL numThreads:Uint32 = 3
+  # B: VL numThreads:Uint32 = 2
+  { op = "recount", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[f0b52e98]/questThread/questThread[b4e73851]/questThread/questThread[38424c39]/questThread/numThreads", of = "questThread" },
+  # A: VL numThreads:Uint32 = 1
+  # B: VL numThreads:Uint32 = 2
+  { op = "recount", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[55d4b37b]/questThread/questThread[83ca614d]/questThread/numThreads", of = "questThread" },
+  # A: VL numBlocks:Uint32 = 1
+  # B: VL numBlocks:Uint32 = 0
+  { op = "recount", path = "questSystem/quest[witcher3_quest.w2quest]/questThread/questThread[7b125918]/questThread/questThread[988006f0]/questThread/questThread[61545c9b]/questThread/questThread[a43cea18]/questThread/questThread[089c7277]/questThread/questThread[408d8753]/questThread/numBlocks", of = "questBlock" },
+
+  { op = "replace", path = "questSystem/questExternalScenePlayers/CQuestExternalScenePlayer/ExternalDialog[mq0005_arsonist]", before = "#91b604b6", after = "#07621930" },
+  { op = "insert", path = "questSystem/questExternalScenePlayers/CQuestExternalScenePlayer/ExternalDialog[prologue_smith]", after = "#124eaf12" },
+  { op = "recount", path = "questSystem/questExternalScenePlayers/CQuestExternalScenePlayer/tagsCount", of = "ExternalDialog" },
+]

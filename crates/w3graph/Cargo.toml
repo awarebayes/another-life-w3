@@ -1,0 +1,12 @@
+[package]
+name = "w3graph"
+description = "Reads the quest graphs of the player's own Witcher 3 install and walks a decision through them (donor-free synthesis)"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+flate2 = "1"
+lz4_flex = { workspace = true }
+w3save = { workspace = true }

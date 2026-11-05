@@ -1,0 +1,91 @@
+# template: pack 51 ManualSave_4e4ce_7ea51000_3fb3aa7 (5.01 re-save, C:\w3-fixtures\pack_501), after final_preparations.toml;
+# D18 bridge checked on pack 52 ManualSave_105a8e_7ea51000_4002c60 (5.01 re-save). Licensed CC BY-SA 4.0.
+#
+# Act 6, Novigrad decision window W8, decisions D17 and D18 (docs/plan/decision-catalogue.md section 4).
+# D17 (mq3035_meet&bait.w2phase, phase Meeting ed91b61d): the final_preparations walk enters the meeting and leaves its
+#   listeners fdfe2034 [Tags presence] and c467122b waiting. Scene 51cf714f (mq3035_01_plan_meeting) has the sockets
+#   `mq3035_agrees_to_plan` (-> Plan_Out -> phase Bait 42e11a6e: Radovid's bait dialog c7c66b36 and the weapons wait
+#   61848263, both parked) and `mq3035_disagrees_to_plan` (-> journal 42acb2ce Failure, the meeting ends through an
+#   unconnected output; mq3035 then waits only on 09b34372 [q501_naglfar_arrived] and fails there: Radovid lives).
+# D18 (mq3035_wrap_up.w2phase, scene de41f700 mq3035_07_dijistra_on_stage) - the catalogue's open point, now traced:
+#   `Fight_output`  = side with Roche: fight Dijkstra's men -> And cf193fb7 (de4ba77e [dijkstra dead] + 62526166 grunts) ->
+#                     final scene 001ee95d -> phase 09949b1d -> 65fb9638 `mq3035_fdb_dijkstra_dead`, c297b437 `mq3035_free_temeria`
+#   `Leave_output`  = side with Dijkstra: 49e973c4 -> c280674e -> journal b4e77bee -> 0026e3bd `mq3035_fdb_roche_talar_dead`
+#                     (Roche and Thaler die), despawn Dijkstra.
+#   Both follow Radovid's death in mq3035_novigrad_roche.w2phase (85114cb9 `mq3035_fdb_radovid_dead`, 85c2b0c9
+#   `mq3035_radovid_dead`). The pack line (pack 53) is Leave_output: roche_talar_dead, Dijkstra boards.
+# Walk arguments:
+#   D17 agree:   start fdfe2034 c467122b --through --pick 51cf714f=mq3035_agrees_to_plan --stop c7c66b36 61848263
+#   D17 refuse:  start fdfe2034 c467122b --through --pick 51cf714f=mq3035_disagrees_to_plan
+#   D18:         start c7c66b36 61848263 --through --pick c7c66b36=Output --pick de41f700=<Fight_output|Leave_output>
+#   These starts exist only after final_preparations' walk, which synth-apply cannot write yet (walker issue W-3), so they
+#   are graph-only: `w3al synth-walk` on pack 51 with the D17+D18 chain as not-yet-waiting starts walks to the end of
+#   mq3035 with no unresolved point. The D18 sockets and facts were donor-checked on the bridge: from pack 52 (5.01, inside
+#   the Radovid fight) `--start ae4fdb1a --through --pick de41f700=Leave_output` vs pack 53 old-gen
+#   ManualSave_100b2c_7e110400_523eb58: blocks 56 hit / 42 miss / 5 extra, all mq3035 waits hit, decision facts
+#   mq3035_fdb_radovid_dead, mq3035_radovid_dead, mq3035_fdb_roche_talar_dead hit; `Fight_output` from pack 52 sets
+#   mq3035_fdb_dijkstra_dead + mq3035_free_temeria, no unresolved point (graph-only).
+# Question flow: D18 exists only after D17 = agree; the schema has no per-option conditions, so `side` has a "none" option.
+# `refuse` + a side makes export refuse loudly (start c7c66b36 is not waiting); `agree` + `none` parks before Radovid's bait.
+id = "reason_of_state"
+title = "Reason of State"
+act = 6
+order = 6030
+kind = "secondary"
+region = "novigrad"
+level = 25                # TODO(phase3): verify the recommended level in game
+summary = """An old spymaster, a Temerian patriot and an imperial agent share a back room and a plan \
+to end a king. They need a witcher at the table, and once the deed is done the men who made it \
+will not agree on what comes after."""
+
+[[choices]]
+id = "plot"
+prompt = "Dijkstra, Roche and Thaler lay out their plan to kill King Radovid. Are you in?"
+default = "agree"
+options = [
+  { id = "agree",  text = "Join the plot (Radovid dies; the next question decides who rules the North)", effects = "joined_plot" },
+  { id = "refuse", text = "Walk out (Radovid lives and rules the North; the Emperor loses the war, so Ciri cannot become empress)", effects = "refused_plot" },
+]
+
+[[choices]]
+id = "side"
+prompt = "Only if you joined the plot: Dijkstra turns on Roche and Thaler. Whose side are you on?"
+default = "dijkstra"
+options = [
+  { id = "dijkstra", text = "Walk away and let Dijkstra have his way (Roche and Thaler die; Dijkstra takes the North; Ciri cannot become empress); needs the plot", effects = "dijkstra_side" },
+  { id = "roche",    text = "Stand with Roche and Thaler (Dijkstra dies; Nilfgaard wins and Temeria is free under it; needed for Ciri to become empress); needs the plot", effects = "roche_side" },
+  { id = "none",     text = "You refused the plot, or you leave it to play in game (the save then stops before Radovid is lured out)" },
+]
+
+[effects.joined_plot]
+source = "quest graph mq3035_meet&bait.w2phase scene 51cf714f mq3035_agrees_to_plan -> Plan_Out -> phase Bait 42e11a6e (w3al synth-walk on pack 51 5.01 re-save after the final_preparations walk, graph-only; pack 52 holds this branch but is already past the bait)"
+
+[effects.joined_plot.synth]
+start = ["fdfe2034", "c467122b"]
+through = true
+pick = ["51cf714f=mq3035_agrees_to_plan"]
+stop = ["c7c66b36", "61848263"]
+
+[effects.refused_plot]
+source = "quest graph mq3035_meet&bait.w2phase scene 51cf714f mq3035_disagrees_to_plan -> journal 42acb2ce Failure, meeting output 72c32399 (unconnected) (w3al synth-walk graph-only; no played save of this branch)"
+
+[effects.refused_plot.synth]
+start = ["fdfe2034", "c467122b"]
+through = true
+pick = ["51cf714f=mq3035_disagrees_to_plan"]
+
+[effects.dijkstra_side]
+source = "quest graph mq3035_wrap_up.w2phase scene de41f700 Leave_output -> 0026e3bd mq3035_fdb_roche_talar_dead (chain from the D17 bait graph-only; the wrap-up part donor-checked from pack 52 5.01 vs pack 53 old-gen: 56 hit / 42 miss / 5 extra blocks, radovid_dead + roche_talar_dead facts hit)"
+
+[effects.dijkstra_side.synth]
+start = ["c7c66b36", "61848263"]
+through = true
+pick = ["c7c66b36=Output", "de41f700=Leave_output"]
+
+[effects.roche_side]
+source = "quest graph mq3035_wrap_up.w2phase scene de41f700 Fight_output -> 65fb9638 mq3035_fdb_dijkstra_dead, c297b437 mq3035_free_temeria (graph-only; the wrap-up walk from pack 52 5.01 has no unresolved point)"
+
+[effects.roche_side.synth]
+start = ["c7c66b36", "61848263"]
+through = true
+pick = ["c7c66b36=Output", "de41f700=Fight_output"]

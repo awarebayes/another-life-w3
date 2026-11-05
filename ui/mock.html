@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Another Life (design mock)</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- Static design mock. Use ?v=welcome | story | review | export. No script is needed for the look; the tiny one below only switches views. -->
+<div class="shell">
+  <aside class="side">
+    <div class="brand">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><circle cx="14" cy="14" r="12"/><path d="M14 4v20M4 14h20" opacity=".45"/><path d="M14 8l4 6-4 6-4-6z" fill="currentColor" stroke="none"/></svg>
+      <div><div class="brand-name">Another Life</div><div class="brand-sub">Rewrite a Witcher 3 save. Unofficial.</div></div>
+    </div>
+    <div class="side-card">
+      <span class="eyebrow">Template</span>
+      <span class="name">After the Bloody Baron</span>
+      <span class="meta"><span class="lvl">12</span> level <span>&middot;</span> <code>velen_05</code></span>
+    </div>
+    <nav class="side-nav">
+      <div class="nav-sec"><div class="nav-label">Setup</div>
+        <button class="nav-item" data-go="welcome"><span class="label">Template plan</span></button></div>
+      <div class="nav-sec"><div class="nav-label">Story</div>
+        <button class="nav-item on" data-go="story"><span class="roman">I</span><span class="label">White Orchard</span><span class="count done">2/2</span></button>
+        <button class="nav-item"><span class="roman">II</span><span class="label">Velen</span><span class="count">1/5</span></button>
+        <button class="nav-item"><span class="roman">III</span><span class="label">Novigrad</span><span class="count">0/3</span></button>
+        <button class="nav-item"><span class="roman">IV</span><span class="label">Skellige</span><span class="count">0/2</span></button></div>
+      <div class="nav-sec"><div class="nav-label">Result</div>
+        <button class="nav-item" data-go="review"><span class="label">Review</span><span class="count">4</span></button>
+        <button class="nav-item"><span class="label">Start kit</span></button>
+        <button class="nav-item" data-go="export"><span class="label">Export</span></button></div>
+    </nav>
+    <div class="side-foot">
+      <select aria-label="Language"><option>English</option></select>
+      <button class="link-quiet">Safety notes</button>
+    </div>
+  </aside>
+
+  <div class="col">
+    <header class="topbar">
+      <div class="ctx"><span class="ctx-name">After the Bloody Baron</span><span class="ctx-meta">Level 12 &middot; <code>velen_05</code></span></div>
+      <div class="top-actions">
+        <span class="status-pill dirty">3 unsaved changes</span>
+        <button class="ghost">Undo all</button>
+        <button class="primary">Export save</button>
+        <button>Close</button>
+      </div>
+    </header>
+    <div class="body">
+      <main id="app">
+
+<!-- WELCOME -->
+<div class="page" data-view="welcome">
+  <div class="hero">
+    <div class="page-head"><h1>Template plan</h1><span class="pill safe">Safe</span></div>
+    <p class="sub">Walk the story as it happened, make the choices, and wake up with a save that remembers.</p>
+  </div>
+  <div class="callout"><b>Close the game first.</b> The app never overwrites a save; it writes a new file next to your own. Keep a backup of your saves folder anyway.</div>
+  <div class="panel">
+    <h3>Chosen template</h3>
+    <div class="plan-grid">
+      <div class="tile"><span class="eyebrow">Template</span><span class="big">velen_05</span><span class="small muted">story line 2, <code>templates\velen_05.sav</code></span></div>
+      <div class="tile"><span class="eyebrow">Your quests on it</span><span class="big">4<span class="of"> / 18</span></span><span class="small muted">The rest is left for you to play.</span></div>
+      <div class="tile"><span class="eyebrow">Rewrites</span><span class="big">2</span><span class="small muted">Earlier answers changed after the fact.</span></div>
+    </div>
+  </div>
+  <div class="panel">
+    <h3>Rewrites and fixed answers</h3>
+    <table><thead><tr><th>Quest</th><th>Kind</th><th>What happens</th></tr></thead><tbody>
+      <tr><td>Family Matters</td><td><span class="st st-started">Rewrite</span></td><td>gwent_difficulty: 1 to 3</td></tr>
+      <tr><td>Hunting a Witch</td><td><span class="st st-blocked">Fixed</span></td><td>Cannot be changed here: the template already holds the other answer.</td></tr>
+    </tbody></table>
+    <div class="callout" style="margin-top:12px">Not in this save, play these in the game: Skellige succession.</div>
+  </div>
+  <div class="panel">
+    <h3>Pick what to do</h3>
+    <ul class="options">
+      <li class="sel"><span class="opt-text">Begin</span><span class="note">Start at the prologue.</span></li>
+      <li><span class="opt-text">Choose a template save by hand</span><span class="note">Manual override.</span></li>
+      <li><span class="opt-text">Set the templates folder</span><span class="note">Default: next to the questbook.</span></li>
+    </ul>
+  </div>
+</div>
+
+<!-- STORY -->
+<div class="page story" data-view="story" hidden>
+  <div class="story-top">
+    <div class="where">Act I &middot; White Orchard &middot; quest 2 of 18</div>
+    <div class="row"><button class="sm">Stop here</button><button class="sm">Review</button></div>
+  </div>
+  <div class="progress"><i style="width:11%"></i></div>
+  <div class="story-grid">
+    <div class="art">White Orchard</div>
+    <div>
+      <h1>The Beast of White Orchard</h1>
+      <div class="tags"><span class="pill gold">White Orchard</span><span class="pill">Level 1</span><span class="pill">Main</span></div>
+      <p class="narration">Something big has been dragging livestock off the farms, and the soldiers garrisoned here would rather not go near it. You follow the claw marks up the hill with your swords, your signs and not much else.</p>
+      <div class="step-of">Decision 1 of 1</div>
+      <div class="prompt">The beast is dead. How do you settle up?</div>
+      <ul class="options">
+        <li class="sel"><span class="opt-text">Take the coin you were promised</span><span class="def">Default</span><span class="note">Writes 1 fact.</span></li>
+        <li><span class="opt-text">Wave the fee away</span><span class="note unfinished">Not finished yet: export will refuse it.</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- REVIEW -->
+<div class="page" data-view="review" hidden>
+  <div class="page-head"><h1>Your story so far</h1><span class="pill caution">Caution</span></div>
+  <p class="lede">Every decision and what it changes. Change an answer here; nothing is written until you export.</p>
+  <div class="tabs"><button class="tab on">All<span class="n">4</span></button><button class="tab">Decided<span class="n">1</span></button><button class="tab">Default<span class="n">2</span></button><button class="tab">Not reached<span class="n">1</span></button></div>
+  <ol class="timeline">
+    <li class="tl"><span class="seal decided"></span><div>
+      <div class="tl-head"><span class="tl-title">The Beast of White Orchard</span><span class="tl-where">I &middot; White Orchard</span></div>
+      <div class="outcome">Take the coin you were promised</div>
+      <div class="alts"><button>Wave the fee away</button></div>
+      <details class="facts"><summary>Details and facts</summary><ul class="plain small"><li><code>demo_reward_coin</code> = 1</li></ul></details>
+    </div></li>
+    <li class="tl"><span class="seal default"></span><div>
+      <div class="tl-head"><span class="tl-title">Lilac and Gooseberries</span><span class="tl-where">I &middot; White Orchard</span></div>
+      <div class="outcome dim">Completed, no decisions</div>
+    </div></li>
+    <li class="tl"><span class="seal notreached"></span><div>
+      <div class="tl-head"><span class="tl-title">Family Matters</span><span class="tl-where">II &middot; Velen</span></div>
+      <div class="outcome dim">Not reached</div>
+    </div></li>
+  </ol>
+  <div class="panel">
+    <h3>Start kit</h3>
+    <div class="kit-grid">
+      <div class="field"><span class="lab">Level</span><span class="stepper"><button>&minus;</button><input type="number" value="12"><button>+</button></span><span class="was">was 9</span></div>
+      <div class="field"><span class="lab">Crowns</span><span class="stepper"><button>&minus;</button><input type="number" value="2500"><button>+</button></span><span class="was">was 840</span></div>
+      <div class="field"><span class="lab">Supplies</span><select><option>Keep as is</option><option>Recommended for the level</option></select></div>
+    </div>
+  </div>
+</div>
+
+<!-- EXPORT -->
+<div class="page" data-view="export" hidden>
+  <div class="page-head"><h1>Export</h1><span class="pill expert">Writes a file</span></div>
+  <p class="lede">Builds a new save from your template with your choices applied, checks it, then writes it. Existing files are never overwritten.</p>
+  <div class="callout red">Wave the fee away: this choice is not finished yet and export will refuse it.</div>
+  <div class="panel"><h3>Destination</h3>
+    <p><code>C:\Users\you\Documents\The Witcher 3\gamesaves</code></p>
+    <p class="small muted">The new save appears in Load Game as ManualSave_...</p>
+    <div class="row"><button>Choose folder</button></div></div>
+  <div class="row actions" style="margin-top:0"><button>Check (writes nothing)</button><button class="primary">Export save</button></div>
+  <div class="result ok"><h2>Check passed: the save builds and verifies</h2><p>3 effect blocks applied.</p><p class="verified">Re-read the result: all facts present.</p></div>
+</div>
+
+      </main>
+      <aside class="ledger" id="ledger">
+        <div class="ledger-head"><h3>Your story so far</h3><div class="sub">3 answers</div></div>
+        <ul class="ledger-list">
+          <li><span class="q">The Beast of White Orchard</span><span class="a">Take the coin you were promised</span><div class="row"><span class="st">Decided</span><button class="link">Undo</button></div></li>
+          <li><span class="q">Lilac and Gooseberries</span><span class="a">Completed</span><div class="row"><span class="st">Default</span><button class="link">Undo</button></div></li>
+        </ul>
+        <div class="ledger-foot">Nothing is written until you export.</div>
+      </aside>
+    </div>
+    <footer class="hints"><span><kbd>&uarr;&darr;</kbd> select</span><span><kbd>Enter</kbd> confirm</span><span><kbd>Esc</kbd> back</span></footer>
+  </div>
+</div>
+<script>
+  function show(v) { document.querySelectorAll('[data-view]').forEach(e => e.hidden = e.dataset.view !== v);
+    document.getElementById('ledger').parentElement.classList.toggle('no-ledger', v === 'export' || v === 'welcome'); }
+  document.querySelectorAll('[data-go]').forEach(b => b.onclick = () => show(b.dataset.go));
+  show(new URLSearchParams(location.search).get('v') || 'welcome');
+</script>
+</body>
+</html>

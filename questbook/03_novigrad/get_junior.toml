@@ -1,0 +1,66 @@
+# template: pack 21 ManualSave_10028e_7ea51000_3f6825b (5.01 re-save, C:\w3-fixtures\pack_501; original
+# ManualSave_10028e_7e104c00_4ea3fa4)
+#
+# Act 3, Novigrad decision window W3, decision D6 (docs/plan/decision-catalogue.md section 4). Licensed CC BY-SA 4.0.
+# Quest questact1/q302rescuingdudu + q302mafia (public name from memory: TODO(phase3) verify). Template state: the
+# Ciri section in Junior's house (phase ec40a934 "Replacer - Ciri vs Whoreson"; waits 38f2cc7f window opened,
+# 4a64fba9, 52d34fc6). Decided in q302_mafia.w2phase, scene df00796c (`kill` -> 933b48c2 despawn, journal deb506c8,
+# q302_completed / `let_go` -> 9a13b8ec make him friendly, teleport out, journal ff269d2c (Failure input)). Scene-file
+# facts: `q302_whoreson_dead` (kill), `q302_whoreson_spared`, `q302_fdb_whoreson_spared` (spare); read by the
+# character journal listener e53ae65e (dead >= 1 / fdb_spared == 1), persistent_content f10eb3a2 (spared >= 1),
+# q310_pregeels_new and scenes in q305 / q310.
+# Common walk: --start 38f2cc7f --through --pick a86b05de=True (mq3026 horse-race listener on q302_completed: time of
+# day 21-05, chosen to match the pack's next save; a pure world-time detail) and stops a27b9de0 / 2863d08e (the back
+# gate and sewer exits of "leaving estate", so only the front gate fires), 27ade91f (Radovid's cabin, where pack 22
+# waits), 2e59297e and c39495c5 (the thugs phase, as in pack 22).
+id = "get_junior"
+title = "Get Junior"
+act = 3
+order = 3010
+kind = "main"
+region = "novigrad"
+level = 14                # TODO(phase3): verify the recommended level in game
+summary = """A crime lord's son has a friend of yours, and a city full of thugs, bouncers and \
+debts stands between you. By the time you reach him, Ciri has already been through his house, and \
+what is left is a frightened, cruel man asking for his life."""
+
+[[choices]]
+id = "junior"
+prompt = "Whoreson Junior is at your mercy. What do you do?"
+default = "kill"
+options = [
+  { id = "kill",  text = "Kill him (Junior dies)",                         effects = "killed" },
+  { id = "spare", text = "Let him go (Junior lives)",                     effects = "spared" },
+]
+
+[effects.killed]
+# donor-checked (pack 22 ManualSave_100ce0_7e105000_4e8e0f6, old-gen, the pack's next save; the player went on to the
+# Radovid ship): blocks hit/miss/extra 72/4/12, facts 7/26/0 (7/8/0 from the old-gen template), journal 19/13/0.
+# Misses: the scene-fact listeners 8a29f2dc / e53ae65e (fire on load once q302_whoreson_dead is set below), two
+# mq3026 day-spawn waits (time of day). Extras: a27b9de0 / 2863d08e parked in the ended "leaving estate" scope and the
+# "block run" phase 8ed5419b (walker issue W-1), mq3026 time-of-day waits. Fact misses: scene facts and books;
+# journal misses: character entries the player gained afterwards (Dijkstra, Roche, Radovid, ...).
+source = "quest graph q302_mafia + postmafia (w3al synth-walk on pack 21; checked against pack 22: blocks 72/4/12); q302_whoreson_dead from facts pack 21 -> pack 22"
+placeholder = false
+facts = { q302_whoreson_dead = 1 }
+
+[effects.killed.synth]
+start = ["38f2cc7f"]
+through = true
+pick = ["df00796c=kill", "a86b05de=True"]
+stop = ["a27b9de0", "2863d08e", "27ade91f", "2e59297e", "c39495c5"]
+
+[effects.spared]
+# graph-only. The walk takes the same road out of the estate (q302_completed, postmafia to Radovid's cabin). The
+# spared facts come from the scene file and are named by the graph's own readers (e53ae65e: q302_fdb_whoreson_spared
+# == 1; f10eb3a2: q302_whoreson_spared >= 1). Journal ff269d2c gets `Failure`, written as JS_Active by the walker
+# (walker issue W-2).
+source = "quest graph q302_mafia + postmafia (w3al synth-walk on pack 21, graph only); spared facts from listeners e53ae65e / f10eb3a2"
+placeholder = false
+facts = { q302_whoreson_spared = 1, q302_fdb_whoreson_spared = 1 }
+
+[effects.spared.synth]
+start = ["38f2cc7f"]
+through = true
+pick = ["df00796c=let_go", "a86b05de=True"]
+stop = ["a27b9de0", "2863d08e", "27ade91f", "2e59297e", "c39495c5"]

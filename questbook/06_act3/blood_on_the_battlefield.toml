@@ -1,0 +1,121 @@
+# template: pack 48 ManualSave_86355_7ea51000_3fa5db8 (5.01 re-save, C:\w3-fixtures\pack_501; old-gen original
+# ManualSave_86355_7e10e800_4ef88ad). Licensed CC BY-SA 4.0.
+#
+# Act 6 (after the battle), decision window W7: D13 snowball, D14 going with Ciri to Emhyr, D15 Emhyr's reward
+# (docs/plan/decision-catalogue.md section 4). The template stands at the burial after the battle (q403_burial, wait 3dffea2a
+# [Close to friends]); q110 has not started. The three choices are applied in file order, each walk starting from the
+# save the previous one left (export walks "from the save as it is when the effect's turn comes"):
+#   D13 `snowball`: start 3dffea2a, through the burial and q110's start, pick 4002a0f6 (q110_01_01_ciri_fed_up)
+#       `Snowball` (phase b7a640fb, 63fff3f2 `q110_calmed_down_ciri`) or `Talk`, park at the horse-yard scene a9e9be4a.
+#       Pick 49c73015=False: Triss's default-dialogue listener (fired by the burial's `triss_dd_start`) asks whether the
+#       player stands in her room (a trigger the walker cannot evaluate); he does not.
+#   D14 `ride`: start a9e9be4a, pick `Emhyr` (-> Vizima, phase 938bd2d4, 3a8fbae0 `q110_visited_emhyr`, park at the audience
+#       scene aea4283d with both reward listeners 26b11e5d / 1af99c14 waiting) or `Imlerith` (b692229d
+#       `q110_didnt_visit_emhyr`, departure, `q110_completed`, park at 519ca902 [Landed on NML]).
+#   D15 `reward` (only after `Emhyr`): start aea4283d plus the listener of the chosen answer; the choice is inside the scene
+#       file (one output), so the facts come from the effect: `q110_refused_reward` / `q110_accepted_reward` (read by
+#       26b11e5d / 1af99c14 and q502 77dfbed7) and `q110_geralt_refused_pay` / `q110_geralt_accepted_pay` (read by
+#       character_journal_entries 23d8c72d; refused pay also by game\vehicles\horse\horseManager.ws:75). The money reward
+#       (GiveRewardToPlayer in the scene) is a script side effect the walk does not give.
+#   On 5.01 the bugfix listener 8752d51c [q110_completed > 0] (bugfixing_phase.w2phase) leads to a journal-status condition
+#   (1d2f15fd "Q311 Help Avallach") the walker cannot evaluate; it is stopped (left waiting; the game runs it after load).
+# Ciri's fate (q502_avallach.w2phase #64-#81): visited + refused = strong, visited + accepted = weak, not visited = nothing;
+# snowball = strong, talk = weak. Visiting Emhyr is also needed for the empress ending (epilogue.w2phase 7387edbb).
+# Question flow: the schema has no per-option conditions, so D15 offers "no audience" and depends on D14 by its wording.
+# `imlerith` + `refuse`/`accept` makes export refuse loudly (start aea4283d is not waiting); `emhyr` + `none` leaves the
+# save parked at the audience, and the game asks the reward question itself. docs/research.md (W7 entry).
+# Validation: all five walks written with `synth-apply` on the 5.01 template (D13 both, then D14 both from D13, then D15 both
+# from D14 Emhyr); pack 49 (snowball, Imlerith) donor-checked; Talk, Emhyr and both rewards graph-only (the pack never
+# visits Emhyr).
+id = "blood_on_the_battlefield"
+title = "Blood on the Battlefield"
+act = 6
+order = 6010
+kind = "main"
+region = "kaer_morhen"
+level = 24                # TODO(phase3): verify the recommended level in game
+summary = """The battle is over and the keep is full of smoke and graves. Ciri is grieving the only \
+way she knows, with clenched fists and too much power, and before you can go after the Hunt you \
+have to decide how to help her carry it, and where she goes next."""
+
+[[choices]]
+id = "snowball"
+prompt = "Ciri is angry enough to shake the walls. How do you reach her?"
+default = "snowball"
+options = [
+  { id = "snowball", text = "Pelt her with snowballs until she laughs (counts toward Ciri's survival at the end)", effects = "snowball" },
+  { id = "talk",     text = "Sit down and talk it through (counts against Ciri's survival at the end)",          effects = "talk" },
+]
+
+[[choices]]
+id = "ride"
+prompt = "Ciri wants to see her father in Vizima. Do you ride with her?"
+default = "imlerith"
+options = [
+  { id = "emhyr",    text = "Ride with her to the emperor (needed for the ending where Ciri takes the throne)",   effects = "to_vizima" },
+  { id = "imlerith", text = "Go straight after Imlerith instead (Ciri never sees Emhyr; no reward question)",  effects = "to_imlerith" },
+]
+
+[[choices]]
+id = "reward"
+prompt = "Only if you rode to Vizima: the emperor offers you payment for finding his daughter. What do you do?"
+default = "none"
+options = [
+  { id = "refuse", text = "Refuse the money (counts toward Ciri's survival at the end); needs the Vizima ride",           effects = "refused_reward" },
+  { id = "accept", text = "Take the money (counts against Ciri's survival at the end); needs the Vizima ride",            effects = "accepted_reward" },
+  { id = "none",   text = "No audience: you went after Imlerith, or you leave it to play in game (the save then stops at the audience)" },
+]
+
+[effects.snowball]
+source = "quest graph q110_kaer_morhen.w2phase scene 4002a0f6 Snowball -> b7a640fb Snowball Fight, 63fff3f2 q110_calmed_down_ciri (w3al synth-walk / synth-apply on pack 48 5.01 re-save; donor-checked on the old-gen pack 48 (same keys) with the combined walk 3dffea2a + Snowball + Imlerith vs pack 49 old-gen ManualSave_fffdb_7e10e800_56d6115, a donor that played on into q111: q110 facts q110_calmed_down_ciri, q110_geralt_won, q110_game_over, q110_ciri_avallach_on_powers, q110_didnt_visit_emhyr, q110_completed hit; extra only the snowball hit counters (donor holds several records) and toggles the donor flipped again; miss q110_snowball_music_start (scene-file fact, music only); q110 journal 18 hit (some still Active where the donor later flipped them), 1 extra (721a0268 objective group set Success by the root); burial blocks 16/0/0)"
+
+[effects.snowball.synth]
+start = ["3dffea2a"]
+through = true
+pick = ["4002a0f6=Snowball", "49c73015=False"]
+stop = ["a9e9be4a"]
+
+[effects.talk]
+source = "quest graph q110_kaer_morhen.w2phase scene 4002a0f6 Talk -> 3f28d5f3, scene 4b9e8249 Talk with Ciri (no q110_calmed_down_ciri) (w3al synth-walk / synth-apply on pack 48 5.01 re-save, graph-only: no played save of this branch)"
+
+[effects.talk.synth]
+start = ["3dffea2a"]
+through = true
+pick = ["4002a0f6=Talk", "49c73015=False"]
+stop = ["a9e9be4a"]
+
+[effects.to_vizima]
+source = "quest graph q110_kaer_morhen.w2phase scene a9e9be4a Emhyr -> phase output Vizima, q110_postbattle.w2phase 938bd2d4 Visit Emhyr, q110_vizima.w2phase 3a8fbae0 q110_visited_emhyr (w3al synth-apply on the D13 result of pack 48 5.01 re-save, graph-only: the pack never visits Emhyr)"
+
+[effects.to_vizima.synth]
+start = ["a9e9be4a"]
+through = true
+pick = ["a9e9be4a=Emhyr"]
+stop = ["aea4283d", "26b11e5d", "1af99c14"]
+
+[effects.to_imlerith]
+source = "quest graph q110_kaer_morhen.w2phase scene a9e9be4a Imlerith -> b692229d q110_didnt_visit_emhyr, q110_departure.w2phase 4c3d622d q110_completed (w3al synth-apply on the D13 result of pack 48 5.01 re-save; donor-checked vs pack 49 old-gen: q110_didnt_visit_emhyr, q110_completed and the q110 journal (root Success, 942b9ee4/7c15671c, 721a0268/2add12f6) hit, no extra in q110)"
+
+[effects.to_imlerith.synth]
+start = ["a9e9be4a"]
+through = true
+pick = ["a9e9be4a=Imlerith"]
+stop = ["519ca902", "8752d51c"]
+
+[effects.refused_reward]
+source = "quest graph q110_vizima.w2phase scene aea4283d (one output; the reward choice is inside q110_04_01_at_emhyr.w2scene) + listener 26b11e5d [If q110_refused_reward] -> journal 4dc7c8a9; facts read by 26b11e5d, q502_avallach 77dfbed7, character_journal_entries 23d8c72d and horseManager.ws:75 (w3al synth-apply on the D14 Emhyr result, graph-only)"
+facts = { q110_refused_reward = 1, q110_geralt_refused_pay = 1 }
+
+[effects.refused_reward.synth]
+start = ["aea4283d", "26b11e5d"]
+through = true
+stop = ["519ca902", "8752d51c"]
+
+[effects.accepted_reward]
+source = "quest graph q110_vizima.w2phase scene aea4283d (one output) + listener 1af99c14 [If q110_accepted_reward] -> journal 434e0ac4; facts read by 1af99c14, bugfixing_phase 640c1706 and character_journal_entries 23d8c72d (w3al synth-apply on the D14 Emhyr result, graph-only)"
+facts = { q110_accepted_reward = 1, q110_geralt_accepted_pay = 1 }
+
+[effects.accepted_reward.synth]
+start = ["aea4283d", "1af99c14"]
+through = true
+stop = ["519ca902", "8752d51c"]

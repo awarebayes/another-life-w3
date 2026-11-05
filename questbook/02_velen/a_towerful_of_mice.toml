@@ -1,0 +1,62 @@
+# template: pack 11 ManualSave_4dcec_7e104000_538e03f (OLD-GEN, C:\w3-extract\nexus2394\gamesaves). NO 5.01 RE-SAVE EXISTS YET: the user
+# must load it in the 5.01 game and save at once (docs/research.md 2026-11-05 "content C": re-save list). Walked and exported on the
+# old-gen file as a stand-in. Licensed CC BY-SA 4.0.
+#
+# Act 2 (Velen), secondary quest "A Towerful of Mice" (q106tower). Template state: Fyke Isle, the clue hunt is done (q106_found_secret_lab),
+# phase "meeting anabelle" 570a9c2e waits at 2ff53d0a [q106_tr_oillamp_anabelle] (the oil lamp trigger). Decided in
+# q106_tower.w2phase by scene 56a4375a (q106_15_geralt_lights_oillamp), whose outputs lead out of the phase:
+#   Output_agree_to_help_anabelle -> Out_help_anabelle: the bones go to Graham ("bones output" of scene e788095a), the curse ends,
+#                                    dc79de20 `q106_morowa_released`, d967bf87 `q106_complete`: Anabelle is laid to rest, Graham lives
+#   Output_anabelle_turns_morowa  -> Out_turn_morowa: she turns on you, the fight with Morowa (`q106_fought_morowa`,
+#                                    `q106_didnt_trust_anabelle`), then phase "taking graham to morowa" 5be83ea8: scene 0415325c,
+#                                    `q106_graham_to_morowa` (6b3f3c7a / 18450298), the wraith fight, scene 9868727e (Anabelle
+#                                    kisses Graham) -> f1f556a1 `q106_graham_kissed`, `q106_curse_ended`, `q106_complete`
+#   Output_need_more_time         -> nothing yet; the oil lamp trigger stays armed (the player decides in game)
+# Walk (graham): `--start 2ff53d0a --through --pick 041d7981=True --pick 56a4375a=Output_anabelle_turns_morowa --pick 0415325c=Output_teleport
+#   --pick 4879f54e=True --pick 4aae9836=True --stop c1dcf017` (041d7981 the oil lamp trigger inside; 4879f54e / 4aae9836 "wraiths alive"
+#   have only a True output; c1dcf017 = Keira's sq101 date offer, parked, not decided here). Walk (help): `--start 2ff53d0a --through
+#   --pick 041d7981=True --pick 56a4375a=Output_agree_to_help_anabelle --pick e788095a="bones output" --stop c1dcf017`. No unresolved
+#   point; 300 and 435 steps.
+# Donor check of `graham` against pack 12 old-gen ManualSave_80c40_7e104000_5776306 (the pack line kissed): 85 q106 / q108 blocks ok,
+# facts q106_anabelle_met, q106_complete, q106_curse_ended, q106_fought_morowa, q106_graham_kissed, q106_graham_tells_ab_tower,
+# q106_graham_to_morowa, q106_keira_lamp_on, q106_we_met_morowa, sq101_looking_for_cart, sq101_show_shipment all hit; extras
+# q106_didnt_trust_anabelle, q106_villager_left_house_range; totals blocks 65/12/8, facts 19/42/7, journal 35/27/4 (the misses are the
+# play between the two saves). `help` is graph-only. Read later by the character journal (Graham, Anabelle) and a Keira side quest.
+id = "a_towerful_of_mice"
+title = "A Towerful of Mice"
+act = 2
+order = 2060
+kind = "secondary"
+region = "velen"
+level = 9                 # TODO(phase3): verify the recommended level in game
+summary = """A tower on a drowned island, a village that wants its curse lifted and a sorceress in the cellar who \
+would rather not talk about it. Somewhere in the walls a girl is still waiting, and a man on the shore \
+loves her more than he should."""
+
+[[choices]]
+id = "anabelle"
+prompt = "Anabelle's ghost asks for your help. What do you do?"
+default = "later"
+options = [
+  { id = "later",  text = "Take your time (nothing is decided; you play the end of the tower yourself)" },
+  { id = "help",   text = "Help her (her bones go to Graham, the curse ends, Graham lives; she may not be what she seems)", effects = "help" },
+  { id = "graham", text = "Distrust her and take Graham to the tower (she turns on you, Graham's kiss lays her to rest and costs him his life)", effects = "graham" },
+]
+
+[effects.help]
+source = "quest graph q106_tower.w2phase scene 56a4375a Output_agree_to_help_anabelle -> Out_help_anabelle, dc79de20 q106_morowa_released, q106_complete (w3al synth-walk on pack 11 old-gen, 300 steps, no unresolved point, graph-only)"
+
+[effects.help.synth]
+start = ["2ff53d0a"]
+through = true
+pick = ["041d7981=True", "56a4375a=Output_agree_to_help_anabelle", "e788095a=bones output"]
+stop = ["c1dcf017"]
+
+[effects.graham]
+source = "quest graph q106_tower.w2phase scene 56a4375a Output_anabelle_turns_morowa -> phase taking graham to morowa 5be83ea8, scene 9868727e -> f1f556a1 q106_graham_kissed, 6b3f3c7a q106_graham_to_morowa, q106_complete (w3al synth-walk on pack 11 old-gen, 435 steps, no unresolved point; donor-checked vs pack 12 old-gen: all decision facts hit, 65/12/8 blocks)"
+
+[effects.graham.synth]
+start = ["2ff53d0a"]
+through = true
+pick = ["041d7981=True", "56a4375a=Output_anabelle_turns_morowa", "0415325c=Output_teleport", "4879f54e=True", "4aae9836=True"]
+stop = ["c1dcf017"]

@@ -1,0 +1,594 @@
+# template: pack 43 ManualSave_100840_7ea51000_3f9b30a (5.01 re-save, C:\w3-fixtures\pack_501; old-gen original
+# ManualSave_100840_7e10d400_4ddc075). Licensed CC BY-SA 4.0.
+#
+# Act 5, the quest before decision window W6 (docs/plan/decision-catalogue.md). Pack 43 is early in q401_konsylium
+# (Kaer Morhen reached; Eskel's search, Lambert's elements and Yennefer's megascope run in parallel). This quest
+# has no choice of its own in v1: its `done_effects` walk Ugly Baby to its end along the pack line and start Brothers
+# in Arms (q402_ciri "before isle" 9b9a1ec2, phase "gathering allies" b74543d1) with nobody asked yet. Export rebuilds
+# that template from pack 43 every time; `w3al synth-apply` with the same arguments writes it as a file (session
+# scratchpad allies\T\T_allies.sav, 2026-11-05; checked against pack 44 old-gen ManualSave_6b4a7_7e10d400_55c9e52,
+# which has all four allies invited: see docs/research.md 2026-11-05 "W6 template synthesized").
+#
+# Walk (q401_konsylium.w2phase and q402_ciri.w2phase, 5.01 graphs): start 6e852741 [q401_everybody_returned > 2]
+# (Pre-Reunion: the three searches count as done; their own scopes end with q401 anyway) --through, then:
+#   d34b9715=True              Pre-Reunion trigger "Inside q401_tr_find_yennefer?" (both branches join at Xor 3d218b34)
+#   2e706306=Output_no_love    the Yennefer night scene (q401_06_01_vesemir_leaves): the pack line has Yennefer as
+#                              "just friends" (sq202_yen_just_friends), so the scene cannot reach Output_sex; pack 44
+#                              has no q401_had_sex_with_yen
+#   728a92fb=True              "18:00 - 03:00?" time check of the 23:00 transition (cosmetic)
+#   cac3be29=Output_misssing_eskel   Reunion drinking scene: the drunk evening (pack 44: q401_boys_got_drunk,
+#                              q401_fdb_drunk_party); PlayGwint is a loop back into the scene
+#   5239c607=Idea              drunk Eskel found: Lambert's idea to call the sorceresses (pack 44: q401_calling_whom)
+#   43e61551=GetDressedUp      the megascope call (pack 44: q401_geralt_gets_dressed)
+#   4ff72f7a=Output_eskel_goes Uma's trial, "Administering Poison": Eskel fetches the next potion, Geralt stays with
+#                              Yennefer (pack 44: q401_fdb_eskel_goes, q401_defended_yen)
+#   fccdbf2b=No_Cooking        the bucket scene: nobody cooks (pack 44 has neither q401_cooking_enabled nor
+#                              q401_vesemir_cooks)
+#   2ea2a800=True / 58c74130=False / 0c5361a8=True   journal-status conditions of the Roche and Keira ally phases
+#                              (the walker cannot read the journal): chosen so the entries end as in pack 44
+#                              (222c7839 Success, 8b7d783e Active, 70275dea Success)
+# Stops = the template's end: every ally context dialogue of "gathering allies" (22f5025a Zoltan, 4075a745 Mousesack,
+# 8f663595 Crach, 2cac1202 Emhyr, cfa72dbe Dijkstra, 4a92523c Roche, 0cd4179d / 172e82f5 Cerys, c9e4e916 / 27f2c154
+# Hjalmar, 079bd0bf Keira), the fact waits 488dee9d / 69b5783e [q402_cerys_sent_hjalmar] and 9b1f4ad7 [sq312_ves_died],
+# and 41d211a6 [is player on skellige?] of "conditions for reaching island of mists" (pack 44 waits there too).
+# Not walked (play, skipped by the start): the forktail hunt, the lake trip and the megascope repair themselves
+# (their facts stay unset: q401_hunted_forktail_down, q401_charged_phylactery, q401_lambert_defeated_in_gwint, ...;
+# their only readers after q401 are character-journal listeners the game fires on load). The two sub-quest journals
+# of those searches (q401_hunt_with_eskel, q401_phylactery) are closed with the entries captured from pack 43 -> 44.
+id = "ugly_baby"
+title = "Ugly Baby"
+act = 5
+order = 5005
+kind = "main"
+region = "kaer_morhen"
+level = 20                # TODO(phase3): verify the recommended level in game
+summary = """A cursed thing that used to be a man sits in a cage at Kaer Morhen, and the only people who \
+can help it are three witchers who would rather be drinking and a sorceress who does not take no for an \
+answer. You split the chores, hunt a forktail, drag a phylactery out of a lake, mend a megascope, and then \
+spend one long night keeping the creature alive through the Trial of the Grasses."""
+
+done_effects = "curse_lifted"
+
+[effects.curse_lifted]
+source = "quest graphs q401_konsylium.w2phase (Pre-Reunion 738ca4bd -> Vesemir Leaves 3a07331b -> Reunion 59679f5e -> Sleep 1a1982c1 -> UMA's Trial 81dd7e8f -> q401_finished cfbe8447, chapter1_completed 38722143) and the q402_ciri start (d3af2227 -> e526fd7b -> 9b9a1ec2 -> b74543d1); w3al synth-walk / synth-apply on pack 43 5.01 re-save; checked against pack 44 old-gen ManualSave_6b4a7_7e10d400_55c9e52 (every q401 scope removed as in pack 44, the q402 gathering scope added with the ally dialogues waiting; see the file header); journal tables for q401_hunt_with_eskel / q401_phylactery captured with w3al journal-diff pack 43 -> pack 44"
+
+[effects.curse_lifted.synth]
+start   = ["6e852741"]
+through = true
+pick    = [
+  "d34b9715=True",
+  "2e706306=Output_no_love",
+  "728a92fb=True",
+  "cac3be29=Output_misssing_eskel",
+  "5239c607=Idea",
+  "43e61551=GetDressedUp",
+  "4ff72f7a=Output_eskel_goes",
+  "fccdbf2b=No_Cooking",
+  "2ea2a800=True",
+  "58c74130=False",
+  "0c5361a8=True",
+]
+stop    = [
+  "22f5025a", "4075a745", "8f663595", "2cac1202", "cfa72dbe", "4a92523c", "9b1f4ad7",
+  "0cd4179d", "172e82f5", "488dee9d", "69b5783e", "c9e4e916", "27f2c154", "079bd0bf",
+  "41d211a6",
+]
+
+# The journals of the two search sub-quests the start skips, captured from the pack line
+# (w3al journal-diff pack 43 -> pack 44 --grep q401_hunt_with_eskel / q401_phylactery; `at` positions dropped).
+[[effects.curse_lifted.journal_status]]
+label = "questact1/q401_hunt_with_eskel"
+path = ["c363eee207345a43870711acc05f2121", "dfcf8085bd21a54d9f39ada875df8ac6"]
+from = "JS_Active"
+to = "JS_Success"
+
+[[effects.curse_lifted.journal_status]]
+label = "questact1/q401_hunt_with_eskel/88b06ecd"
+path = ["c363eee207345a43870711acc05f2121", "dfcf8085bd21a54d9f39ada875df8ac6", "88b06ecdaa8b3641907916c8d8fee27f"]
+from = "JS_Active"
+to = "JS_Success"
+
+[[effects.curse_lifted.journal_status]]
+label = "questact1/q401_hunt_with_eskel/02601066"
+path = ["c363eee207345a43870711acc05f2121", "dfcf8085bd21a54d9f39ada875df8ac6", "02601066e9d17a40be3189c58815e506"]
+from = "JS_Active"
+to = "JS_Success"
+
+[[effects.curse_lifted.journal_status]]
+label = "questact1/q401_hunt_with_eskel/02601066/019ad7d5"
+path = ["c363eee207345a43870711acc05f2121", "dfcf8085bd21a54d9f39ada875df8ac6", "02601066e9d17a40be3189c58815e506", "019ad7d547e92449a43d525b15bfc256"]
+from = "JS_Active"
+to = "JS_Success"
+
+[[effects.curse_lifted.journal_status]]
+label = "questact1/q401_hunt_with_eskel/88b06ecd/fd767e4f"
+path = ["c363eee207345a43870711acc05f2121", "dfcf8085bd21a54d9f39ada875df8ac6", "88b06ecdaa8b3641907916c8d8fee27f", "fd767e4f2f25dc45bc6583d68bbeb680"]
+from = "JS_Active"
+to = "JS_Success"
+
+[[effects.curse_lifted.journal_append]]
+label = "questact1/q401_hunt_with_eskel/02601066/66880c2a"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "c363eee207345a43870711acc05f2121", resource = 'gameplay\journal\quests\questact1.journal' },
+  { guid = "dfcf8085bd21a54d9f39ada875df8ac6", resource = 'gameplay\journal\quests\q401_hunt_with_eskel.journal' },
+  { guid = "02601066e9d17a40be3189c58815e506", resource = "" },
+  { guid = "66880c2ae133b64e9f5b824fa702c2dc", resource = "" },
+]
+
+[[effects.curse_lifted.journal_append]]
+label = "questact1/q401_hunt_with_eskel/d0473eba"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "c363eee207345a43870711acc05f2121", resource = 'gameplay\journal\quests\questact1.journal' },
+  { guid = "dfcf8085bd21a54d9f39ada875df8ac6", resource = 'gameplay\journal\quests\q401_hunt_with_eskel.journal' },
+  { guid = "d0473eba3adc0a48b267387f6e6aab06", resource = "" },
+]
+
+[[effects.curse_lifted.journal_append]]
+label = "questact1/q401_hunt_with_eskel/d0473eba/84385cd0"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "c363eee207345a43870711acc05f2121", resource = 'gameplay\journal\quests\questact1.journal' },
+  { guid = "dfcf8085bd21a54d9f39ada875df8ac6", resource = 'gameplay\journal\quests\q401_hunt_with_eskel.journal' },
+  { guid = "d0473eba3adc0a48b267387f6e6aab06", resource = "" },
+  { guid = "84385cd0075dab40a34d916826ef2726", resource = "" },
+]
+
+[[effects.curse_lifted.journal_append]]
+label = "questact1/q401_hunt_with_eskel/d0473eba/e8d89c8b"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "c363eee207345a43870711acc05f2121", resource = 'gameplay\journal\quests\questact1.journal' },
+  { guid = "dfcf8085bd21a54d9f39ada875df8ac6", resource = 'gameplay\journal\quests\q401_hunt_with_eskel.journal' },
+  { guid = "d0473eba3adc0a48b267387f6e6aab06", resource = "" },
+  { guid = "e8d89c8bbc225740a25df2fb11f70942", resource = "" },
+]
+
+[[effects.curse_lifted.journal_append]]
+label = "questact1/q401_hunt_with_eskel/d0473eba/e582c9b8"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "c363eee207345a43870711acc05f2121", resource = 'gameplay\journal\quests\questact1.journal' },
+  { guid = "dfcf8085bd21a54d9f39ada875df8ac6", resource = 'gameplay\journal\quests\q401_hunt_with_eskel.journal' },
+  { guid = "d0473eba3adc0a48b267387f6e6aab06", resource = "" },
+  { guid = "e582c9b8b2b92a4c8d874b331c3ba716", resource = "" },
+]
+
+[[effects.curse_lifted.journal_append]]
+label = "questact1/q401_hunt_with_eskel/d0473eba/c943d151"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "c363eee207345a43870711acc05f2121", resource = 'gameplay\journal\quests\questact1.journal' },
+  { guid = "dfcf8085bd21a54d9f39ada875df8ac6", resource = 'gameplay\journal\quests\q401_hunt_with_eskel.journal' },
+  { guid = "d0473eba3adc0a48b267387f6e6aab06", resource = "" },
+  { guid = "c943d151eb7bba48a9f54df659ab1702", resource = "" },
+]
+
+[[effects.curse_lifted.journal_append]]
+label = "questact1/q401_hunt_with_eskel/d0473eba/85f6c5ca"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "c363eee207345a43870711acc05f2121", resource = 'gameplay\journal\quests\questact1.journal' },
+  { guid = "dfcf8085bd21a54d9f39ada875df8ac6", resource = 'gameplay\journal\quests\q401_hunt_with_eskel.journal' },
+  { guid = "d0473eba3adc0a48b267387f6e6aab06", resource = "" },
+  { guid = "85f6c5ca04cda34e980a9da74ae6f07e", resource = "" },
+]
+
+[[effects.curse_lifted.journal_append]]
+label = "questact1/q401_hunt_with_eskel/913fa2eb"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "c363eee207345a43870711acc05f2121", resource = 'gameplay\journal\quests\questact1.journal' },
+  { guid = "dfcf8085bd21a54d9f39ada875df8ac6", resource = 'gameplay\journal\quests\q401_hunt_with_eskel.journal' },
+  { guid = "913fa2ebc41dc94ca990fc37f2012f89", resource = "" },
+]
+
+[[effects.curse_lifted.journal_append]]
+label = "questact1/q401_hunt_with_eskel/913fa2eb/6ea7fdd3"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "c363eee207345a43870711acc05f2121", resource = 'gameplay\journal\quests\questact1.journal' },
+  { guid = "dfcf8085bd21a54d9f39ada875df8ac6", resource = 'gameplay\journal\quests\q401_hunt_with_eskel.journal' },
+  { guid = "913fa2ebc41dc94ca990fc37f2012f89", resource = "" },
+  { guid = "6ea7fdd3370e1d4cae15356a6b2d9c70", resource = "" },
+]
+
+[[effects.curse_lifted.journal_counters]]   # questact1/q401_hunt_with_eskel/d0473eba/c943d151
+guid = "c943d151eb7bba48a9f54df659ab1702"
+count = 0
+
+[[effects.curse_lifted.journal_counters]]   # questact1/q401_hunt_with_eskel/d0473eba/84385cd0
+guid = "84385cd0075dab40a34d916826ef2726"
+count = 0
+
+[[effects.curse_lifted.journal_counters]]   # questact1/q401_hunt_with_eskel/d0473eba/e8d89c8b
+guid = "e8d89c8bbc225740a25df2fb11f70942"
+count = 0
+
+[[effects.curse_lifted.journal_counters]]   # questact1/q401_hunt_with_eskel/913fa2eb/6ea7fdd3
+guid = "6ea7fdd3370e1d4cae15356a6b2d9c70"
+count = 0
+
+[[effects.curse_lifted.journal_counters]]   # questact1/q401_hunt_with_eskel/d0473eba/85f6c5ca
+guid = "85f6c5ca04cda34e980a9da74ae6f07e"
+count = 0
+
+[[effects.curse_lifted.journal_counters]]   # questact1/q401_hunt_with_eskel/d0473eba/e582c9b8
+guid = "e582c9b8b2b92a4c8d874b331c3ba716"
+count = 0
+
+[[effects.curse_lifted.journal_status]]
+label = "questact1/q401_phylactery/7e9d887d/9040b469"
+path = ["c363eee207345a43870711acc05f2121", "34b51502e904bd4bb6ae432fcb04fdec", "7e9d887deb68ca48a7ababf7d9955d41", "9040b469ba33d0478596ab2777285149"]
+from = "JS_Active"
+to = "JS_Success"
+
+[[effects.curse_lifted.journal_status]]
+label = "questact1/q401_phylactery"
+path = ["c363eee207345a43870711acc05f2121", "34b51502e904bd4bb6ae432fcb04fdec"]
+from = "JS_Active"
+to = "JS_Success"
+
+[[effects.curse_lifted.journal_status]]
+label = "questact1/q401_phylactery/dffe226d"
+path = ["c363eee207345a43870711acc05f2121", "34b51502e904bd4bb6ae432fcb04fdec", "dffe226d59c4ae48bade19a51afc9c74"]
+from = "JS_Active"
+to = "JS_Success"
+
+[[effects.curse_lifted.journal_status]]
+label = "questact1/q401_phylactery/dffe226d/3e2a61f7"
+path = ["c363eee207345a43870711acc05f2121", "34b51502e904bd4bb6ae432fcb04fdec", "dffe226d59c4ae48bade19a51afc9c74", "3e2a61f790242543815b0c0d0dfddcb0"]
+from = "JS_Active"
+to = "JS_Success"
+
+[[effects.curse_lifted.journal_append]]
+label = "questact1/q401_phylactery/dffe226d/20e030a8"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "c363eee207345a43870711acc05f2121", resource = 'gameplay\journal\quests\questact1.journal' },
+  { guid = "34b51502e904bd4bb6ae432fcb04fdec", resource = 'gameplay\journal\quests\q401_phylactery.journal' },
+  { guid = "dffe226d59c4ae48bade19a51afc9c74", resource = "" },
+  { guid = "20e030a8eab81b4f8d5936c586c71584", resource = "" },
+]
+
+[[effects.curse_lifted.journal_append]]
+label = "questact1/q401_phylactery/6680bca1"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "c363eee207345a43870711acc05f2121", resource = 'gameplay\journal\quests\questact1.journal' },
+  { guid = "34b51502e904bd4bb6ae432fcb04fdec", resource = 'gameplay\journal\quests\q401_phylactery.journal' },
+  { guid = "6680bca192070742b8d9ee661cac194d", resource = "" },
+]
+
+[[effects.curse_lifted.journal_append]]
+label = "questact1/q401_phylactery/6680bca1/1bec919b"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "c363eee207345a43870711acc05f2121", resource = 'gameplay\journal\quests\questact1.journal' },
+  { guid = "34b51502e904bd4bb6ae432fcb04fdec", resource = 'gameplay\journal\quests\q401_phylactery.journal' },
+  { guid = "6680bca192070742b8d9ee661cac194d", resource = "" },
+  { guid = "1bec919bd9e3a54bae9b07b923c0ed7a", resource = "" },
+]
+
+[[effects.curse_lifted.journal_append]]
+label = "questact1/q401_phylactery/6680bca1/3108fe9c"
+status = "JS_Success"
+unread = false
+steps = [
+  { guid = "c363eee207345a43870711acc05f2121", resource = 'gameplay\journal\quests\questact1.journal' },
+  { guid = "34b51502e904bd4bb6ae432fcb04fdec", resource = 'gameplay\journal\quests\q401_phylactery.journal' },
+  { guid = "6680bca192070742b8d9ee661cac194d", resource = "" },
+  { guid = "3108fe9c65ef78458217a5dd513649bd", resource = "" },
+]
+
+[[effects.curse_lifted.journal_append]]
+label = "questact1/q401_phylactery/6680bca1/68c190f2"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "c363eee207345a43870711acc05f2121", resource = 'gameplay\journal\quests\questact1.journal' },
+  { guid = "34b51502e904bd4bb6ae432fcb04fdec", resource = 'gameplay\journal\quests\q401_phylactery.journal' },
+  { guid = "6680bca192070742b8d9ee661cac194d", resource = "" },
+  { guid = "68c190f2eafe694c8327fcbfa8394037", resource = "" },
+]
+
+[[effects.curse_lifted.journal_append]]
+label = "questact1/q401_phylactery/6680bca1/56d447b6"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "c363eee207345a43870711acc05f2121", resource = 'gameplay\journal\quests\questact1.journal' },
+  { guid = "34b51502e904bd4bb6ae432fcb04fdec", resource = 'gameplay\journal\quests\q401_phylactery.journal' },
+  { guid = "6680bca192070742b8d9ee661cac194d", resource = "" },
+  { guid = "56d447b6ef3b4f45894be2bfff08fe74", resource = "" },
+]
+
+[[effects.curse_lifted.journal_append]]
+label = "questact1/q401_phylactery/6680bca1/fec83eaa"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "c363eee207345a43870711acc05f2121", resource = 'gameplay\journal\quests\questact1.journal' },
+  { guid = "34b51502e904bd4bb6ae432fcb04fdec", resource = 'gameplay\journal\quests\q401_phylactery.journal' },
+  { guid = "6680bca192070742b8d9ee661cac194d", resource = "" },
+  { guid = "fec83eaab7dd814bbef1e2633a3c37f2", resource = "" },
+]
+
+[[effects.curse_lifted.journal_append]]
+label = "questact1/q401_phylactery/ce3cae36"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "c363eee207345a43870711acc05f2121", resource = 'gameplay\journal\quests\questact1.journal' },
+  { guid = "34b51502e904bd4bb6ae432fcb04fdec", resource = 'gameplay\journal\quests\q401_phylactery.journal' },
+  { guid = "ce3cae3601ed9341b8667203018e7f1c", resource = "" },
+]
+
+[[effects.curse_lifted.journal_append]]
+label = "questact1/q401_phylactery/ce3cae36/82187869"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "c363eee207345a43870711acc05f2121", resource = 'gameplay\journal\quests\questact1.journal' },
+  { guid = "34b51502e904bd4bb6ae432fcb04fdec", resource = 'gameplay\journal\quests\q401_phylactery.journal' },
+  { guid = "ce3cae3601ed9341b8667203018e7f1c", resource = "" },
+  { guid = "8218786953ad3143bdbfcec401643470", resource = "" },
+]
+
+[[effects.curse_lifted.journal_append]]
+label = "questact1/q401_phylactery/ce3cae36/2818eeb1"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "c363eee207345a43870711acc05f2121", resource = 'gameplay\journal\quests\questact1.journal' },
+  { guid = "34b51502e904bd4bb6ae432fcb04fdec", resource = 'gameplay\journal\quests\q401_phylactery.journal' },
+  { guid = "ce3cae3601ed9341b8667203018e7f1c", resource = "" },
+  { guid = "2818eeb19e3695479a972c900f37997c", resource = "" },
+]
+
+[[effects.curse_lifted.journal_append]]
+label = "questact1/q401_phylactery/ce3cae36/ebba9f1c"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "c363eee207345a43870711acc05f2121", resource = 'gameplay\journal\quests\questact1.journal' },
+  { guid = "34b51502e904bd4bb6ae432fcb04fdec", resource = 'gameplay\journal\quests\q401_phylactery.journal' },
+  { guid = "ce3cae3601ed9341b8667203018e7f1c", resource = "" },
+  { guid = "ebba9f1c7403f74f938e001f404a5758", resource = "" },
+]
+
+[[effects.curse_lifted.journal_append]]
+label = "questact1/q401_phylactery/30139cc4"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "c363eee207345a43870711acc05f2121", resource = 'gameplay\journal\quests\questact1.journal' },
+  { guid = "34b51502e904bd4bb6ae432fcb04fdec", resource = 'gameplay\journal\quests\q401_phylactery.journal' },
+  { guid = "30139cc4357e974a8b3e3b8a70857069", resource = "" },
+]
+
+[[effects.curse_lifted.journal_append]]
+label = "questact1/q401_phylactery/30139cc4/8e43b12e"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "c363eee207345a43870711acc05f2121", resource = 'gameplay\journal\quests\questact1.journal' },
+  { guid = "34b51502e904bd4bb6ae432fcb04fdec", resource = 'gameplay\journal\quests\q401_phylactery.journal' },
+  { guid = "30139cc4357e974a8b3e3b8a70857069", resource = "" },
+  { guid = "8e43b12e59fb8941802316ca23cd440f", resource = "" },
+]
+
+[[effects.curse_lifted.journal_append]]
+label = "questact1/q401_phylactery/30139cc4/59b0229c"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "c363eee207345a43870711acc05f2121", resource = 'gameplay\journal\quests\questact1.journal' },
+  { guid = "34b51502e904bd4bb6ae432fcb04fdec", resource = 'gameplay\journal\quests\q401_phylactery.journal' },
+  { guid = "30139cc4357e974a8b3e3b8a70857069", resource = "" },
+  { guid = "59b0229c09aa594482506c81673b9dc2", resource = "" },
+]
+
+[[effects.curse_lifted.journal_append]]
+label = "questact1/q401_phylactery/52b3b6a9"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "c363eee207345a43870711acc05f2121", resource = 'gameplay\journal\quests\questact1.journal' },
+  { guid = "34b51502e904bd4bb6ae432fcb04fdec", resource = 'gameplay\journal\quests\q401_phylactery.journal' },
+  { guid = "52b3b6a9ca5f9c4bacddcd74ea707c93", resource = "" },
+]
+
+[[effects.curse_lifted.journal_append]]
+label = "questact1/q401_phylactery/52b3b6a9/f53a7f71"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "c363eee207345a43870711acc05f2121", resource = 'gameplay\journal\quests\questact1.journal' },
+  { guid = "34b51502e904bd4bb6ae432fcb04fdec", resource = 'gameplay\journal\quests\q401_phylactery.journal' },
+  { guid = "52b3b6a9ca5f9c4bacddcd74ea707c93", resource = "" },
+  { guid = "f53a7f71d546834fa51ce07934b10766", resource = "" },
+]
+
+[[effects.curse_lifted.journal_append]]
+label = "questact1/q401_phylactery/7a33444d"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "c363eee207345a43870711acc05f2121", resource = 'gameplay\journal\quests\questact1.journal' },
+  { guid = "34b51502e904bd4bb6ae432fcb04fdec", resource = 'gameplay\journal\quests\q401_phylactery.journal' },
+  { guid = "7a33444d69b05d49b9de9ae5fc4e3bf6", resource = "" },
+]
+
+[[effects.curse_lifted.journal_append]]
+label = "questact1/q401_phylactery/7a33444d/da9906d6"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "c363eee207345a43870711acc05f2121", resource = 'gameplay\journal\quests\questact1.journal' },
+  { guid = "34b51502e904bd4bb6ae432fcb04fdec", resource = 'gameplay\journal\quests\q401_phylactery.journal' },
+  { guid = "7a33444d69b05d49b9de9ae5fc4e3bf6", resource = "" },
+  { guid = "da9906d6e1957c4192580aa1366dab33", resource = "" },
+]
+
+[[effects.curse_lifted.journal_append]]
+label = "questact1/q401_phylactery/e6f94d89"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "c363eee207345a43870711acc05f2121", resource = 'gameplay\journal\quests\questact1.journal' },
+  { guid = "34b51502e904bd4bb6ae432fcb04fdec", resource = 'gameplay\journal\quests\q401_phylactery.journal' },
+  { guid = "e6f94d89a9661247b479433521ba9234", resource = "" },
+]
+
+[[effects.curse_lifted.journal_append]]
+label = "questact1/q401_phylactery/e6f94d89/571dde3e"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "c363eee207345a43870711acc05f2121", resource = 'gameplay\journal\quests\questact1.journal' },
+  { guid = "34b51502e904bd4bb6ae432fcb04fdec", resource = 'gameplay\journal\quests\q401_phylactery.journal' },
+  { guid = "e6f94d89a9661247b479433521ba9234", resource = "" },
+  { guid = "571dde3e5a962948b03ebf36c45adc5b", resource = "" },
+]
+
+[[effects.curse_lifted.journal_append]]
+label = "questact1/q401_phylactery/e6f94d89/6ac12513"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "c363eee207345a43870711acc05f2121", resource = 'gameplay\journal\quests\questact1.journal' },
+  { guid = "34b51502e904bd4bb6ae432fcb04fdec", resource = 'gameplay\journal\quests\q401_phylactery.journal' },
+  { guid = "e6f94d89a9661247b479433521ba9234", resource = "" },
+  { guid = "6ac1251385e7f14aa6acc92c033d1504", resource = "" },
+]
+
+[[effects.curse_lifted.journal_append]]
+label = "questact1/q401_phylactery/e6f94d89/e47aec73"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "c363eee207345a43870711acc05f2121", resource = 'gameplay\journal\quests\questact1.journal' },
+  { guid = "34b51502e904bd4bb6ae432fcb04fdec", resource = 'gameplay\journal\quests\q401_phylactery.journal' },
+  { guid = "e6f94d89a9661247b479433521ba9234", resource = "" },
+  { guid = "e47aec73f1e6a540b581b65a93914044", resource = "" },
+]
+
+[[effects.curse_lifted.journal_append]]
+label = "questact1/q401_phylactery/7a33444d/3b093260"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "c363eee207345a43870711acc05f2121", resource = 'gameplay\journal\quests\questact1.journal' },
+  { guid = "34b51502e904bd4bb6ae432fcb04fdec", resource = 'gameplay\journal\quests\q401_phylactery.journal' },
+  { guid = "7a33444d69b05d49b9de9ae5fc4e3bf6", resource = "" },
+  { guid = "3b0932603113ab43ad5e2c2e874d0d25", resource = "" },
+]
+
+[[effects.curse_lifted.journal_append]]
+label = "questact1/q401_phylactery/7a33444d/f8b21d12"
+status = "JS_Success"
+unread = true
+steps = [
+  { guid = "c363eee207345a43870711acc05f2121", resource = 'gameplay\journal\quests\questact1.journal' },
+  { guid = "34b51502e904bd4bb6ae432fcb04fdec", resource = 'gameplay\journal\quests\q401_phylactery.journal' },
+  { guid = "7a33444d69b05d49b9de9ae5fc4e3bf6", resource = "" },
+  { guid = "f8b21d12641a3a46a32e96e3ef39989f", resource = "" },
+]
+
+[[effects.curse_lifted.journal_append]]
+label = "questact1/q401_phylactery/7e9d887d/1d65a26b"
+status = "JS_Active"
+unread = true
+steps = [
+  { guid = "c363eee207345a43870711acc05f2121", resource = 'gameplay\journal\quests\questact1.journal' },
+  { guid = "34b51502e904bd4bb6ae432fcb04fdec", resource = 'gameplay\journal\quests\q401_phylactery.journal' },
+  { guid = "7e9d887deb68ca48a7ababf7d9955d41", resource = "" },
+  { guid = "1d65a26b05047442957f4d80d6c20bec", resource = "" },
+]
+
+[[effects.curse_lifted.journal_counters]]   # questact1/q401_phylactery/6680bca1/3108fe9c
+guid = "3108fe9c65ef78458217a5dd513649bd"
+count = 0
+
+[[effects.curse_lifted.journal_counters]]   # questact1/q401_phylactery/ce3cae36/2818eeb1
+guid = "2818eeb19e3695479a972c900f37997c"
+count = 0
+
+[[effects.curse_lifted.journal_counters]]   # questact1/q401_phylactery/e6f94d89/6ac12513
+guid = "6ac1251385e7f14aa6acc92c033d1504"
+count = 0
+
+[[effects.curse_lifted.journal_counters]]   # questact1/q401_phylactery/6680bca1/56d447b6
+guid = "56d447b6ef3b4f45894be2bfff08fe74"
+count = 0
+
+[[effects.curse_lifted.journal_counters]]   # questact1/q401_phylactery/ce3cae36/82187869
+guid = "8218786953ad3143bdbfcec401643470"
+count = 0
+
+[[effects.curse_lifted.journal_counters]]   # questact1/q401_phylactery/30139cc4/8e43b12e
+guid = "8e43b12e59fb8941802316ca23cd440f"
+count = 0
+
+[[effects.curse_lifted.journal_counters]]   # questact1/q401_phylactery/6680bca1/1bec919b
+guid = "1bec919bd9e3a54bae9b07b923c0ed7a"
+count = 0
+
+[[effects.curse_lifted.journal_counters]]   # questact1/q401_phylactery/dffe226d/20e030a8
+guid = "20e030a8eab81b4f8d5936c586c71584"
+count = 0
+
+[[effects.curse_lifted.journal_counters]]   # questact1/q401_phylactery/30139cc4/59b0229c
+guid = "59b0229c09aa594482506c81673b9dc2"
+count = 0
+
+[[effects.curse_lifted.journal_counters]]   # questact1/q401_phylactery/ce3cae36/ebba9f1c
+guid = "ebba9f1c7403f74f938e001f404a5758"
+count = 0
+
+[[effects.curse_lifted.journal_counters]]   # questact1/q401_phylactery/7a33444d/3b093260
+guid = "3b0932603113ab43ad5e2c2e874d0d25"
+count = 0
+
+[[effects.curse_lifted.journal_counters]]   # questact1/q401_phylactery/6680bca1/68c190f2
+guid = "68c190f2eafe694c8327fcbfa8394037"
+count = 0
+
+[[effects.curse_lifted.journal_counters]]   # questact1/q401_phylactery/7a33444d/da9906d6
+guid = "da9906d6e1957c4192580aa1366dab33"
+count = 0
+
+[[effects.curse_lifted.journal_counters]]   # questact1/q401_phylactery/52b3b6a9/f53a7f71
+guid = "f53a7f71d546834fa51ce07934b10766"
+count = 0
+
+[[effects.curse_lifted.journal_counters]]   # questact1/q401_phylactery/6680bca1/fec83eaa
+guid = "fec83eaab7dd814bbef1e2633a3c37f2"
+count = 0
+
+[[effects.curse_lifted.journal_counters]]   # questact1/q401_phylactery/e6f94d89/571dde3e
+guid = "571dde3e5a962948b03ebf36c45adc5b"
+count = 0
+
+[[effects.curse_lifted.journal_counters]]   # questact1/q401_phylactery/7a33444d/f8b21d12
+guid = "f8b21d12641a3a46a32e96e3ef39989f"
+count = 0
+
+[[effects.curse_lifted.journal_counters]]   # questact1/q401_phylactery/e6f94d89/e47aec73
+guid = "e47aec73f1e6a540b581b65a93914044"
+count = 0
+

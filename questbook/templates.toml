@@ -1,0 +1,261 @@
+# Template registry (schema: questbook/SCHEMA.md "Template registry"; design: docs/plan/story-chain.md).
+#
+# One entry per decision-window template: a real 5.01 save parked before the window's decisions. The player's
+# saves are never part of the repo: export finds `<stem>.sav` in the template folders (run `template_dirs`, the
+# app's Templates folder, default `templates` next to this questbook folder). All templates sit on one line, the
+# Nexus 2394 pack playthrough (`line` = pack save number, C:\w3-fixtures\pack_501\PACKS.txt and
+# session_V1\BRANCHES.txt).
+#
+# `encodes` = what the save already holds for earlier quests. Derived with `w3al template-scan` (every answer
+# combination of the earlier window exported on that window's own template, matched against this save by the facts
+# that vary between the combinations; mismatches quoted below are transient facts later play removed), never typed
+# by hand. Exceptions, marked in place: a_favor_for_a_friend (no 5.01 window template to scan; read off the saves
+# with `w3al facts`) and kings_gambit (the pack played the Cerys trial, which is not a questbook option: `in_game`).
+#
+# `fixed` = earlier answers that cannot be changed on this template, with the reason. Keys: `quest` (any change),
+# `quest.choice`, `quest.choice=option`. Evidence: `w3al template-scan` reader states (a reader quest that branched on
+# the decision has run) and docs/plan/decision-catalogue.md section 2; table in docs/plan/story-chain.md section 3.
+
+# W1 Velen, the spirit. T_spirit (pack 8, user's 5.01 re-save).
+[[template]]
+id = "w1_spirit"
+stem = "ManualSave_6255c_7ea51000_8f3325"
+line = 8
+quests = ["whispering_hillock"]
+source = "pack 8 = T_spirit, 5.01 re-save (session_V1)"
+
+# W2 Velen, Keira and Letho. T_keira (pack 13). The Letho options invited / elsewhere are graph closures captured
+# on this template; `abandoned` walks only on T_letho (pack 14, ManualSave_6b9be_7ea51000_9bb30d), which is not a
+# window of its own (pick it by hand for that option).
+[[template]]
+id = "w2_keira_letho"
+stem = "ManualSave_568ef_7ea51000_923cb5"
+line = 13
+quests = ["for_the_advancement_of_learning", "ghosts_of_the_past"]
+source = "pack 13 = T_keira, 5.01 re-save (session_V1)"
+[template.encodes]
+whispering_hillock = { spirit = "destroy" }     # template-scan: 0 mismatches of 5 varying facts, next best 5
+a_favor_for_a_friend = { date = "night" }       # NOT scanned: sq101_keira_had_sex on every template from pack 13 (w3al facts)
+[template.fixed]
+whispering_hillock = "the Baron finale (q107_swamps, pack 10 -> 11) already played the spirit's outcome (Anna, the Baron, the orphans)"
+a_favor_for_a_friend = "no 5.01 save of pack 12 exists, so the date cannot be rebuilt; the save keeps the pack's night with Keira"
+
+# W3 Novigrad, Junior.
+[[template]]
+id = "w3_junior"
+stem = "ManualSave_10028e_7ea51000_3f6825b"
+line = 21
+quests = ["get_junior"]
+source = "pack 21, 5.01 re-save (pack_501)"
+[template.encodes]
+whispering_hillock = { spirit = "destroy" }
+a_favor_for_a_friend = { date = "night" }       # NOT scanned (see w2)
+for_the_advancement_of_learning = { keira = "kaer_morhen" }   # template-scan W2: 0 mismatches of 9, next best 2
+ghosts_of_the_past = { letho = "kaer_morhen" }
+[template.fixed]
+whispering_hillock = "the Baron finale (q107_swamps, pack 10 -> 11) already played the spirit's outcome"
+a_favor_for_a_friend = "no 5.01 save of pack 12 exists, so the date cannot be rebuilt"
+"ghosts_of_the_past.letho=abandoned" = "abandoning Letho is walked on T_letho only; the W2 template cannot build it"
+
+# W4 Skellige, Undvik.
+[[template]]
+id = "w4_undvik"
+stem = "ManualSave_8c0ab_7ea51000_3f73208"
+line = 33
+quests = ["lord_of_undvik"]
+source = "pack 33, 5.01 re-save (pack_501)"
+[template.encodes]
+whispering_hillock = { spirit = "destroy" }
+a_favor_for_a_friend = { date = "night" }       # NOT scanned (see w2)
+for_the_advancement_of_learning = { keira = "kaer_morhen" }
+ghosts_of_the_past = { letho = "kaer_morhen" }
+get_junior = { junior = "kill" }                # template-scan W3: 0 mismatches of 3, next best 3
+[template.fixed]
+whispering_hillock = "the Baron finale (q107_swamps, pack 10 -> 11) already played the spirit's outcome"
+a_favor_for_a_friend = "no 5.01 save of pack 12 exists, so the date cannot be rebuilt"
+"ghosts_of_the_past.letho=abandoned" = "abandoning Letho is walked on T_letho only; the W2 template cannot build it"
+
+# W4 Skellige, King's Gambit.
+[[template]]
+id = "w4_kings_gambit"
+stem = "ManualSave_54acc_7ea51000_3f7d081"
+line = 35
+quests = ["kings_gambit"]
+source = "pack 35, 5.01 re-save (pack_501)"
+[template.encodes]
+whispering_hillock = { spirit = "destroy" }
+a_favor_for_a_friend = { date = "night" }       # NOT scanned (see w2)
+for_the_advancement_of_learning = { keira = "kaer_morhen" }
+ghosts_of_the_past = { letho = "kaer_morhen" }
+get_junior = { junior = "kill" }
+lord_of_undvik = { folan = "folan_lives", vigi = "play" }   # template-scan W4 (folan): 0 mismatches of 4, next best 4; vigi NOT scanned: `play` = as the game played it (q202_vigi_saved)
+[template.fixed]
+whispering_hillock = "the Baron finale (q107_swamps, pack 10 -> 11) already played the spirit's outcome"
+a_favor_for_a_friend = "no 5.01 save of pack 12 exists, so the date cannot be rebuilt"
+"ghosts_of_the_past.letho=abandoned" = "abandoning Letho is walked on T_letho only; the W2 template cannot build it"
+
+# W5 Novigrad, romance.
+[[template]]
+id = "w5_romance"
+stem = "ManualSave_54142_7ea51000_3f8aed5"
+line = 42
+quests = ["now_or_never", "the_last_wish"]
+source = "pack 42, 5.01 re-save (pack_501)"
+[template.encodes]
+whispering_hillock = { spirit = "destroy" }
+a_favor_for_a_friend = { date = "night" }       # NOT scanned (see w2)
+for_the_advancement_of_learning = { keira = "kaer_morhen" }
+ghosts_of_the_past = { letho = "kaer_morhen" }
+get_junior = { junior = "kill" }
+lord_of_undvik = { folan = "folan_lives", vigi = "play" }
+kings_gambit = { side = "in_game" }             # NOT the scan's pick: the pack played the trial for Cerys (q206_cerys_queen), see the header
+[template.fixed]
+whispering_hillock = "the Baron finale (q107_swamps, pack 10 -> 11) already played the spirit's outcome"
+a_favor_for_a_friend = "no 5.01 save of pack 12 exists, so the date cannot be rebuilt"
+"ghosts_of_the_past.letho=abandoned" = "abandoning Letho is walked on T_letho only; the W2 template cannot build it"
+"kings_gambit.side" = "Cerys was crowned in this save (q206_cerys_queen; trial and coronation q206 / q208 played, pack 35 -> 36)"
+
+# W6 Kaer Morhen, allies (pack 43 + ugly_baby's preparatory walk).
+[[template]]
+id = "w6_allies"
+stem = "ManualSave_100840_7ea51000_3f9b30a"
+line = 43
+quests = ["ugly_baby", "brothers_in_arms"]
+source = "pack 43, 5.01 re-save (pack_501)"
+[template.encodes]
+whispering_hillock = { spirit = "destroy" }
+a_favor_for_a_friend = { date = "night" }       # NOT scanned (see w2)
+for_the_advancement_of_learning = { keira = "kaer_morhen" }
+ghosts_of_the_past = { letho = "kaer_morhen" }
+get_junior = { junior = "kill" }
+lord_of_undvik = { folan = "folan_lives", vigi = "play" }
+kings_gambit = { side = "in_game" }             # Cerys (see w5)
+now_or_never = { triss = "stay" }               # template-scan W5: 2 mismatches (q309_s_look_back, sq202_despawn_yen_end: transient) of 9, next best 3
+the_last_wish = { yennefer = "friends" }
+[template.fixed]
+whispering_hillock = "the Baron finale (q107_swamps, pack 10 -> 11) already played the spirit's outcome"
+a_favor_for_a_friend = "no 5.01 save of pack 12 exists, so the date cannot be rebuilt"
+"ghosts_of_the_past.letho=abandoned" = "abandoning Letho is walked on T_letho only; the W2 template cannot build it"
+"kings_gambit.side" = "Cerys was crowned in this save (q206_cerys_queen; q206 / q208 played)"
+
+# W7 after the battle.
+[[template]]
+id = "w7_after_battle"
+stem = "ManualSave_86355_7ea51000_3fa5db8"
+line = 48
+quests = ["blood_on_the_battlefield"]
+source = "pack 48, 5.01 re-save (pack_501)"
+[template.encodes]
+whispering_hillock = { spirit = "destroy" }
+a_favor_for_a_friend = { date = "night" }       # NOT scanned (see w2)
+for_the_advancement_of_learning = { keira = "kaer_morhen" }
+ghosts_of_the_past = { letho = "kaer_morhen" }
+get_junior = { junior = "kill" }
+lord_of_undvik = { folan = "folan_lives", vigi = "play" }
+kings_gambit = { side = "in_game" }             # Cerys (see w5)
+now_or_never = { triss = "stay" }
+the_last_wish = { yennefer = "friends" }
+ugly_baby = {}
+brothers_in_arms = { ermion = "invite", hjalmar = "invite", roche = "invite", zoltan = "invite" }   # template-scan W6: 1 mismatch (q402_roche_helps_context_dialogue, 5.01 scene fact) of 9, next best 2
+[template.fixed]
+whispering_hillock = "the Baron finale (q107_swamps, pack 10 -> 11) already played the spirit's outcome"
+a_favor_for_a_friend = "no 5.01 save of pack 12 exists, so the date cannot be rebuilt"
+ghosts_of_the_past = "the battle of Kaer Morhen (q403, pack 47) already played with Letho as an ally"
+for_the_advancement_of_learning = "the battle of Kaer Morhen (q403, pack 47) already played with Keira at Kaer Morhen"
+lord_of_undvik = "the battle of Kaer Morhen (q403, pack 47) already read q202_folan_lives"
+brothers_in_arms = "the battle of Kaer Morhen (q403, pack 47) already played with these allies"
+"kings_gambit.side" = "Cerys was crowned in this save (q206_cerys_queen; q206 / q208 played)"
+
+# W8 Novigrad act 3.
+[[template]]
+id = "w8_novigrad_act3"
+stem = "ManualSave_4e4ce_7ea51000_3fb3aa7"
+line = 51
+quests = ["final_preparations", "reason_of_state"]
+source = "pack 51, 5.01 re-save (pack_501)"
+[template.encodes]
+whispering_hillock = { spirit = "destroy" }
+a_favor_for_a_friend = { date = "night" }       # NOT scanned (see w2)
+for_the_advancement_of_learning = { keira = "kaer_morhen" }
+ghosts_of_the_past = { letho = "kaer_morhen" }
+get_junior = { junior = "kill" }
+lord_of_undvik = { folan = "folan_lives", vigi = "play" }
+kings_gambit = { side = "in_game" }             # Cerys (see w5)
+now_or_never = { triss = "stay" }
+the_last_wish = { yennefer = "friends" }
+ugly_baby = {}
+brothers_in_arms = { ermion = "invite", hjalmar = "invite", roche = "invite", zoltan = "invite" }
+blood_on_the_battlefield = { reward = "none", ride = "imlerith", snowball = "snowball" }   # template-scan W7: 1 mismatch (ciri_eqp_mount, a dialogue toggle) of 16, next best 5
+[template.fixed]
+whispering_hillock = "the Baron finale (q107_swamps, pack 10 -> 11) already played the spirit's outcome"
+a_favor_for_a_friend = "no 5.01 save of pack 12 exists, so the date cannot be rebuilt"
+ghosts_of_the_past = "the battle of Kaer Morhen (q403, pack 47) already played with Letho as an ally"
+for_the_advancement_of_learning = "the battle of Kaer Morhen (q403, pack 47) already played with Keira at Kaer Morhen"
+lord_of_undvik = "the battle of Kaer Morhen (q403, pack 47) already read q202_folan_lives"
+brothers_in_arms = "the battle of Kaer Morhen (q403, pack 47) already played with these allies"
+"kings_gambit.side" = "Cerys was crowned in this save (q206_cerys_queen; q206 / q208 played)"
+
+# W9 Skellige act 3.
+[[template]]
+id = "w9_skellige_act3"
+stem = "ManualSave_4dcef_7ea51000_400b253"
+line = 54
+quests = ["child_of_the_elder_blood"]
+source = "pack 54, 5.01 re-save (pack_501)"
+[template.encodes]
+whispering_hillock = { spirit = "destroy" }
+a_favor_for_a_friend = { date = "night" }       # NOT scanned (see w2)
+for_the_advancement_of_learning = { keira = "kaer_morhen" }
+ghosts_of_the_past = { letho = "kaer_morhen" }
+get_junior = { junior = "kill" }
+lord_of_undvik = { folan = "folan_lives", vigi = "play" }
+kings_gambit = { side = "in_game" }             # Cerys (see w5)
+now_or_never = { triss = "stay" }
+the_last_wish = { yennefer = "friends" }
+ugly_baby = {}
+brothers_in_arms = { ermion = "invite", hjalmar = "invite", roche = "invite", zoltan = "invite" }
+blood_on_the_battlefield = { reward = "none", ride = "imlerith", snowball = "snowball" }
+final_preparations = { dijkstra = "spared", lodge = "alone" }   # template-scan W8: 4 mismatches (mq3035 activity / side-path toggles) of 22, next best 6
+reason_of_state = { plot = "agree", side = "dijkstra" }
+[template.fixed]
+whispering_hillock = "the Baron finale (q107_swamps, pack 10 -> 11) already played the spirit's outcome"
+a_favor_for_a_friend = "no 5.01 save of pack 12 exists, so the date cannot be rebuilt"
+ghosts_of_the_past = "the battle of Kaer Morhen (q403, pack 47) already played with Letho as an ally"
+for_the_advancement_of_learning = "the battle of Kaer Morhen (q403, pack 47) already played with Keira at Kaer Morhen"
+lord_of_undvik = "the battle of Kaer Morhen (q403, pack 47) already read q202_folan_lives"
+brothers_in_arms = "the battle of Kaer Morhen (q403, pack 47) already played with these allies"
+"kings_gambit.side" = "Cerys was crowned in this save (q206_cerys_queen; q206 / q208 played)"
+get_junior = "Final Preparations (q310, pack 51 -> 52) already read q302_whoreson_dead and despawned Dudu's story phase (a094d90c)"
+"final_preparations.dijkstra" = "Reason of State (mq3035, pack 52 -> 53) already played with Dijkstra's leg as it is"
+reason_of_state = "Reason of State already played out in the world: Radovid, Roche and Thaler dead (mq3035_fdb_radovid_dead, mq3035_fdb_roche_talar_dead), Novigrad's world state (cg300_novigrad) follows it"
+
+# Quests on the line without a usable window template (their decisions are made before the next template).
+[[line]]
+quest = "lilac_and_gooseberries"
+line = 1
+note = "White Orchard (placeholder content)"
+
+[[line]]
+quest = "beast_of_white_orchard"
+line = 2
+note = "White Orchard (placeholder content)"
+
+[[line]]
+quest = "family_matters"
+line = 6
+note = "botchling decided pack 6 -> 7 (decision-catalogue section 3); placeholder content, no template"
+
+[[line]]
+quest = "a_favor_for_a_friend"
+line = 12
+note = "Keira's date, pack 12 -> 13; pack 12 has no 5.01 re-save, so no window template"
+
+[[line]]
+quest = "a_towerful_of_mice"
+line = 11
+note = "pack 11 (old-gen ManualSave_4dcec_7e104000_538e03f); no 5.01 re-save yet, so no window template and not recorded on later templates"
+
+[[line]]
+quest = "carnal_sins"
+line = 29
+note = "pack 29 (old-gen ManualSave_68fb9_7e105800_5df4ef9); no 5.01 re-save yet, so no window template and not recorded on later templates"

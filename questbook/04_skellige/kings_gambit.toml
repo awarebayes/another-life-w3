@@ -1,0 +1,73 @@
+# template: pack 35 ManualSave_54acc_7ea51000_3f7d081 (5.01 re-save, C:\w3-fixtures\pack_501; old-gen original
+# ManualSave_54acc_7e106000_591752f). Licensed CC BY-SA 4.0.
+#
+# Act 4, Skellige decision window W4, decisions D11 (docs/plan/decision-catalogue.md section 4) and "ruler of Skellige". The
+# catalogue bridges D11 through pack 35: it already holds the pack line's Undvik (Folan, Vigi and Hjalmar saved) and waits at the
+# feast in Kaer Trolde (q206_berserkers phase Dinner 6f31a641, Lady Bran's trigger 3daf7b27).
+# Graph (q206_berserkers_attack.w2phase): after the berserker attack, scene 31f4501a has outputs `Cerys` (5e001fec
+# `q206_helping_cerys`), `Hjalmar` (1691f1d7 `q206_helping_hjalmar`) and `NoThanks` (7315dda2 `q206_svanrige_king`, the
+# quest ends). The Cerys and Hjalmar paths are long investigations ending in the trial (`q206_cerys_queen` /
+# `q206_hjalmar_king`) and, through q208 (the coronation), `q208_cerys_won` / `q208_hjalmar_won`.
+# Re-checked 2026-11-05 (later) with the current walker on this template:
+#   Hjalmar king: `--start 3daf7b27 --through --pick 31f4501a=Hjalmar --pick 127635cd=Now --stop 9afd96a3 --stop 1bf88c9e`, no unresolved
+#                 point, 850 steps: q206_helping_hjalmar, q206_hjalmar_prosecutor, q206_hjalmar_king, q206_complete(d), q208_started;
+#                 none of q206_cerys_queen / q206_svanrige_king. The stops park the coronation (q208_heroesmead.w2phase, the Ands
+#                 9afd96a3 / 1bf88c9e of its start): without them the walk plays the whole coronation (q208_hjalmar_won,
+#                 q208_completed) but the writer refuses it, "scope edb2abb3 is not in the template and has no parent there" -
+#                 the walker followed the importer block edb2abb3 of quests/demo_files/hands_on_q206_berserkers into q208
+#                 (walker finding, docs/research.md). So the coronation is played in the game, q208_hjalmar_won comes with it.
+#                 `Later` needs a pick on 6f219c98 [crach present] (a tags-presence condition). Graph-only (no played save).
+#   Svanrige king: `--pick 31f4501a=NoThanks`, no unresolved point; export works now (the earlier W-3 refusal is gone).
+#   Cerys queen:  `--pick 31f4501a=Cerys --pick 5884be0a=TheBarrel --pick ba006c80=True --pick 127635cd=Now` reaches
+#                 q206_cerys_queen and q206_complete but the walk keeps ONE unresolved point, `fcf456e4 PhaseOutputBlock
+#                 (random_timer.w2phase): phase output not followed: 2 running importers` (Cerys path's idle "Random Time"
+#                 loop of the servants, q206_cerys_path.w2phase a8030580 -> 5129eb4d; `--pick fcf456e4=Out` is refused:
+#                 "has outputs []"), so synth-apply / export refuse it. The Arnvald chase (ba006c80 and its siblings
+#                 bb2836e5, 70dee987, da442972 ... [InsideTrigger]) also needs a pick per lap. Cerys is therefore not offered:
+#                 "play it yourself" (`in_game`) is the Cerys route; pack 36 (old-gen ManualSave_..., Cerys queen) re-saved in
+#                 5.01 would be a donor (docs/research.md 2026-11-05 "content C").
+id = "kings_gambit"
+title = "King's Gambit"
+act = 4
+order = 4020
+kind = "secondary"
+region = "skellige"
+level = 16                # TODO(phase3): verify the recommended level in game
+summary = """The jarls gather in Kaer Trolde to drink to the dead king and to eye his empty seat. \
+The feast ends in blood when bears that walk like men tear into the hall, and every claimant for \
+the crown suddenly wants a witcher on their side."""
+
+[[choices]]
+id = "side"
+prompt = "The jarls want a witcher to hunt the killer, and whoever he backs wears the crown. Whose side do you take?"
+default = "in_game"
+options = [
+  { id = "in_game",  text = "Back Cerys, or decide later (the save stops at the jarls' council; you play the investigation yourself)", effects = "council" },
+  { id = "hjalmar",  text = "Back Hjalmar (his way of hunting the killer; Hjalmar wins the crown, the coronation feast is still ahead)",             effects = "hjalmar_king" },
+  { id = "refuse",   text = "Stay out of it (neither investigates; Svanrige becomes king)",                                             effects = "refuse" },
+]
+
+[effects.council]
+source = "quest graph q206_berserkers.w2phase / q206_berserkers_attack.w2phase: dinner, Crach's chambers and the attack walked to the council scene 31f4501a (w3al synth-walk on pack 35 5.01 re-save, graph-only; frontier after the walk: 31f4501a plus 2 default-dialogue waits; synth-apply writes the save)"
+
+[effects.council.synth]
+start = ["3daf7b27"]
+through = true
+stop = ["31f4501a"]
+
+[effects.hjalmar_king]
+source = "quest graphs q206_berserkers_attack.w2phase scene 31f4501a Hjalmar -> 1691f1d7 q206_helping_hjalmar, q206_hjalmar_path.w2phase to the trial (q206_hjalmar_prosecutor, q206_hjalmar_king, q206_complete), q208_heroesmead.w2phase coronation parked at its start (q208_started); crowd scene 127635cd `Now` (w3al synth-walk on pack 35 5.01 re-save, 850 steps, no unresolved point, graph-only: the pack line crowned Cerys)"
+
+[effects.hjalmar_king.synth]
+start = ["3daf7b27"]
+through = true
+pick = ["31f4501a=Hjalmar", "127635cd=Now"]
+stop = ["9afd96a3", "1bf88c9e"]
+
+[effects.refuse]
+source = "quest graph q206_berserkers_attack.w2phase scene 31f4501a NoThanks -> 7315dda2 q206_svanrige_king (w3al synth-walk on pack 35 5.01 re-save, graph-only, no unresolved point; synth-apply and export write it with the current walker)"
+
+[effects.refuse.synth]
+start = ["3daf7b27"]
+through = true
+pick = ["31f4501a=NoThanks"]

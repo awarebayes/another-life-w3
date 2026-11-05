@@ -1,0 +1,2454 @@
+# Illustrations for the story pages: LINKS to public images on the Witcher Wiki (Fandom), never copies.
+# See DECISIONS.md "Illustrations are linked, not stored". The app shows each image with a credit and a link to page.
+# quest is a quest id, `act:<n>` or `region:<id>` (fallback when a quest has no entry), or `journal:<guid>` (any game quest). Image files are CD PROJEKT RED material
+# hosted by the wiki; they are not covered by this repo's licence. Not affiliated with CD PROJEKT RED or Fandom.
+
+[[image]]
+quest = "beast_of_white_orchard"
+image = "https://static.wikia.nocookie.net/witcher/images/8/8c/Griffinfield.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Beast_of_White_Orchard"
+title = "File:Griffinfield.jpg"
+
+[[image]]
+quest = "lilac_and_gooseberries"
+image = "https://static.wikia.nocookie.net/witcher/images/8/8a/Sheepgriffin.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Lilac_and_Gooseberries"
+title = "File:Sheepgriffin.jpg"
+
+[[image]]
+quest = "a_favor_for_a_friend"
+image = "https://static.wikia.nocookie.net/witcher/images/e/e6/Tw3_a_favor_for_a_friend.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/A_Favor_for_a_Friend"
+title = "File:Tw3 a favor for a friend.jpg"
+
+[[image]]
+quest = "a_towerful_of_mice"
+image = "https://static.wikia.nocookie.net/witcher/images/9/91/The_witcher_3_plague_maiden.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/A_Towerful_of_Mice"
+title = "File:The witcher 3 plague maiden.jpg"
+
+[[image]]
+quest = "family_matters"
+image = "https://static.wikia.nocookie.net/witcher/images/6/62/Tw3_family_matters.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Family_Matters"
+title = "File:Tw3 family matters.jpg"
+
+[[image]]
+quest = "for_the_advancement_of_learning"
+image = "https://static.wikia.nocookie.net/witcher/images/f/f3/Tw3_for_the_advancement_of_learning.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/For_the_Advancement_of_Learning"
+title = "File:Tw3 for the advancement of learning.jpg"
+
+[[image]]
+quest = "ghosts_of_the_past"
+image = "https://static.wikia.nocookie.net/witcher/images/9/94/Tw3_ghost_of_past.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Ghosts_of_the_Past"
+title = "File:Tw3 ghost of past.jpg"
+
+[[image]]
+quest = "whispering_hillock"
+image = "https://static.wikia.nocookie.net/witcher/images/4/41/Tw3_the_whispering_hillock.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Whispering_Hillock"
+title = "File:Tw3 the whispering hillock.jpg"
+
+[[image]]
+quest = "carnal_sins"
+image = "https://static.wikia.nocookie.net/witcher/images/1/19/Tw3_promo_Carnal_Sins.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Carnal_Sins"
+title = "File:Tw3 promo Carnal Sins.jpg"
+
+[[image]]
+quest = "get_junior"
+image = "https://static.wikia.nocookie.net/witcher/images/9/98/Prima_Guide_Get_junior.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Get_Junior"
+title = "File:Prima Guide Get junior.png"
+
+[[image]]
+quest = "now_or_never"
+image = "https://static.wikia.nocookie.net/witcher/images/0/0e/NowoNev.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Now_or_Never"
+title = "File:NowoNev.jpg"
+
+[[image]]
+quest = "the_last_wish"
+image = "https://static.wikia.nocookie.net/witcher/images/8/8d/Tw3_Romance_Yennefer_and_Geralt.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Last_Wish_(quest)"
+title = "File:Tw3 Romance Yennefer and Geralt.jpg"
+
+[[image]]
+quest = "kings_gambit"
+image = "https://static.wikia.nocookie.net/witcher/images/8/87/Arnvald_%28King%27s_Gambit%29.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/King%27s_Gambit"
+title = "File:Arnvald (King's Gambit).png"
+
+[[image]]
+quest = "lord_of_undvik"
+image = "https://static.wikia.nocookie.net/witcher/images/a/af/Lord_of_Undvik.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Lord_of_Undvik"
+title = "File:Lord of Undvik.jpg"
+
+[[image]]
+quest = "brothers_in_arms"
+image = "https://static.wikia.nocookie.net/witcher/images/3/3f/Tw3_kaer_morhen_battle.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Battle_of_Kaer_Morhen"
+title = "File:Tw3 kaer morhen battle.png"
+
+[[image]]
+quest = "ugly_baby"
+image = "https://static.wikia.nocookie.net/witcher/images/3/37/Prima_Guide_Ugly_Baby.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Ugly_Baby"
+title = "File:Prima Guide Ugly Baby.png"
+
+[[image]]
+quest = "blood_on_the_battlefield"
+image = "https://static.wikia.nocookie.net/witcher/images/f/f2/Tw3_blood_on_the_battlefield.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Blood_on_the_Battlefield"
+title = "File:Tw3 blood on the battlefield.jpg"
+
+[[image]]
+quest = "child_of_the_elder_blood"
+image = "https://static.wikia.nocookie.net/witcher/images/c/c5/Tw3_ciris_family_tree.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Child_of_the_Elder_Blood"
+title = "File:Tw3 ciris family tree.png"
+
+[[image]]
+quest = "final_preparations"
+image = "https://static.wikia.nocookie.net/witcher/images/6/67/Prima_Guide_Final_Preparations.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Final_Preparations"
+title = "File:Prima Guide Final Preparations.png"
+
+[[image]]
+quest = "reason_of_state"
+image = "https://static.wikia.nocookie.net/witcher/images/b/bc/Reason_of_State_teaser.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Reason_of_State"
+title = "File:Reason of State teaser.jpg"
+
+[[image]]
+quest = "region:white_orchard"
+image = "https://static.wikia.nocookie.net/witcher/images/4/4e/Tw3_white_orchard.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/White_Orchard"
+title = "File:Tw3 white orchard.png"
+
+[[image]]
+quest = "region:velen"
+image = "https://static.wikia.nocookie.net/witcher/images/a/a2/Tw3_geralt_velen.jpeg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Velen"
+title = "File:Tw3 geralt velen.jpeg"
+
+[[image]]
+quest = "region:novigrad"
+image = "https://static.wikia.nocookie.net/witcher/images/6/66/TW3_screen-Novigrad.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Novigrad"
+title = "File:TW3 screen-Novigrad.jpg"
+
+[[image]]
+quest = "region:skellige"
+image = "https://static.wikia.nocookie.net/witcher/images/7/79/Tw3_Kaer_Trolde.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Kaer_Trolde"
+title = "File:Tw3 Kaer Trolde.jpg"
+
+[[image]]
+quest = "region:kaer_morhen"
+image = "https://static.wikia.nocookie.net/witcher/images/4/4a/Tw3_Kaer_Morhen_promo.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Kaer_Morhen"
+title = "File:Tw3 Kaer Morhen promo.jpg"
+
+[[image]]
+quest = "act:1"
+image = "https://static.wikia.nocookie.net/witcher/images/4/4e/Tw3_white_orchard.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/White_Orchard"
+title = "File:Tw3 white orchard.png"
+
+[[image]]
+quest = "act:2"
+image = "https://static.wikia.nocookie.net/witcher/images/a/a2/Tw3_geralt_velen.jpeg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Velen"
+title = "File:Tw3 geralt velen.jpeg"
+
+[[image]]
+quest = "act:3"
+image = "https://static.wikia.nocookie.net/witcher/images/6/66/TW3_screen-Novigrad.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Novigrad"
+title = "File:TW3 screen-Novigrad.jpg"
+
+[[image]]
+quest = "act:4"
+image = "https://static.wikia.nocookie.net/witcher/images/7/79/Tw3_Kaer_Trolde.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Kaer_Trolde"
+title = "File:Tw3 Kaer Trolde.jpg"
+
+[[image]]
+quest = "act:5"
+image = "https://static.wikia.nocookie.net/witcher/images/4/4a/Tw3_Kaer_Morhen_promo.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Kaer_Morhen"
+title = "File:Tw3 Kaer Morhen promo.jpg"
+
+[[image]]
+quest = "act:6"
+image = "https://static.wikia.nocookie.net/witcher/images/1/1f/Tw3_ciri_by_ivances-d7v55z5.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Ciri"
+title = "File:Tw3 ciri by ivances-d7v55z5.png"
+
+
+# ---- every journal quest of the game, keyed by its CJournalQuest GUID (found via the wiki API, 2026-11-05) ----
+[[image]]
+quest = "journal:8f29adaf0843b9479250d6d62efcf302"
+image = "https://static.wikia.nocookie.net/witcher/images/a/ab/Tw3_Knight_for_Hire.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Knight_for_Hire"
+title = "File:Tw3_Knight_for_Hire.png"
+
+[[image]]
+quest = "journal:aed88341001f9641bdf83d365ddbd3ee"
+image = "https://static.wikia.nocookie.net/witcher/images/a/a5/Tw_vintner_contract_cleaning_places.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Vintner's_Contract:_Cleaning_Those_Hard-to-Reach_Places"
+title = "File:Tw_vintner_contract_cleaning_places.jpg"
+
+[[image]]
+quest = "journal:ac4598e394da9947b6a6dbec11788c38"
+image = "https://static.wikia.nocookie.net/witcher/images/f/f1/Tw3_spoontaneous_profits.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Spoontaneous_Profits!"
+title = "File:Tw3_spoontaneous_profits.jpg"
+
+[[image]]
+quest = "journal:0922791039ae57429911825bec20fb2f"
+image = "https://static.wikia.nocookie.net/witcher/images/8/88/Gwent_table.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Gwent:_Never_Fear,_Skellige's_Here"
+title = "File:Gwent_table.png"
+
+[[image]]
+quest = "journal:6d35bfdbc09cfc4faf4a4029488b20d6"
+image = "https://static.wikia.nocookie.net/witcher/images/3/3e/Tw3_Gwent_Toussaint_Tournament_price.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Gwent:_To_Everything_-_Turn,_Turn,_Tournament!"
+title = "File:Tw3_Gwent_Toussaint_Tournament_price.png"
+
+[[image]]
+quest = "journal:a75171fd7cac2d4480915f53aa93ba0a"
+image = "https://static.wikia.nocookie.net/witcher/images/a/a0/DunTynneHillside.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Vintner's_Contract:_Dun_Tynne_Hillside"
+title = "File:DunTynneHillside.jpg"
+
+[[image]]
+quest = "journal:9db8b2d3a8cb354e9cb3f07082bff246"
+image = "https://static.wikia.nocookie.net/witcher/images/1/16/Tw3_raging_wolf_quest.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Raging_Wolf"
+title = "File:Tw3_raging_wolf_quest.jpg"
+
+[[image]]
+quest = "journal:509a49af5d05164087a7a49748613306"
+image = "https://static.wikia.nocookie.net/witcher/images/2/2d/Tw3_fists_of_fury_toussaint.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Fists_of_Fury:_Toussaint"
+title = "File:Tw3_fists_of_fury_toussaint.jpg"
+
+[[image]]
+quest = "journal:7d6e6e3570fcdc48989950d9df22baa0"
+image = "https://static.wikia.nocookie.net/witcher/images/f/f7/Tw3_vintner_contract_duchaton_crest.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Vintner's_Contract:_Duchaton_Crest"
+title = "File:Tw3_vintner_contract_duchaton_crest.jpg"
+
+[[image]]
+quest = "journal:445368000ffb7d47a6ef9339dd965335"
+image = "https://static.wikia.nocookie.net/witcher/images/1/1a/Tw3_the_toussaint_prison_experiment.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Toussaint_Prison_Experiment"
+title = "File:Tw3_the_toussaint_prison_experiment.jpg"
+
+[[image]]
+quest = "journal:4d1106944a7cae40bb66c54e0e607789"
+image = "https://static.wikia.nocookie.net/witcher/images/2/21/Tw3_the_suffering_of_young_francois.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Suffering_of_Young_Francois"
+title = "File:Tw3_the_suffering_of_young_francois.jpg"
+
+[[image]]
+quest = "journal:3bfec18179b0e14ca856a730102e40d2"
+image = "https://static.wikia.nocookie.net/witcher/images/0/08/Tw3_wine_wars_consorting.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Wine_Wars:_Consorting"
+title = "File:Tw3_wine_wars_consorting.jpg"
+
+[[image]]
+quest = "journal:3e6d4832bbb69f468bd1b19f5a6f0488"
+image = "https://static.wikia.nocookie.net/witcher/images/4/40/Tw3_the_tufo_monster.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Contract:_The_Tufo_Monster"
+title = "File:Tw3_the_tufo_monster.jpg"
+
+[[image]]
+quest = "journal:c0ba9167298dac4e8dea00899084cf62"
+image = "https://static.wikia.nocookie.net/witcher/images/c/c0/Tw3_till_death_do_you_part.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Till_Death_Do_You_Part"
+title = "File:Tw3_till_death_do_you_part.jpg"
+
+[[image]]
+quest = "journal:b05e72c96172eb42bb1a490eb409bcd0"
+image = "https://static.wikia.nocookie.net/witcher/images/c/c0/Tw3_Jacquette_for_waiting_witcher.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Feet_as_Cold_as_Ice"
+title = "File:Tw3_Jacquette_for_waiting_witcher.png"
+
+[[image]]
+quest = "journal:b18b4766be194e4f9e599cbd956a4968"
+image = "https://static.wikia.nocookie.net/witcher/images/e/ee/Tw3_Knights_Tale.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/A_Knight's_Tales"
+title = "File:Tw3_Knights_Tale.png"
+
+[[image]]
+quest = "journal:ec882e9bac2b394b9657f6796c37b25f"
+image = "https://static.wikia.nocookie.net/witcher/images/4/4a/Tw3_There_Can_Be_Only_One.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/There_Can_Be_Only_One"
+title = "File:Tw3_There_Can_Be_Only_One.png"
+
+[[image]]
+quest = "journal:872f003d1acbd1479f84974ad7473229"
+image = "https://static.wikia.nocookie.net/witcher/images/4/4a/Tw3_There_Can_Be_Only_One.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/There_Can_Be_Only_One"
+title = "File:Tw3_There_Can_Be_Only_One.png"
+
+[[image]]
+quest = "journal:8ee6b5a321eb284d8db68265baa66d44"
+image = "https://static.wikia.nocookie.net/witcher/images/b/bc/BaW_extreme_cosplay.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Extreme_Cosplay"
+title = "File:BaW_extreme_cosplay.jpg"
+
+[[image]]
+quest = "journal:b16cd9bc978bf54eb008c6513caa2eab"
+image = "https://static.wikia.nocookie.net/witcher/images/4/45/Tw3_a_portrait_of_the_witcher.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/A_Portrait_of_the_Witcher_as_an_Old_Man"
+title = "File:Tw3_a_portrait_of_the_witcher.jpg"
+
+[[image]]
+quest = "journal:8ed6332682fa404c882a7ad156d2460a"
+image = "https://static.wikia.nocookie.net/witcher/images/8/82/Tw3_Bovine_Blues.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Contract:_Bovine_Blues"
+title = "File:Tw3_Bovine_Blues.png"
+
+[[image]]
+quest = "journal:925581e17af37d4f9b3b59f352f1e152"
+image = "https://static.wikia.nocookie.net/witcher/images/e/e5/BaW_paperchase.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Paperchase"
+title = "File:BaW_paperchase.jpg"
+
+[[image]]
+quest = "journal:2fc53d3cb59550449368c689a185e179"
+image = "https://static.wikia.nocookie.net/witcher/images/3/3d/BaW_goodness_gracious_great_balls_of_granite.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Goodness,_Gracious,_Great_Balls_of_Granite!"
+title = "File:BaW_goodness_gracious_great_balls_of_granite.jpg"
+
+[[image]]
+quest = "journal:3e847698741fd5479580861212d7a7a0"
+image = "https://static.wikia.nocookie.net/witcher/images/2/21/Tw3_Equine_Phantoms_Roach%2C_Geralt_and_Demon-horse.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Equine_Phantoms"
+title = "File:Tw3_Equine_Phantoms_Roach,_Geralt_and_Demon-horse.png"
+
+[[image]]
+quest = "journal:6822e80a8d5dff4fb49c214af880e411"
+image = "https://static.wikia.nocookie.net/witcher/images/5/54/Iocaste.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Mutual_of_Beauclair's_Wild_Kingdom"
+title = "File:Iocaste.jpg"
+
+[[image]]
+quest = "journal:a811b80e7cf5694099dc66699db608d8"
+image = "https://static.wikia.nocookie.net/witcher/images/f/fd/Tw3_of_sheers_and_a_witcher.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Of_Sheers_and_a_Witcher_I_Sing"
+title = "File:Tw3_of_sheers_and_a_witcher.jpg"
+
+[[image]]
+quest = "journal:b56bebe020d42f49b9f4535eb78bc56c"
+image = "https://static.wikia.nocookie.net/witcher/images/6/69/Tw3_father_knows_worst.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Father_Knows_Worst"
+title = "File:Tw3_father_knows_worst.jpg"
+
+[[image]]
+quest = "journal:5fcc44a61797d14198432acefb9d8734"
+image = "https://static.wikia.nocookie.net/witcher/images/0/0a/BaW_turn_and_face_the_strange.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Turn_and_Face_the_Strange"
+title = "File:BaW_turn_and_face_the_strange.jpg"
+
+[[image]]
+quest = "journal:12c8e435ef592442ac6f811f0eb7537e"
+image = "https://static.wikia.nocookie.net/witcher/images/2/28/Prima_Guide_No_place_like_home.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/No_Place_Like_Home"
+title = "File:Prima_Guide_No_place_like_home.png"
+
+[[image]]
+quest = "journal:3c60ffb31db2c14592643638a1318878"
+image = "https://static.wikia.nocookie.net/witcher/images/9/93/Tw3_Big_Feet_to_Hill.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Big_Feet_to_Fill"
+title = "File:Tw3_Big_Feet_to_Hill.png"
+
+[[image]]
+quest = "journal:46c88be20aa51f47bb51b7ba9723a003"
+image = "https://static.wikia.nocookie.net/witcher/images/c/c5/Big_feet_to_fill_first.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Big_Feet_to_Fill:_The_First_Group"
+title = "File:Big_feet_to_fill_first.png"
+
+[[image]]
+quest = "journal:648eb756ab36a54889b2f5c437b0cc52"
+image = "https://static.wikia.nocookie.net/witcher/images/2/20/Big_feet_to_fill_second.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Big_Feet_to_Fill:_The_Second_Group"
+title = "File:Big_feet_to_fill_second.png"
+
+[[image]]
+quest = "journal:1e135b9640dc2d408fbaee0923f08776"
+image = "https://static.wikia.nocookie.net/witcher/images/c/c7/Big_feet_to_fill_third.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Big_Feet_to_Fill:_The_Third_Group"
+title = "File:Big_feet_to_fill_third.png"
+
+[[image]]
+quest = "journal:3321dd858226ab4fbe25fd10f7566a5d"
+image = "https://static.wikia.nocookie.net/witcher/images/5/5a/Big_feet_to_fill_fourth.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Big_Feet_to_Fill:_The_Fourth_Group"
+title = "File:Big_feet_to_fill_fourth.png"
+
+[[image]]
+quest = "journal:28a8049841111c479dc24f9b47690fca"
+image = "https://static.wikia.nocookie.net/witcher/images/8/84/Big_feet_to_fill_fifth.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Big_Feet_to_Fill:_The_Fifth_Group"
+title = "File:Big_feet_to_fill_fifth.png"
+
+[[image]]
+quest = "journal:cd4efbd1afcf464cb70ba43faf69d8a7"
+image = "https://static.wikia.nocookie.net/witcher/images/e/ed/Tw3_filibert_always_pays_his_debts.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Filibert_Always_Pays_His_Debts"
+title = "File:Tw3_filibert_always_pays_his_debts.jpg"
+
+[[image]]
+quest = "journal:60cb51c67040784db6d08a4f9a28d436"
+image = "https://static.wikia.nocookie.net/witcher/images/2/23/Tw3_the_curse_of_carnarvon.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Curse_of_Carnarvon"
+title = "File:Tw3_the_curse_of_carnarvon.png"
+
+[[image]]
+quest = "journal:52349e62f6674a4497c1c170ef226ebf"
+image = "https://static.wikia.nocookie.net/witcher/images/7/7e/BaW_envoys_wineboys.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Envoys,_Wineboys"
+title = "File:BaW_envoys_wineboys.jpg"
+
+[[image]]
+quest = "journal:155ed51111e74f43b8109ee8e209bb17"
+image = "https://static.wikia.nocookie.net/witcher/images/b/ba/BaW_the_beast_of_toussaint.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Beast_of_Toussaint"
+title = "File:BaW_the_beast_of_toussaint.jpg"
+
+[[image]]
+quest = "journal:0de6391959df1c40bb65476fc8eebc25"
+image = "https://static.wikia.nocookie.net/witcher/images/c/c4/BaW_blood_run.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Blood_Run"
+title = "File:BaW_blood_run.jpg"
+
+[[image]]
+quest = "journal:98e523ce3b3c3b4d92ad7827a9465109"
+image = "https://static.wikia.nocookie.net/witcher/images/f/f4/BaW_la_cage_au_fou.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/La_Cage_au_Fou"
+title = "File:BaW_la_cage_au_fou.jpg"
+
+[[image]]
+quest = "journal:9c1ad1b449b8de4d8159842367e88718"
+image = "https://static.wikia.nocookie.net/witcher/images/4/49/BaW_where_children_toil_toys_waste_away.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Where_Children_Toil,_Toys_Waste_Away"
+title = "File:BaW_where_children_toil_toys_waste_away.jpg"
+
+[[image]]
+quest = "journal:0616dcea00b4144b97d66d56520fdc8a"
+image = "https://static.wikia.nocookie.net/witcher/images/a/a4/Tw3_amidst_the_mills_grist.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Amidst_the_Mill's_Grist"
+title = "File:Tw3_amidst_the_mills_grist.jpg"
+
+[[image]]
+quest = "journal:522ef86f2da31648be37dfc7a9d85a8d"
+image = "https://static.wikia.nocookie.net/witcher/images/4/49/Tw3_Hunger_Game.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Hunger_Game"
+title = "File:Tw3_Hunger_Game.png"
+
+[[image]]
+quest = "journal:2031e1b0446ea543a0f5d0839e7526ee"
+image = "https://static.wikia.nocookie.net/witcher/images/d/d7/BaW_capture_the_castle.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Capture_the_Castle"
+title = "File:BaW_capture_the_castle.png"
+
+[[image]]
+quest = "journal:e840236c18e6584ea9d593bf29cbe5e8"
+image = "https://static.wikia.nocookie.net/witcher/images/1/1f/BaW_the_man_from_cintra.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Man_from_Cintra"
+title = "File:BaW_the_man_from_cintra.jpg"
+
+[[image]]
+quest = "journal:04bcd7c9dd03b343a9aad37ebd78739a"
+image = "https://static.wikia.nocookie.net/witcher/images/c/c3/BaW_wine_is_sacred.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Wine_is_Sacred"
+title = "File:BaW_wine_is_sacred.jpg"
+
+[[image]]
+quest = "journal:c7aa58e42b11804c94661e0cb1603e11"
+image = "https://static.wikia.nocookie.net/witcher/images/2/2e/BaW_land_of_a_thousand_fables.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Beyond_Hill_and_Dale..."
+title = "File:BaW_land_of_a_thousand_fables.jpg"
+
+[[image]]
+quest = "journal:d1e2e4dd1563e34c8bf3e6011176740f"
+image = "https://static.wikia.nocookie.net/witcher/images/b/b5/BaW_duck_duck_goosed.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Duck,_Duck,_Goosed!"
+title = "File:BaW_duck_duck_goosed.jpg"
+
+[[image]]
+quest = "journal:3d0748ffe569694fbed79cf7adb317e2"
+image = "https://static.wikia.nocookie.net/witcher/images/d/d0/BaW_the_night_of_long_fangs.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Night_of_Long_Fangs"
+title = "File:BaW_the_night_of_long_fangs.jpg"
+
+[[image]]
+quest = "journal:8ec8c2417e615e468da204e5967e55b7"
+image = "https://static.wikia.nocookie.net/witcher/images/0/09/Tw3_Blood_Simple.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Blood_Simple"
+title = "File:Tw3_Blood_Simple.png"
+
+[[image]]
+quest = "journal:1daaf4e23b18dd4b9dd8df9db7349b00"
+image = "https://static.wikia.nocookie.net/witcher/images/7/77/BaW_what_lies_unseen.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/What_Lies_Unseen"
+title = "File:BaW_what_lies_unseen.jpg"
+
+[[image]]
+quest = "journal:cc89b375b343504fa208c59c8321f888"
+image = "https://static.wikia.nocookie.net/witcher/images/5/56/BaW_pomp_and_strange_circumstance.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Pomp_and_Strange_Circumstance"
+title = "File:BaW_pomp_and_strange_circumstance.jpg"
+
+[[image]]
+quest = "journal:ac1c76fd8378df44afc9458adf3c1650"
+image = "https://static.wikia.nocookie.net/witcher/images/5/5b/BaW_burlap_is_the_new_stripe.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Burlap_is_the_New_Stripe"
+title = "File:BaW_burlap_is_the_new_stripe.jpg"
+
+[[image]]
+quest = "journal:1c593ea30a96b744aa7351b50c907570"
+image = "https://static.wikia.nocookie.net/witcher/images/c/cd/Tw3_perks_of_being_a_jailbird.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Perks_of_Being_a_Jailbird"
+title = "File:Tw3_perks_of_being_a_jailbird.jpg"
+
+[[image]]
+quest = "journal:031d6bed82ee2c4eb3a41bfbe50c76a1"
+image = "https://static.wikia.nocookie.net/witcher/images/5/59/Tw3_applied_escapology.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Applied_Escapology"
+title = "File:Tw3_applied_escapology.jpg"
+
+[[image]]
+quest = "journal:2654cd772a6a6043b57269027c940dab"
+image = "https://static.wikia.nocookie.net/witcher/images/6/62/BaW_the_black_widow.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Black_Widow"
+title = "File:BaW_the_black_widow.jpg"
+
+[[image]]
+quest = "journal:7a549eadeb3a3240ae21ad87729fe48a"
+image = "https://static.wikia.nocookie.net/witcher/images/0/07/Tw3_Blood_and_Wine_The_Warble_of_Smitten_Knight.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Warble_of_a_Smitten_Knight"
+title = "File:Tw3_Blood_and_Wine_The_Warble_of_Smitten_Knight.jpg"
+
+[[image]]
+quest = "journal:54730839c0c2bd4bb342093d61fd3002"
+image = "https://static.wikia.nocookie.net/witcher/images/d/dd/Tw3_big_game_hunter.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Big_Game_Hunter"
+title = "File:Tw3_big_game_hunter.jpg"
+
+[[image]]
+quest = "journal:b31e233d973c5c44b811640fa61b516a"
+image = "https://static.wikia.nocookie.net/witcher/images/d/d5/Tw3_The_Words_of_Prophets_are_Written_in_Sarcophagi.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Words_of_the_Prophets_Are_Written_on_Sarcophagi"
+title = "File:Tw3_The_Words_of_Prophets_are_Written_in_Sarcophagi.png"
+
+[[image]]
+quest = "journal:629e58d034ef434a92c611af2cd7e0e0"
+image = "https://static.wikia.nocookie.net/witcher/images/7/76/Tw3_scavenger_grandmaster_manticore.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Scavenger_Hunt:_Grandmaster_Manticore_Gear"
+title = "File:Tw3_scavenger_grandmaster_manticore.jpg"
+
+[[image]]
+quest = "journal:8930729a479d18408985ad2b6e7b574e"
+image = "https://static.wikia.nocookie.net/witcher/images/b/b4/Master_master.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Master_Master_Master_Master!"
+title = "File:Master_master.png"
+
+[[image]]
+quest = "journal:327a1beb09a7d641af5d9e7cdfe8115f"
+image = "https://static.wikia.nocookie.net/witcher/images/3/32/Tw3_scavenger_grandmaster_ursine.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Scavenger_Hunt:_Grandmaster_Ursine_Gear"
+title = "File:Tw3_scavenger_grandmaster_ursine.jpg"
+
+
+[[image]]
+quest = "journal:0e68b28ccfdb56478b60adbd251ad9ef"
+image = "https://static.wikia.nocookie.net/witcher/images/f/fe/Tw3_scavenger_grandmaster_feline.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Scavenger_Hunt:_Grandmaster_Feline_Gear"
+title = "File:Tw3_scavenger_grandmaster_feline.jpg"
+
+[[image]]
+quest = "journal:684c0307f604ed4f8d7abdd0bf5474cf"
+image = "https://static.wikia.nocookie.net/witcher/images/a/a0/Tw3_scavenger_grandmaster_griffin.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Scavenger_Hunt:_Grandmaster_Griffin_Gear"
+title = "File:Tw3_scavenger_grandmaster_griffin.jpg"
+
+[[image]]
+quest = "journal:542dbe6d66204e4ab6abc1ca5b90cb97"
+image = "https://static.wikia.nocookie.net/witcher/images/c/c5/Grandmaster_wolven_hunt.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Scavenger_Hunt:_Grandmaster_Wolven_Gear"
+title = "File:Grandmaster_wolven_hunt.png"
+
+[[image]]
+quest = "journal:fdc382dc3fca6243ba257eec407a1672"
+image = "https://static.wikia.nocookie.net/witcher/images/d/d7/Tw3_vintners_contract_chuchote_cave.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Vintner's_Contract:_Chuchote_Cave"
+title = "File:Tw3_vintners_contract_chuchote_cave.jpg"
+
+[[image]]
+quest = "journal:ba7276367fabe9418c4239f3c093d4d5"
+image = "https://static.wikia.nocookie.net/witcher/images/a/a4/Rivecalme_storehouse_contract.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Vintner's_Contract:_Rivecalme_Storehouse"
+title = "File:Rivecalme_storehouse_contract.png"
+
+[[image]]
+quest = "journal:64af22ebfad73240991d97398bf5eb5c"
+image = "https://static.wikia.nocookie.net/witcher/images/6/68/BaW_coin_doesnt_stink.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Coin_Doesn't_Stink"
+title = "File:BaW_coin_doesnt_stink.jpg"
+
+[[image]]
+quest = "journal:ad902864e6cb8e4fa2ef56279a5055f7"
+image = "https://static.wikia.nocookie.net/witcher/images/a/a2/Tw3_wine_wars_belgaard.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Wine_Wars:_Belgaard"
+title = "File:Tw3_wine_wars_belgaard.jpg"
+
+[[image]]
+quest = "journal:8ae70e06a4927a4ba428dfb4871ae063"
+image = "https://static.wikia.nocookie.net/witcher/images/2/29/Tw3_wine_wars_the_deus_in_the_machina.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Wine_Wars:_The_Deus_in_the_Machina"
+title = "File:Tw3_wine_wars_the_deus_in_the_machina.jpg"
+
+[[image]]
+quest = "journal:0b81ade03b491745b3d11a1d0f08796b"
+image = "https://static.wikia.nocookie.net/witcher/images/f/f4/Tw3_wine_wars_coronata.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Wine_Wars:_Coronata"
+title = "File:Tw3_wine_wars_coronata.jpg"
+
+[[image]]
+quest = "journal:28e1bc6379cff84a8c497e8577fa711e"
+image = "https://static.wikia.nocookie.net/witcher/images/a/a2/Tw3_wine_wars_belgaard.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Wine_Wars:_Belgaard"
+title = "File:Tw3_wine_wars_belgaard.jpg"
+
+[[image]]
+quest = "journal:df0288fb65e47e41bad17320f06e1715"
+image = "https://static.wikia.nocookie.net/witcher/images/6/67/BaW_dont_take_candy_from_a_stranger.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Don't_Take_Candy_from_a_Stranger"
+title = "File:BaW_dont_take_candy_from_a_stranger.jpg"
+
+[[image]]
+quest = "journal:ee07007af9da894b9358d6501b26fe42"
+image = "https://static.wikia.nocookie.net/witcher/images/7/72/Tw3_wine_wars_vermentino.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Wine_Wars:_Vermentino"
+title = "File:Tw3_wine_wars_vermentino.jpg"
+
+[[image]]
+quest = "journal:7b50daec4fa50249a9cad7851cf56be2"
+image = "https://static.wikia.nocookie.net/witcher/images/7/73/Tw3_wolf_school_gear_main.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Scavenger_Hunt:_Wolf_School_Gear"
+title = "File:Tw3_wolf_school_gear_main.jpg"
+
+[[image]]
+quest = "journal:f2534d2b07e1134dbe1b6bb7e2bef946"
+image = "https://static.wikia.nocookie.net/witcher/images/3/3d/Tw3_wolf_school_gear_part_1.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Scavenger_Hunt:_Wolf_School_Gear/Part_1"
+title = "File:Tw3_wolf_school_gear_part_1.jpg"
+
+[[image]]
+quest = "journal:d72ef965bf4b36468b684f272b249b2b"
+image = "https://static.wikia.nocookie.net/witcher/images/3/37/Tw3_wolf_school_gear_part_2.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Scavenger_Hunt:_Wolf_School_Gear/Part_2"
+title = "File:Tw3_wolf_school_gear_part_2.jpg"
+
+[[image]]
+quest = "journal:c72dca0af1171f448d569e627383dc1d"
+image = "https://static.wikia.nocookie.net/witcher/images/b/b1/Tw3_wolf_school_gear_part_3.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Scavenger_Hunt:_Wolf_School_Gear/Part_3"
+title = "File:Tw3_wolf_school_gear_part_3.jpg"
+
+[[image]]
+quest = "journal:f1eba3b52740584888bd5c03d1e75ac6"
+image = "https://static.wikia.nocookie.net/witcher/images/1/17/Tw3_wolf_school_gear_part_4.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Scavenger_Hunt:_Wolf_School_Gear/Part_4"
+title = "File:Tw3_wolf_school_gear_part_4.jpg"
+
+[[image]]
+quest = "journal:ec908bc73c54014ba750258923cf7c3f"
+image = "https://static.wikia.nocookie.net/witcher/images/9/90/Tw3_wolf_school_gear_part_5.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Scavenger_Hunt:_Wolf_School_Gear/Part_5"
+title = "File:Tw3_wolf_school_gear_part_5.jpg"
+
+[[image]]
+quest = "journal:854130084c664648bc59d76dd679e71d"
+image = "https://static.wikia.nocookie.net/witcher/images/9/9e/Tw3_wolf_school_gear_part_6.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Scavenger_Hunt:_Wolf_School_Gear/Part_6"
+title = "File:Tw3_wolf_school_gear_part_6.jpg"
+
+[[image]]
+quest = "journal:0831229b4c9c3441b21b4db7d97da119"
+image = "https://static.wikia.nocookie.net/witcher/images/7/74/Tw3_Skellige_Most_Wanted.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Contract:_Skellige's_Most_Wanted"
+title = "File:Tw3_Skellige_Most_Wanted.jpg"
+
+[[image]]
+quest = "journal:d4c640bd2dfb3245bfed7d18f6c6422c"
+image = "https://static.wikia.nocookie.net/witcher/images/0/07/Tw3_Contract_The_Beast_of_Honorton.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Contract:_The_Beast_of_Honorton"
+title = "File:Tw3_Contract_The_Beast_of_Honorton.jpg"
+
+[[image]]
+quest = "journal:0acbcc359087514cb4341cd177eadb6c"
+image = "https://static.wikia.nocookie.net/witcher/images/6/6d/Tw3_Where_the_Cat_and_Wolf_play....jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Where_the_Cat_and_Wolf_Play..."
+title = "File:Tw3_Where_the_Cat_and_Wolf_play....jpg"
+
+[[image]]
+quest = "journal:fbb2587224ef414aa23577649ffc2865"
+image = "https://static.wikia.nocookie.net/witcher/images/c/c4/Tw3_take_what_you_want.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Take_What_You_Want"
+title = "File:Tw3_take_what_you_want.jpg"
+
+[[image]]
+quest = "journal:d723bea1b838ed4eaff147a9d4f674e2"
+image = "https://static.wikia.nocookie.net/witcher/images/4/4e/Tw3-dlc_missing-miners.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Contract:_Missing_Miners"
+title = "File:Tw3-dlc_missing-miners.jpg"
+
+[[image]]
+quest = "journal:fd08815c6d96d94581099621d2bbaff9"
+image = "https://static.wikia.nocookie.net/witcher/images/f/f5/Tw3_dlc_07_-_fools_gold.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Fools'_Gold"
+title = "File:Tw3_dlc_07_-_fools_gold.jpg"
+
+[[image]]
+quest = "journal:680ed6d5ace8e44080a3ad9fdc89280f"
+image = "https://static.wikia.nocookie.net/witcher/images/5/58/HoS_the_cursed_chapel.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Cursed_Chapel"
+title = "File:HoS_the_cursed_chapel.jpg"
+
+[[image]]
+quest = "journal:741334557796984cae2da4b9069e2206"
+image = "https://static.wikia.nocookie.net/witcher/images/8/87/Tw3_The_Royal_Air_Force_.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Royal_Air_Force"
+title = "File:Tw3_The_Royal_Air_Force_.jpg"
+
+[[image]]
+quest = "journal:3af5f79699702c41b066bef57d967b22"
+image = "https://static.wikia.nocookie.net/witcher/images/8/83/HoS_tinker_hunter_soldier_spy.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Tinker,_Hunter,_Soldier,_Spy"
+title = "File:HoS_tinker_hunter_soldier_spy.jpg"
+
+[[image]]
+quest = "journal:8d421d4f69fe06499baa5fe600327d2f"
+image = "https://static.wikia.nocookie.net/witcher/images/3/37/HoS_the_sword_famine_and_perfidy.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Sword,_Famine_and_Perfidy"
+title = "File:HoS_the_sword_famine_and_perfidy.jpg"
+
+[[image]]
+quest = "journal:9abd796ff3ff5346a81f5129c3573851"
+image = "https://static.wikia.nocookie.net/witcher/images/0/0c/HoS_a_surprise_inheritance.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/A_Surprise_Inheritance"
+title = "File:HoS_a_surprise_inheritance.jpg"
+
+[[image]]
+quest = "journal:01345c668f5d424baa67d3700fcf8fee"
+image = "https://static.wikia.nocookie.net/witcher/images/6/6f/HoS_the_drakenborg_redemption.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Drakenborg_Redemption"
+title = "File:HoS_the_drakenborg_redemption.jpg"
+
+[[image]]
+quest = "journal:d70e094f0f94074c8444b9d4bd8f8485"
+image = "https://static.wikia.nocookie.net/witcher/images/9/9f/Tw3_The_Secret_Life_of_Count_Romilly_quest.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Secret_Life_of_Count_Romilly"
+title = "File:Tw3_The_Secret_Life_of_Count_Romilly_quest.jpg"
+
+[[image]]
+quest = "journal:82b2a3b48f61f649844600f22be9dd9f"
+image = "https://static.wikia.nocookie.net/witcher/images/7/7e/HoS_a_dark_legacy.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/A_Dark_Legacy"
+title = "File:HoS_a_dark_legacy.jpg"
+
+[[image]]
+quest = "journal:e7f9047a1f2a104985faaa947c15c3ca"
+image = "https://static.wikia.nocookie.net/witcher/images/b/bb/HoS_races_swift_as_the_western_winds.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Races:_Swift_as_the_Western_Winds"
+title = "File:HoS_races_swift_as_the_western_winds.jpg"
+
+[[image]]
+quest = "journal:5e2cd6f87f386345aeb1ca381b8e6d2a"
+image = "https://static.wikia.nocookie.net/witcher/images/c/cf/HoS_without_a_trace.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Without_a_Trace"
+title = "File:HoS_without_a_trace.jpg"
+
+[[image]]
+quest = "journal:38526e7e40e64b4f8911ada7138f39b6"
+image = "https://static.wikia.nocookie.net/witcher/images/0/0f/Tw3_the_taxman_cometh.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Taxman_Cometh"
+title = "File:Tw3_the_taxman_cometh.jpg"
+
+[[image]]
+quest = "journal:23d79db8611dd44bb870bb018c3c9a84"
+image = "https://static.wikia.nocookie.net/witcher/images/9/91/Rose_on_red_field.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Rose_on_a_Red_Field"
+title = "File:Rose_on_red_field.jpg"
+
+[[image]]
+quest = "journal:2c53c89f82c98240b75e0386c8485356"
+image = "https://static.wikia.nocookie.net/witcher/images/7/72/Tw3_enchanting_startup_costs.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Enchanting:_Start-up_Costs"
+title = "File:Tw3_enchanting_startup_costs.jpg"
+
+[[image]]
+quest = "journal:456fcaba939311428b7ba38303eb75b4"
+image = "https://static.wikia.nocookie.net/witcher/images/d/d2/HoS_enchanting_quality_has_its_price.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Enchanting:_Quality_Has_Its_Price"
+title = "File:HoS_enchanting_quality_has_its_price.jpg"
+
+[[image]]
+quest = "journal:0834b39297f2cd4fa40c1f7fa091ed60"
+image = "https://static.wikia.nocookie.net/witcher/images/d/dd/Hos-info-1.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Evil's_Soft_First_Touches"
+title = "File:Hos-info-1.jpg"
+
+[[image]]
+quest = "journal:25e3242c3c7cbe45bb43bef76965e875"
+image = "https://static.wikia.nocookie.net/witcher/images/e/eb/HoS_a_midnight_clear.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/A_Midnight_Clear"
+title = "File:HoS_a_midnight_clear.jpg"
+
+[[image]]
+quest = "journal:6b3f0578ae5682499f22c0f97239efb9"
+image = "https://static.wikia.nocookie.net/witcher/images/7/78/Hos-info.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Dead_Man's_Party"
+title = "File:Hos-info.jpg"
+
+[[image]]
+quest = "journal:e9fb54b5b79a96418aa42371c0028025"
+image = "https://static.wikia.nocookie.net/witcher/images/4/41/HoS_open_sesame.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Open_Sesame!_(Hearts_of_Stone)"
+title = "File:HoS_open_sesame.jpg"
+
+[[image]]
+quest = "journal:3368b5fa3fe78b45aa6f0f62444e6edf"
+image = "https://static.wikia.nocookie.net/witcher/images/1/14/HoS_open_sesame_witcher_seasonings.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Open_Sesame:_Witcher_Seasonings"
+title = "File:HoS_open_sesame_witcher_seasonings.jpg"
+
+[[image]]
+quest = "journal:c861890b48eb3843a535d6b238aa9fc4"
+image = "https://static.wikia.nocookie.net/witcher/images/4/44/HoS_open_sesame_breaking_and_entering.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Open_Sesame:_Breaking_and_Entering"
+title = "File:HoS_open_sesame_breaking_and_entering.jpg"
+
+[[image]]
+quest = "journal:d56b51f53599ae46aa259aafce940dc4"
+image = "https://static.wikia.nocookie.net/witcher/images/8/84/HoS_avid_collector.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Avid_Collector"
+title = "File:HoS_avid_collector.jpg"
+
+[[image]]
+quest = "journal:091d33efe94aeb4aae574b013b751daf"
+image = "https://static.wikia.nocookie.net/witcher/images/5/52/HoS_open_sesame_safecracker.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Open_Sesame:_The_Safecracker"
+title = "File:HoS_open_sesame_safecracker.jpg"
+
+[[image]]
+quest = "journal:9db09a5f3fd31b45a4ba5a47bff37b4b"
+image = "https://static.wikia.nocookie.net/witcher/images/b/ba/HoS_scenes_from_a_marriage.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Scenes_From_a_Marriage"
+title = "File:HoS_scenes_from_a_marriage.jpg"
+
+[[image]]
+quest = "journal:52e7ffa14f4b824782a86e273e444e94"
+image = "https://static.wikia.nocookie.net/witcher/images/8/83/HoS_from_ofiers_distant_shores.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/From_Ofier's_Distant_Shores"
+title = "File:HoS_from_ofiers_distant_shores.jpg"
+
+[[image]]
+quest = "journal:2ac3fd9e5ee7f748b78911420e7e8797"
+image = "https://static.wikia.nocookie.net/witcher/images/b/ba/Tw3_bloody_baron_quest.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Bloody_Baron_(quest)"
+title = "File:Tw3_bloody_baron_quest.jpg"
+
+[[image]]
+quest = "journal:d95f5f0fbf25a74d859e35676c5599c6"
+image = "https://static.wikia.nocookie.net/witcher/images/0/03/Tw3_bear_school_gear_part_1.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Scavenger_Hunt:_Bear_School_Gear/Part_1"
+title = "File:Tw3_bear_school_gear_part_1.jpg"
+
+[[image]]
+quest = "journal:dbde71dd6654f04e8316c65620bed99d"
+image = "https://static.wikia.nocookie.net/witcher/images/4/4d/Tw3_bear_school_gear_part_2.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Scavenger_Hunt:_Bear_School_Gear/Part_2"
+title = "File:Tw3_bear_school_gear_part_2.jpg"
+
+[[image]]
+quest = "journal:68dcb57245196d418a1531e897c3ca18"
+image = "https://static.wikia.nocookie.net/witcher/images/7/7b/Tw3_bear_school_gear_part_3.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Scavenger_Hunt:_Bear_School_Gear/Part_3"
+title = "File:Tw3_bear_school_gear_part_3.jpg"
+
+[[image]]
+quest = "journal:af4f8fe035d9a74fa682a3ba87534899"
+image = "https://static.wikia.nocookie.net/witcher/images/1/1a/Tw3_bear_school_gear_part_4.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Scavenger_Hunt:_Bear_School_Gear/Part_4"
+title = "File:Tw3_bear_school_gear_part_4.jpg"
+
+[[image]]
+quest = "journal:d381ba15bdb6854e95e983dfce70775d"
+image = "https://static.wikia.nocookie.net/witcher/images/a/a7/Tw3_gwent_playing_innkeeps.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Gwent:_Playing_Innkeeps"
+title = "File:Tw3_gwent_playing_innkeeps.png"
+
+[[image]]
+quest = "journal:1979a222e1f7cc4e906f539f21cb40d1"
+image = "https://static.wikia.nocookie.net/witcher/images/e/e8/Tw3_gwent_collect_em_all.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Collect_'Em_All"
+title = "File:Tw3_gwent_collect_em_all.jpg"
+
+[[image]]
+quest = "journal:a03bcbbe483a294cb629c2c39a43a131"
+image = "https://static.wikia.nocookie.net/witcher/images/8/87/Tw3_gwent_velen_players.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Gwent:_Velen_Players"
+title = "File:Tw3_gwent_velen_players.png"
+
+
+[[image]]
+quest = "journal:3b4fb54011708548bcb3c09ee237755a"
+image = "https://static.wikia.nocookie.net/witcher/images/4/46/Tw3_gwent_big_city.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Gwent:_Big_City_Players"
+title = "File:Tw3_gwent_big_city.jpg"
+
+[[image]]
+quest = "journal:bf0cc4b384bb394fa28808024f29ef7c"
+image = "https://static.wikia.nocookie.net/witcher/images/f/fe/Tw3_Gwent_Old_Pals.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Gwent:_Old_Pals"
+title = "File:Tw3_Gwent_Old_Pals.png"
+
+[[image]]
+quest = "journal:1b770cff62907f46b16751e2604f1e00"
+image = "https://static.wikia.nocookie.net/witcher/images/e/eb/Tw3_Gwent%21_Thaler.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Gwent:_Playing_Thaler"
+title = "File:Tw3_Gwent!_Thaler.jpg"
+
+[[image]]
+quest = "journal:5e72f778e29eae439f111b3676f4dd28"
+image = "https://static.wikia.nocookie.net/witcher/images/f/f6/Tw3_Ciri-2.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/In_Ciri's_Footsteps"
+title = "File:Tw3_Ciri-2.jpg"
+
+[[image]]
+quest = "journal:fcb2f3dd439daa428ccf69bf7043c3b5"
+image = "https://static.wikia.nocookie.net/witcher/images/9/93/Tw3_hidden_from_the_world.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Hidden_from_the_World"
+title = "File:Tw3_hidden_from_the_world.jpg"
+
+[[image]]
+quest = "journal:ec266d1d69d44b459a1ebcfe9b1246f2"
+image = "https://static.wikia.nocookie.net/witcher/images/9/9e/Tw3_dont_play_with_the_gods.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Don't_Play_with_the_Gods"
+title = "File:Tw3_dont_play_with_the_gods.jpg"
+
+[[image]]
+quest = "journal:364d02db5ee39a4e898d09fb0fabe7c8"
+image = "https://static.wikia.nocookie.net/witcher/images/6/62/Tw3_family_matters.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Family_Matters"
+title = "File:Tw3_family_matters.jpg"
+
+[[image]]
+quest = "journal:f0d09c3b2477e04cba888c3f32e2344b"
+image = "https://static.wikia.nocookie.net/witcher/images/f/f4/Tw3_errant_troll_2.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Fists_of_Fury:_Champion_of_Champions"
+title = "File:Tw3_errant_troll_2.jpg"
+
+[[image]]
+quest = "journal:aa5805bd2092804cbbb28a045dc13f45"
+image = "https://static.wikia.nocookie.net/witcher/images/7/7b/Tw3_fists_of_fury_velen.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Fists_of_Fury:_Velen"
+title = "File:Tw3_fists_of_fury_velen.jpg"
+
+[[image]]
+quest = "journal:3438b6ad15dcfa4e9d6e030bdd4e1dd6"
+image = "https://static.wikia.nocookie.net/witcher/images/0/07/Tw3_fists_of_fury_novigrad.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Fists_of_Fury:_Novigrad"
+title = "File:Tw3_fists_of_fury_novigrad.jpg"
+
+[[image]]
+quest = "journal:84a7c11476fbab40a2b565d6ad73d838"
+image = "https://static.wikia.nocookie.net/witcher/images/4/4f/Tw3_fists_of_fury_skellige.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Fists_of_Fury:_Skellige"
+title = "File:Tw3_fists_of_fury_skellige.jpg"
+
+[[image]]
+quest = "journal:5c17378f52d9ff4d96c86b3fab4ae995"
+image = "https://static.wikia.nocookie.net/witcher/images/a/af/Lord_of_Undvik.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Lord_of_Undvik"
+title = "File:Lord_of_Undvik.jpg"
+
+[[image]]
+quest = "journal:60d0f4a61a55de4eb33df0b5a3e3dd00"
+image = "https://static.wikia.nocookie.net/witcher/images/8/86/Tw3_an_unfortunate_turn_of_events.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/An_Unfortunate_Turn_of_Events"
+title = "File:Tw3_an_unfortunate_turn_of_events.jpg"
+
+[[image]]
+quest = "journal:a26f4bace9042b4ea000c43a99819a23"
+image = "https://static.wikia.nocookie.net/witcher/images/e/e6/Tw3_griffin_school_gear_part_1.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Scavenger_Hunt:_Griffin_School_Gear/Part_1"
+title = "File:Tw3_griffin_school_gear_part_1.jpg"
+
+[[image]]
+quest = "journal:19cb408cea605f4f83f1a990d7948459"
+image = "https://static.wikia.nocookie.net/witcher/images/c/c3/Tw3_griffin_school_gear_part_2.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Scavenger_Hunt:_Griffin_School_Gear/Part_2"
+title = "File:Tw3_griffin_school_gear_part_2.jpg"
+
+[[image]]
+quest = "journal:ca40edc48afd8e4cbbf2d4d5c06f34d9"
+image = "https://static.wikia.nocookie.net/witcher/images/0/01/Tw3_griffin_school_gear_part_3.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Scavenger_Hunt:_Griffin_School_Gear/Part_3"
+title = "File:Tw3_griffin_school_gear_part_3.jpg"
+
+[[image]]
+quest = "journal:648ec9e9835df04eba12d13a87cea6d9"
+image = "https://static.wikia.nocookie.net/witcher/images/3/3d/Tw3_griffin_school_gear_part_4.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Scavenger_Hunt:_Griffin_School_Gear/Part_4"
+title = "File:Tw3_griffin_school_gear_part_4.jpg"
+
+[[image]]
+quest = "journal:591e08784f02b248bacd647c159e1e8d"
+image = "https://static.wikia.nocookie.net/witcher/images/b/bf/Tw3_lost_goods.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Lost_Goods"
+title = "File:Tw3_lost_goods.jpg"
+
+[[image]]
+quest = "journal:486c696eea2fe6498ec47f94376174ab"
+image = "https://static.wikia.nocookie.net/witcher/images/5/56/Tw3_races_crows_perch.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Races:_Crow's_Perch"
+title = "File:Tw3_races_crows_perch.jpg"
+
+[[image]]
+quest = "journal:3c27d3e6e28a404892174d33aa50129e"
+image = "https://static.wikia.nocookie.net/witcher/images/b/ba/Tw3_the_heroes_pursuits_fayrlund.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Heroes'_Pursuits:_Fayrlund"
+title = "File:Tw3_the_heroes_pursuits_fayrlund.jpg"
+
+[[image]]
+quest = "journal:57819a45b3c127478f713a9c41fc71c2"
+image = "https://static.wikia.nocookie.net/witcher/images/9/93/Tw3_the_heroes_pursuits_fyresdal.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Heroes'_Pursuits:_Fyresdal"
+title = "File:Tw3_the_heroes_pursuits_fyresdal.jpg"
+
+[[image]]
+quest = "journal:8feccaa9218ab84f941aa2243c5e613f"
+image = "https://static.wikia.nocookie.net/witcher/images/8/81/Tw3_the_heroes_pursuits_kaer_trolde.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Heroes'_Pursuits:_Kaer_Trolde"
+title = "File:Tw3_the_heroes_pursuits_kaer_trolde.jpg"
+
+[[image]]
+quest = "journal:3b070a0270ee2a47811be5ab377fb690"
+image = "https://static.wikia.nocookie.net/witcher/images/1/19/Tw3_the_heroes_pursuits_goddess_glory.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Heroes'_Pursuits:_For_the_Goddess'_Glory!"
+title = "File:Tw3_the_heroes_pursuits_goddess_glory.jpg"
+
+[[image]]
+quest = "journal:5d78079d08701740a21875751a1aa460"
+image = "https://static.wikia.nocookie.net/witcher/images/e/e0/Tw3_tough_luck.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Tough_Luck"
+title = "File:Tw3_tough_luck.jpg"
+
+[[image]]
+quest = "journal:eda059b42caee147a5329f96e675900b"
+image = "https://static.wikia.nocookie.net/witcher/images/f/f0/Tw3_freya_be_praised.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Freya_Be_Praised!"
+title = "File:Tw3_freya_be_praised.jpg"
+
+[[image]]
+quest = "journal:cd1dd717d3b54d43b5e1150b9708bcbe"
+image = "https://static.wikia.nocookie.net/witcher/images/3/3e/Tw3_family_fortune.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Family_Fortune"
+title = "File:Tw3_family_fortune.jpg"
+
+[[image]]
+quest = "journal:5a55ea5d688a724b92d04d0763c989b0"
+image = "https://static.wikia.nocookie.net/witcher/images/f/f7/Tw3_not_only_eagles_dare.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Not_Only_Eagles_Dare"
+title = "File:Tw3_not_only_eagles_dare.jpg"
+
+[[image]]
+quest = "journal:7e405b48251ea7429597f3db0f435124"
+image = "https://static.wikia.nocookie.net/witcher/images/9/93/Tw3_shortcut.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Shortcut"
+title = "File:Tw3_shortcut.jpg"
+
+[[image]]
+quest = "journal:77b2476e6eb916438311e4cc0b799e34"
+image = "https://static.wikia.nocookie.net/witcher/images/d/de/Tw3_ironsides_treasure.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Ironsides'_Treasure"
+title = "File:Tw3_ironsides_treasure.jpg"
+
+[[image]]
+quest = "journal:388b5a9f34b28b42be92bd8708cfb05b"
+image = "https://static.wikia.nocookie.net/witcher/images/4/4b/Tw3_hidden_in_the_depths.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Hidden_in_the_Depths"
+title = "File:Tw3_hidden_in_the_depths.jpg"
+
+[[image]]
+quest = "journal:3c036163cf9a1b4e874b94839d0932ff"
+image = "https://static.wikia.nocookie.net/witcher/images/5/58/Tw3_coast_of_wrecks.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Coast_of_Wrecks"
+title = "File:Tw3_coast_of_wrecks.png"
+
+[[image]]
+quest = "journal:b3d2a56c4a584040b6e8446b27acb220"
+image = "https://static.wikia.nocookie.net/witcher/images/3/3d/Tw3_out_of_the_frying_pan.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Out_of_the_Frying_Pan,_into_the_Fire"
+title = "File:Tw3_out_of_the_frying_pan.jpg"
+
+[[image]]
+quest = "journal:095f6ab1a73d8147b84bc2858c248b94"
+image = "https://static.wikia.nocookie.net/witcher/images/6/63/Tw3_blood_gold.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Blood_Gold"
+title = "File:Tw3_blood_gold.jpg"
+
+[[image]]
+quest = "journal:2e29d619a66256459dec7b5399956006"
+image = "https://static.wikia.nocookie.net/witcher/images/0/01/Tw3_dowry.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Dowry"
+title = "File:Tw3_dowry.jpg"
+
+[[image]]
+quest = "journal:a8b57262b65c0d45b47992de7e5c8c78"
+image = "https://static.wikia.nocookie.net/witcher/images/c/c1/Tw3_battlefield_loot.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Battlefield_Loot"
+title = "File:Tw3_battlefield_loot.jpg"
+
+[[image]]
+quest = "journal:6f3121633956124881a1f5754eebecd5"
+image = "https://static.wikia.nocookie.net/witcher/images/4/4a/Tw3_dirty_funds.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Dirty_Funds"
+title = "File:Tw3_dirty_funds.jpg"
+
+[[image]]
+quest = "journal:8fc712ee07addd468a64fd49b332bd11"
+image = "https://static.wikia.nocookie.net/witcher/images/9/9b/Tw3_deserter_gold.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Deserter_Gold"
+title = "File:Tw3_deserter_gold.jpg"
+
+[[image]]
+quest = "journal:deda3c753219364d825d32f70387dc2d"
+image = "https://static.wikia.nocookie.net/witcher/images/9/98/Tw3-temerian-valuables-01.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Temerian_Valuables"
+title = "File:Tw3-temerian-valuables-01.png"
+
+[[image]]
+quest = "journal:9d4e47337f42ad43a508e9478f3914eb"
+image = "https://static.wikia.nocookie.net/witcher/images/a/a4/Tw3_a_plea_ignored.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/A_Plea_Ignored"
+title = "File:Tw3_a_plea_ignored.jpg"
+
+[[image]]
+quest = "journal:a4157b51f572ad41bd7262dc4797227b"
+image = "https://static.wikia.nocookie.net/witcher/images/a/a4/Tw3_queen_zuleykas_treasure.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Queen_Zuleyka's_Treasure"
+title = "File:Tw3_queen_zuleykas_treasure.jpg"
+
+[[image]]
+quest = "journal:6af4edb2f8f7b44e99979b96f5d74205"
+image = "https://static.wikia.nocookie.net/witcher/images/a/af/Tw3_inheritance.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Inheritance"
+title = "File:Tw3_inheritance.jpg"
+
+[[image]]
+quest = "journal:b0432282c319a64d81d531e486d5651c"
+image = "https://static.wikia.nocookie.net/witcher/images/0/0c/Tw3_unluckys_treasure.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Unlucky's_Treasure"
+title = "File:Tw3_unluckys_treasure.jpg"
+
+[[image]]
+quest = "journal:99415fdbb87de743950cc16e52a39d67"
+image = "https://static.wikia.nocookie.net/witcher/images/a/a7/Tw3_nilfgaardian_treasure.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Nilfgaardian_Treasure"
+title = "File:Tw3_nilfgaardian_treasure.jpg"
+
+[[image]]
+quest = "journal:29e8c39e667f9646b347a6959e63bcdf"
+image = "https://static.wikia.nocookie.net/witcher/images/8/86/Tw3_precious_haul.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Precious_Haul"
+title = "File:Tw3_precious_haul.jpg"
+
+[[image]]
+quest = "journal:b069ce9be03c6f4fa2981eb8f8970e0c"
+image = "https://static.wikia.nocookie.net/witcher/images/8/88/Tw3_cat_school_gear_part_2.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Scavenger_Hunt:_Cat_School_Gear/Part_2"
+title = "File:Tw3_cat_school_gear_part_2.jpg"
+
+[[image]]
+quest = "journal:68b798187dd26f4d922cbe26b183780f"
+image = "https://static.wikia.nocookie.net/witcher/images/1/1c/Tw3_cat_school_gear_part_3.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Scavenger_Hunt:_Cat_School_Gear/Part_3"
+title = "File:Tw3_cat_school_gear_part_3.jpg"
+
+[[image]]
+quest = "journal:e4a2ae0e98c8df4483ae2f58cd36513d"
+image = "https://static.wikia.nocookie.net/witcher/images/a/a5/Tw3_cat_school_gear_part_4.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Scavenger_Hunt:_Cat_School_Gear/Part_4"
+title = "File:Tw3_cat_school_gear_part_4.jpg"
+
+[[image]]
+quest = "journal:f224fcdf40ef5046a69f67f8008fc1f3"
+image = "https://static.wikia.nocookie.net/witcher/images/b/b3/Tw3_cat_school_gear_part_1.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Scavenger_Hunt:_Cat_School_Gear/Part_1"
+title = "File:Tw3_cat_school_gear_part_1.jpg"
+
+[[image]]
+quest = "journal:4d43dbae23548c4398d8a76194f8c96d"
+image = "https://static.wikia.nocookie.net/witcher/images/0/08/Tw3_shrieker_quest.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Contract:_Shrieker"
+title = "File:Tw3_shrieker_quest.jpg"
+
+[[image]]
+quest = "journal:1af34e6c7f765f4b93d346b81c4aea85"
+image = "https://static.wikia.nocookie.net/witcher/images/b/b8/Tw3_contract_missing_brother.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Contract:_Missing_Brother"
+title = "File:Tw3_contract_missing_brother.jpg"
+
+[[image]]
+quest = "journal:1590ed01c1a1f741bb261f3c0b3e0a6e"
+image = "https://static.wikia.nocookie.net/witcher/images/0/0a/Tw3_Contract_Jenny.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Contract:_Jenny_o'_the_Woods"
+title = "File:Tw3_Contract_Jenny.jpg"
+
+[[image]]
+quest = "journal:b759d796ff245e46996d751e107cc563"
+image = "https://static.wikia.nocookie.net/witcher/images/c/c4/Tw3_mystery_of_byways.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Contract:_The_Mystery_of_the_Byways_Murders"
+title = "File:Tw3_mystery_of_byways.jpg"
+
+[[image]]
+quest = "journal:bf915c91de69b847beed9c0b373a1144"
+image = "https://static.wikia.nocookie.net/witcher/images/8/8b/Tw3_contract_phantom_of_the_trade_route.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Contract:_Phantom_of_the_Trade_Route"
+title = "File:Tw3_contract_phantom_of_the_trade_route.jpg"
+
+[[image]]
+quest = "journal:30eadd3445e48a46921ad677dc03dd31"
+image = "https://static.wikia.nocookie.net/witcher/images/b/b5/Tw3_the_merry_widow.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Contract:_The_Merry_Widow"
+title = "File:Tw3_the_merry_widow.jpg"
+
+[[image]]
+quest = "journal:0dcbadfd15acb143a3f15ad267013692"
+image = "https://static.wikia.nocookie.net/witcher/images/b/b8/Tw3_contract_mysterious_tracks.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Contract:_Mysterious_Tracks"
+title = "File:Tw3_contract_mysterious_tracks.jpg"
+
+[[image]]
+quest = "journal:cb320221b319f54eaa47c8675ff7a32f"
+image = "https://static.wikia.nocookie.net/witcher/images/e/e9/Tw3_contract_swamp_thing.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Contract:_Swamp_Thing"
+title = "File:Tw3_contract_swamp_thing.jpg"
+
+[[image]]
+quest = "journal:64d78632b1158c499a2199029868bcbd"
+image = "https://static.wikia.nocookie.net/witcher/images/a/a9/Tw3_contract_strange_beast.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Contract:_Strange_Beast"
+title = "File:Tw3_contract_strange_beast.jpg"
+
+
+[[image]]
+quest = "journal:60e049807c0d7f448b207c96cbfa57ff"
+image = "https://static.wikia.nocookie.net/witcher/images/4/44/Tw3_contract_muire_dyaeblen.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Contract:_Muire_D'yaeblen"
+title = "File:Tw3_contract_muire_dyaeblen.jpg"
+
+[[image]]
+quest = "journal:f72e0b1a9ef30e4f824adca39b9daad9"
+image = "https://static.wikia.nocookie.net/witcher/images/6/6c/Tw3_contract_missing_son.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Contract:_Missing_Son"
+title = "File:Tw3_contract_missing_son.jpg"
+
+[[image]]
+quest = "journal:755181f8272a994f9cf1f54595fa0677"
+image = "https://static.wikia.nocookie.net/witcher/images/1/1f/Tw3_the_phantom_of_eldberg.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Contract:_The_Phantom_of_Eldberg"
+title = "File:Tw3_the_phantom_of_eldberg.jpg"
+
+[[image]]
+quest = "journal:0c6d31ab58b74547b5b1aaa665250c9b"
+image = "https://static.wikia.nocookie.net/witcher/images/5/50/Tw3_contract_dragon.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Contract:_Dragon"
+title = "File:Tw3_contract_dragon.jpg"
+
+[[image]]
+quest = "journal:57b9c84fb164d14aa6340ed5aa18812e"
+image = "https://static.wikia.nocookie.net/witcher/images/6/6b/Tw3_contract_here_comes_the_groom.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Contract:_Here_Comes_the_Groom"
+title = "File:Tw3_contract_here_comes_the_groom.jpg"
+
+[[image]]
+quest = "journal:db7fd80f983d5c409b2271384b86b503"
+image = "https://static.wikia.nocookie.net/witcher/images/5/5c/Tw3_the_creature_from_oxenfurt_forest.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Contract:_The_Creature_from_Oxenfurt_Forest"
+title = "File:Tw3_the_creature_from_oxenfurt_forest.jpg"
+
+[[image]]
+quest = "journal:491a7631b0103945a703ebb7082a36ba"
+image = "https://static.wikia.nocookie.net/witcher/images/2/23/Tw3_lord_of_the_wood.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Contract:_Lord_of_the_Wood"
+title = "File:Tw3_lord_of_the_wood.jpg"
+
+[[image]]
+quest = "journal:5347e62e55cf4947a2cfec84004bf3af"
+image = "https://static.wikia.nocookie.net/witcher/images/0/08/Tw3_contract_deadly_delights.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Contract:_Deadly_Delights"
+title = "File:Tw3_contract_deadly_delights.jpg"
+
+[[image]]
+quest = "journal:a8c2e9438cdeda438813c5fefcb37f97"
+image = "https://static.wikia.nocookie.net/witcher/images/d/dc/Tw3_the_oxenfurt_drunk.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Contract:_The_Oxenfurt_Drunk"
+title = "File:Tw3_the_oxenfurt_drunk.jpg"
+
+[[image]]
+quest = "journal:5f9913d7c38e744d9298c2f8b89e30a5"
+image = "https://static.wikia.nocookie.net/witcher/images/8/81/Tw3_elusive_thief.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Contract:_An_Elusive_Thief"
+title = "File:Tw3_elusive_thief.jpg"
+
+[[image]]
+quest = "journal:2c4e16af6d19cc41b6bfb41a919aaa1d"
+image = "https://static.wikia.nocookie.net/witcher/images/d/d7/Tw3_contract_doors_slamming_shut.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Contract:_Doors_Slamming_Shut"
+title = "File:Tw3_contract_doors_slamming_shut.jpg"
+
+[[image]]
+quest = "journal:488a6f25fd333e4f9d301ce13f86ea93"
+image = "https://static.wikia.nocookie.net/witcher/images/1/1f/Tw3_the_apiarian_phnatom.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Contract:_The_Apiarian_Phantom"
+title = "File:Tw3_the_apiarian_phnatom.jpg"
+
+[[image]]
+quest = "journal:1ad0a930afc89d4f903ebd9350940a04"
+image = "https://static.wikia.nocookie.net/witcher/images/b/b5/Tw3_contract_White_Lady.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Contract:_The_White_Lady"
+title = "File:Tw3_contract_White_Lady.jpg"
+
+[[image]]
+quest = "journal:84db0c9ba984eb4885e64ad716bf8e1f"
+image = "https://static.wikia.nocookie.net/witcher/images/a/a6/Tw3_wandering_in_the_dark.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Wandering_in_the_Dark"
+title = "File:Tw3_wandering_in_the_dark.jpg"
+
+[[image]]
+quest = "journal:8abb6d3ba795504eb31ea38d1f4d2c4f"
+image = "https://static.wikia.nocookie.net/witcher/images/b/bf/Tw3_missing_in_action.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Missing_in_Action"
+title = "File:Tw3_missing_in_action.jpg"
+
+[[image]]
+quest = "journal:faab7a3707a3bc4fae41fa0141bd9de3"
+image = "https://static.wikia.nocookie.net/witcher/images/7/7e/Tw3_precious_cargo.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Precious_Cargo"
+title = "File:Tw3_precious_cargo.jpg"
+
+[[image]]
+quest = "journal:45eedbad6b7e7f43912e6d2886ef0f19"
+image = "https://static.wikia.nocookie.net/witcher/images/6/68/Tw3_contract_devil_by_the_well.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Contract:_Devil_by_the_Well"
+title = "File:Tw3_contract_devil_by_the_well.jpg"
+
+[[image]]
+quest = "journal:16c6c2f7e7a7bf4fa1fb373ac8cfb80f"
+image = "https://static.wikia.nocookie.net/witcher/images/e/e6/Tw3_a_frying_pan_spick_and_span.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/A_Frying_Pan,_Spick_and_Span"
+title = "File:Tw3_a_frying_pan_spick_and_span.jpg"
+
+[[image]]
+quest = "journal:0f3305c02a250d4aa75c6fba97048763"
+image = "https://static.wikia.nocookie.net/witcher/images/7/71/Tw3_Willis%2C_Napp_and_Black_Ones.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Twisted_Firestarter"
+title = "File:Tw3_Willis,_Napp_and_Black_Ones.jpg"
+
+[[image]]
+quest = "journal:8ce50f9eee92164cade1edae10fe019b"
+image = "https://static.wikia.nocookie.net/witcher/images/4/47/Tw3_a_dogs_life.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/A_Dog's_Life"
+title = "File:Tw3_a_dogs_life.jpg"
+
+[[image]]
+quest = "journal:b4695fb896b86345a633973384a92392"
+image = "https://static.wikia.nocookie.net/witcher/images/5/5d/Tw3_of_dairy_and_darkness.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Of_Dairy_and_Darkness"
+title = "File:Tw3_of_dairy_and_darkness.jpg"
+
+[[image]]
+quest = "journal:afd2392673847344b6095814c1d4e97d"
+image = "https://static.wikia.nocookie.net/witcher/images/a/a4/Tw3_hazardous_goods.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Hazardous_Goods"
+title = "File:Tw3_hazardous_goods.jpg"
+
+[[image]]
+quest = "journal:69df67874036264bb9102758bafd01f5"
+image = "https://static.wikia.nocookie.net/witcher/images/1/10/Tw3_bitter_harvest.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Bitter_Harvest"
+title = "File:Tw3_bitter_harvest.jpg"
+
+[[image]]
+quest = "journal:7da737d6b2b7374fa695d6bb080c09e1"
+image = "https://static.wikia.nocookie.net/witcher/images/0/08/Tw3_Last_Rites.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Last_Rites"
+title = "File:Tw3_Last_Rites.jpg"
+
+[[image]]
+quest = "journal:6055a9937aff6a41a61ffe6c9c7bd79f"
+image = "https://static.wikia.nocookie.net/witcher/images/3/37/Tw3_defender_of_faith.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Defender_of_the_Faith"
+title = "File:Tw3_defender_of_faith.jpg"
+
+[[image]]
+quest = "journal:6811004d8c9eff4192ef3c6a8f67dafd"
+image = "https://static.wikia.nocookie.net/witcher/images/b/b8/Tw3_witcher_wannabe.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Witcher_Wannabe"
+title = "File:Tw3_witcher_wannabe.jpg"
+
+[[image]]
+quest = "journal:55e817b99dae134ca64a96aba395c29e"
+image = "https://static.wikia.nocookie.net/witcher/images/e/e2/Tw3_lynch_mob.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Lynch_Mob"
+title = "File:Tw3_lynch_mob.jpg"
+
+[[image]]
+quest = "journal:d4808d5d153ae347b16f578c6f73c43a"
+image = "https://static.wikia.nocookie.net/witcher/images/4/44/Tw3_empty_coop.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Empty_Coop"
+title = "File:Tw3_empty_coop.jpg"
+
+[[image]]
+quest = "journal:90938b3032ef3641a3108763ca327dad"
+image = "https://static.wikia.nocookie.net/witcher/images/a/a9/Tw3_funeral_pyres.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Funeral_Pyres"
+title = "File:Tw3_funeral_pyres.jpg"
+
+[[image]]
+quest = "journal:d4cb6e9c00081442b1db5c3260a7645a"
+image = "https://static.wikia.nocookie.net/witcher/images/4/41/Tw3_spooked_mare.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Spooked_Mare"
+title = "File:Tw3_spooked_mare.jpg"
+
+[[image]]
+quest = "journal:9abdf95ac1c1c94ea48fc2f180d21d00"
+image = "https://static.wikia.nocookie.net/witcher/images/9/91/Tw3_the_volunteer.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Volunteer"
+title = "File:Tw3_the_volunteer.jpg"
+
+[[image]]
+quest = "journal:7546b83312787f45be90b52f02671d54"
+image = "https://static.wikia.nocookie.net/witcher/images/3/37/Tw3_fake_papers.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Fake_Papers"
+title = "File:Tw3_fake_papers.jpg"
+
+[[image]]
+quest = "journal:cf35ae4b44c552418c741b6d617b8cd6"
+image = "https://static.wikia.nocookie.net/witcher/images/2/26/Tw3_the_dwarven_document_dilemma.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Dwarven_Document_Dilemma"
+title = "File:Tw3_the_dwarven_document_dilemma.jpg"
+
+[[image]]
+quest = "journal:c6a686853d53b24ebc53a0383bcfe889"
+image = "https://static.wikia.nocookie.net/witcher/images/f/f8/Tw3_a_barnful_of_trouble.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/A_Barnful_of_Trouble"
+title = "File:Tw3_a_barnful_of_trouble.jpg"
+
+[[image]]
+quest = "journal:3d2ae12ef7fa2b439a7508090e89e78d"
+image = "https://static.wikia.nocookie.net/witcher/images/2/20/Tw3_loves_cruel_snares.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Love's_Cruel_Snares"
+title = "File:Tw3_loves_cruel_snares.jpg"
+
+[[image]]
+quest = "journal:243ddb4fbf90704d9a0beb67962c49f9"
+image = "https://static.wikia.nocookie.net/witcher/images/6/69/Tw3_death_by_fire.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Death_By_Fire"
+title = "File:Tw3_death_by_fire.jpg"
+
+[[image]]
+quest = "journal:c50297189179374e810db5898e18f145"
+image = "https://static.wikia.nocookie.net/witcher/images/3/3e/Tw3_the_truth_is_in_the_stars.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Truth_is_in_the_Stars"
+title = "File:Tw3_the_truth_is_in_the_stars.jpg"
+
+[[image]]
+quest = "journal:343b58c5585d1544984c1782efe47bce"
+image = "https://static.wikia.nocookie.net/witcher/images/b/bb/Tw3_contract_patrol_gone_missing.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Contract:_Patrol_Gone_Missing"
+title = "File:Tw3_contract_patrol_gone_missing.jpg"
+
+[[image]]
+quest = "journal:c827bbbc74e3a74f8f40c13c77acd28c"
+image = "https://static.wikia.nocookie.net/witcher/images/7/72/Tw3_blood_ties.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Blood_Ties"
+title = "File:Tw3_blood_ties.jpg"
+
+[[image]]
+quest = "journal:e0a22610e638934a9d404d7f95e55b0c"
+image = "https://static.wikia.nocookie.net/witcher/images/6/60/Tw3_a_greedy_god.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/A_Greedy_God"
+title = "File:Tw3_a_greedy_god.jpg"
+
+[[image]]
+quest = "journal:c36437d6d1503a409b2334f9b3b1e929"
+image = "https://static.wikia.nocookie.net/witcher/images/9/94/Tw3_forgotten_wolf_gear.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Scavenger_Hunt:_Forgotten_Wolf_School_Gear_Diagrams"
+title = "File:Tw3_forgotten_wolf_gear.jpg"
+
+[[image]]
+quest = "journal:97114efd1614cd4dbea125212ad63017"
+image = "https://static.wikia.nocookie.net/witcher/images/f/f5/Tw3_in_the_eternal_fires_shadow.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/In_the_Eternal_Fire's_Shadow"
+title = "File:Tw3_in_the_eternal_fires_shadow.jpg"
+
+[[image]]
+quest = "journal:491fbbe27d74e44992b8d10577d954e5"
+image = "https://static.wikia.nocookie.net/witcher/images/0/01/Tw3_a_hallowed_horn.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/A_Hallowed_Horn"
+title = "File:Tw3_a_hallowed_horn.jpg"
+
+[[image]]
+quest = "journal:51da18bfc92fa1489296c47feb93453e"
+image = "https://static.wikia.nocookie.net/witcher/images/6/68/Tw3_the_family_blade.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Family_Blade"
+title = "File:Tw3_the_family_blade.jpg"
+
+[[image]]
+quest = "journal:7796d8b957b2cc479843d1b4f1450666"
+image = "https://static.wikia.nocookie.net/witcher/images/4/4e/Tw3_peace_disturbed.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Peace_Disturbed"
+title = "File:Tw3_peace_disturbed.jpg"
+
+[[image]]
+quest = "journal:7d6de01bb055e74cb2e087fac96d0b57"
+image = "https://static.wikia.nocookie.net/witcher/images/3/36/Tw3_x_marks_the_spot.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/X_Marks_the_Spot"
+title = "File:Tw3_x_marks_the_spot.jpg"
+
+[[image]]
+quest = "journal:6b99b5d7461c4841977da2b62abf28aa"
+image = "https://static.wikia.nocookie.net/witcher/images/e/e1/Tw3_ruins_hidden_treasure_you_know.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Ruins,_Hidden_Treasure,_You_Know..."
+title = "File:Tw3_ruins_hidden_treasure_you_know.jpg"
+
+[[image]]
+quest = "journal:86e276b62cee164abafc5e22709aba3d"
+image = "https://static.wikia.nocookie.net/witcher/images/5/59/Tw3_a_bards_beloved.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/A_Bard's_Beloved"
+title = "File:Tw3_a_bards_beloved.jpg"
+
+[[image]]
+quest = "journal:b92c35f911d77c4d9056a28f0818b180"
+image = "https://static.wikia.nocookie.net/witcher/images/c/c0/Tw3_abandoned_sawmill_quest.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Abandoned_Sawmill_(quest)"
+title = "File:Tw3_abandoned_sawmill_quest.jpg"
+
+[[image]]
+quest = "journal:03795e1c6ccd6240b7f768c97f8a1223"
+image = "https://static.wikia.nocookie.net/witcher/images/3/3d/Tw3_worthy_of_trust.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Worthy_of_Trust"
+title = "File:Tw3_worthy_of_trust.jpg"
+
+[[image]]
+quest = "journal:cee4e84f10d3cf44babc1c522b3f587d"
+image = "https://static.wikia.nocookie.net/witcher/images/2/2b/Tw3_hard_times.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Hard_Times"
+title = "File:Tw3_hard_times.jpg"
+
+[[image]]
+quest = "journal:2fdedb89bb58f64792aecf0446d98690"
+image = "https://static.wikia.nocookie.net/witcher/images/7/7d/Tw3_the_sad_tale_of_the_grossbart_brothers.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Sad_Tale_of_the_Grossbart_Brothers"
+title = "File:Tw3_the_sad_tale_of_the_grossbart_brothers.jpg"
+
+[[image]]
+quest = "journal:2213616205105b4f81ea6537b09f225d"
+image = "https://static.wikia.nocookie.net/witcher/images/7/7e/Tw3_taken_as_a_lass.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Taken_as_a_Lass"
+title = "File:Tw3_taken_as_a_lass.jpg"
+
+[[image]]
+quest = "journal:c40738ec6352a44e8798a810f85b9a40"
+image = "https://static.wikia.nocookie.net/witcher/images/2/20/Tw3_for_fame_and_glory.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/For_Fame_and_Glory"
+title = "File:Tw3_for_fame_and_glory.jpg"
+
+[[image]]
+quest = "journal:c9fd386c84e87741ad0230a9ecbfdecc"
+image = "https://static.wikia.nocookie.net/witcher/images/c/c3/Tw3_armed_assault.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Armed_Assault"
+title = "File:Tw3_armed_assault.jpg"
+
+[[image]]
+quest = "journal:0057ce75be1b1f4bae3792060fca206d"
+image = "https://static.wikia.nocookie.net/witcher/images/7/7e/Tw3_flesh_for_sale.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Flesh_for_Sale"
+title = "File:Tw3_flesh_for_sale.jpg"
+
+[[image]]
+quest = "journal:67410914c51af845822cb1261c15bdba"
+image = "https://static.wikia.nocookie.net/witcher/images/8/87/Tw3_brave_fools_die_young.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Brave_Fools_Die_Young"
+title = "File:Tw3_brave_fools_die_young.jpg"
+
+[[image]]
+quest = "journal:8735c8c8c0ca2a4db5851ae4e8daf1a9"
+image = "https://static.wikia.nocookie.net/witcher/images/2/23/Tw3_master_of_the_arena.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Master_of_the_Arena"
+title = "File:Tw3_master_of_the_arena.jpg"
+
+[[image]]
+quest = "journal:964dc24e3282804cab1d9bf06d88fe1a"
+image = "https://static.wikia.nocookie.net/witcher/images/3/32/Tw3_the_nithing.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Nithing"
+title = "File:Tw3_the_nithing.jpg"
+
+[[image]]
+quest = "journal:2c320a131c4e9e47b4d10e6c6d138001"
+image = "https://static.wikia.nocookie.net/witcher/images/3/31/Tw3_the_price_of_honor.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Price_of_Honor"
+title = "File:Tw3_the_price_of_honor.jpg"
+
+[[image]]
+quest = "journal:29799f1d67c55241a4750632ce72cb7d"
+image = "https://static.wikia.nocookie.net/witcher/images/4/4f/Tw3_iron_maiden.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Iron_Maiden"
+title = "File:Tw3_iron_maiden.jpg"
+
+[[image]]
+quest = "journal:21bf0cfa9e7ea249a35d24b55239a207"
+image = "https://static.wikia.nocookie.net/witcher/images/8/87/Tw3_shock_therapy.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Shock_Therapy"
+title = "File:Tw3_shock_therapy.jpg"
+
+[[image]]
+quest = "journal:c418f21e5896674e8620e3d650a51fb6"
+image = "https://static.wikia.nocookie.net/witcher/images/4/48/Tw3_the_path_of_warriors.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Path_of_Warriors"
+title = "File:Tw3_the_path_of_warriors.jpg"
+
+[[image]]
+quest = "journal:34aa25643063114c8a781084884bf6c2"
+image = "https://static.wikia.nocookie.net/witcher/images/f/f5/Tw3_crime_and_punishment.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Crime_and_Punishment"
+title = "File:Tw3_crime_and_punishment.jpg"
+
+[[image]]
+quest = "journal:d18a18fad7eab0409ad867de1798c31b"
+image = "https://static.wikia.nocookie.net/witcher/images/8/89/Tw3_from_a_land_far_far_away.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/From_a_Land_Far,_Far_Away"
+title = "File:Tw3_from_a_land_far_far_away.jpg"
+
+[[image]]
+quest = "journal:0404506c056e5b4eadfe20e96920fe0e"
+image = "https://static.wikia.nocookie.net/witcher/images/5/5e/Tw3_free_spirit.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Free_Spirit"
+title = "File:Tw3_free_spirit.jpg"
+
+[[image]]
+quest = "journal:45cb2aee99a6524c95ce5e0848c68362"
+image = "https://static.wikia.nocookie.net/witcher/images/b/b3/Tw3_Unpaid_Debt.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/An_Unpaid_Debt"
+title = "File:Tw3_Unpaid_Debt.png"
+
+
+[[image]]
+quest = "journal:6220d4a68c57bf41a6120ed82df8fe55"
+image = "https://static.wikia.nocookie.net/witcher/images/b/b9/Tw3_hidden_messages_of_the_nilfgaardian_kind.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Hidden_Messages_of_the_Nilfgaardian_Kind"
+title = "File:Tw3_hidden_messages_of_the_nilfgaardian_kind.jpg"
+
+[[image]]
+quest = "journal:4f6af66e0d16744abf881b9dc4a59148"
+image = "https://static.wikia.nocookie.net/witcher/images/c/c3/Walk_on_the_waterfront.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/A_Walk_on_the_Waterfront"
+title = "File:Walk_on_the_waterfront.jpg"
+
+[[image]]
+quest = "journal:4f9c6d9659a75840837943efb64b6f14"
+image = "https://static.wikia.nocookie.net/witcher/images/f/fd/Tw3_hey_you_wanna_look_at_my_stuff.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Hey,_You_Wanna_Look_at_my_Stuff?"
+title = "File:Tw3_hey_you_wanna_look_at_my_stuff.jpg"
+
+[[image]]
+quest = "journal:ff2f0d6fd1931e48bcc0fecb02eee057"
+image = "https://static.wikia.nocookie.net/witcher/images/2/2e/Tw3_The_Nobleman_Statuette.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Nobleman_Statuette"
+title = "File:Tw3_The_Nobleman_Statuette.jpg"
+
+[[image]]
+quest = "journal:55f83cddb2378b44bfc9e148ada5940e"
+image = "https://static.wikia.nocookie.net/witcher/images/a/ac/Tw3_the_soldier_statuette.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Soldier_Statuette"
+title = "File:Tw3_the_soldier_statuette.jpg"
+
+[[image]]
+quest = "journal:d1694689ab978445ae1cfae2d0c1df46"
+image = "https://static.wikia.nocookie.net/witcher/images/a/a5/Tw3_novigrad_hospitality.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Novigrad_Hospitality"
+title = "File:Tw3_novigrad_hospitality.jpg"
+
+[[image]]
+quest = "journal:1fb30ee6e613cb4ab4ec4562c9530114"
+image = "https://static.wikia.nocookie.net/witcher/images/9/91/Tw3_little_red_quest.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Little_Red_(quest)"
+title = "File:Tw3_little_red_quest.jpg"
+
+[[image]]
+quest = "journal:968192f4ceeaa442a4c54a909dffc845"
+image = "https://static.wikia.nocookie.net/witcher/images/d/db/Tw3_rough_neighborhood.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Rough_Neighborhood"
+title = "File:Tw3_rough_neighborhood.jpg"
+
+[[image]]
+quest = "journal:0316883731ef814aacba1e57e6ce0443"
+image = "https://static.wikia.nocookie.net/witcher/images/3/36/Tw3_Thou_Shalt_Not_Pass.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Thou_Shalt_Not_Pass"
+title = "File:Tw3_Thou_Shalt_Not_Pass.png"
+
+[[image]]
+quest = "journal:998f33b3dada6243adf9a14b440ff195"
+image = "https://static.wikia.nocookie.net/witcher/images/d/d0/Tw3_vegelbud_memorial_derby.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Race:_The_Great_Erasmus_Vegelbud_Memorial_Derby"
+title = "File:Tw3_vegelbud_memorial_derby.jpg"
+
+[[image]]
+quest = "journal:03c36e54b8249c4686729e80a088c258"
+image = "https://static.wikia.nocookie.net/witcher/images/c/c2/Tw3_message_from_an_old_friend.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Message_from_an_Old_Friend"
+title = "File:Tw3_message_from_an_old_friend.jpg"
+
+[[image]]
+quest = "journal:8d6304f93918c24980b3350aa77a72d7"
+image = "https://static.wikia.nocookie.net/witcher/images/2/24/Tw3_black_pearl_quest.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Black_Pearl_(quest)"
+title = "File:Tw3_black_pearl_quest.jpg"
+
+[[image]]
+quest = "journal:46185105652a0f45ad95f6e7949edf31"
+image = "https://static.wikia.nocookie.net/witcher/images/b/bc/Reason_of_State_teaser.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Reason_of_State"
+title = "File:Reason_of_State_teaser.jpg"
+
+[[image]]
+quest = "journal:21d361de96b7dc4a8985f72c19a463db"
+image = "https://static.wikia.nocookie.net/witcher/images/5/58/Tw3_fencing_lessons.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Fencing_Lessons"
+title = "File:Tw3_fencing_lessons.jpg"
+
+[[image]]
+quest = "journal:4073c408c256174699547cb118695333"
+image = "https://static.wikia.nocookie.net/witcher/images/0/08/Tw3_Tomb_Entombed.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/A_Tome_Entombed"
+title = "File:Tw3_Tomb_Entombed.jpg"
+
+[[image]]
+quest = "journal:a977b1a1b7231d45b58d7258519e317d"
+image = "https://static.wikia.nocookie.net/witcher/images/9/96/Tw3_warehouse_of_woe.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Warehouse_of_Woe"
+title = "File:Tw3_warehouse_of_woe.jpg"
+
+[[image]]
+quest = "journal:75a1065e42609a4295b8752f6ae23eaa"
+image = "https://static.wikia.nocookie.net/witcher/images/5/5c/Tw3_a_feast_for_crows.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/A_Feast_for_Crows"
+title = "File:Tw3_a_feast_for_crows.jpg"
+
+[[image]]
+quest = "journal:b1d445b72bd54b4a9e2c7c57c6e78ec9"
+image = "https://static.wikia.nocookie.net/witcher/images/c/cd/Tw3_out_on_your_arse.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Out_On_Your_Arse!"
+title = "File:Tw3_out_on_your_arse.jpg"
+
+[[image]]
+quest = "journal:5ad1af5697e1f64685273aa8af6a134f"
+image = "https://static.wikia.nocookie.net/witcher/images/f/f9/Witcher3_Greenhouse_Effect.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Greenhouse_Effect"
+title = "File:Witcher3_Greenhouse_Effect.jpg"
+
+[[image]]
+quest = "journal:b9832d2b59400047b1ed60ef36cdabc9"
+image = "https://static.wikia.nocookie.net/witcher/images/b/b1/Monster_slayer_quest.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Monster_Slayer"
+title = "File:Monster_slayer_quest.png"
+
+[[image]]
+quest = "journal:f0c2688af4762b46be094e3c3a847b39"
+image = "https://static.wikia.nocookie.net/witcher/images/8/82/Tw3_the_bastion.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Bastion"
+title = "File:Tw3_the_bastion.png"
+
+[[image]]
+quest = "journal:4cb0c6391331f44fac1c1d00fe0da8c6"
+image = "https://static.wikia.nocookie.net/witcher/images/a/a8/Tw3_Berengar_Blade.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Berengar's_Blade"
+title = "File:Tw3_Berengar_Blade.jpg"
+
+[[image]]
+quest = "journal:3018c9731884934490cbd8085e78fd1e"
+image = "https://static.wikia.nocookie.net/witcher/images/0/0f/Tw3_The_Witchers_Forge.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Witchers'_Forge"
+title = "File:Tw3_The_Witchers_Forge.jpg"
+
+[[image]]
+quest = "journal:59d91651fca6b74394519b36ec15f1a9"
+image = "https://static.wikia.nocookie.net/witcher/images/0/08/Tw3_faithful_friend.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Faithful_Friend"
+title = "File:Tw3_faithful_friend.png"
+
+[[image]]
+quest = "journal:a957fedea76dbd4eb801e95dff779883"
+image = "https://static.wikia.nocookie.net/witcher/images/4/4f/Tw3_pearls_of_the_coast.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Pearls_of_the_Coast"
+title = "File:Tw3_pearls_of_the_coast.jpg"
+
+[[image]]
+quest = "journal:4144aac1e864ff48b93b2b9791c10c25"
+image = "https://static.wikia.nocookie.net/witcher/images/4/4a/Tw3_Kaer_Morhen_promo.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Kaer_Morhen"
+title = "File:Tw3_Kaer_Morhen_promo.jpg"
+
+[[image]]
+quest = "journal:7c198a768adc3046b34b5a730b5b53c9"
+image = "https://static.wikia.nocookie.net/witcher/images/8/8a/Sheepgriffin.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Lilac_and_Gooseberries"
+title = "File:Sheepgriffin.jpg"
+
+[[image]]
+quest = "journal:c685e403bdef19478e28b7292ee04521"
+image = "https://static.wikia.nocookie.net/witcher/images/2/2e/Badgroup.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Incident_at_White_Orchard"
+title = "File:Badgroup.jpg"
+
+[[image]]
+quest = "journal:746b08f6ffed684e91e19cd7a733ba13"
+image = "https://static.wikia.nocookie.net/witcher/images/8/8c/Griffinfield.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Beast_of_White_Orchard"
+title = "File:Griffinfield.jpg"
+
+[[image]]
+quest = "journal:0ccd94daf91f2b43943ce98f34b2b479"
+image = "https://static.wikia.nocookie.net/witcher/images/1/19/Tw3_on_deaths_bed.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/On_Death's_Bed"
+title = "File:Tw3_on_deaths_bed.jpg"
+
+[[image]]
+quest = "journal:3b436b3a8592ea47b96fd9236ee5379a"
+image = "https://static.wikia.nocookie.net/witcher/images/d/d8/Tw3_imperial_audience.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Imperial_Audience"
+title = "File:Tw3_imperial_audience.jpg"
+
+[[image]]
+quest = "journal:9dbf773df03f454f8f65aa66273235a6"
+image = "https://static.wikia.nocookie.net/witcher/images/d/db/Tw3_the_nilfgaardian_connection.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Nilfgaardian_Connection"
+title = "File:Tw3_the_nilfgaardian_connection.jpg"
+
+[[image]]
+quest = "journal:7380a37420febd4c9a8a8aa61c8ab10a"
+image = "https://static.wikia.nocookie.net/witcher/images/1/13/Ciris_room-0.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Ciri's_Room"
+title = "File:Ciris_room-0.png"
+
+[[image]]
+quest = "journal:3259f832b35dd644aa0477a0bcc040f3"
+image = "https://static.wikia.nocookie.net/witcher/images/c/c6/Tw3_ciri_story_king_of_the_wolves.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Ciri's_Story:_The_King_of_the_Wolves"
+title = "File:Tw3_ciri_story_king_of_the_wolves.jpg"
+
+[[image]]
+quest = "journal:6bf2eb76cf49ee42a46751d6af9fa300"
+image = "https://static.wikia.nocookie.net/witcher/images/5/50/Tw3_princess_in_distress.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/A_Princess_in_Distress"
+title = "File:Tw3_princess_in_distress.jpg"
+
+[[image]]
+quest = "journal:936cbd8ca882814c91e2a948b6df0573"
+image = "https://static.wikia.nocookie.net/witcher/images/7/78/Tw3_ciri_story_the_race.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Ciri's_Story:_The_Race"
+title = "File:Tw3_ciri_story_the_race.jpg"
+
+[[image]]
+quest = "journal:2538deba92a8504780e2cb33380c985f"
+image = "https://static.wikia.nocookie.net/witcher/images/5/56/Tw3_ciris_story_out_of_the_shadows.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Ciri's_Story:_Out_of_the_Shadows"
+title = "File:Tw3_ciris_story_out_of_the_shadows.jpg"
+
+[[image]]
+quest = "journal:35b8b519cc9a4c49b8bd413f8446c972"
+image = "https://static.wikia.nocookie.net/witcher/images/6/62/Tw3_hunting_a_witch.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Hunting_a_Witch"
+title = "File:Tw3_hunting_a_witch.jpg"
+
+[[image]]
+quest = "journal:e309d746f9bf7d4783fe8ba50620712d"
+image = "https://static.wikia.nocookie.net/witcher/images/d/db/Tw3_magic_lamp_quest.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Magic_Lamp_(quest)"
+title = "File:Tw3_magic_lamp_quest.jpg"
+
+[[image]]
+quest = "journal:8c8025331805b248848f25e3bed307f5"
+image = "https://static.wikia.nocookie.net/witcher/images/5/5e/Tw3_ciri_story_fleeing_the_bog.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Ciri's_Story:_Fleeing_the_Bog"
+title = "File:Tw3_ciri_story_fleeing_the_bog.jpg"
+
+[[image]]
+quest = "journal:ee2b8fb9cc419f408b2852370cebfcf5"
+image = "https://static.wikia.nocookie.net/witcher/images/4/41/Tw3_the_whispering_hillock.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Whispering_Hillock"
+title = "File:Tw3_the_whispering_hillock.jpg"
+
+[[image]]
+quest = "journal:762996ea340f954ebdc14f83c7911946"
+image = "https://static.wikia.nocookie.net/witcher/images/3/3a/Ladies_picture.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Ladies_of_the_Wood"
+title = "File:Ladies_picture.jpg"
+
+[[image]]
+quest = "journal:3bd27c28c1fc204cad6922d532016747"
+image = "https://static.wikia.nocookie.net/witcher/images/2/2e/Tw3_Invitation_from_Keira.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/An_Invitation_from_Keira_Metz"
+title = "File:Tw3_Invitation_from_Keira.jpg"
+
+[[image]]
+quest = "journal:cf68e238d8771743876b100a0dbaf722"
+image = "https://static.wikia.nocookie.net/witcher/images/9/91/The_witcher_3_plague_maiden.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/A_Towerful_of_Mice"
+title = "File:The_witcher_3_plague_maiden.jpg"
+
+[[image]]
+quest = "journal:3e20037ee304654d93865c163cd13ba9"
+image = "https://static.wikia.nocookie.net/witcher/images/8/8a/Tw3_return_to_crookback_bog.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Return_to_Crookback_Bog"
+title = "File:Tw3_return_to_crookback_bog.jpg"
+
+[[image]]
+quest = "journal:3b30f8d9fd613542ac4dc39ab4190442"
+image = "https://static.wikia.nocookie.net/witcher/images/1/13/Tw3_forefathers_eve.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Forefathers'_Eve"
+title = "File:Tw3_forefathers_eve.jpg"
+
+[[image]]
+quest = "journal:ddd5713ddef70240beecc5f8d026e213"
+image = "https://static.wikia.nocookie.net/witcher/images/f/f3/Tw3_for_the_advancement_of_learning.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/For_the_Advancement_of_Learning"
+title = "File:Tw3_for_the_advancement_of_learning.jpg"
+
+[[image]]
+quest = "journal:eef8c5cee96b5647aa0a7812ad04e10e"
+image = "https://static.wikia.nocookie.net/witcher/images/f/f2/Tw3_blood_on_the_battlefield.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Blood_on_the_Battlefield"
+title = "File:Tw3_blood_on_the_battlefield.jpg"
+
+[[image]]
+quest = "journal:07146b0c112fbd41a28cd47f778fdbdb"
+image = "https://static.wikia.nocookie.net/witcher/images/7/7a/Tw3_bald_mountain_quest.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Bald_Mountain_(quest)"
+title = "File:Tw3_bald_mountain_quest.png"
+
+[[image]]
+quest = "journal:bd420455497daf43b5090a9ecccdbc54"
+image = "https://static.wikia.nocookie.net/witcher/images/4/4e/Destination_skellige.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Destination:_Skellige"
+title = "File:Destination_skellige.png"
+
+[[image]]
+quest = "journal:3a9aebe70a16fb47ad0416471ef32343"
+image = "https://static.wikia.nocookie.net/witcher/images/b/b9/Tw3_Echoes_of_the_Past.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Echoes_of_the_Past"
+title = "File:Tw3_Echoes_of_the_Past.jpg"
+
+[[image]]
+quest = "journal:0608cb2b8c06e147ae34324f17acf3d5"
+image = "https://static.wikia.nocookie.net/witcher/images/d/db/Hymshadow.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Possession_(quest)"
+title = "File:Hymshadow.jpg"
+
+[[image]]
+quest = "journal:40746a5cf5e42343908daf9be2d14fd6"
+image = "https://static.wikia.nocookie.net/witcher/images/4/4e/Tw3_calm_before_storm.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Calm_Before_the_Storm"
+title = "File:Tw3_calm_before_storm.png"
+
+[[image]]
+quest = "journal:a6636b7f50ca9e439f6cd4d798ac3e26"
+image = "https://static.wikia.nocookie.net/witcher/images/2/28/Tw3_Craven.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Nameless"
+title = "File:Tw3_Craven.jpg"
+
+[[image]]
+quest = "journal:647538925e53bf4293936af5c7da9578"
+image = "https://static.wikia.nocookie.net/witcher/images/1/1d/Missing_Persons.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Missing_Persons"
+title = "File:Missing_Persons.png"
+
+[[image]]
+quest = "journal:e10a13b571218a46b0d37b0b9954be3f"
+image = "https://static.wikia.nocookie.net/witcher/images/8/87/Arnvald_%28King%27s_Gambit%29.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/King's_Gambit"
+title = "File:Arnvald_(King's_Gambit).png"
+
+[[image]]
+quest = "journal:2aa140959667aa49bee7c87ba4308084"
+image = "https://static.wikia.nocookie.net/witcher/images/8/8c/King_or_Queen_of_the_Isles_%28Coronation%29.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Coronation"
+title = "File:King_or_Queen_of_the_Isles_(Coronation).png"
+
+[[image]]
+quest = "journal:7f2834d09b80d34a8cb6b22becd21dc6"
+image = "https://static.wikia.nocookie.net/witcher/images/c/c5/Tw3_ciris_family_tree.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Child_of_the_Elder_Blood"
+title = "File:Tw3_ciris_family_tree.png"
+
+[[image]]
+quest = "journal:1a5e77d8bbf5ac40b6d96ca6e448c1b6"
+image = "https://static.wikia.nocookie.net/witcher/images/2/26/Prima_Guide_Veni_Vidi_Vigo.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Veni_Vidi_Vigo"
+title = "File:Prima_Guide_Veni_Vidi_Vigo.png"
+
+[[image]]
+quest = "journal:6e79586f4997e94ca9ad2c00ecc65bba"
+image = "https://static.wikia.nocookie.net/witcher/images/2/24/Prima_Guide_Sunstone.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Sunstone"
+title = "File:Prima_Guide_Sunstone.png"
+
+[[image]]
+quest = "journal:7ecafa3fa5309a4887484e82de07a521"
+image = "https://static.wikia.nocookie.net/witcher/images/1/18/Prima_Guide_Battle_Prepares.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Battle_Preparations"
+title = "File:Prima_Guide_Battle_Prepares.png"
+
+[[image]]
+quest = "journal:f5a35fb97ba3b747aeb4514a6548b891"
+image = "https://static.wikia.nocookie.net/witcher/images/4/4b/Tw3_skjall_grave.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Skjall's_Grave"
+title = "File:Tw3_skjall_grave.jpg"
+
+[[image]]
+quest = "journal:2c90eaa799db2140862e1c123d92e677"
+image = "https://static.wikia.nocookie.net/witcher/images/9/92/Tw3_pyres_of_novigrad.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Pyres_of_Novigrad"
+title = "File:Tw3_pyres_of_novigrad.jpg"
+
+[[image]]
+quest = "journal:b482c1d2bc409544b226b3cce786d74f"
+image = "https://static.wikia.nocookie.net/witcher/images/2/2e/Tw3_novigrad_dreaming.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Novigrad_Dreaming"
+title = "File:Tw3_novigrad_dreaming.jpg"
+
+[[image]]
+quest = "journal:b74f5f58de2bf84cacb63bd303df468d"
+image = "https://static.wikia.nocookie.net/witcher/images/f/fd/Tw3_haunted_house_quest.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Haunted_House_(quest)"
+title = "File:Tw3_haunted_house_quest.jpg"
+
+[[image]]
+quest = "journal:d06f4fc0da95af4486a6ae578b74475e"
+image = "https://static.wikia.nocookie.net/witcher/images/7/73/Honor_Among_Thieves.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Honor_Among_Thieves"
+title = "File:Honor_Among_Thieves.png"
+
+[[image]]
+quest = "journal:79fdfc010262ae4d96d32c79d5af0b24"
+image = "https://static.wikia.nocookie.net/witcher/images/2/2e/Prima_Guide_Favor_for_Radovid.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/A_Favor_for_Radovid"
+title = "File:Prima_Guide_Favor_for_Radovid.png"
+
+[[image]]
+quest = "journal:41009e5ecd3e3e46981b2dc7c6d6f55c"
+image = "https://static.wikia.nocookie.net/witcher/images/9/98/Prima_Guide_Get_junior.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Get_Junior"
+title = "File:Prima_Guide_Get_junior.png"
+
+
+[[image]]
+quest = "journal:f2a758dc3418d549a6b399acccd40661"
+image = "https://static.wikia.nocookie.net/witcher/images/8/8a/Prima_Guide_Visiting_whoreson.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Ciri's_Story:_Visiting_Junior"
+title = "File:Prima_Guide_Visiting_whoreson.png"
+
+[[image]]
+quest = "journal:3009f561e3989f4fb389f1adea594b0f"
+image = "https://static.wikia.nocookie.net/witcher/images/e/e7/Tw3_be_quiet_when_boss_talking.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Gangs_of_Novigrad"
+title = "File:Tw3_be_quiet_when_boss_talking.png"
+
+[[image]]
+quest = "journal:65f092022cc5224692347c4b8efab3c7"
+image = "https://static.wikia.nocookie.net/witcher/images/8/83/Tw3_count_reuvens_treasure.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Count_Reuven's_Treasure"
+title = "File:Tw3_count_reuvens_treasure.jpg"
+
+[[image]]
+quest = "journal:ee1b1385ec99f94a86059bad11ce06fa"
+image = "https://static.wikia.nocookie.net/witcher/images/0/0d/Tw3_broken_flowers.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Broken_Flowers"
+title = "File:Tw3_broken_flowers.jpg"
+
+[[image]]
+quest = "journal:1ed1b8128502f84baf5c8cd487085aa7"
+image = "https://static.wikia.nocookie.net/witcher/images/5/5e/Ciri_neckbreaking_speed.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Ciri's_Story:_Breakneck_Speed"
+title = "File:Ciri_neckbreaking_speed.png"
+
+[[image]]
+quest = "journal:a16c30c5e4972c4d8ef75e529e2f5572"
+image = "https://static.wikia.nocookie.net/witcher/images/5/5d/Tw3_dandelion_prisoner.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/A_Poet_Under_Pressure"
+title = "File:Tw3_dandelion_prisoner.jpg"
+
+[[image]]
+quest = "journal:2269f7359da5964195fc27038d78ff7c"
+image = "https://static.wikia.nocookie.net/witcher/images/1/1b/Prima_Guide_theatre.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Play's_the_Thing"
+title = "File:Prima_Guide_theatre.png"
+
+[[image]]
+quest = "journal:e127dc6e097cd546aea62818d8466c2e"
+image = "https://static.wikia.nocookie.net/witcher/images/1/19/Tw3_promo_Carnal_Sins.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Carnal_Sins"
+title = "File:Tw3_promo_Carnal_Sins.jpg"
+
+[[image]]
+quest = "journal:400c9506df5222448169c603f3b4d23f"
+image = "https://static.wikia.nocookie.net/witcher/images/0/0e/NowoNev.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Now_or_Never"
+title = "File:NowoNev.jpg"
+
+[[image]]
+quest = "journal:697c4a3658657a4480d2ce3b0644246a"
+image = "https://static.wikia.nocookie.net/witcher/images/6/6c/Tw3_Closed_City_of_Novigrad_II.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Novigrad,_Closed_City"
+title = "File:Tw3_Closed_City_of_Novigrad_II.jpg"
+
+[[image]]
+quest = "journal:018dc7c4369eb44fb690bb60f5dc3aa5"
+image = "https://static.wikia.nocookie.net/witcher/images/1/15/Tw3_payback.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Payback"
+title = "File:Tw3_payback.png"
+
+[[image]]
+quest = "journal:b17a539d549b104da243ce311a0f4c60"
+image = "https://static.wikia.nocookie.net/witcher/images/2/2e/A_Final_Kindness.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/A_Final_Kindness"
+title = "File:A_Final_Kindness.png"
+
+[[image]]
+quest = "journal:7ad4d99e6af69a498d3990feab1fb0eb"
+image = "https://static.wikia.nocookie.net/witcher/images/9/94/Prima_Guide_Obvious.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Blindingly_Obvious"
+title = "File:Prima_Guide_Obvious.png"
+
+[[image]]
+quest = "journal:f6cdccedd027d349bada7c308a1fdbd4"
+image = "https://static.wikia.nocookie.net/witcher/images/6/67/Prima_Guide_Final_Preparations.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Final_Preparations"
+title = "File:Prima_Guide_Final_Preparations.png"
+
+[[image]]
+quest = "journal:8486855b086e644aadf38a255b235e63"
+image = "https://static.wikia.nocookie.net/witcher/images/a/a5/Prima_Guide_Escape.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Great_Escape"
+title = "File:Prima_Guide_Escape.png"
+
+[[image]]
+quest = "journal:5bae4e049c69e94bafcc48ce56c14683"
+image = "https://static.wikia.nocookie.net/witcher/images/6/6a/Prima-Guide_Three_to_tango.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/It_Takes_Three_to_Tango"
+title = "File:Prima-Guide_Three_to_tango.png"
+
+[[image]]
+quest = "journal:e7db086ad4dd7541bb018d543ecab021"
+image = "https://static.wikia.nocookie.net/witcher/images/3/39/Tw3_promo_screenshot_Ice_Plains.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Through_Time_and_Space"
+title = "File:Tw3_promo_screenshot_Ice_Plains.jpg"
+
+[[image]]
+quest = "journal:dfcf8085bd21a54d9f39ada875df8ac6"
+image = "https://static.wikia.nocookie.net/witcher/images/5/54/Tw3_to_bait_a_forktail.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/To_Bait_a_Forktail..."
+title = "File:Tw3_to_bait_a_forktail.jpg"
+
+[[image]]
+quest = "journal:307d9fcade274740b37341fa6a6a76c7"
+image = "https://static.wikia.nocookie.net/witcher/images/3/37/Prima_Guide_Ugly_Baby.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Ugly_Baby"
+title = "File:Prima_Guide_Ugly_Baby.png"
+
+[[image]]
+quest = "journal:4f48f10b0367ae4fb3a480285c7f8fc0"
+image = "https://static.wikia.nocookie.net/witcher/images/3/34/Tw3_disturbance.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Disturbance"
+title = "File:Tw3_disturbance.jpg"
+
+[[image]]
+quest = "journal:34b51502e904bd4bb6ae432fcb04fdec"
+image = "https://static.wikia.nocookie.net/witcher/images/0/0d/Tw3_the_final_trial.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Final_Trial"
+title = "File:Tw3_the_final_trial.jpg"
+
+[[image]]
+quest = "journal:1ae71fd57937884ca6030354e50daa81"
+image = "https://static.wikia.nocookie.net/witcher/images/2/28/Prima_Guide_No_place_like_home.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/No_Place_Like_Home"
+title = "File:Prima_Guide_No_place_like_home.png"
+
+[[image]]
+quest = "journal:2f4bd1f49092c343a65662e7b906b79b"
+image = "https://static.wikia.nocookie.net/witcher/images/1/13/Tw3_va_fail_elaine.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Va_Fail,_Elaine"
+title = "File:Tw3_va_fail_elaine.jpg"
+
+[[image]]
+quest = "journal:5ce1c21a55b9cb4bb99706bfd11fa286"
+image = "https://static.wikia.nocookie.net/witcher/images/7/7c/Tw3_isle_of_mists.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Isle_of_Mists_(quest)"
+title = "File:Tw3_isle_of_mists.png"
+
+[[image]]
+quest = "journal:6aee85f1bdb38c4b8853bc7cf95450c7"
+image = "https://static.wikia.nocookie.net/witcher/images/2/22/Tw3_brothers_in_arms_nilfgaard.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Brothers_In_Arms:_Nilfgaard"
+title = "File:Tw3_brothers_in_arms_nilfgaard.jpg"
+
+[[image]]
+quest = "journal:29db61f4dd505d41a89089beb2f25bea"
+image = "https://static.wikia.nocookie.net/witcher/images/f/fb/Tw3_brothers_of_novigrad.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Brothers_In_Arms:_Novigrad"
+title = "File:Tw3_brothers_of_novigrad.png"
+
+[[image]]
+quest = "journal:20303a0954ff814687669ea28cd9232f"
+image = "https://static.wikia.nocookie.net/witcher/images/2/28/Tw3_brothers_of_skellig.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Brothers_In_Arms:_Skellige"
+title = "File:Tw3_brothers_of_skellig.jpg"
+
+[[image]]
+quest = "journal:859adab12178f948a4f1f3b461217e15"
+image = "https://static.wikia.nocookie.net/witcher/images/2/2c/Tw3_brothers_of_velen.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Brothers_In_Arms:_Velen"
+title = "File:Tw3_brothers_of_velen.png"
+
+[[image]]
+quest = "journal:af804f0b3f79654a81bfa84e39412a8a"
+image = "https://static.wikia.nocookie.net/witcher/images/3/3f/Tw3_kaer_morhen_battle.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Battle_of_Kaer_Morhen"
+title = "File:Tw3_kaer_morhen_battle.png"
+
+[[image]]
+quest = "journal:58b23412c7f78e4a9d970f3ed331838e"
+image = "https://static.wikia.nocookie.net/witcher/images/1/1a/Prima_Guide_Thin_Ice.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/On_Thin_Ice"
+title = "File:Prima_Guide_Thin_Ice.png"
+
+[[image]]
+quest = "journal:0ae4178f19d14249995abc96d9f4a628"
+image = "https://static.wikia.nocookie.net/witcher/images/3/3c/Something_Ends%2C_Something_Begins.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Something_Ends,_Something_Begins_(quest)"
+title = "File:Something_Ends,_Something_Begins.png"
+
+[[image]]
+quest = "journal:7ee3d3e808a23d44837640f6167460aa"
+image = "https://static.wikia.nocookie.net/witcher/images/3/3c/Something_Ends%2C_Something_Begins.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Something_Ends,_Something_Begins_(quest)"
+title = "File:Something_Ends,_Something_Begins.png"
+
+[[image]]
+quest = "journal:412b3b056ddbe141a6ecf4d658324494"
+image = "https://static.wikia.nocookie.net/witcher/images/3/3c/Something_Ends%2C_Something_Begins.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Something_Ends,_Something_Begins_(quest)"
+title = "File:Something_Ends,_Something_Begins.png"
+
+[[image]]
+quest = "journal:a03691441ce01e44882dc3ba2f01a35b"
+image = "https://static.wikia.nocookie.net/witcher/images/a/a7/Tw3_a_mysterious_passenger.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/A_Mysterious_Passenger"
+title = "File:Tw3_a_mysterious_passenger.jpg"
+
+[[image]]
+quest = "journal:60c2e31ef326de47a32f427dc784ee94"
+image = "https://static.wikia.nocookie.net/witcher/images/e/e6/Tw3_a_favor_for_a_friend.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/A_Favor_for_a_Friend"
+title = "File:Tw3_a_favor_for_a_friend.jpg"
+
+[[image]]
+quest = "journal:e86af24f857a26458e1503913d163119"
+image = "https://static.wikia.nocookie.net/witcher/images/9/95/Tw3_the_fall_of_the_house_of_reardon.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Fall_of_the_House_of_Reardon"
+title = "File:Tw3_the_fall_of_the_house_of_reardon.jpg"
+
+[[image]]
+quest = "journal:bab81446f127b449968f5b8df6fb94ab"
+image = "https://static.wikia.nocookie.net/witcher/images/9/94/Tw3_ghost_of_past.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Ghosts_of_the_Past"
+title = "File:Tw3_ghost_of_past.jpg"
+
+[[image]]
+quest = "journal:78facb15b1d1a54dad3e62fc73ce739f"
+image = "https://static.wikia.nocookie.net/witcher/images/f/f0/Tw3_wild_at_heart.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Wild_at_Heart"
+title = "File:Tw3_wild_at_heart.png"
+
+[[image]]
+quest = "journal:bf603532f7ec1444ba6c9a1a371de503"
+image = "https://static.wikia.nocookie.net/witcher/images/a/a6/Tw3_contract_archgriffin.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Contract:_The_Griffin_from_the_Highlands"
+title = "File:Tw3_contract_archgriffin.png"
+
+[[image]]
+quest = "journal:df29d410629dd844a56adc38f37648d3"
+image = "https://static.wikia.nocookie.net/witcher/images/2/23/Tw3_master_armorers.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Master_Armorers"
+title = "File:Tw3_master_armorers.jpg"
+
+[[image]]
+quest = "journal:837b43fe255799499a08f639277ca8d2"
+image = "https://static.wikia.nocookie.net/witcher/images/1/1e/Tw3_In_Wolf%27s_Clothing.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/In_Wolf's_Clothing"
+title = "File:Tw3_In_Wolf's_Clothing.png"
+
+[[image]]
+quest = "journal:e19d8c03b676ce499748598b876ba7da"
+image = "https://static.wikia.nocookie.net/witcher/images/7/78/Uk_the_last_wish_new.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Last_Wish"
+title = "File:Uk_the_last_wish_new.jpg"
+
+[[image]]
+quest = "journal:f0f1f1ad7dd2c5418a25973353b69328"
+image = "https://static.wikia.nocookie.net/witcher/images/3/3a/Tw3_in_the_heart_of_the_woods.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/In_the_Heart_of_the_Woods"
+title = "File:Tw3_in_the_heart_of_the_woods.jpg"
+
+[[image]]
+quest = "journal:5bbbdc52f6443c43a27825fc868dbb49"
+image = "https://static.wikia.nocookie.net/witcher/images/a/a1/Tw3_practicum_in_advanced_alchemy.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Practicum_in_Advanced_Alchemy"
+title = "File:Tw3_practicum_in_advanced_alchemy.jpg"
+
+[[image]]
+quest = "journal:fb8a625abdae9f4d9a3a406cc24a6b06"
+image = "https://static.wikia.nocookie.net/witcher/images/3/35/Tw3_Stranger_of_Stranger_Land.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Stranger_in_a_Strange_Land"
+title = "File:Tw3_Stranger_of_Stranger_Land.jpg"
+
+[[image]]
+quest = "journal:41135ec1f20a1d4aad85cabcea5a1c00"
+image = "https://static.wikia.nocookie.net/witcher/images/6/66/Tw3_dream_cave.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Cave_of_Dreams"
+title = "File:Tw3_dream_cave.jpg"
+
+[[image]]
+quest = "journal:3376cf7e6612384689da9da12a20db92"
+image = "https://static.wikia.nocookie.net/witcher/images/7/78/Tw3_the_tower_outta_nowheres.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Tower_Outta_Nowheres"
+title = "File:Tw3_the_tower_outta_nowheres.jpg"
+
+[[image]]
+quest = "journal:eb343e9dbaf4b84d9b641c4ba5ba7b7b"
+image = "https://static.wikia.nocookie.net/witcher/images/3/3f/Searching_for_Phillipa.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Redania's_Most_Wanted"
+title = "File:Searching_for_Phillipa.jpg"
+
+[[image]]
+quest = "journal:f9c8be1d3bbb2340a170eb230141d152"
+image = "https://static.wikia.nocookie.net/witcher/images/2/22/Tw3_Cabaret.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Cabaret"
+title = "File:Tw3_Cabaret.png"
+
+[[image]]
+quest = "journal:c366fdbccbbe554e82589700dc3c20a9"
+image = "https://static.wikia.nocookie.net/witcher/images/9/97/Tw3_of_swords_and_dumplings.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Of_Swords_and_Dumplings"
+title = "File:Tw3_of_swords_and_dumplings.jpg"
+
+[[image]]
+quest = "journal:3cfcfa6a9904d547a7d3216d4dc1300d"
+image = "https://static.wikia.nocookie.net/witcher/images/3/35/Tw3_contract_woodland_beast.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Contract:_Woodland_Beast"
+title = "File:Tw3_contract_woodland_beast.jpg"
+
+[[image]]
+quest = "journal:56075c027628ec429fc3f08968b5dd39"
+image = "https://static.wikia.nocookie.net/witcher/images/7/72/Highstakes.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/High_Stakes"
+title = "File:Highstakes.png"
+
+[[image]]
+quest = "journal:a71caa4e62179148b0e0849c54f1a22e"
+image = "https://static.wikia.nocookie.net/witcher/images/8/84/A_Dangerous_Game.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/A_Dangerous_Game"
+title = "File:A_Dangerous_Game.jpg"
+
+[[image]]
+quest = "journal:cba46ecb944cab43b77872f3a610fd68"
+image = "https://static.wikia.nocookie.net/witcher/images/5/51/An_eye_for_an_eye.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/An_Eye_for_an_Eye"
+title = "File:An_eye_for_an_eye.jpg"
+
+[[image]]
+quest = "journal:9c74310734364544b12acc88d758f8a7"
+image = "https://static.wikia.nocookie.net/witcher/images/e/e5/A_Deadly_Plot_teaser.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/A_Deadly_Plot"
+title = "File:A_Deadly_Plot_teaser.jpg"
+
+[[image]]
+quest = "journal:550a7a98d21b594a9708b864897fcbec"
+image = "https://static.wikia.nocookie.net/witcher/images/2/2d/Tw3_a_costly_mistake.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/A_Costly_Mistake"
+title = "File:Tw3_a_costly_mistake.jpg"
+
+[[image]]
+quest = "journal:2a4c6dd37a8dc24e8f3eb94842eba0b6"
+image = "https://static.wikia.nocookie.net/witcher/images/5/5f/Tw3_sunken_chest.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Sunken_Chest"
+title = "File:Tw3_sunken_chest.jpg"
+
+[[image]]
+quest = "journal:af6e48b8cbec344e966a896985b65c1e"
+image = "https://static.wikia.nocookie.net/witcher/images/4/49/Tw3_sunken_treasure.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Sunken_Treasure"
+title = "File:Tw3_sunken_treasure.png"
+
+[[image]]
+quest = "journal:a4865daa11481e40acb6747cb3cb807a"
+image = "https://static.wikia.nocookie.net/witcher/images/9/92/Tw3_map_white_orchard_01.png/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Scavenger_Hunt:_Viper_School_Gear"
+title = "File:Tw3_map_white_orchard_01.png"
+
+[[image]]
+quest = "journal:2de6088b9d4c5b4ca43f7c489f1e790d"
+image = "https://static.wikia.nocookie.net/witcher/images/c/c1/Tw3_bear_school_gear_main.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Scavenger_Hunt:_Bear_School_Gear"
+title = "File:Tw3_bear_school_gear_main.jpg"
+
+[[image]]
+quest = "journal:33d1b8507b0eaa4fbef72ab4f0b0576b"
+image = "https://static.wikia.nocookie.net/witcher/images/f/f6/Tw3_griffin_school_gear_main.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Scavenger_Hunt:_Griffin_School_Gear"
+title = "File:Tw3_griffin_school_gear_main.jpg"
+
+[[image]]
+quest = "journal:36bd13c5de763242b0e9c486aba8e942"
+image = "https://static.wikia.nocookie.net/witcher/images/6/6c/Tw3_cat_school_gear_main.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/Scavenger_Hunt:_Cat_School_Gear"
+title = "File:Tw3_cat_school_gear_main.jpg"
+
+[[image]]
+quest = "journal:c16e40ed14dbc54c9744eda9262a2627"
+image = "https://static.wikia.nocookie.net/witcher/images/9/97/Tw3_the_dead_have_no_defense.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Dead_Have_No_Defense"
+title = "File:Tw3_the_dead_have_no_defense.jpg"
+
+
+[[image]]
+quest = "journal:90c01c37a7f6724ca3c32f2bda3e6f7c"
+image = "https://static.wikia.nocookie.net/witcher/images/3/3a/Ladies_picture.jpg/revision/latest/scale-to-width-down/1000"
+page = "https://witcher.fandom.com/wiki/The_Ladies_of_the_Wood"
+title = "File:Ladies picture.jpg"

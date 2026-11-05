@@ -1,0 +1,40 @@
+# Sample quest: ONE choice. The choice below is a SCHEMA DEMO, not a verified decision
+# from the game; Phase 3 replaces it with the real one (or removes it if the quest
+# has none). Licensed CC BY-SA 4.0.
+id = "beast_of_white_orchard"
+title = "The Beast of White Orchard"
+act = 1
+order = 1020
+kind = "main"
+region = "white_orchard"
+level = 1                 # TODO(phase3): verify
+requires = ["lilac_and_gooseberries"]
+summary = """Something big has been dragging livestock off the farms, and the soldiers \
+garrisoned here would rather not go near it. You follow the claw marks up the hill \
+with your swords, your signs and not much else."""
+done_effects = "done"
+
+[[choices]]
+id = "demo_reward"                # PLACEHOLDER choice id
+prompt = "The beast is dead. How do you settle up?"
+default = "take_coin"
+options = [
+  { id = "take_coin", text = "Take the coin you were promised", effects = "took_coin" },
+  { id = "waive_fee", text = "Wave the fee away",               effects = "waived_fee" },
+]
+
+# PLACEHOLDER effects: see lilac_and_gooseberries.toml.
+[effects.done]
+source = "PLACEHOLDER: replace with script line / quest graph reference (Phase 3)"
+placeholder = true
+quests = { "PLACEHOLDER_beast_of_white_orchard" = "completed" }
+
+[effects.took_coin]
+source = "PLACEHOLDER: schema demo, no real decision behind it"
+placeholder = true
+facts = { "PLACEHOLDER_demo_reward_coin" = 1 }
+
+[effects.waived_fee]
+source = "PLACEHOLDER: schema demo, no real decision behind it"
+placeholder = true
+facts = { "PLACEHOLDER_demo_reward_waived" = 1 }

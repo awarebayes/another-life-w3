@@ -1,0 +1,77 @@
+# template: pack 12 ManualSave_80c40_7e104000_5776306 (old-gen, C:\w3-extract\nexus2394\gamesaves; NOT re-saved in 5.01
+# yet: validate on the 5.01 re-save, the walk args below were read on the old-gen save)
+#
+# Act 2, Velen decision window W2, decision D3 (docs/plan/decision-catalogue.md section 4). Licensed CC BY-SA 4.0.
+# Quest sidequests/sq101keira (public name from memory: TODO(phase3) verify). Template state: the shipment is found and
+# the talk with Keira waits (context dialog c1dcf017, input Input_sq101_second). Decided in sq101_keira.w2phase:
+# scene 24728ecd (`Output_start_date` -> `sq101_mount_keira` / `Output_no_date` -> e08a395d
+# `sq101_date_with_keira_was_failed`), then on the date scene 7515cc38 (`Output_sex` -> `sq101_sex_with_keira` /
+# `Output_nosex` -> 20cc2b97 `sq101_no_sex_with_keira`). Read later by the q402 Keira phase (date failed -> journal
+# Failure) and the character journal (listener 37497243 on sex / no sex).
+# Graph finding: the quest's no-date exit (`Out_no_date`) is not wired in part_1_sidequests.w2phase; only `Out` starts
+# q109_wrapup (3673c07f), so with no date For the Advancement of Learning is not started by this route [graph]; open
+# question in docs/research.md.
+# Common walk: --start c1dcf017 --through --pick c1dcf017=Output_sq101_start_date, stops: 7070ba10 / f1b5912c (the
+# "left the date area" failure triggers), 3fe03580 (Keira wins the race: Geralt wins, as in pack 13), 3d2ffec5 (race
+# banter condition), 215f2719 (q109's first wait, as in T_keira), 5aa26866 (q109 abort listener), 7ffa6436.
+id = "a_favor_for_a_friend"
+title = "A Favor for a Friend"
+act = 2
+order = 2290
+kind = "secondary"
+region = "velen"
+level = 10                # TODO(phase3): verify the recommended level in game
+summary = """The sorceress in the bog lost a cartload of her things on the road, and you track \
+it through mud, wreckage and the leftovers of a meal something else enjoyed. When you bring back \
+what you can, she has a suggestion for the evening."""
+
+[[choices]]
+id = "date"
+prompt = "Keira offers you an evening by the lake. What do you do?"
+default = "night"
+options = [
+  { id = "night",  text = "Go and spend the night with her (a fling; she remembers it)",        effects = "night" },
+  { id = "dinner", text = "Go, share the meal and leave it at that (no fling)",                 effects = "dinner" },
+  { id = "no",     text = "Turn her down (her quest ends failed; her later story does not start this way)", effects = "no_date" },
+]
+
+[effects.night]
+# donor-checked (old-gen): template pack 12 -> pack 13 ManualSave_568ef_7e104000_5b6004e: blocks hit/miss/extra 17/0/10,
+# facts 7/7/3, journal 15/3/0. Extras: 7 waits/phases parked in scopes that already ended (walker issue W-1 in
+# docs/research.md: 3d2ffec5, 7070ba10, f1b5912c, a329473d, dcac7efc, adf1473e, d3d5ca3b) and Keira's default-dialogue
+# restart (3552699c, e16e90d4 out, ad92bd6b in) after the walk removed keira_part1_dd_start, which the donor kept.
+# Fact misses: scene-file facts (sq101_keira_had_sex below, sq101_keira_sex_clue01-03, sq101_initially_refused) and
+# a merchant. Journal misses: q109wrapup entries the donor gained later.
+source = "quest graph sq101_keira (w3al synth-walk on pack 12; checked against pack 13: blocks 17/0/10); sq101_keira_had_sex from facts pack 12 -> pack 13"
+placeholder = false
+facts = { sq101_keira_had_sex = 1 }
+
+[effects.night.synth]
+start = ["c1dcf017"]
+through = true
+pick = ["c1dcf017=Output_sq101_start_date", "24728ecd=Output_start_date", "7515cc38=Output_sex"]
+stop = ["7070ba10", "f1b5912c", "3fe03580", "3d2ffec5", "215f2719", "5aa26866", "7ffa6436"]
+
+[effects.dinner]
+# graph-only (no played save holds this branch). Sets sq101_no_sex_with_keira, sq101_had_dinner_with_keira,
+# sq101_completed; the quest ends with Success and q109_wrapup starts (215f2719 waits).
+source = "quest graph sq101_keira (w3al synth-walk on pack 12, graph only; validate on the 5.01 re-save)"
+placeholder = false
+
+[effects.dinner.synth]
+start = ["c1dcf017"]
+through = true
+pick = ["c1dcf017=Output_sq101_start_date", "24728ecd=Output_start_date", "7515cc38=Output_nosex"]
+stop = ["7070ba10", "f1b5912c", "3fe03580", "3d2ffec5", "215f2719", "5aa26866", "7ffa6436"]
+
+[effects.no_date]
+# graph-only. Sets sq101_date_with_keira_was_failed; journal 6eb4a27e/8f9ead4a and the quest root get the input
+# `Failure`, which the walker currently writes as JS_Active (walker issue W-2 in docs/research.md): the quest log
+# will show the quest active instead of failed until that is fixed.
+source = "quest graph sq101_keira (w3al synth-walk on pack 12, graph only; validate on the 5.01 re-save)"
+placeholder = false
+
+[effects.no_date.synth]
+start = ["c1dcf017"]
+through = true
+pick = ["c1dcf017=Output_sq101_start_date", "24728ecd=Output_no_date"]

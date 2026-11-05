@@ -1,0 +1,66 @@
+# template: pack 42 ManualSave_54142_7ea51000_3f8aed5 (5.01 re-save, C:\w3-fixtures\pack_501; original
+# ManualSave_54142_7e109000_5deed1a)
+#
+# Act 3 (Novigrad), decision window W5, decision D8 with D7 folded in (docs/plan/decision-catalogue.md section 4).
+# Licensed CC BY-SA 4.0. In the pack line this window is played after Skellige (W4); `act`/`order` keep it with
+# Novigrad until the act templates settle the global order.
+# Quest questact2/q309mages. Template state: in the sewers with the mages (phase SEWERS 49f99d4b, sub-phase
+# "Under Sturgeon" 88ceb313 waits at 93ab3535 q309_tr_left_sewers). Decided in q309_casablanca.w2phase phase 3d585dd4:
+# goodbye scene fd4f5c1e (one output; scene facts `q309_asked_triss_to_stay`, `q309_told_triss_you_love_her`) ->
+# scene d6a0ac74 (`triss returned` -> journal 26851344, b50464e9 `q309_triss_lover`, 1c8fefda `q309_triss_stayed` /
+# `geralt alone` -> journal 58a34027); both -> a004eadf; the quest completes (q309_completed) in both branches.
+# Read later by the ending boards (q309_triss_lover), q310, scenes of q403 / q502 / q504 / q505.
+# D7 (kiss Triss in sq301) is folded: it only feeds scene conditions of d6a0ac74 and sq301_10_apology, and the
+# template already holds `sq301_kissed_triss` (the pack player kissed her).
+# Common walk: --start 93ab3535 --through, stops c96fa26f (kingfisher attack trigger, the SEWERS fail exit) and
+# 3aaf1ee5 (abandoned pier fight, the Ambush fail exit), f41e2517 (Dijkstra's talk in sq315, which q309_completed
+# starts: a multi-output scene parked as a wait), picks 49c73015=False (Triss's default dialogue: "player in her
+# room" = no, the player is at the harbour) and 73b6b5f0=False (bug-fix listener "has gwint_card_tibor": no; only the
+# False output is wired, so True would stop the walk). The pack's next save (pack 43) is far later (Kaer Morhen), so the
+# donor check below only confirms the decision facts, not the frontier.
+id = "now_or_never"
+title = "Now or Never"
+act = 3
+order = 3910
+kind = "main"
+region = "novigrad"
+level = 18                # TODO(phase3): verify the recommended level in game
+summary = """The mages of Novigrad are hiding under the city while the witch hunters burn whoever \
+they catch. You lead them through sewers and old cellars to a ship in the harbour. Triss is \
+leaving with them, and the last chance to tell her anything is on the pier."""
+
+[[choices]]
+id = "triss"
+prompt = "Triss is about to sail with the mages. What do you tell her?"
+default = "stay"
+options = [
+  { id = "stay",   text = "Ask her to stay and tell her you love her (Triss stays; romance with Triss)",       effects = "triss_stays" },
+  { id = "go",     text = "Let her go (Triss sails away; no romance with Triss)",          effects = "triss_leaves" },
+]
+
+[effects.triss_stays]
+# checked against pack 43 (ManualSave_100840_7ea51000_3f9b30a, much later): blocks hit/miss/extra 41/246/15, facts
+# 9/81/5, journal 19/92/2. The decision facts q309_triss_lover / q309_triss_stayed / q309_completed hit; the misses are
+# the play between the two saves (sq202, sq310, q401 ...). Extras: waits parked in ended scopes (walker issue W-1:
+# 3aaf1ee5, c96fa26f) and the witch-hunter patrol / sq315 listeners that react to q309's end.
+source = "quest graph q309_casablanca (w3al synth-walk on pack 42); q309_asked_triss_to_stay / q309_told_triss_you_love_her from facts pack 42 -> pack 43"
+placeholder = false
+facts = { q309_asked_triss_to_stay = 1, q309_told_triss_you_love_her = 1 }
+
+[effects.triss_stays.synth]
+start = ["93ab3535"]
+through = true
+pick = ["d6a0ac74=triss returned", "49c73015=False", "73b6b5f0=False"]
+stop = ["c96fa26f", "3aaf1ee5", "f41e2517"]
+
+[effects.triss_leaves]
+# graph-only (the pack line has Triss staying; the other fixture line 6b4a7_..._4e232cb has Triss gone but is not
+# played from this template). Same walk with `geralt alone`: no q309_triss_lover / q309_triss_stayed, q309_completed.
+source = "quest graph q309_casablanca (w3al synth-walk on pack 42, graph only)"
+placeholder = false
+
+[effects.triss_leaves.synth]
+start = ["93ab3535"]
+through = true
+pick = ["d6a0ac74=geralt alone", "49c73015=False", "73b6b5f0=False"]
+stop = ["c96fa26f", "3aaf1ee5", "f41e2517"]

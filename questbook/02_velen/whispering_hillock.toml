@@ -1,0 +1,57 @@
+# template: T_spirit = ManualSave_6255c_7ea51000_8f3325 (pack 8, 5.01 re-save; C:\w3-fixtures\session_V1)
+#
+# Act 2, Velen decision window W1, decision D1 (docs/plan/decision-catalogue.md section 4). Licensed CC BY-SA 4.0.
+# Quest sidequests/q105evilspirit. Decided in q105_evil_spirit.w2phase, ritual scene ba20c454
+# (`q105_ritual_done_out` -> `q105_evil_spirit_released` / `q105_betrayed_out` -> heart fight -> `q105_evil_spirit_destroyed`).
+# Read later by q107_swamps.w2phase (the Baron and Anna) and character_journal_entries.
+# Effects are synth walks (questbook/SCHEMA.md "Synth effects"); the template must hold the waits c2549952 / c4d54c91
+# (T_spirit does). Both branches were checked against a donor the user played from T_spirit (session_V1):
+# `w3al synth-walk --template T_spirit --install <game> <args below> --donor <donor>`.
+id = "whispering_hillock"
+title = "The Whispering Hillock"
+act = 2
+order = 2050
+kind = "secondary"
+region = "velen"
+level = 7                 # TODO(phase3): verify the recommended level in game
+summary = """Something old is sealed inside a tree on a hill above the marsh, and it bargains \
+like a merchant who knows you need what it sells. The three sisters of the bog want it kept \
+there. Whichever way you decide, someone in Velen pays for it."""
+
+[[choices]]
+id = "spirit"
+prompt = "The spirit in the tree asks you to break its prison. What do you do?"
+default = "release"
+options = [
+  { id = "release", text = "Free the spirit (it saves the orphans of the bog; Anna is lost and the Baron hangs himself)", effects = "released" },
+  { id = "destroy", text = "Destroy the spirit (Anna lives, her mind broken, and leaves with the Baron; the village below the hill is slaughtered)", effects = "destroyed" },
+]
+
+# Consequences in the option texts: q107_swamps.w2phase reads `q105_will_help_children` / `q105_evil_spirit_released`
+# and sets `q107_baron_hanged_himself`, `q107_anna_is_monster` (released) vs `q107_anna_is_crazy`, `q107_burrows_hanged`
+# (destroyed) [graph; decision-catalogue.md section 2].
+
+[effects.released]
+# donor-checked: ManualSave_52587_7ea51000_900fd9: blocks hit/miss/extra 34/0/0, facts 4/4/0, journal 14/0/0
+# (fact misses = SignToggled, q105_new_heart_killed (script side effect), 2 merchant facts: noise).
+source = "quest graph q105_evil_spirit (w3al synth-walk on T_spirit; checked against donor 900fd9: blocks 34/0/0, journal 14/0/0)"
+placeholder = false
+
+[effects.released.synth]
+start = ["c2549952", "c4d54c91"]
+through = true
+pick = ["ba20c454=q105_ritual_done_out"]
+stop = ["51f0f429", "0d3a7efd"]
+
+[effects.destroyed]
+# donor-checked: ManualSave_52587_7ea51000_91a5f1: blocks 12/0/0, facts 4/5/0, journal 13/0/0. The walk cannot see the
+# scene-file fact `q105_betray_spirit` (set inside the ritual scene); it is added from the donor diff below.
+source = "quest graph q105_evil_spirit (w3al synth-walk on T_spirit; checked against donor 91a5f1: blocks 12/0/0, journal 13/0/0); q105_betray_spirit from facts T_spirit -> 91a5f1"
+placeholder = false
+facts = { q105_betray_spirit = 1 }
+
+[effects.destroyed.synth]
+start = ["c2549952", "c4d54c91"]
+through = true
+pick = ["ba20c454=q105_betrayed_out"]
+stop = ["1f5f6045"]
