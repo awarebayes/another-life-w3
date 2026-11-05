@@ -386,3 +386,62 @@ fn shipped_registry_choices() {
     assert_eq!(c.template.id, "w6_allies");
     assert_eq!(c.rewrites().map(|b| b.quest.as_str()).collect::<Vec<_>>(), ["for_the_advancement_of_learning", "now_or_never", "the_last_wish"]);
 }
+
+/// Now or Never before Skellige: a run that stops at Lord of Undvik with Now or Never done gets the Skellige
+/// template (pack 33), which has not reached it; the registry's `late` list completes it there with the run's
+/// answer (`[effects.*.late]`: sq301 then q309, auto-completed with the player's picks).
+fn undvik_run(triss: &str) -> Run {
+    let mut run = story_run();
+    run.stop_after = Some("lord_of_undvik".into());
+    run.quests.retain(|k, _| !matches!(k.as_str(), "the_last_wish" | "kings_gambit" | "ugly_baby" | "brothers_in_arms" | "blood_on_the_battlefield" | "final_preparations" | "reason_of_state" | "child_of_the_elder_blood"));
+    run.quests.insert("now_or_never".into(), entry(&[("triss", triss)]));
+    run
+}
+
+#[test]
+fn now_or_never_completed_late_on_the_skellige_template() {
+    let qb = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../../questbook");
+    let book = Questbook::load_dir(&qb).unwrap();
+    let reg = Registry::load_for_questbook(&qb).unwrap();
+    let all = |t: &Template| Some(PathBuf::from(format!("{}.sav", t.stem)));
+    let c = templates::choose(&book, &reg, &undvik_run("go"), &all).unwrap();
+    assert_eq!(c.template.id, "w4_undvik");
+    assert_eq!(c.late, ["now_or_never"]);
+    assert!(c.beyond.is_empty(), "{:?}", c.beyond);
+
+    let (Some(fx), Some(inst)) = (fixtures(), install()) else {
+        eprintln!("skipped: W3AL_FIXTURES and the game install are needed");
+        return;
+    };
+    if !fx.join("pack_501").is_dir() {
+        eprintln!("skipped: no pack_501");
+        return;
+    }
+    let dirs = vec![fx.join("pack_501")];
+    let opts = ExportOptions { game_dir: Some(inst), donor_dirs: vec![fx.join("session_V1"), fx.join("session_V2")], allow_name_remap: true, ..Default::default() };
+    let src = Sources { book: &book, registry: &reg, template_dirs: dirs, opts };
+    for (triss, lover) in [("go", false), ("stay", true)] {
+        let out = std::env::temp_dir().join(format!("w3al-late-{triss}-{}", std::process::id()));
+        let _ = std::fs::remove_dir_all(&out);
+        let r = chain::export_story(&src, &undvik_run(triss), &out).unwrap();
+        for n in &r.result.notes {
+            eprintln!("  {n}");
+        }
+        let doc = load(&out, r.result.sav.file_stem().unwrap().to_str().unwrap());
+        let f = doc.facts_table().unwrap();
+        for (fact, want) in [("sq301_completed", true), ("q309_completed", true), ("q309_triss_lover", lover), ("q309_triss_stayed", lover), ("q309_asked_triss_to_stay", lover), ("sq301_kissed_triss", lover)] {
+            assert_eq!(present(&f, fact).is_some(), want, "{triss}: {fact}");
+        }
+        // The ways the player did not take stay out (stops): no refusing or abandoning Triss.
+        for fact in ["q309_triss_refused", "q309_abandon_triss_rescue"] {
+            assert!(present(&f, fact).is_none(), "{triss}: {fact}");
+        }
+        let j = journal::read(&doc).unwrap();
+        for root in ["a93885ce3a22194c955e802d55358928/32105cdf52d0cf43b1426705b0578c5e", "419f978ff624ed49a444903714632529/400c9506df5222448169c603f3b4d23f"] {
+            let key: Vec<[u8; 16]> = root.split('/').map(|g| journal::parse_guid(g).unwrap()).collect();
+            let st = j.find(&key).first().map(|i| j.entries[*i].status.clone());
+            assert_eq!(st.as_deref(), Some("JS_Success"), "{triss}: {root}");
+        }
+        std::fs::remove_dir_all(&out).unwrap();
+    }
+}

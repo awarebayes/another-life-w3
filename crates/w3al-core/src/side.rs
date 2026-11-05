@@ -69,6 +69,11 @@ pub struct SideQuest {
     pub phase: Option<String>,
     /// Key of the effect applied when the quest is marked completed.
     pub done_effects: String,
+    /// Decisions the auto-complete walk passes whose branches differ only in facts or journal entries that nothing
+    /// outside the quest reads (`w3graph::consequence`), as `block GUID=socket the walk takes`. Informational: the
+    /// UI can show what the walk chose for the player. A quest with a decision that matters is not generated.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub auto_picks: Vec<String>,
     /// The generator's trial on each window template of `questbook/templates.toml`: template id -> `ok` (completes),
     /// `done` (already done there) or the refusal reason. Informational; export decides on the real save.
     #[serde(default, skip_serializing_if = "BTreeMap::is_empty")]
@@ -369,6 +374,7 @@ mod tests {
             journal,
             phase: None,
             done_effects: "done".into(),
+            auto_picks: Vec::new(),
             templates: BTreeMap::new(),
             effects: [("done".to_owned(), effect)].into(),
             file: PathBuf::new(),

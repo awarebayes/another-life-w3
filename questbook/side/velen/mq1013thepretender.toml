@@ -12,6 +12,7 @@ fallback_title = "quests/minor_quests/no_mans_land/mq1013_the_pretender"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/6811004d8c9eff4192ef3c6a8f67dafd"
 phase = "quests/minor_quests/no_mans_land/mq1013_the_pretender.w2phase"
 done_effects = "done"
+auto_picks = ["7d52f36abfa17e499172528d5807539a=killed"]   # decisions the walk passed that only the quest itself reads: block GUID=socket taken
 
 [templates]   # the generator's trial on each window template: ok | done | the refusal
 w1_spirit = "ok"

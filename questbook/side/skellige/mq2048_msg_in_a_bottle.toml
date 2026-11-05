@@ -12,6 +12,7 @@ fallback_title = "quests/minor_quests/skellige/mq2048_msg_in_a_bottle"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/d18a18fad7eab0409ad867de1798c31b"
 phase = "quests/minor_quests/skellige/mq2048_msg_in_a_bottle.w2phase"
 done_effects = "done"
+auto_picks = ["6d73819508d59e44a0e89aadb210e46c=saw_nothing"]   # decisions the walk passed that only the quest itself reads: block GUID=socket taken
 
 [templates]   # the generator's trial on each window template: ok | done | the refusal
 w1_spirit = "ok"

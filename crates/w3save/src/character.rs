@@ -1007,6 +1007,48 @@ pub fn set_level(doc: &mut Document, target: i32) -> Result<LevelChange> {
     })
 }
 
+/// Set the character's ability points to `total` (`free + used` of the skill pool): `used` (points spent on
+/// learned skills) stays, `free = total - used`. Refused when `total` is below what is already spent (no respec).
+/// Only `levelManager > points[ESkillPoint]` changes. Returns `(before, after)`.
+/// HYPOTHESIS: the game does not recompute the pool from the level table and Places of Power on load (it adds
+/// to `free` on level-up / book / Place of Power only, `levelManager.ws`).
+pub fn set_skill_points(doc: &mut Document, total: i32) -> Result<(Points, Points)> {
+    edit_stream(doc, |doc, s| {
+        let info = {
+            let nm = names(doc)?;
+            read_level(&nm, s)?
+        };
+        if total < info.skill.used {
+            return unv(format!("{total} ability points is below the {} already spent on learned skills (unlearning is not supported)", info.skill.used));
+        }
+        let new = Points { free: total - info.skill.used, used: info.skill.used };
+        let (points_ix, free_ix, used_ix, int32_ix) = (doc.intern_name("points")?, doc.intern_name("free")?, doc.intern_name("used")?, doc.intern_name("Int32")?);
+        let nm = names(doc)?;
+        let mut o = level_obj(&nm, s)?;
+        for p in &mut o.props {
+            if p.name == points_ix {
+                let mut arr = parse_struct_array(&p.value)?;
+                put_field(&mut arr[SKILL_POINT], free_ix, int32_ix, new.free);
+                put_field(&mut arr[SKILL_POINT], used_ix, int32_ix, new.used);
+                // The game writes `free` before `used`.
+                arr[SKILL_POINT].sort_by_key(|f| (f.name != free_ix) as u8);
+                p.value = write_struct_array(&arr);
+            }
+        }
+        let lm_ix = nm.idx("levelManager").expect("level_obj found it");
+        let bytes = o.to_bytes();
+        let Some(Rec::Block { kids, .. }) = s.recs.iter_mut().find(|r| matches!(r, Rec::Block { .. })) else { return unv("no Entity block") };
+        for r in kids {
+            if let Rec::Val { name, data, .. } = r {
+                if *name == lm_ix {
+                    *data = bytes.clone();
+                }
+            }
+        }
+        Ok((info.skill, new))
+    })
+}
+
 // ---------------------------------------------------------------------------------------------
 // Adding items
 // ---------------------------------------------------------------------------------------------

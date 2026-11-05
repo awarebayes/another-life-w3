@@ -12,6 +12,7 @@ fallback_title = "quests/generic_quests/no_mans_land/mh108_fogling"
 journal = "dd4652d4e3db404a939f1e88b285eb20/cb320221b319f54eaa47c8675ff7a32f"
 phase = "quests/generic_quests/no_mans_land/mh108_fogling.w2phase"
 done_effects = "done"
+auto_picks = ["893974549070294cb4f7ceea310797d2=Reward"]   # decisions the walk passed that only the quest itself reads: block GUID=socket taken
 
 [templates]   # the generator's trial on each window template: ok | done | the refusal
 w1_spirit = "ok"

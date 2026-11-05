@@ -185,6 +185,10 @@ pub struct Library {
     objectives: Mutex<Option<Arc<HashSet<Guid>>>>,
     /// The install's quest list with its journal blocks (`crate::complete::index`), built on first use.
     pub(crate) quest_index: std::sync::OnceLock<Arc<crate::complete::QuestIndex>>,
+    /// The install folder this library was read from (the game's scripts are read from it by the consequence check).
+    pub(crate) install: Option<std::path::PathBuf>,
+    /// Who reads which fact, across the install (`crate::consequence::readers`), built on first use.
+    pub(crate) fact_readers: std::sync::OnceLock<Arc<crate::consequence::FactReaders>>,
 }
 
 /// Where a side resource comes from.
@@ -254,7 +258,7 @@ impl Library {
 
     /// Load every quest graph of a game install (read-only; bundles are read in place).
     pub fn load_install(install: &Path) -> Result<Library, Error> {
-        let mut lib = Library::default();
+        let mut lib = Library { install: Some(install.to_path_buf()), ..Library::default() };
         for b in crate::bundle::bundles_of_install(install) {
             for e in crate::bundle::toc(&b)? {
                 if is_side_resource(&e.name) {

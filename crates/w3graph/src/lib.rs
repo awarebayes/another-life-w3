@@ -25,6 +25,7 @@ pub mod bundle;
 pub mod catalog;
 pub mod community;
 pub mod complete;
+pub mod consequence;
 pub mod cr2w;
 pub mod frontier;
 pub mod names;

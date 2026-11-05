@@ -78,7 +78,9 @@ fn auto_completed_quests_match_the_saves_where_a_player_finished_them() {
     let Some((pack, install)) = setup() else { return };
     let lib = lib(&install);
     let idx = complete::index(lib).unwrap();
-    let opts = complete::Options::default();
+    // The walk is validated against the saves where a player finished the quests, decisions included (the sample holds
+    // mh303succubus and q205herbarium, which the consequence check refuses for the generator).
+    let opts = complete::Options { check_consequences: false, ..Default::default() };
     let mut lines = Vec::new();
     let (mut j_hit, mut j_miss, mut f_hit, mut f_miss) = (0, 0, 0, 0);
     let mut last: Option<(u32, Document, Document)> = None;

@@ -126,6 +126,9 @@ pub fn lint(book: &Questbook) -> Vec<Diagnostic> {
                     ));
                 }
             }
+            if let Some(Err(msg)) = e.late.as_ref().map(crate::synth_effect::LateEffect::check) {
+                out.push(Diagnostic::error(id, format!("effects `{name}`: {msg}")));
+            }
             if let Some(n) = e.facts_remove.iter().find(|n| e.facts.contains_key(n.as_str())) {
                 out.push(Diagnostic::error(id, format!("effects `{name}`: fact `{n}` is both set and removed")));
             }

@@ -12,6 +12,7 @@ fallback_title = "quests/sidequests/no_mans_land/sq106_killbill"
 journal = "a93885ce3a22194c955e802d55358928/9cf4eb23b5bfd24c94fbd8a2a64070b2"
 phase = "quests/sidequests/no_mans_land/sq106_killbill.w2phase"
 done_effects = "done"
+auto_picks = ["578f510de83ab541aa20dd53aa2f42a7=leave", "f5a76dfad8475a4ea178055df9332a97=bez_walki"]   # decisions the walk passed that only the quest itself reads: block GUID=socket taken
 
 [templates]   # the generator's trial on each window template: ok | done | the refusal
 w1_spirit = "ok"

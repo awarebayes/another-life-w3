@@ -326,7 +326,7 @@ details.facts ul { margin: var(--s2) 0 0; }
 /* ------------------------------------------------------------------ steppers, start kit */
 .kit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--s4); }
 .field { display: grid; gap: var(--s2); align-content: start; }
-.field > label, .field .lab { font: 10.5px var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.field > label:not(.check), .field .lab { font: 10.5px var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
 .stepper { display: inline-grid; grid-template-columns: 32px minmax(72px, auto) 32px; border: 1px solid var(--line); border-radius: var(--r2); overflow: hidden; width: max-content; }
 .stepper button { border: 0; border-radius: 0; background: var(--panel-2); padding: 0; font-size: 16px; min-height: 36px; }
 .stepper input { border: 0; border-radius: 0; text-align: center; font: 20px var(--serif); background: var(--bg); width: 84px; min-height: 36px; padding: 0 var(--s1); -moz-appearance: textfield; }

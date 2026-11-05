@@ -12,6 +12,7 @@ fallback_title = "quests/minor_quests/no_mans_land/mq1022_border_troll"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/9abdf95ac1c1c94ea48fc2f180d21d00"
 phase = "quests/minor_quests/no_mans_land/mq1022_border_troll.w2phase"
 done_effects = "done"
+auto_picks = ["4450182752626743838c7613c26998a0=GeraltPaints"]   # decisions the walk passed that only the quest itself reads: block GUID=socket taken
 
 [templates]   # the generator's trial on each window template: ok | done | the refusal
 w1_spirit = "ok"

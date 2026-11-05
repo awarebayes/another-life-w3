@@ -12,6 +12,7 @@ fallback_title = "quests/minor_quests/novigrad/mq3037_sleeping_vampire"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/4073c408c256174699547cb118695333"
 phase = "quests/minor_quests/novigrad/mq3037_sleeping_vampire.w2phase"
 done_effects = "done"
+auto_picks = ["34b4c83f2ed90c448ea5718b3b13eb79=Fight"]   # decisions the walk passed that only the quest itself reads: block GUID=socket taken
 
 [templates]   # the generator's trial on each window template: ok | done | the refusal
 w1_spirit = "ok"

@@ -226,6 +226,13 @@ enum Cmd {
         /// Top up the recommended supplies the template already carries.
         #[arg(long)]
         gear: bool,
+        /// Turn a New Game+ template into a normal game (remove the facts `NewGamePlus` and `FinalNewGamePlusLevel`,
+        /// clear `NewGamePlus > active`). Not tried in game: docs/findings/new-game-plus.md.
+        #[arg(long = "no-ngplus")]
+        no_ngplus: bool,
+        /// Ability points in total (learned + free), set after --level; not below the points already spent.
+        #[arg(long = "skill-points")]
+        skill_points: Option<u32>,
         #[arg(long)]
         stem: Option<String>,
         #[arg(long, default_value = ".")]
@@ -368,6 +375,13 @@ enum Cmd {
         /// One item of the recommended table by name (repeatable), e.g. `Swallow 1`.
         #[arg(long = "item")]
         items: Vec<String>,
+        /// Turn a New Game+ save into a normal game (facts `NewGamePlus` / `FinalNewGamePlusLevel` removed,
+        /// `NewGamePlus > active` cleared). Not tried in game: docs/findings/new-game-plus.md.
+        #[arg(long = "no-ngplus")]
+        no_ngplus: bool,
+        /// Ability points in total (learned + free), set after --level; not below the points already spent.
+        #[arg(long = "skill-points")]
+        skill_points: Option<u32>,
         #[arg(long)]
         out_dir: PathBuf,
         /// Output file stem; default a generated game-style `ManualSave_<a>_<b>_<c>`.
@@ -500,6 +514,14 @@ enum Cmd {
         #[arg(long)]
         brief: bool,
     },
+    /// Research: where the install reads each fact (graph pause / condition blocks, scene flow conditions, scripts,
+    /// spawn-set mentions): the evidence behind the side-quest consequence check (`w3graph::consequence`).
+    FactReaders {
+        #[arg(long)]
+        install: PathBuf,
+        #[arg(required = true)]
+        facts: Vec<String>,
+    },
     /// Auto-complete quests on a template (w3graph::complete: the walker finishes each quest to its Success and end by
     /// its own deterministic policy and lists its picks); each quest starts from the previous one's result. With
     /// --out-dir, write the result as a NEW save. KEY = journal root GROUP/QUEST, quest GUID, or part of the internal name.
@@ -514,6 +536,25 @@ enum Cmd {
         out_dir: Option<PathBuf>,
         #[arg(long)]
         verbose: bool,
+        /// Forced output `GUID=socket` (the player's answer at a decision on the way), for every quest walked. Repeatable.
+        #[arg(long = "pick")]
+        picks: Vec<String>,
+        /// Forced choice line inside a scene, `GUID=section`. Repeatable.
+        #[arg(long = "scene-pick")]
+        scene_picks: Vec<String>,
+        /// A wait that stays waiting (a way the player did not take); the policy routes around it. Repeatable.
+        #[arg(long = "stop")]
+        stops: Vec<String>,
+        /// Walk decision quests too (no decision-catalogue refusal): a decision quest completed late on a later template,
+        /// with its answer given by --pick / --scene-pick.
+        #[arg(long)]
+        allow_decision: bool,
+        /// Output file stem (default: the template stem advanced by the save-name rule).
+        #[arg(long)]
+        stem: Option<String>,
+        /// A later save of the same line where a player did the quests: compare each completion with it (as `side-check`).
+        #[arg(long)]
+        check: Option<PathBuf>,
     },
     /// Write questbook/side: one TOML per side quest (contracts, treasure and scavenger hunts, Gwent, races, fist fights,
     /// and main quests between decisions under side/main) that the auto-complete walk finishes on at least one window
@@ -653,12 +694,14 @@ fn run(cli: Cli) -> Result<ExitCode> {
             out_dir: &out_dir,
         }),
         Cmd::Character { sav, items } => character_cmd::character_cmd(&sav, items),
-        Cmd::CharacterSet { template, level, crowns, gear, stem, out_dir } => {
+        Cmd::CharacterSet { template, level, crowns, gear, no_ngplus, skill_points, stem, out_dir } => {
             let kit = w3al_core::start_kit::StartKit {
                 level,
                 crowns,
                 gear: if gear { w3al_core::start_kit::Gear::Recommended } else { w3al_core::start_kit::Gear::None },
                 items: Vec::new(),
+                new_game_plus: no_ngplus.then_some(false),
+                skill_points,
             };
             character_cmd::character_set_cmd(&template, &kit, stem.as_deref(), &out_dir)
         }
@@ -702,7 +745,20 @@ fn run(cli: Cli) -> Result<ExitCode> {
         Cmd::GraphLookup { graphs, install, keys } => synth_cmd::graph_lookup_cmd(&graphs, install.as_deref(), &keys),
         Cmd::ResDump { install, name, max } => side_cmd::res_dump_cmd(&install, &name, max),
         Cmd::QuestInfo { install, template, keys, brief } => side_cmd::quest_info_cmd(&install, template.as_deref(), &keys, brief),
-        Cmd::SideComplete { install, template, keys, out_dir, verbose } => side_cmd::side_complete_cmd(&install, &template, &keys, out_dir.as_deref(), verbose),
+        Cmd::FactReaders { install, facts } => side_cmd::fact_readers_cmd(&install, &facts),
+        Cmd::SideComplete { install, template, keys, out_dir, verbose, picks, scene_picks, stops, allow_decision, stem, check } => side_cmd::side_complete_cmd(&side_cmd::CompleteArgs {
+            install: &install,
+            template: &template,
+            keys: &keys,
+            out_dir: out_dir.as_deref(),
+            verbose,
+            picks: &picks,
+            scene_picks: &scene_picks,
+            stops: &stops,
+            allow_decision,
+            stem: stem.as_deref(),
+            check: check.as_deref(),
+        }),
         Cmd::SideCheck { install, a, b, grep, verbose } => side_cmd::side_check_cmd(&install, &a, &b, grep.as_deref(), verbose),
         Cmd::NodeDump { sav, path, depth } => side_cmd::node_dump_cmd(&sav, &path, depth),
         Cmd::GenSideQuests { install, out, template_dirs, questbook, dry_run } => {
@@ -730,10 +786,10 @@ fn run(cli: Cli) -> Result<ExitCode> {
             let opts = export::ExportOptions { donor_dirs: donors, allow_name_remap, game_dir, ..Default::default() };
             edit_save_cmd::edit_plan(&sav, &edit_save_cmd::EngineArgs { questbook, template_dirs, opts, cache }, json)
         }
-        Cmd::Edit { save, sets, level, crowns, gear, items, out_dir, stem, questbook, template_dirs, donors, allow_name_remap, game_dir, cache } => {
+        Cmd::Edit { save, sets, level, crowns, gear, items, no_ngplus, skill_points, out_dir, stem, questbook, template_dirs, donors, allow_name_remap, game_dir, cache } => {
             let opts = export::ExportOptions { donor_dirs: donors, allow_name_remap, game_dir, ..Default::default() };
             edit_save_cmd::edit(
-                &edit_save_cmd::EditArgs { save: &save, sets: &sets, level, crowns, gear: gear.as_deref(), items: &items, out_dir: &out_dir, stem: stem.as_deref() },
+                &edit_save_cmd::EditArgs { save: &save, sets: &sets, level, crowns, gear: gear.as_deref(), items: &items, no_ngplus, skill_points, out_dir: &out_dir, stem: stem.as_deref() },
                 &edit_save_cmd::EngineArgs { questbook, template_dirs, opts, cache },
             )
         }

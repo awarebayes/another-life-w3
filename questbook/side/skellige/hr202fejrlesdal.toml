@@ -12,6 +12,7 @@ fallback_title = "quests/generic_quests/skellige/hr200_skg_horseraces"
 journal = "dd4652d4e3db404a939f1e88b285eb20/57819a45b3c127478f713a9c41fc71c2"
 phase = "quests/generic_quests/skellige/hr200_skg_horseraces.w2phase"
 done_effects = "done"
+auto_picks = ["1991faca0e0c3e4ab057cdebb9dabe77=Output_interaction"]   # decisions the walk passed that only the quest itself reads: block GUID=socket taken
 
 [templates]   # the generator's trial on each window template: ok | done | the refusal
 w1_spirit = "not running in the template"

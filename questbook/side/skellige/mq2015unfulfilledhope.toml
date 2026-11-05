@@ -12,6 +12,7 @@ fallback_title = "quests/minor_quests/skellige/mq2015_unfulfilled_hope"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/2213616205105b4f81ea6537b09f225d"
 phase = "quests/minor_quests/skellige/mq2015_unfulfilled_hope.w2phase"
 done_effects = "done"
+auto_picks = ["2c99c3f988d51c429bfa24dc9af7be33=Finish", "fe4e3bde598b6747a08859561a3bad1e=Finish"]   # decisions the walk passed that only the quest itself reads: block GUID=socket taken
 
 [templates]   # the generator's trial on each window template: ok | done | the refusal
 w1_spirit = "not running in the template"

@@ -12,6 +12,7 @@ fallback_title = "quests/generic_quests/no_mans_land/mh104_ekimma"
 journal = "dd4652d4e3db404a939f1e88b285eb20/b759d796ff245e46996d751e107cc563"
 phase = "quests/generic_quests/no_mans_land/mh104_ekimma.w2phase"
 done_effects = "done"
+auto_picks = ["1bb3249748e77a41812af403fdea3363=End"]   # decisions the walk passed that only the quest itself reads: block GUID=socket taken
 
 [templates]   # the generator's trial on each window template: ok | done | the refusal
 w1_spirit = "ok"

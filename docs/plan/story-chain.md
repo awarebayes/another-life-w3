@@ -139,6 +139,25 @@ Unchanged quests: act-1 placeholders, `family_matters`, `a_towerful_of_mice` and
 template yet: `[[line]]` entries; not recorded on later templates, so the save keeps the pack line's outcome and the plan
 says so).
 
+### Late completion: a later window's quest on an earlier template [proven offline, not in game] (2026-11-06)
+
+A player who did Now or Never before sailing to Skellige (the pack line did it after: W5 = pack 42) used to lose it on
+the Skellige templates (`beyond`). The registry's `late` list (w4_undvik, w4_kings_gambit: `late = ["now_or_never"]`)
+moves such a quest to `Choice::late`; `chain::build_story` resolves it and replaces each option effect by its
+`[effects.*.late]` table (`synth_effect::late_effects`): one `decision` auto-completion per quest, in order (sq301 *A Matter
+of Life and Death*, whose end starts q309, then q309), with the player's answer forced (`pick` `d6a0ac74=geralt alone` /
+`triss returned`, the sq301 kiss as a `scene_pick`) and ways the pack player did not take as `stop`s the policy routes
+around (leaving Triss in the fight, `q309_triss_refused`; letting her go on alone, `q309_abandon_triss_rescue`). New in
+`w3graph::complete::Options`: `picks`, `scene_picks`, `stops` (`w3al side-complete --pick --scene-pick --stop
+--allow-decision --check PLAYED`). Edit mode offers the quest as `late` on a save sitting at such a template.
+
+Evidence: `now_or_never_completed_late_on_the_skellige_template` (export on pack 33, go and stay, VERIFIED; decision facts
+and both journal roots Success). Against pack 43 (stay, played much later): sq301 journal hit/miss/extra 25/4/0, facts
+22/12/10 (misses: the pack's optional card games, fist fight, masks); q309 journal 21/0/2, facts 31/4/7 (fight-or-talk
+variants with the fire guards). Against the W5 window walk (go, pack 42): q309 journal identical but 2 extra early
+objectives Success, decision facts identical. Open: spawn sets the rescue chase switched on stay on (`q309_wh_rescue_chase*`;
+pack 43 has none: the game drops them, the walk does not), never loaded in game.
+
 ## 4. Open limits
 
 * Nothing of the rewrite has been loaded in game. First gate: the pack-54 full-story export (journal entries removed by
@@ -175,6 +194,10 @@ The opened file is only read and its bytes are compared again after writing.
   template, or the window template file is missing, or the answer is not known. The first window not reached is offered with its
   own synth effects when a dry build on the save succeeds (otherwise read-only with the build error); the rest of its quests take
   defaults. Level (1..=50), crowns and kit go through `start_kit` (new `items` field: single items of the recommended table).
+* **Late quests** (2026-11-06): a not-reached quest that the save's template lists in `late` is offered as mode `late`
+  (`w3al edit --set now_or_never.triss=go` on a w4_undvik save completes sq301 and q309 there). Window classification
+  no longer counts a fact an earlier window's template already holds as evidence (`triss_dd_start` made a w4_undvik save
+  read as past W5-W7).
 * **Known limits**: an option that writes no deciding fact (`in_game`, `play`) can be mis-read on a save that is not a registered
   template; quests without a window template (`[[line]]`) are "not tracked"; nothing is loaded in game; the plan of an arbitrary
   save inherits the story chain's open limits (section 4).

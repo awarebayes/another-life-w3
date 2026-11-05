@@ -12,6 +12,7 @@ fallback_title = "quests/minor_quests/skellige/mq2022_stupid_side_of_courage"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/67410914c51af845822cb1261c15bdba"
 phase = "quests/minor_quests/skellige/mq2022_stupid_side_of_courage.w2phase"
 done_effects = "done"
+auto_picks = ["e3d2b97ead04144b92e302fb15565bfe=HerbsDelivered"]   # decisions the walk passed that only the quest itself reads: block GUID=socket taken
 
 [templates]   # the generator's trial on each window template: ok | done | the refusal
 w1_spirit = "not running in the template"

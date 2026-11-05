@@ -12,6 +12,7 @@ fallback_title = "quests/generic_quests/no_mans_land/cg100_no_mans_land"
 journal = "e86908f500b7a546ba27ba7308686314/a03bcbbe483a294cb629c2c39a43a131"
 phase = "quests/generic_quests/no_mans_land/cg100_no_mans_land.w2phase"
 done_effects = "done"
+auto_picks = ["0f0df3054afac448b8a913f24267edd5=Progress"]   # decisions the walk passed that only the quest itself reads: block GUID=socket taken
 
 [templates]   # the generator's trial on each window template: ok | done | the refusal
 w1_spirit = "ok"

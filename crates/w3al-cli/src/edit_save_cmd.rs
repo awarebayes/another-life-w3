@@ -108,12 +108,14 @@ pub struct EditArgs<'a> {
     pub crowns: Option<u32>,
     pub gear: Option<&'a str>,
     pub items: &'a [String],
+    pub no_ngplus: bool,
+    pub skill_points: Option<u32>,
     pub out_dir: &'a Path,
     pub stem: Option<&'a str>,
 }
 
 pub fn edit(e: &EditArgs, a: &EngineArgs) -> Result<ExitCode> {
-    let mut ch = Changes { level: e.level, crowns: e.crowns, items: e.items.to_vec(), ..Changes::default() };
+    let mut ch = Changes { level: e.level, crowns: e.crowns, items: e.items.to_vec(), no_new_game_plus: e.no_ngplus, skill_points: e.skill_points, ..Changes::default() };
     match e.gear {
         None => {}
         Some("recommended") => ch.gear = true,

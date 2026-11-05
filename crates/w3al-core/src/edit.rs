@@ -218,7 +218,15 @@ fn unknown(why: impl Into<String>) -> WinClass {
     WinClass { state: WinState::Unknown, why: why.into(), mismatches: 0, next_best: None, known: WindowAnswers::new() }
 }
 
+#[cfg(test)]
 fn classify(scan: &WindowScan, tf: &FactTable) -> WinClass {
+    classify_after(scan, tf, &BTreeSet::new())
+}
+
+/// [`classify`], where `earlier` = the facts an earlier window's template already holds: they are no evidence
+/// that this window ran (a save at Skellige holds `triss_dd_start`, which the romance window's template lacks
+/// and its walks set again; 2026-11-06, a w4_undvik save read as past W5-W7).
+fn classify_after(scan: &WindowScan, tf: &FactTable, earlier: &BTreeSet<String>) -> WinClass {
     if let Some(e) = &scan.error {
         return unknown(format!("the window's template could not be read ({e})"));
     }
@@ -233,7 +241,10 @@ fn classify(scan: &WindowScan, tf: &FactTable) -> WinClass {
     }
     // Positive evidence that the window ran: the save holds a fact some combination writes that the window's
     // template lacks (later play may have removed others, so one is enough).
-    let evidence = names.iter().filter(|n| base.get(**n).is_none() && cands.iter().any(|(_, f)| f.contains_key(**n)) && fact_value(tf, n).is_some()).count();
+    let evidence = names
+        .iter()
+        .filter(|n| base.get(**n).is_none() && !earlier.contains(**n) && cands.iter().any(|(_, f)| f.contains_key(**n)) && fact_value(tf, n).is_some())
+        .count();
     if evidence == 0 {
         return WinClass { state: WinState::NotReached, why: "none of the facts the window writes is in the save".into(), mismatches: 0, next_best: None, known: WindowAnswers::new() };
     }
@@ -347,6 +358,11 @@ pub struct CharacterView {
     pub max_level: i32,
     pub crowns: Option<u32>,
     pub items: usize,
+    /// The save is a New Game+ run (`w3save::newgameplus`); `None` = the state could not be read.
+    pub new_game_plus: Option<bool>,
+    /// Ability points: free, spent on learned skills.
+    pub skill_free: i32,
+    pub skill_used: i32,
     /// The recommended kit per level band (the band is the highest `from_level` at or below the target level).
     pub kit: Vec<KitTable>,
 }
@@ -396,7 +412,12 @@ fn kit_item_view(k: &start_kit::KitItem, have: &character::Character) -> KitItem
 impl Engine {
     fn analyse(&self, doc: &Document, stem: &str) -> Result<Analysis, String> {
         let tf = doc.facts_table().map_err(|e| e.to_string())?;
-        let mut classes: Vec<WinClass> = self.scans.iter().map(|(_, s)| classify(s, &tf)).collect();
+        let mut earlier: BTreeSet<String> = BTreeSet::new();
+        let mut classes: Vec<WinClass> = Vec::with_capacity(self.scans.len());
+        for (_, s) in &self.scans {
+            classes.push(classify_after(s, &tf, &earlier));
+            earlier.extend(s.base.iter().flat_map(|b| b.keys().cloned()));
+        }
         let exact = self.scans.iter().position(|(t, _)| t.stem == stem);
         let mut notes = Vec::new();
         if let Some(i) = exact {
@@ -602,6 +623,10 @@ impl Engine {
                         _ => ("synth", self.all_options(ch, true, None), None),
                     },
                     (_, "unknown") => ("readonly", self.all_options(ch, false, None), Some(note.clone())),
+                    // Not reached, but the save's template completes it late (`Template::late`, `[effects.*.late]`).
+                    (Some(i), "not_reached") if pseudo.late.contains(&q.id) && self.scans[i].0.line > pseudo.line => {
+                        ("late", self.all_options(ch, true, None), Some("not reached in this save; it can be completed late with your answer (the quest and its prerequisites are auto-completed)".to_owned()))
+                    }
                     _ => ("readonly", self.all_options(ch, false, None), Some("this part of the story is not reached in the save".to_owned())),
                 };
                 choices.push(ChoiceView { id: ch.id.clone(), current, source, mode, options, reason });
@@ -615,7 +640,7 @@ impl Engine {
                 for from in [1u32, 11, 15, 18, 26, 30, 34] {
                     kit.push(KitTable { from_level: from, items: start_kit::kit_for(from).iter().map(|k| kit_item_view(k, &have)).collect() });
                 }
-                (Some(CharacterView { level: have.level.level, max_level: have.level.last_custom_level, crowns: have.crowns(), items: have.items.len(), kit }), None)
+                (Some(CharacterView { level: have.level.level, max_level: have.level.last_custom_level, crowns: have.crowns(), items: have.items.len(), new_game_plus: w3save::newgameplus::read(&doc).ok().map(|s| s.is_new_game_plus()), skill_free: have.level.skill.free, skill_used: have.level.skill.used, kit }), None)
             }
             Err(e) => (None, Some(e.to_string())),
         };
@@ -675,11 +700,17 @@ pub struct Changes {
     /// Single items of the recommended table, by name.
     #[serde(default)]
     pub items: Vec<String>,
+    /// Turn a New Game+ save into a normal game (`start_kit::StartKit::new_game_plus = Some(false)`).
+    #[serde(default)]
+    pub no_new_game_plus: bool,
+    /// Ability points in total, learned + free (`start_kit::StartKit::skill_points`).
+    #[serde(default)]
+    pub skill_points: Option<u32>,
 }
 
 impl Changes {
     pub fn is_empty(&self) -> bool {
-        self.answers.values().all(Answers::is_empty) && self.level.is_none() && self.crowns.is_none() && !self.gear && self.items.is_empty()
+        self.answers.values().all(Answers::is_empty) && self.level.is_none() && self.crowns.is_none() && !self.gear && self.items.is_empty() && !self.no_new_game_plus && self.skill_points.is_none()
     }
 }
 
@@ -726,6 +757,7 @@ impl Engine {
         let mut rewrite_quests: Vec<String> = Vec::new();
         let mut baked: Vec<BakedQuest> = Vec::new();
         let mut applied: Vec<String> = Vec::new();
+        let mut late_quests: Vec<String> = Vec::new();
         let mut pending_answers: WindowAnswers = WindowAnswers::new();
         let mut buildable: Option<Result<(), String>> = None;
         for (qid, cm) in &ch.answers {
@@ -775,6 +807,14 @@ impl Engine {
                         }
                     }
                 }
+                // A later window's quest the save's template completes late (`Template::late`: Now or Never on the
+                // Skellige template), with the asked answers (defaults for the rest).
+                WinState::NotReached if pseudo.late.contains(qid) && self.scans[wi].0.line > pseudo.line => {
+                    run.quests.entry(qid.clone()).or_insert(QuestEntry { status: Status::Completed, answers: Answers::new() }).answers.extend(changed);
+                    if !late_quests.contains(qid) {
+                        late_quests.push(qid.clone());
+                    }
+                }
                 WinState::NotReached => return Err(refuse(format!("`{qid}` is not reached in this save, and only the next window can be decided here"))),
                 WinState::Unknown => return Err(refuse(format!("`{qid}`: {}", an.classes[wi].why))),
             }
@@ -796,11 +836,22 @@ impl Engine {
             crowns: ch.crowns,
             gear: if ch.gear { Gear::Recommended } else { Gear::None },
             items: ch.items.clone(),
+            new_game_plus: ch.no_new_game_plus.then_some(false),
+            skill_points: ch.skill_points,
         };
         let mut src = self.src();
         src.opts.start_kit = (!kit.is_empty()).then_some(kit);
         src.opts.stem = None;
-        let choice = Choice { template: pseudo, path: Some(sav.to_path_buf()), applied: applied.clone(), baked, beyond: Vec::new(), passed_over: Vec::new(), notes: Vec::new() };
+        let choice = Choice {
+            template: pseudo,
+            path: Some(sav.to_path_buf()),
+            applied: applied.clone(),
+            baked,
+            beyond: Vec::new(),
+            late: late_quests.clone(),
+            passed_over: Vec::new(),
+            notes: Vec::new(),
+        };
         let (out_bytes, mut notes, rewrites) = chain::build_story(&src, &run, &choice, &bytes, Some(&self.lib))?;
 
         // Final checks on the finished bytes, then write the new file.
@@ -830,7 +881,7 @@ impl Engine {
             sidecars: result.sidecars,
             notes,
             rewritten: rewrites.iter().flat_map(|w| w.quests.clone()).collect(),
-            applied,
+            applied: late_quests.into_iter().chain(applied).collect(),
             verified: "VERIFIED: the earlier decisions rewritten and checked (facts, quest log, untouched blocks), the window's effects and the kit applied and verified as export does, check-save clean, the file re-read; the opened save was not touched".into(),
         })
     }

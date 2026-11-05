@@ -33,11 +33,23 @@ pub struct StartKit {
     /// target level; supply stacks are raised, missing records created, carried ones left alone.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub items: Vec<String>,
+    /// `Some(false)`: turn a New Game+ template into a normal game (`w3save::newgameplus::turn_off`: the facts
+    /// `NewGamePlus` and `FinalNewGamePlusLevel` removed, `NewGamePlus > active` false). `None` keeps the template as
+    /// it is. `Some(true)` is refused: nothing here turns New Game+ on. HYPOTHESIS, not tried in game:
+    /// docs/findings/new-game-plus.md.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub new_game_plus: Option<bool>,
+    /// Ability points in total (learned + free), written after `level` (`character::set_skill_points`). A level
+    /// change keeps the template's points beyond the level table (Places of Power, and on a New Game+ template the
+    /// whole carried pool), so a lowered character can hold far more than the level grants; this sets the number.
+    /// Refused below the points already spent on learned skills.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub skill_points: Option<u32>,
 }
 
 impl StartKit {
     pub fn is_empty(&self) -> bool {
-        self.level.is_none() && self.crowns.is_none() && self.gear == Gear::None && self.items.is_empty()
+        self.level.is_none() && self.crowns.is_none() && self.gear == Gear::None && self.items.is_empty() && self.new_game_plus.is_none() && self.skill_points.is_none()
     }
 
     /// Kit entries this kit writes for `level`: the whole table for `Recommended`, else the named items.
@@ -110,6 +122,29 @@ pub fn kit_for(level: u32) -> Vec<KitItem> {
 /// caller's job (it discards the document on error).
 pub fn apply(doc: &mut Document, kit: &StartKit) -> Result<Vec<String>, w3save::Error> {
     let mut report = Vec::new();
+    match kit.new_game_plus {
+        None => {}
+        Some(true) => return Err(w3save::Error::Unverified("start kit: turning New Game+ on is not supported".into())),
+        Some(false) => {
+            let c = w3save::newgameplus::turn_off(doc)?;
+            if c.removed_facts.is_empty() && !c.before.active {
+                report.push("start kit: New Game+ was not set on this save, nothing changed".to_owned());
+            } else {
+                report.push(format!(
+                    "start kit: New Game+ off (facts removed: {}; active {} -> false; FinalNewGamePlusLevel was {:?})",
+                    if c.removed_facts.is_empty() { "none".to_owned() } else { c.removed_facts.join(", ") },
+                    c.before.active,
+                    c.before.level
+                ));
+            }
+            if c.before.ngp_items > 0 {
+                report.push(format!(
+                    "start kit: {} item record(s) named `NGP ...` and every New Game+ boosted item are left as they are (stronger than a normal game's)",
+                    c.before.ngp_items
+                ));
+            }
+        }
+    }
     if let Some(level) = kit.level {
         let level = i32::try_from(level).map_err(|_| w3save::Error::Unverified(format!("start kit: level {level} is out of range")))?;
         let c = character::set_level(doc, level)?;
@@ -123,6 +158,18 @@ pub fn apply(doc: &mut Document, kit: &StartKit) -> Result<Vec<String>, w3save::
             c.added_abilities.len(),
             c.removed_abilities.len(),
             c.vitality_delta
+        ));
+    }
+    if let Some(total) = kit.skill_points {
+        let total = i32::try_from(total).map_err(|_| w3save::Error::Unverified(format!("start kit: {total} ability points is out of range")))?;
+        let (before, after) = character::set_skill_points(doc, total)?;
+        report.push(format!(
+            "start kit: ability points {} -> {} (free {} -> {}, spent {})",
+            before.free + before.used,
+            after.free + after.used,
+            before.free,
+            after.free,
+            after.used
         ));
     }
     if kit.gear == Gear::Recommended || !kit.items.is_empty() {
@@ -198,7 +245,7 @@ pub fn apply_to_save(bytes: &[u8], kit: &StartKit) -> Result<(Vec<u8>, Vec<Strin
     } else {
         for (x, y) in a.iter().zip(&b) {
             let name = w3save::graph::node_name(&original, x);
-            if matches!(x.kind, w3save::Kind::Manu(_)) || name == "universe" {
+            if matches!(x.kind, w3save::Kind::Manu(_)) || name == "universe" || (kit.new_game_plus == Some(false) && (name == "facts" || name == w3save::newgameplus::BLOCK)) {
                 continue;
             }
             if x.to_bytes() != y.to_bytes() {
@@ -222,8 +269,27 @@ fn doc_of(bytes: &[u8]) -> Result<Document, w3save::Error> {
 /// Re-read an exported save and compare it with its template: what the kit asked for must be there and
 /// nothing else of the character may have changed. Returns the problems found (empty = fine).
 pub fn verify_bytes(template: &[u8], written: &[u8], kit: &StartKit) -> Result<Vec<String>, w3save::Error> {
-    let (a, b) = (character::read(&doc_of(template)?)?, character::read(&doc_of(written)?)?);
+    let (da, db) = (doc_of(template)?, doc_of(written)?);
+    let (a, b) = (character::read(&da)?, character::read(&db)?);
     let mut problems = Vec::new();
+    // Old (pre-5.x) saves have no recognised facts section: nothing to compare unless New Game+ was asked for.
+    let changed = match (da.facts_table(), db.facts_table()) {
+        (Ok(fa), Ok(fb)) => Some(fa.differing(&fb)),
+        (Err(e), _) | (_, Err(e)) if kit.new_game_plus.is_some() => return Err(e),
+        _ => None,
+    };
+    if kit.new_game_plus == Some(false) {
+        let after = w3save::newgameplus::read(&db)?;
+        if !after.is_clean() {
+            problems.push("New Game+ is still set in the written save".into());
+        }
+        let allowed = [w3save::newgameplus::FACT_FLAG, w3save::newgameplus::FACT_LEVEL];
+        if let Some(n) = changed.iter().flatten().find(|n| !allowed.contains(&n.as_str())) {
+            problems.push(format!("fact {n} changed although only the New Game+ facts were to be removed"));
+        }
+    } else if let Some(n) = changed.iter().flatten().next() {
+        problems.push(format!("fact {n} changed although no New Game+ change was asked for"));
+    }
     if let Some(l) = kit.level {
         if b.level.level != l as i32 {
             problems.push(format!("level is {} not {l}", b.level.level));
@@ -231,8 +297,16 @@ pub fn verify_bytes(template: &[u8], written: &[u8], kit: &StartKit) -> Result<V
         if Some(b.level.xp.used) != b.level.exp_for_level(l as i32) || b.level.xp.free != 0 {
             problems.push("experience pool does not match the level".into());
         }
-    } else if a.level != b.level {
+    } else if a.level.level != b.level.level || a.level.xp != b.level.xp || a.level.table != b.level.table || (kit.skill_points.is_none() && a.level.skill != b.level.skill) {
         problems.push("the level data changed although no level was asked for".into());
+    }
+    if let Some(total) = kit.skill_points {
+        if i64::from(b.level.skill.free) + i64::from(b.level.skill.used) != i64::from(total) {
+            problems.push(format!("ability points are {} not {total}", b.level.skill.free + b.level.skill.used));
+        }
+        if b.level.skill.used != a.level.skill.used {
+            problems.push("spent ability points changed".into());
+        }
     }
     if let Some(c) = kit.crowns {
         if b.crowns() != Some(c) {
@@ -295,7 +369,11 @@ mod tests {
     #[test]
     fn section_round_trips_through_toml() {
         let kit: StartKit = toml::from_str("level = 12\ncrowns = 800\ngear = \"recommended\"\n").unwrap();
-        assert_eq!(kit, StartKit { level: Some(12), crowns: Some(800), gear: Gear::Recommended, items: vec![] });
+        assert_eq!(kit, StartKit { level: Some(12), crowns: Some(800), gear: Gear::Recommended, ..StartKit::default() });
+        let off: StartKit = toml::from_str("new_game_plus = false\n").unwrap();
+        assert_eq!(off.new_game_plus, Some(false));
+        assert!(!off.is_empty());
+        assert_eq!(toml::from_str::<StartKit>(&toml::to_string(&off).unwrap()).unwrap(), off);
         assert_eq!(toml::from_str::<StartKit>(&toml::to_string(&kit).unwrap()).unwrap(), kit);
         assert!(StartKit::default().is_empty());
     }

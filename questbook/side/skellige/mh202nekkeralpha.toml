@@ -12,6 +12,7 @@ fallback_title = "quests/generic_quests/skellige/mh202_nekker_alpha"
 journal = "dd4652d4e3db404a939f1e88b285eb20/64d78632b1158c499a2199029868bcbd"
 phase = "quests/generic_quests/skellige/mh202_nekker_alpha.w2phase"
 done_effects = "done"
+auto_picks = ["6e2218dee6554a4cbc68a40594f01b1e=Reward"]   # decisions the walk passed that only the quest itself reads: block GUID=socket taken
 
 [templates]   # the generator's trial on each window template: ok | done | the refusal
 w1_spirit = "not running in the template"

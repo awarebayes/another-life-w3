@@ -12,6 +12,7 @@ fallback_title = "quests/generic_quests/novigrad/cg300_novigrad"
 journal = "e86908f500b7a546ba27ba7308686314/3b4fb54011708548bcb3c09ee237755a"
 phase = "quests/generic_quests/novigrad/cg300_novigrad.w2phase"
 done_effects = "done"
+auto_picks = ["4dcdad5d37a5504791fe4aa64111f6b5=Progress", "826a79e080683f47a91b6c40d46d7256=Progress", "b9a74266e08fdd4985e9e4c4ee7d504d=Progress"]   # decisions the walk passed that only the quest itself reads: block GUID=socket taken
 
 [templates]   # the generator's trial on each window template: ok | done | the refusal
 w1_spirit = "ok"

@@ -88,6 +88,11 @@ pub struct Effect {
     /// tables, `facts` and `facts_remove` apply after it. Never together with `graph`.
     #[serde(default)]
     pub synth: Option<SynthEffect>,
+    /// The same answer completed late on a later template that has not reached the quest
+    /// (`[effects.X.late]`, see `synth_effect::LateEffect`); used instead of `synth` / `graph` when the chosen
+    /// template lists the quest in its registry `late` list.
+    #[serde(default)]
+    pub late: Option<crate::synth_effect::LateEffect>,
 }
 
 impl Effect {

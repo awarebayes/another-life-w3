@@ -12,6 +12,7 @@ fallback_title = "quests/generic_quests/no_mans_land/mh105_wyvern"
 journal = "dd4652d4e3db404a939f1e88b285eb20/bf915c91de69b847beed9c0b373a1144"
 phase = "quests/generic_quests/no_mans_land/mh105_wyvern.w2phase"
 done_effects = "done"
+auto_picks = ["2a100c1c67465f4d94cdb0de6e95fe67=Progress", "9e5377f605d98c4e8643f3a43af59554=Reward"]   # decisions the walk passed that only the quest itself reads: block GUID=socket taken
 
 [templates]   # the generator's trial on each window template: ok | done | the refusal
 w1_spirit = "ok"

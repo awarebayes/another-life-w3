@@ -12,6 +12,7 @@ fallback_title = "dlc/dlc12/data/quest/mq2052_reversed_monster_hunt"
 journal = "1490100e984eca48afae36f804ef77ae/0831229b4c9c3441b21b4db7d97da119"
 phase = "dlc/dlc12/data/quest/mq2052_reversed_monster_hunt.w2phase"
 done_effects = "done"
+auto_picks = ["4c32f6c1adccdf47b96800b5012877a0=Output_fight_monsters"]   # decisions the walk passed that only the quest itself reads: block GUID=socket taken
 
 [templates]   # the generator's trial on each window template: ok | done | the refusal
 w1_spirit = "ok"

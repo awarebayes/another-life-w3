@@ -64,6 +64,9 @@ stem = "ManualSave_8c0ab_7ea51000_3f73208"
 line = 33
 quests = ["lord_of_undvik"]
 source = "pack 33, 5.01 re-save (pack_501)"
+# Later windows completed late here (Now or Never before Skellige: sq301 is active, q309 not started in this save);
+# `[effects.*.late]` in now_or_never.toml, checked against pack 43.
+late = ["now_or_never"]
 [template.encodes]
 whispering_hillock = { spirit = "destroy" }
 a_favor_for_a_friend = { date = "night" }       # NOT scanned (see w2)
@@ -82,6 +85,9 @@ stem = "ManualSave_54acc_7ea51000_3f7d081"
 line = 35
 quests = ["kings_gambit"]
 source = "pack 35, 5.01 re-save (pack_501)"
+# As on w4_undvik (sq301 active, q309 not started); the same late walk checked against pack 43 (stay): sq301 journal
+# 25/4/0 facts 21/12/11, q309 journal 21/0/2 facts 31/4/8 (hit/miss/extra).
+late = ["now_or_never"]
 [template.encodes]
 whispering_hillock = { spirit = "destroy" }
 a_favor_for_a_friend = { date = "night" }       # NOT scanned (see w2)

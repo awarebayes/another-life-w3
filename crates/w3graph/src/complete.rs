@@ -30,7 +30,9 @@
 //! 5. Refused, with the reason ([`Refusal`]): the quest is already done or failed in the template; its
 //!    region holds a block of a decision-catalogue file (those stay in the decision questbook); its phase
 //!    is not running in the template (not reachable there); no Success in its graph or no route to it;
-//!    an unresolved point; the walk ends without Success or with the quest's phase still running.
+//!    an unresolved point; the walk ends without Success or with the quest's phase still running; the walk passes
+//!    a player decision with consequences (`crate::consequence`: branches that differ in facts read outside the
+//!    quest, or in journal outcomes), unless `Options::check_consequences` is off.
 //!
 //! HYPOTHESES (checked offline against saves where a player completed the quest, `w3al side-check`; not
 //! yet in game): that assuming every wait on the way is what play does, that the nearest-to-Success output
@@ -108,6 +110,9 @@ pub enum Refusal {
     NotFinished,
     /// The walk could not be written into the save.
     Write,
+    /// The walk passes a player decision whose branches differ in something the game reads elsewhere
+    /// (`crate::consequence`).
+    Consequence,
 }
 
 impl Refusal {
@@ -123,6 +128,7 @@ impl Refusal {
             Refusal::Unresolved => "unresolved point",
             Refusal::NotFinished => "phase still running after Success",
             Refusal::Write => "write failed",
+            Refusal::Consequence => "has a decision with consequences",
         }
     }
 }
@@ -295,7 +301,7 @@ fn cond_facts(c: &crate::quest::Cond, out: &mut Vec<String>) {
 /// Fact id -> the blocks of the region that wait on it or test it (pause and condition blocks): a fact block
 /// leads to them (the quest's parallel branches meet through facts, not connections: an investigation sets
 /// `mh206_lair_found`, the combat branch waits for it).
-fn fact_readers(lib: &Library, nodes: &HashSet<usize>) -> HashMap<String, Vec<usize>> {
+pub(crate) fn fact_readers(lib: &Library, nodes: &HashSet<usize>) -> HashMap<String, Vec<usize>> {
     let mut m: HashMap<String, Vec<usize>> = HashMap::new();
     let mut ordered: Vec<usize> = nodes.iter().copied().collect();
     ordered.sort_unstable();
@@ -314,7 +320,7 @@ fn fact_readers(lib: &Library, nodes: &HashSet<usize>) -> HashMap<String, Vec<us
 }
 
 /// Successor edges of a block inside the region: `(target, input)`.
-fn successors(lib: &Library, nodes: &HashSet<usize>, readers: &HashMap<String, Vec<usize>>, b: usize) -> Vec<(usize, String)> {
+pub(crate) fn successors(lib: &Library, nodes: &HashSet<usize>, readers: &HashMap<String, Vec<usize>>, b: usize) -> Vec<(usize, String)> {
     let blk = &lib.blocks[b];
     let mut v: Vec<(usize, String)> = blk.outs.iter().map(|c| (c.target, c.input.clone())).collect();
     if let BlockKind::Fact { id, value } = &blk.kind {
@@ -388,8 +394,13 @@ impl Scores {
 
 /// The two goals over a region: the root's Success, then the end of the instances' graphs.
 pub fn goals(lib: &Library, nodes: &HashSet<usize>, instances: &[usize], root: &[Guid]) -> (Scores, Scores) {
+    goals_avoiding(lib, nodes, instances, root, &HashSet::new())
+}
+
+/// [`goals`] with `avoid` blocks as walls (forced stops: the policy routes around them).
+pub fn goals_avoiding(lib: &Library, nodes: &HashSet<usize>, instances: &[usize], root: &[Guid], avoid: &HashSet<usize>) -> (Scores, Scores) {
     let mut success_t = HashSet::new();
-    let mut fail = HashSet::new();
+    let mut fail: HashSet<(usize, String)> = avoid.iter().map(|b| (*b, String::new())).collect();
     for &b in nodes {
         if let BlockKind::Journal { quest: true, path } = &lib.blocks[b].kind {
             if is_root(path, root) {
@@ -422,11 +433,59 @@ pub struct Options {
     /// Graph file names (lower case, as [`file_name`] gives them) that refuse a quest whose region holds one.
     pub deny_files: HashSet<String>,
     pub max_steps: usize,
+    /// Forced outputs, `block GUID -> socket`: the player's answer at a decision inside (or on the way to) the
+    /// quest. They win over the policy's own pick and over the gate's way; each one the walk took is listed in
+    /// [`Completion::picks`]. Used for a decision quest completed late on a later template
+    /// (`[effects.*.synth] complete` with `pick`), with `deny_files` emptied for it.
+    pub picks: HashMap<Guid, String>,
+    /// Forced choice lines inside scenes, `scene block GUID -> section names` (as `--scene-pick`).
+    pub scene_picks: HashMap<Guid, Vec<String>>,
+    /// Waits that stay waiting (the player did not take that way: "far from Triss" = left her during the fight);
+    /// the policy routes around them. They end with their phase like any parked wait.
+    pub stops: HashSet<Guid>,
+    /// Refuse a quest whose walk passes a player decision with consequences (`crate::consequence`). On by default;
+    /// off for a decision quest completed with the player's own answers.
+    pub check_consequences: bool,
 }
 
 impl Default for Options {
     fn default() -> Self {
-        Options { deny_files: DECISION_FILES.iter().map(|s| (*s).to_owned()).collect(), max_steps: 20_000 }
+        Options {
+            deny_files: DECISION_FILES.iter().map(|s| (*s).to_owned()).collect(),
+            max_steps: 20_000,
+            picks: HashMap::new(),
+            scene_picks: HashMap::new(),
+            stops: HashSet::new(),
+            check_consequences: true,
+        }
+    }
+}
+
+impl Options {
+    /// Add `GUID=socket` picks, `GUID=section` scene picks and `GUID` stops (8 or 32 hex digits, as `synth-walk`
+    /// takes them), resolved against the graphs and the save's frontier; each socket must exist.
+    pub fn with_picks(mut self, lib: &Library, tf: &Frontier, picks: &[String], scene_picks: &[String], stops: &[String]) -> Result<Options, String> {
+        for s in stops {
+            let i = crate::synth::resolve_block(lib, tf, s).map_err(|e| format!("stop {s:?}: {e}"))?;
+            self.stops.insert(lib.blocks[i].guid);
+        }
+        for p in picks {
+            let (k, s) = p.split_once('=').ok_or_else(|| format!("pick {p:?}: want GUID=socket"))?;
+            let i = crate::synth::resolve_block(lib, tf, k).map_err(|e| format!("pick {p:?}: {e}"))?;
+            if !lib.blocks[i].sockets().contains(&s) {
+                return Err(format!("pick: block {} has outputs {:?}, not {s:?}", lib.describe(i), lib.blocks[i].sockets()));
+            }
+            self.picks.insert(lib.blocks[i].guid, s.to_owned());
+        }
+        for p in scene_picks {
+            let (k, s) = p.split_once('=').ok_or_else(|| format!("scene pick {p:?}: want GUID=section"))?;
+            let i = crate::synth::resolve_block(lib, tf, k).map_err(|e| format!("scene pick {p:?}: {e}"))?;
+            if !matches!(lib.blocks[i].kind, BlockKind::Scene { .. } | BlockKind::Interaction { .. }) {
+                return Err(format!("scene pick: block {} plays no scene", lib.describe(i)));
+            }
+            self.scene_picks.entry(lib.blocks[i].guid).or_default().push(s.to_owned());
+        }
+        Ok(self)
     }
 }
 
@@ -443,6 +502,9 @@ pub struct Completion {
     /// The blocks of the quest (under its instances).
     pub region: HashSet<usize>,
     pub notes: Vec<String>,
+    /// Decisions the walk passed whose branches differ in facts or journal entries that nothing outside the quest
+    /// reads (`crate::consequence`), as `(block, socket the walk took)`. Kept in the generated TOML (`auto_picks`).
+    pub decisions: Vec<(usize, String)>,
 }
 
 #[cfg(test)]
@@ -531,6 +593,52 @@ mod tests {
         assert!(!w.events.iter().any(|e| matches!(e, Event::Journal { status, .. } if status == "JS_Failed")));
         // Deterministic: the same walk again gives the same picks.
         assert_eq!(walk(&l, &[(8, "In".into()), (2, "In".into())]).auto_picks, w.auto_picks);
+    }
+
+    #[test]
+    fn forced_picks_and_stops_override_the_nearest_way() {
+        // 0 quest phase: 1 input -> 2 scene: Short -> 3 pause (unknown) -> 6 fact short -> 7 root Success;
+        // Long -> 4 pause (unknown) -> 8 fact long -> 9 fact long2 -> 7. 7 -> 10 output Out.
+        let l = lib(vec![
+            block(0, "CQuestPhaseBlock", BlockKind::Phase { embedded: Some(9), import: None }, vec![], None),
+            block(1, "CQuestPhaseInputBlock", BlockKind::PhaseInput { socket: "In".into() }, vec![("", 2, "In")], Some(0)),
+            block(2, "CQuestSceneBlock", BlockKind::Scene { file: String::new() }, vec![("Short", 3, "In"), ("Long", 4, "In")], Some(0)),
+            block(3, "CQuestPauseConditionBlock", BlockKind::Pause { conds: vec![Cond::Other("x".into())] }, vec![("", 6, "In")], Some(0)),
+            block(4, "CQuestPauseConditionBlock", BlockKind::Pause { conds: vec![Cond::Other("x".into())] }, vec![("", 8, "In")], Some(0)),
+            block(5, "CQuestFactsDBChangingBlock", BlockKind::Fact { id: "unused".into(), value: 1 }, vec![], Some(0)),
+            block(6, "CQuestFactsDBChangingBlock", BlockKind::Fact { id: "short".into(), value: 1 }, vec![("Out", 7, "Success")], Some(0)),
+            block(7, "CJournalQuestBlock", root_journal(), vec![("Out", 10, "In")], Some(0)),
+            block(8, "CQuestFactsDBChangingBlock", BlockKind::Fact { id: "long".into(), value: 1 }, vec![("Out", 11, "In")], Some(0)),
+            block(9, "CQuestPhaseOutputBlock", BlockKind::PhaseOutput { socket: "Unused".into() }, vec![], Some(0)),
+            block(10, "CQuestPhaseOutputBlock", BlockKind::PhaseOutput { socket: "Out".into() }, vec![], Some(0)),
+            block(11, "CQuestFactsDBChangingBlock", BlockKind::Fact { id: "long2".into(), value: 1 }, vec![("Out", 7, "Success")], Some(0)),
+        ]);
+        let run = |picks: &[(usize, &str)], stops: &[usize]| {
+            let mut nodes = region(&l, &[0]);
+            nodes.insert(0);
+            let avoid: HashSet<usize> = stops.iter().copied().collect();
+            let (success, exit) = goals_avoiding(&l, &nodes, &[0], &[G, Q], &avoid);
+            let policy = Policy {
+                through: true,
+                running: [l.blocks[0].guid].into(),
+                picks: picks.iter().map(|(b, s)| (l.blocks[*b].guid, (*s).to_owned())).collect(),
+                stop: stops.iter().map(|b| l.blocks[*b].guid).collect(),
+                auto: Some(AutoGoal { instances: [l.blocks[0].guid].into(), root: vec![G, Q], success, exit }),
+                ..Default::default()
+            };
+            let base = |_: &str| 0;
+            let mut w = Walker::new(&l, &base, policy);
+            w.run(&[(2, "In".into())]);
+            w.into_walk()
+        };
+        let free = run(&[], &[]);
+        assert!(free.auto_success && free.facts.contains_key("short") && !free.facts.contains_key("long"), "nearest way: {:?}", free.facts);
+        let forced = run(&[(2, "Long")], &[]);
+        assert!(forced.auto_success && forced.facts.contains_key("long2") && !forced.facts.contains_key("short"), "forced pick: {:?}", forced.facts);
+        assert!(forced.auto_picks.is_empty(), "a forced pick is not the policy's: {:?}", forced.auto_picks);
+        let stopped = run(&[], &[3]);
+        assert!(stopped.auto_success && stopped.facts.contains_key("long") && !stopped.facts.contains_key("short"), "stop routes around: {:?}", stopped.facts);
+        assert_eq!(stopped.auto_picks.iter().map(|p| (p.block, p.socket.as_str())).collect::<Vec<_>>(), vec![(2, "Long")]);
     }
 
     #[test]
@@ -852,7 +960,8 @@ pub fn complete(lib: &Library, idx: &QuestIndex, template: &Document, tf: &Front
     let mut nodes = region(lib, &inst);
     nodes.extend(inst.iter().copied());
     let root = q.root_key();
-    let (success, exit) = goals(lib, &nodes, &inst, &root);
+    let avoid: HashSet<usize> = opts.stops.iter().filter_map(|g| lib.get(g)).collect();
+    let (success, exit) = goals_avoiding(lib, &nodes, &inst, &root, &avoid);
     if success.terminal.is_empty() {
         return Err(refused(Refusal::NoGraph, "no block of the quest's graph sets its root entry to Success"));
     }
@@ -889,14 +998,17 @@ pub fn complete(lib: &Library, idx: &QuestIndex, template: &Document, tf: &Front
     let sums = frontier::fact_sums(template).map_err(|e| refused(Refusal::Write, e.to_string()))?;
     let base = |id: &str| sums.get(id).copied().unwrap_or(0);
     let waiting = tf.blocks.iter().map(|b| (b.guid, b.inputs.clone())).collect();
+    let mut forced = gate.as_ref().map(|g| g.picks.clone()).unwrap_or_default();
+    forced.extend(opts.picks.iter().map(|(g, s)| (*g, s.clone())));
     let policy = Policy {
         through: true,
         max_steps: opts.max_steps,
         running: tf.scope_guids(),
         waiting,
-        picks: gate.as_ref().map(|g| g.picks.clone()).unwrap_or_default(),
+        picks: forced,
+        scene_picks: opts.scene_picks.clone(),
+        stop: opts.stops.clone(),
         auto: Some(AutoGoal { instances: inst_guids.clone(), root: root.clone(), success, exit }),
-        ..Default::default()
     };
     let frontier_blocks: Vec<(usize, String)> = tf.blocks.iter().filter_map(|b| lib.get(&b.guid).map(|i| (i, b.input.clone()))).collect();
     let mut w = Walker::new(lib, &base, policy);
@@ -917,7 +1029,25 @@ pub fn complete(lib: &Library, idx: &QuestIndex, template: &Document, tf: &Front
     }
     if !walk.auto_success {
         let parked: Vec<String> = walk.auto_parked.iter().take(4).map(|b| lib.describe(*b)).collect();
-        return Err(refused(Refusal::NoSuccess, format!("the walk ended without the root's Success (left waiting: {})", parked.join("; "))));
+        let last: Vec<String> = walk
+            .events
+            .iter()
+            .filter_map(|e| match e {
+                Event::Assumed { block, socket, .. } => Some(format!("{}->{socket:?}", lib.blocks[*block].short())),
+                Event::Wait { block, .. } => Some(format!("wait {}", lib.blocks[*block].short())),
+                _ => None,
+            })
+            .collect();
+        let tail = &last[last.len().saturating_sub(8)..];
+        return Err(refused(
+            Refusal::NoSuccess,
+            format!(
+                "the walk ended without the root's Success (starts: {}; left waiting: {}; last steps: {})",
+                starts.iter().map(|(b, _)| lib.blocks[*b].short()).collect::<Vec<_>>().join(" "),
+                parked.join("; "),
+                tail.join(" ")
+            ),
+        ));
     }
     let mut notes = Vec::new();
     if suspended.is_some() {
@@ -941,7 +1071,7 @@ pub fn complete(lib: &Library, idx: &QuestIndex, template: &Document, tf: &Front
         let still: Vec<&crate::walk::WaitAt> = walk.waits.iter().filter(|w| w.scope.iter().any(|s| inst_guids.contains(s))).collect();
         let names = || still.iter().take(4).map(|w| lib.describe(w.block)).collect::<Vec<_>>().join("; ");
         let auto = |s: &Scores| still.iter().any(|w| s.dist.contains_key(&w.block));
-        let goal_exit = { let g = goals(lib, &nodes, &inst, &root).1; auto(&g) };
+        let goal_exit = { let g = goals_avoiding(lib, &nodes, &inst, &root, &avoid).1; auto(&g) };
         if suspended.is_some() || goal_exit {
             return Err(refused(Refusal::NotFinished, format!("waits left inside: {}", names())));
         }
@@ -960,10 +1090,36 @@ pub fn complete(lib: &Library, idx: &QuestIndex, template: &Document, tf: &Front
     }
     let mut picks: Vec<AutoPick> = Vec::new();
     if let Some(g) = &gate {
-        let mut gp: Vec<AutoPick> = g.picks.iter().filter_map(|(guid, s)| lib.get(guid).map(|b| AutoPick { block: b, socket: s.clone(), why: "way to the quest's start".into() })).collect();
+        let mut gp: Vec<AutoPick> = g
+            .picks
+            .iter()
+            .filter(|(guid, _)| !opts.picks.contains_key(*guid))
+            .filter_map(|(guid, s)| lib.get(guid).map(|b| AutoPick { block: b, socket: s.clone(), why: "way to the quest's start".into() }))
+            .collect();
         gp.sort_by_key(|p| p.block);
         picks.extend(gp);
     }
+    // The forced picks the walk reached (the player's answer).
+    let reached: HashSet<usize> = walk
+        .events
+        .iter()
+        .filter_map(|e| match e {
+            Event::Assumed { block, .. } | Event::Fired { block, .. } => Some(*block),
+            _ => None,
+        })
+        .collect();
+    let mut fp: Vec<AutoPick> =
+        opts.picks.iter().filter_map(|(guid, s)| lib.get(guid).filter(|b| reached.contains(b)).map(|b| AutoPick { block: b, socket: s.clone(), why: "forced (the player's answer)".into() })).collect();
+    fp.sort_by_key(|p| p.block);
+    picks.extend(fp);
     picks.extend(walk.auto_picks.iter().cloned());
-    Ok(Completion { walk, instances: inst, starts, picks, region: nodes, notes })
+    let mut c = Completion { walk, instances: inst, starts, picks, region: nodes, notes, decisions: Vec::new() };
+    if opts.check_consequences {
+        let report = crate::consequence::check(lib, &c, &opts.picks);
+        if !report.blocking.is_empty() {
+            return Err(refused(Refusal::Consequence, report.blocking.join("; ")));
+        }
+        c.decisions = report.kept;
+    }
+    Ok(c)
 }

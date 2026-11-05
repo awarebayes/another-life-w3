@@ -12,6 +12,7 @@ fallback_title = "quests/minor_quests/no_mans_land/mq1019_a_matter_of_faith"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/90938b3032ef3641a3108763ca327dad"
 phase = "quests/minor_quests/no_mans_land/mq1019_a_matter_of_faith.w2phase"
 done_effects = "done"
+auto_picks = ["c0ead3440b87d2459a6fc81f837c5bde=EndQuestBribe"]   # decisions the walk passed that only the quest itself reads: block GUID=socket taken
 
 [templates]   # the generator's trial on each window template: ok | done | the refusal
 w1_spirit = "phase still running after Success"

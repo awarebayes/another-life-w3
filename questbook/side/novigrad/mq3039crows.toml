@@ -12,6 +12,7 @@ fallback_title = "quests/minor_quests/novigrad/mq3039_crows"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/75a1065e42609a4295b8752f6ae23eaa"
 phase = "quests/minor_quests/novigrad/mq3039_crows.w2phase"
 done_effects = "done"
+auto_picks = ["33c4506b872f594ca068ee027d501dd3=End"]   # decisions the walk passed that only the quest itself reads: block GUID=socket taken
 
 [templates]   # the generator's trial on each window template: ok | done | the refusal
 w1_spirit = "phase still running after Success"

@@ -12,6 +12,7 @@ fallback_title = "quests/minor_quests/skellige/mq2003_skellige_tombs"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/7796d8b957b2cc479843d1b4f1450666"
 phase = "quests/minor_quests/skellige/mq2003_skellige_tombs.w2phase"
 done_effects = "done"
+auto_picks = ["838d115528e5c54a8aaf7a336311a82c=Reward", "ce69c914032526458c30a35fd6e468ff=Reward"]   # decisions the walk passed that only the quest itself reads: block GUID=socket taken
 
 [templates]   # the generator's trial on each window template: ok | done | the refusal
 w1_spirit = "not running in the template"

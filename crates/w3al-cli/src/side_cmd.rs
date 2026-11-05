@@ -54,6 +54,9 @@ fn print_completion(lib: &Library, c: &complete::Completion, verbose: bool) {
     for p in &c.picks {
         println!("   pick {}={}  ({}; {})", lib.blocks[p.block].short(), p.socket, p.why, lib.describe(p.block));
     }
+    for (b, s) in &c.decisions {
+        println!("   decision (only the quest reads it) {}={s}  ({})", lib.blocks[*b].short(), lib.describe(*b));
+    }
     println!("   steps {}, parked {}, facts [{}], removed [{}]", c.walk.steps, c.walk.auto_parked.len(), c.walk.facts.iter().filter(|(_, v)| **v > 0).map(|(k, v)| format!("{k}={v}")).collect::<Vec<_>>().join(" "), c.walk.removed_facts.join(" "));
     let j: Vec<String> = c
         .walk
@@ -71,8 +74,12 @@ fn print_completion(lib: &Library, c: &complete::Completion, verbose: bool) {
             println!("     wait {}", lib.describe(w.block));
         }
         for e in &c.walk.events {
-            if let Event::Assumed { block, socket, why } = e {
-                println!("     assumed {} -> {socket:?} ({why})", lib.describe(*block));
+            match e {
+                Event::Assumed { block, socket, why } => println!("     assumed {} -> {socket:?} ({why})", lib.describe(*block)),
+                Event::Fact { block, id, value } => println!("     fact {id} += {value}  ({})", lib.describe(*block)),
+                Event::Maybe { block, id, via } => println!("     maybe {id} ({via}; {})", lib.describe(*block)),
+                Event::Spawn { block, action } => println!("     spawn {action:?}  ({})", lib.describe(*block)),
+                _ => {}
             }
         }
     }
@@ -94,11 +101,30 @@ pub fn deny_files(lib: &Library, qb: Option<&Path>) -> BTreeSet<String> {
 
 /// `w3al side-complete`: auto-complete quests on a template (each from the result of the previous), print the
 /// walk, optionally write the save.
-pub fn side_complete_cmd(install: &Path, template: &Path, keys: &[String], out_dir: Option<&Path>, verbose: bool) -> Result<ExitCode> {
+pub struct CompleteArgs<'a> {
+    pub install: &'a Path,
+    pub template: &'a Path,
+    pub keys: &'a [String],
+    pub out_dir: Option<&'a Path>,
+    pub verbose: bool,
+    pub picks: &'a [String],
+    pub scene_picks: &'a [String],
+    pub stops: &'a [String],
+    pub allow_decision: bool,
+    pub stem: Option<&'a str>,
+    /// A save where a player did the quests (validation, as `side-check`).
+    pub check: Option<&'a Path>,
+}
+
+pub fn side_complete_cmd(a: &CompleteArgs) -> Result<ExitCode> {
+    let (install, template, keys, out_dir, verbose) = (a.install, a.template, a.keys, a.out_dir, a.verbose);
     let lib = Library::load_install(install).map_err(|e| anyhow!("{e}"))?;
     let idx = complete::QuestIndex::new(&lib).map_err(|e| anyhow!("{e}"))?;
-    let opts = complete::Options { deny_files: deny_files(&lib, None).into_iter().collect(), ..Default::default() };
+    let deny = if a.allow_decision { Default::default() } else { deny_files(&lib, None).into_iter().collect() };
     let mut doc = crate::graph_cmd::load_doc(template)?;
+    let tf0 = frontier::read(&doc).map_err(|e| anyhow!("{e}"))?;
+    let opts = complete::Options { deny_files: deny, check_consequences: !a.allow_decision, ..Default::default() }.with_picks(&lib, &tf0, a.picks, a.scene_picks, a.stops).map_err(|e| anyhow!("{e}"))?;
+    let played = a.check.map(crate::graph_cmd::load_doc).transpose()?;
     let mut done = 0;
     for key in keys {
         let Some(q) = idx.find(key).or_else(|| find_quests(&idx.quests, key).first().copied()) else {
@@ -114,6 +140,29 @@ pub fn side_complete_cmd(install: &Path, template: &Path, keys: &[String], out_d
                 match synth::apply(&lib, &c.walk, &doc) {
                     Ok((d, r)) => {
                         println!("   written: blocks -{} +{}, scopes -{} +{}, journal {} set {} appended, facts {}", r.removed_blocks.len(), r.added_blocks.len(), r.removed_scopes.len(), r.added_scopes.len(), r.journal.status_set, r.journal.appended, r.facts_set.len());
+                        if let Some(p) = &played {
+                            let k = complete::check(&lib, q, &c, &doc, &d, p).map_err(|e| anyhow!("{e}"))?;
+                            println!(
+                                "   check vs {}: {} root {:?}/{:?} journal {}/{}/{} facts {}/{}/{} (hit/miss/extra) phase ended {}/{} sets {}/{}",
+                                a.check.map(|p| p.display().to_string()).unwrap_or_default(),
+                                if k.hit() { "HIT" } else { "MISS" },
+                                k.root.0,
+                                k.root.1,
+                                k.journal.0,
+                                k.journal.1,
+                                k.journal.2,
+                                k.facts.0,
+                                k.facts.1,
+                                k.facts.2,
+                                k.scope_ended.0,
+                                k.scope_ended.1,
+                                k.community.0,
+                                k.community.1
+                            );
+                            for l in k.lines.iter().take(if verbose { 400 } else { 40 }) {
+                                println!("        {l}");
+                            }
+                        }
                         doc = d;
                         done += 1;
                     }
@@ -131,7 +180,7 @@ pub fn side_complete_cmd(install: &Path, template: &Path, keys: &[String], out_d
         let mut container = w3save::Container::read(&bytes)?;
         container.payload = doc.to_bytes();
         let b = container.write()?;
-        let stem = w3al_core::export::default_stem(template, out);
+        let stem = a.stem.map_or_else(|| w3al_core::export::default_stem(template, out), str::to_owned);
         let r = w3al_core::export::write_save_set_as(template, out, &stem, &b)?;
         println!("wrote {}", r.sav.display());
     }
@@ -276,8 +325,12 @@ pub fn gen_side_quests_cmd(a: &GenArgs) -> Result<ExitCode> {
         region: &'static str,
         act: u8,
         outcomes: BTreeMap<String, String>,
+        /// Decisions the walks passed whose branches differ only inside the quest (`block GUID=socket`).
+        auto_picks: BTreeSet<String>,
     }
     let mut rows: Vec<Row> = Vec::new();
+    // Quests refused for a decision with consequences: (act, kind, journal file), kept as order slots.
+    let mut reserved: Vec<(u8, SideKind, String)> = Vec::new();
     let mut skipped: BTreeMap<String, usize> = BTreeMap::new();
     let mut refused: BTreeMap<String, Vec<String>> = BTreeMap::new();
     // Per template: outcome label -> count.
@@ -308,23 +361,46 @@ pub fn gen_side_quests_cmd(a: &GenArgs) -> Result<ExitCode> {
         }
         let c = classify(&q.qtype, &q.group_name, &q.file, &home_file, q.world);
         let mut outcomes = BTreeMap::new();
+        let mut auto_picks = BTreeSet::new();
+        let mut consequence: Option<String> = None;
         for (id, _, d, f) in &temps {
             let o = match complete::complete(&lib, &idx, d, f, q, &opts) {
                 Ok(done) => match synth::apply(&lib, &done.walk, d) {
-                    Ok(_) => "ok".to_owned(),
+                    Ok(_) => {
+                        auto_picks.extend(done.decisions.iter().map(|(b, s)| w3graph::consequence::pick_key(&lib, *b, s)));
+                        "ok".to_owned()
+                    }
                     Err(e) => format!("write failed: {e}"),
                 },
                 Err(r) if r.kind == complete::Refusal::AlreadyDone => "done".to_owned(),
-                Err(r) => r.kind.label().to_owned(),
+                Err(r) => {
+                    if r.kind == complete::Refusal::Consequence && consequence.is_none() {
+                        consequence = Some(r.detail.clone());
+                    }
+                    r.kind.label().to_owned()
+                }
             };
             let key = if o.starts_with("write failed") { "write failed".to_owned() } else { o.clone() };
             *per_template.entry(id.clone()).or_default().entry(key).or_default() += 1;
             outcomes.insert(id.clone(), o);
         }
         if outcomes.values().any(|o| o == "ok") {
-            rows.push(Row { q: q.clone(), home: home_file, kind: c.kind, region: c.region, act: c.act, outcomes });
+            rows.push(Row { q: q.clone(), home: home_file, kind: c.kind, region: c.region, act: c.act, outcomes, auto_picks });
         } else {
-            let why = outcomes.values().find(|o| *o != "done").cloned().unwrap_or_else(|| "done on every template".into());
+            // A quest refused for its decision on any template is listed under that reason first.
+            let why = outcomes
+                .values()
+                .find(|o| *o == complete::Refusal::Consequence.label())
+                .or_else(|| outcomes.values().find(|o| *o != "done"))
+                .cloned()
+                .unwrap_or_else(|| "done on every template".into());
+            let name = match (&consequence, why == complete::Refusal::Consequence.label()) {
+                (Some(d), true) => {
+                    reserved.push((c.act, c.kind, q.file.clone()));
+                    format!("{name} [{d}]")
+                }
+                _ => name,
+            };
             refused.entry(why).or_default().push(name);
         }
     }
@@ -341,13 +417,21 @@ pub fn gen_side_quests_cmd(a: &GenArgs) -> Result<ExitCode> {
         SideKind::Fistfight => 7,
     };
     rows.sort_by(|x, y| (x.act, rank(x.kind), &x.q.file).cmp(&(y.act, rank(y.kind), &y.q.file)));
+    // A quest refused for its decision keeps its slot, so the orders of the others do not shift when the rule changes.
+    let mut slots: Vec<(u8, u32, String)> = rows.iter().map(|r| (r.act, rank(r.kind), r.q.file.clone())).collect();
+    slots.extend(reserved.iter().map(|(a, k, f)| (*a, rank(*k), f.clone())));
+    slots.sort();
     let mut seq: BTreeMap<(u8, u32), u32> = BTreeMap::new();
+    let mut order_of: std::collections::HashMap<String, u32> = std::collections::HashMap::new();
+    for (act, rk, file) in slots {
+        let n = seq.entry((act, rk)).or_insert(0);
+        *n += 1;
+        order_of.insert(file, u32::from(act) * 10_000 + rk * 1000 + *n);
+    }
     let mut ids: BTreeSet<String> = book.quests.iter().map(|q| q.id.clone()).collect();
     let mut files: Vec<(std::path::PathBuf, String)> = Vec::new();
     for r in &rows {
-        let n = seq.entry((r.act, rank(r.kind))).or_insert(0);
-        *n += 1;
-        let order = u32::from(r.act) * 10_000 + rank(r.kind) * 1000 + *n;
+        let order = order_of[&r.q.file];
         let mut id = side_id(&r.q.file);
         while ids.contains(&id) {
             id.push_str("_2");
@@ -368,6 +452,10 @@ pub fn gen_side_quests_cmd(a: &GenArgs) -> Result<ExitCode> {
             t.push_str(&format!("title_id = {tid}\n"));
         }
         t.push_str(&format!("fallback_title = \"{fallback}\"\njournal = \"{journal_key}\"\nphase = \"{}\"\ndone_effects = \"done\"\n", r.home));
+        if !r.auto_picks.is_empty() {
+            let list: Vec<String> = r.auto_picks.iter().map(|p| format!("\"{}\"", p.replace('"', "'"))).collect();
+            t.push_str(&format!("auto_picks = [{}]   # decisions the walk passed that only the quest itself reads: block GUID=socket taken\n", list.join(", ")));
+        }
         t.push_str("\n[templates]   # the generator's trial on each window template: ok | done | the refusal\n");
         for (k, v) in &r.outcomes {
             t.push_str(&format!("{k} = \"{}\"\n", v.replace('"', "'")));
@@ -494,6 +582,16 @@ pub fn find_quests<'a>(quests: &'a [JournalQuest], key: &str) -> Vec<&'a Journal
             g == k || (k.len() == 8 && g.starts_with(&k)) || q.base_name.to_ascii_lowercase().contains(&k) || q.file.contains(&k)
         })
         .collect()
+}
+
+/// `w3al fact-readers`: every reader of each fact (research for the consequence check).
+pub fn fact_readers_cmd(install: &Path, facts: &[String]) -> Result<ExitCode> {
+    let lib = Library::load_install(install).map_err(|e| anyhow!("{e}"))?;
+    for f in facts {
+        let r = w3graph::consequence::readers_of(&lib, f, 8);
+        println!("{f}: {}", if r.is_empty() { "read nowhere".to_owned() } else { r.join(", ") });
+    }
+    Ok(ExitCode::SUCCESS)
 }
 
 /// `w3al quest-info`: what the install says about a quest (journal entry, graph blocks that write it, their

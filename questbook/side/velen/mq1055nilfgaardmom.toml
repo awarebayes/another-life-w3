@@ -12,6 +12,7 @@ fallback_title = "quests/minor_quests/no_mans_land/quest_files/mq1055_nilfgaard_
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/c827bbbc74e3a74f8f40c13c77acd28c"
 phase = "quests/minor_quests/no_mans_land/quest_files/mq1055_nilfgaard_mom/phases/mq1055_quest_start.w2phase"
 done_effects = "done"
+auto_picks = ["09d19da08d92c64183d84ccda3072c58=mq1055_officer_out"]   # decisions the walk passed that only the quest itself reads: block GUID=socket taken
 
 [templates]   # the generator's trial on each window template: ok | done | the refusal
 w1_spirit = "ok"

@@ -12,6 +12,7 @@ fallback_title = "quests/minor_quests/skellige/mq2011_liar_and_a_thief"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/03795e1c6ccd6240b7f768c97f8a1223"
 phase = "quests/minor_quests/skellige/mq2011_liar_and_a_thief.w2phase"
 done_effects = "done"
+auto_picks = ["409b7e08803ac94ab4efc31de39abe9b=Fight"]   # decisions the walk passed that only the quest itself reads: block GUID=socket taken
 
 [templates]   # the generator's trial on each window template: ok | done | the refusal
 w1_spirit = "not running in the template"

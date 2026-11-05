@@ -12,6 +12,7 @@ fallback_title = "quests/sidequests/skellige/sq204_forest_spirit"
 journal = "a93885ce3a22194c955e802d55358928/f0f1f1ad7dd2c5418a25973353b69328"
 phase = "quests/sidequests/skellige/sq204_forest_spirit.w2phase"
 done_effects = "done"
+auto_picks = ["72905be9cc0f2c4382651a6414801771=defend_harald"]   # decisions the walk passed that only the quest itself reads: block GUID=socket taken
 
 [templates]   # the generator's trial on each window template: ok | done | the refusal
 w1_spirit = "not running in the template"

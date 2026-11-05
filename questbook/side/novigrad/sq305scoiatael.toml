@@ -12,6 +12,7 @@ fallback_title = "quests/sidequests/novigrad/sq305_scoiatael"
 journal = "a93885ce3a22194c955e802d55358928/3cfcfa6a9904d547a7d3216d4dc1300d"
 phase = "quests/sidequests/novigrad/sq305_scoiatael.w2phase"
 done_effects = "done"
+auto_picks = ["92af698b87517b4cb1fa09dd6fb83416=out betrayed"]   # decisions the walk passed that only the quest itself reads: block GUID=socket taken
 
 [templates]   # the generator's trial on each window template: ok | done | the refusal
 w1_spirit = "ok"

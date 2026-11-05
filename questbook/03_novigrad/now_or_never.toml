@@ -64,3 +64,28 @@ start = ["93ab3535"]
 through = true
 pick = ["d6a0ac74=geralt alone", "49c73015=False", "73b6b5f0=False"]
 stop = ["c96fa26f", "3aaf1ee5", "f41e2517"]
+
+# Late completion (templates.toml `late`): a player who did Now or Never before sailing to Skellige, on a Skellige
+# template that has not reached it (w4_undvik, pack 33: sq301 A Matter of Life and Death active, before Triss asks for
+# help; q309 not started). `w3graph::complete` walks sq301 to its Success (its end starts q309), then q309, each from the
+# previous result (w3al side-complete --allow-decision with the same picks). Shared answers: sq301 note dialogue
+# "ok" (ebdeb52d; else sq301_proceed_to_market stays unset and the dialogue loops), q309's "message from Triss" actor
+# condition False (0801a844, only False is wired), front door (27fb9936; "No" = refuse Triss), 49c73015 / 73b6b5f0 as in
+# the window walk; stops = ways the pack player did not take, so the policy routes around them: f9fc4999 "far from
+# Triss" (leaving her in the fight: q309_triss_refused), b805cba8 "away from the chase" and 3fd330a8 / c4b87652 /
+# 9ce43a37 / f5d86900 (Triss goes on alone: q309_abandon_triss_rescue). Checked against pack 43 (stay, much later):
+# sq301 journal hit/miss/extra 25/4/0, facts 22/12/10 (misses: the pack's optional card games, fist fight, masks);
+# q309 journal 21/0/2, facts 31/4/7 (misses: fight-or-talk variants with the fire guards). Not loaded in game.
+[effects.triss_stays.late]
+complete = ["a93885ce3a22194c955e802d55358928/32105cdf52d0cf43b1426705b0578c5e", "419f978ff624ed49a444903714632529/400c9506df5222448169c603f3b4d23f"]
+pick = ["d6a0ac74=triss returned", "0801a844=False", "27fb9936=Front_door", "49c73015=False", "73b6b5f0=False"]
+scene_pick = ["ebdeb52d=sq301_00a_ok", "fd10b44f=cs_sq301_geralt_triss_kiss_choice_kiss.w2cutscene"]
+stop = ["f9fc4999", "b805cba8", "3fd330a8", "c4b87652", "9ce43a37", "f5d86900"]
+
+# Same walk with `geralt alone`; the fountain kiss in sq301 (D7) is not taken (the other cutscene line: no
+# sq301_kissed_triss, sq301_after_romance_cs set).
+[effects.triss_leaves.late]
+complete = ["a93885ce3a22194c955e802d55358928/32105cdf52d0cf43b1426705b0578c5e", "419f978ff624ed49a444903714632529/400c9506df5222448169c603f3b4d23f"]
+pick = ["d6a0ac74=geralt alone", "0801a844=False", "27fb9936=Front_door", "49c73015=False", "73b6b5f0=False"]
+scene_pick = ["ebdeb52d=sq301_00a_ok", "fd10b44f=cs_sq301_geralt_triss_kiss_choice_kiss.w2cutscene(copy)"]
+stop = ["f9fc4999", "b805cba8", "3fd330a8", "c4b87652", "9ce43a37", "f5d86900"]

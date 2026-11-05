@@ -67,6 +67,12 @@ pub struct Template {
     /// quest -> reason: earlier quests whose answer cannot be rewritten on this template.
     #[serde(default)]
     pub fixed: BTreeMap<String, String>,
+    /// Quests of LATER windows this save has not reached but can complete late, with the player's answer, from
+    /// each option's `[effects.*.late]` table (a player who did them before the pack line did: Now or Never
+    /// before Skellige). A run that completes such a quest and stops at or before this template gets it here
+    /// (`Choice::late`) instead of losing it (`Choice::beyond`).
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub late: Vec<String>,
 }
 
 #[derive(Debug, Clone, Default, PartialEq, Eq, Serialize, Deserialize)]
@@ -152,6 +158,25 @@ impl Registry {
                             out.push(err(format!("template `{}`: `{q}.{c}` has no option `{o}`", t.id)))
                         }
                         _ => {}
+                    }
+                }
+            }
+            for q in &t.late {
+                let Some(quest) = book.get(q) else {
+                    out.push(err(format!("template `{}`: late names unknown quest `{q}`", t.id)));
+                    continue;
+                };
+                if self.line_of(q).is_none_or(|l| l <= t.line) {
+                    out.push(err(format!("template `{}`: late quest `{q}` is not a later window on the line", t.id)));
+                }
+                for c in &quest.choices {
+                    for o in &c.options {
+                        match o.effects.as_ref().map(|e| quest.effects.get(e)) {
+                            Some(Some(e)) if e.late.is_none() => {
+                                out.push(err(format!("template `{}`: late quest `{q}`: option `{}.{}` has no `[effects.*.late]` table", t.id, c.id, o.id)))
+                            }
+                            _ => {}
+                        }
                     }
                 }
             }
@@ -246,6 +271,10 @@ pub struct Choice {
     /// Quests the run completes or starts up to its stop point that come after the template on the
     /// line: they are not in the save (decide them in game).
     pub beyond: Vec<String>,
+    /// Quests of later windows the run completes that the template completes late (its registry `late` list),
+    /// with their `[effects.*.late]` tables, before the window's own quests.
+    #[serde(default)]
+    pub late: Vec<String>,
     /// Later templates passed over, with the reason (an earlier answer that cannot be rewritten there,
     /// or the file is missing).
     pub passed_over: Vec<String>,
@@ -347,20 +376,23 @@ pub fn choose(book: &Questbook, reg: &Registry, run: &Run, find: &dyn Fn(&Templa
             continue;
         }
         let applied: Vec<String> = book.quests.iter().filter(|q| t.quests.contains(&q.id) && q.order <= stop_order).map(|q| q.id.clone()).collect();
-        let beyond: Vec<String> = book
+        let (late, beyond): (Vec<String>, Vec<String>) = book
             .quests
             .iter()
             .filter(|q| q.order <= stop_order && run.quests.get(&q.id).is_some_and(|e| e.status != Status::Skipped))
             .filter(|q| reg.line_of(&q.id).is_some_and(|l| l > t.line))
             .map(|q| q.id.clone())
-            .collect();
+            .partition(|q| t.late.contains(q) && run.quests.get(q).is_some_and(|e| e.status == Status::Completed));
         let mut notes = Vec::new();
+        for q in &late {
+            notes.push(format!("{q}: not reached on this template; completed late with the run's answer ([effects.*.late])"));
+        }
         for b in &baked {
             if b.action == Baked::Unchecked && run.quests.contains_key(&b.quest) {
                 notes.push(format!("{}: the template's answer is not recorded; the save keeps whatever the template holds", b.quest));
             }
         }
-        return Ok(Choice { template: t.clone(), path, applied, baked, beyond, passed_over, notes });
+        return Ok(Choice { template: t.clone(), path, applied, baked, beyond, late, passed_over, notes });
     }
     Err(format!(
         "no registered template fits this run (stop at `{stop}`, line {stop_line}){}",
@@ -469,6 +501,42 @@ line = 4
         assert_eq!((c.template.id.as_str(), c.passed_over.len()), ("ta", 2));
         let none = |_: &Template| None;
         assert!(choose(&book(), &reg(), &run("c", "a1", "b1"), &none).is_err());
+    }
+
+    #[test]
+    fn a_late_quest_of_a_later_window_is_completed_on_the_earlier_template() {
+        let all = |t: &Template| Some(PathBuf::from(format!("{}.sav", t.stem)));
+        let mut r = reg();
+        r.templates[1].late = vec!["c".into()];
+        // b fixed on tc: tb is chosen and c, a later window, is completed late there instead of being lost.
+        let c = choose(&book(), &r, &run("c", "a1", "b2"), &all).unwrap();
+        assert_eq!(c.template.id, "tb");
+        assert_eq!(c.late, ["c"]);
+        assert!(c.beyond.is_empty(), "{:?}", c.beyond);
+        // A quest the run does not complete is not completed late.
+        let mut skip = run("c", "a1", "b2");
+        skip.quests.get_mut("c").unwrap().status = Status::Started;
+        let c = choose(&book(), &r, &skip, &all).unwrap();
+        assert!(c.late.is_empty() && c.beyond == ["c"], "{:?} {:?}", c.late, c.beyond);
+        assert!(r.lint(&book()).iter().all(|d| !d.is_error()), "{:?}", r.lint(&book()));
+        // Lint: a late quest must be a later window, and every option effect needs a `late` table.
+        r.templates[1].late = vec!["a".into(), "zz".into()];
+        let errs: Vec<String> = r.lint(&book()).into_iter().filter(|d| d.is_error()).map(|d| d.message).collect();
+        assert!(errs.iter().any(|m| m.contains("`a` is not a later window")), "{errs:?}");
+        assert!(errs.iter().any(|m| m.contains("late names unknown quest `zz`")), "{errs:?}");
+        let mut b = book();
+        let e = crate::Effect { source: "t".into(), facts: [("f".to_owned(), 1)].into(), ..Default::default() };
+        let q = b.quests.iter_mut().find(|q| q.id == "c").unwrap();
+        q.choices = vec![crate::questbook::Choice {
+            id: "z".into(),
+            prompt: "?".into(),
+            default: "z1".into(),
+            options: vec![ChoiceOption { id: "z1".into(), text: "t".into(), effects: Some("e".into()) }],
+        }];
+        q.effects.insert("e".into(), e);
+        r.templates[1].late = vec!["c".into()];
+        let errs: Vec<String> = r.lint(&b).into_iter().filter(|d| d.is_error()).map(|d| d.message).collect();
+        assert!(errs.iter().any(|m| m.contains("option `z.z1` has no `[effects.*.late]` table")), "{errs:?}");
     }
 
     #[test]

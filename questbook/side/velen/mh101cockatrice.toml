@@ -12,6 +12,7 @@ fallback_title = "quests/generic_quests/no_mans_land/mh101_cockatrice"
 journal = "dd4652d4e3db404a939f1e88b285eb20/4d43dbae23548c4398d8a76194f8c96d"
 phase = "quests/generic_quests/no_mans_land/mh101_cockatrice.w2phase"
 done_effects = "done"
+auto_picks = ["bfc708cb5ba74543a995dcec4ff4f7c2=End"]   # decisions the walk passed that only the quest itself reads: block GUID=socket taken
 
 [templates]   # the generator's trial on each window template: ok | done | the refusal
 w1_spirit = "ok"

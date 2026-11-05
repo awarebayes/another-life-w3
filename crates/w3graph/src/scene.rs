@@ -259,7 +259,14 @@ impl Scene {
     /// The output node a quest output socket stands for.
     pub fn output(&self, socket: &str) -> Option<usize> {
         let want = socket.trim();
-        self.outputs.iter().copied().find(|o| self.nodes[*o].name == want).or_else(|| if self.outputs.len() == 1 { self.outputs.first().copied() } else { None })
+        self.outputs
+            .iter()
+            .copied()
+            .find(|o| self.nodes[*o].name == want)
+            .or_else(|| if self.outputs.len() == 1 { self.outputs.first().copied() } else { None })
+            // The quest side names the default output `Output` / `Out` (context dialogs: `sq301_00a_triss_about_note`
+            // has outputs "" and "triss_refused", its block sockets "Output" and "triss_refused"); take the unnamed one.
+            .or_else(|| if matches!(want, "Output" | "Out") { self.outputs.iter().copied().find(|o| self.nodes[*o].name.is_empty()) } else { None })
     }
 
     /// Facts set when the scene is played from `input` to `output`. `picks` names sections (the
@@ -421,6 +428,18 @@ mod tests {
         let o = s.outcome("", "", &["km".into()], &|_| None).unwrap();
         assert_eq!(o.certain, vec![add("invited"), add("both")]);
         assert!(o.maybe.is_empty() && o.choices.is_empty());
+    }
+
+    #[test]
+    fn the_default_output_socket_names_the_unnamed_scene_output() {
+        // Two outputs, "" and "refused" (sq301_00a_triss_about_note): the block's `Output` socket is the unnamed one.
+        let mut s = letho_like();
+        s.nodes.push(node("CStorySceneOutput", "refused", vec![], vec![]));
+        s.outputs.push(8);
+        assert_eq!(s.output("Output"), Some(7));
+        assert_eq!(s.output("Out"), Some(7));
+        assert_eq!(s.output("refused"), Some(8));
+        assert_eq!(s.output("other"), None);
     }
 
     #[test]

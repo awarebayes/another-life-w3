@@ -12,6 +12,7 @@ fallback_title = "quests/minor_quests/skellige/mq2024_curse_of_the_arena"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/8735c8c8c0ca2a4db5851ae4e8daf1a9"
 phase = "quests/minor_quests/skellige/mq2024_curse_of_the_arena.w2phase"
 done_effects = "done"
+auto_picks = ["4b58b5e3ac8168479eabb84e4c2ccf90=FinishNOQuest"]   # decisions the walk passed that only the quest itself reads: block GUID=socket taken
 
 [templates]   # the generator's trial on each window template: ok | done | the refusal
 w1_spirit = "not running in the template"

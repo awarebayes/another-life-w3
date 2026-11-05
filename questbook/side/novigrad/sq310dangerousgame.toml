@@ -12,6 +12,7 @@ fallback_title = "quests/sidequests/novigrad/sq310_dangerous_game"
 journal = "a93885ce3a22194c955e802d55358928/a71caa4e62179148b0e0849c54f1a22e"
 phase = "quests/sidequests/novigrad/sq310_dangerous_game.w2phase"
 done_effects = "done"
+auto_picks = ["50d86a9c9e5a5549997b95164cd63ee1=sq310_Output", "b77eb769d3db064aa1cf7f91b6217f1b=help", "ceec8752b1b9264d8b4ac6b03b440c3e=01e_blend_Output"]   # decisions the walk passed that only the quest itself reads: block GUID=socket taken
 
 [templates]   # the generator's trial on each window template: ok | done | the refusal
 w1_spirit = "ok"

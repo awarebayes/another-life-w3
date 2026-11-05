@@ -597,7 +597,7 @@ pub struct StoryExport {
 }
 
 fn needs_graphs(res: &Resolution, choice: &Choice) -> bool {
-    choice.rewrites().next().is_some() || res.effects.iter().any(|a| a.effect.has_synth())
+    choice.rewrites().next().is_some() || !choice.late.is_empty() || res.effects.iter().any(|a| a.effect.has_synth())
 }
 
 /// Load the quest graphs from `opts.game_dir` (the same check as `export::load_graphs`).
@@ -623,6 +623,17 @@ pub type StoryBytes = (Vec<u8>, Vec<String>, Vec<WindowRewrite>);
 /// window's quests on the result. `lib` = the quest graphs when already loaded.
 pub fn build_story(src: &Sources, run: &Run, choice: &Choice, template: &[u8], lib: Option<&Library>) -> Result<StoryBytes, ExportError> {
     let mut res = resolve_only(src.book, run, |q| choice.applied.contains(&q.id));
+    // Quests of later windows the template completes late (`Template::late`) go first: in the player's story they
+    // came before this window (Now or Never before Skellige).
+    if !choice.late.is_empty() {
+        let late = resolve_only(src.book, run, |q| choice.late.contains(&q.id));
+        if late.has_errors() {
+            res.diagnostics.extend(late.diagnostics);
+        } else {
+            let effects = crate::synth_effect::late_effects(late.effects).map_err(ExportError::Invalid)?;
+            res.effects.splice(0..0, effects);
+        }
+    }
     // The side quests the run completes go on after the window's quests (`crate::side`), on the chosen template.
     res.effects.extend(crate::side::resolve(&src.book.side, run));
     let owned;
@@ -677,7 +688,7 @@ pub fn export_story(src: &Sources, run: &Run, out_dir: &Path) -> Result<StoryExp
         return Err(ExportError::Verify(format!("{} on disk differs from the verified bytes; do not use it", result.sav.display())));
     }
     result.notes = notes;
-    result.effects_applied = rewrites.len() + resolve_only(src.book, run, |q| choice.applied.contains(&q.id)).effects.len();
+    result.effects_applied = rewrites.len() + resolve_only(src.book, run, |q| choice.applied.contains(&q.id) || choice.late.contains(&q.id)).effects.len();
     Ok(StoryExport { choice, rewrites, result })
 }
 

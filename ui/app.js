@@ -253,7 +253,7 @@ function nav() {
   const items = pendingItems();
   const kit = S.run.start_kit || {};
   const kitText = [kit.level != null ? t('kit.sum.level', { n: kit.level }) : null, kit.crowns != null ? t('kit.sum.crowns', { n: kit.crowns }) : null,
-    kit.gear === 'recommended' ? t('kit.sum.supplies') : null].filter(Boolean).join(', ');
+    kit.gear === 'recommended' ? t('kit.sum.supplies') : null, kit.new_game_plus === false ? t('kit.sum.ngplus') : null, kit.skill_points != null ? t('kit.sum.skill', { n: kit.skill_points }) : null].filter(Boolean).join(', ');
   document.getElementById('body').classList.toggle('no-ledger', S.screen === 'welcome' || S.screen === 'safety');
   document.getElementById('ledger').replaceChildren(
     h('div', { class: 'ledger-head' }, h('h3', null, t('ledger.title')),
@@ -897,10 +897,18 @@ function startKitCard(stopQuest) {
       h('div', { class: 'field' }, h('span', { class: 'lab' }, t('kit.crowns')),
         stepper('crowns', 0, 999999, t('kit.keep'), 100, 0),
         h('span', { class: 'was' }, t('kit.crowns.keep'))),
+      h('div', { class: 'field' }, h('span', { class: 'lab' }, t('kit.skill')),
+        stepper('skill_points', 0, 300, t('kit.keep'), 1, kit.level ? kit.level - 1 : 0),
+        h('span', { class: 'was' }, kit.level ? [t('kit.skill.level', { lvl: kit.level, n: kit.level - 1 }), h('button', { class: 'link', onclick: () => { set('skill_points', kit.level - 1); review(); } }, t('kit.use'))] : t('kit.skill.keep'))),
       h('div', { class: 'field' }, h('span', { class: 'lab' }, t('kit.supplies')),
         h('select', { 'aria-label': t('kit.supplies'), onchange: ev => { set('gear', ev.target.value); nav(); } },
           h('option', { value: 'none', selected: !kit.gear || kit.gear === 'none' }, t('kit.keepasis')),
-          h('option', { value: 'recommended', selected: kit.gear === 'recommended' }, t('kit.recommended'))))));
+          h('option', { value: 'recommended', selected: kit.gear === 'recommended' }, t('kit.recommended')))),
+      // Every shipped template comes from a New Game+ playthrough (docs/findings/new-game-plus.md).
+      h('div', { class: 'field' }, h('span', { class: 'lab' }, t('kit.ngplus')),
+        h('label', { class: 'check' }, h('input', { type: 'checkbox', checked: kit.new_game_plus === false,
+          onchange: ev => { set('new_game_plus', ev.target.checked ? false : null); nav(); } }), t('kit.ngplus.off')),
+        h('span', { class: 'was' }, t('kit.ngplus.note')))));
 }
 
 // ---------------------------------------------------------------- export

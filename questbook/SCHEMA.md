@@ -213,6 +213,23 @@ wait; the save's own fact listeners fire, and one whose run meets a point the wa
 * Lint: `complete` is `GROUP/QUEST` or `QUEST` (32 hex digits each) and stands alone (no `start` / `pick` / `stop` /
   `scene_pick`). Check a quest with `w3al side-complete --install <game> --template <save> <key>`.
 
+#### Late completion (`[effects.*.late]`)
+
+```toml
+[effects.triss_leaves.late]          # the same answer, completed on a LATER template that has not reached the quest
+complete   = ["<sq301 GROUP/QUEST>", "<q309 GROUP/QUEST>"]   # auto-completed in order (a prerequisite first)
+pick       = ["d6a0ac74=geralt alone"]                        # the player's answer: forced outputs
+scene_pick = ["ebdeb52d=sq301_00a_ok"]                        # forced dialogue lines
+stop       = ["f9fc4999"]                                     # waits the player did not take (the policy routes around)
+```
+
+A decision quest whose window template lies later on the line than where the player did it (Now or Never before
+Skellige) is completed late on the earlier template when that template lists it in its registry `late` list. Each quest
+of `complete` runs the auto-complete walk above with the decision-catalogue refusal lifted and the forced answers taken;
+the effect's own `facts` / journal tables apply after the last quest; `synth` / `graph` (the window's own walk) are not
+used. Every option effect of a `late` quest needs this table (lint). Try the walk first with `w3al side-complete --install
+<game> --template <save> --allow-decision --pick ... --scene-pick ... --stop ... --check <played save> KEY...`.
+
 ## Side quests (`questbook/side/`)
 
 Generated, one file per quest without a consequence the player chooses (side quests, contracts, treasure and scavenger
@@ -232,6 +249,7 @@ fallback_title = "quests/minor_quests/no_mans_land/mq1001_wolves_and_dogs"   # i
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/8ce50f9eee92164cade1edae10fe019b" # journal root GROUP/QUEST
 phase = "quests/minor_quests/no_mans_land/mq1001_wolves_and_dogs.w2phase"   # the quest's graph file
 done_effects = "done"
+auto_picks = ["8d9e369d....=out hanna missing"]   # optional: see "Consequence check" below (block GUID=socket the walk takes)
 [templates]                                 # the generator's trial per window template: ok | done | refusal
 w4_undvik = "ok"
 [effects.done]
@@ -246,6 +264,28 @@ complete = "67e5afe3ceb5c148a9cde5c4a99c7a84/8ce50f9eee92164cade1edae10fe019b"
 * The generator skips the expansions (out of v1), demo / test quests and the quests whose graph the decision questbook
   already walks, and refuses decision quests; a quest is written when the walk finishes it on at least one registered
   window template.
+
+### Consequence check (`w3graph::consequence`)
+
+Only quests *without consequences* are marked done automatically. The generator and the `complete` walk (export,
+`side-complete`) refuse a quest with the reason "has a decision with consequences" when its walk passes a player
+decision, i.e. a dialogue block (scene or interaction dialog) of the quest's own region with two or more connected
+output sockets, and the branches behind those sockets differ in something the game reads elsewhere:
+
+* a fact set on one branch only (by a fact block, or by the scene on the way to that output) is read outside the
+  quest: by a pause or condition block of a graph file that is not one of the quest's files, by a flow condition of a
+  scene the quest does not play, by a script (`FactsQuerySum("id")`, `FactsQuery`, `FactsDoesExist`) or by a spawn set
+  the quest does not switch (a name mention); or
+* the branches end with different journal outcomes that matter: an entry that is Failed on one branch and not on
+  another, or any difference in the quest's root entry; or
+* an in-scene choice line (inside the `.w2scene`, which the walker does not pick) sets a fact read outside the quest.
+
+Trivial decisions stay allowed: cosmetic dialogue, routes that converge, differences only the quest itself reads.
+Such a decision whose branches still differ in facts or alternative Success entries is listed in `auto_picks` as
+`block GUID=socket` (the form `w3al side-complete --pick` takes), so the UI can show what the walk chose for the
+player. Not considered: rewards, spawn-set differences between branches, facts a script builds from strings,
+conditions other than facts. Evidence for a fact: `w3al fact-readers --install <game> FACT...`. A quest completed
+with the player's own answers (`decision` completions, `side-complete --allow-decision`) skips the check.
 
 ## Effect rules (all quests)
 
@@ -270,6 +310,7 @@ stem   = "ManualSave_4dcef_7ea51000_400b253"   # file stem, no folders
 line   = 54                                     # position on the template line (pack save number)
 quests = ["child_of_the_elder_blood"]           # the window: quests whose effects apply on this save
 source = "pack 54, 5.01 re-save"
+late   = []                                     # quests of LATER windows this save completes late ([effects.*.late])
 [template.encodes]                              # earlier quests this save already holds, with the answers
 get_junior = { junior = "kill" }
 ugly_baby  = {}                                 # done, no choices
@@ -294,6 +335,10 @@ note  = "pack 12 has no 5.01 re-save"
   player's differing answers and whose file is found. Earlier answers that differ and are not `fixed` are rewritten after
   the fact (facts, journal, live quest-graph state; measured on their own window template, so that template's file is
   needed too). `w3al chain-plan --run R` prints the choice.
+* `late`: a quest of a later window that the run completes is normally lost on an earlier template (`beyond`); listed in
+  `late`, it is completed there with the run's answer from its `[effects.*.late]` tables, before the window's own quests
+  (edit mode offers it as `late` on a save sitting at that template). Lint: a known quest, later on the line, with a
+  `late` table on every option effect.
 
 ## Licensing of images
 

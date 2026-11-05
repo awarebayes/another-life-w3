@@ -12,6 +12,7 @@ fallback_title = "quests/generic_quests/card_minigame_all_hubs/cg_card_minigame_
 journal = "e86908f500b7a546ba27ba7308686314/1b770cff62907f46b16751e2604f1e00"
 phase = "quests/generic_quests/card_minigame_all_hubs/cg_card_minigame_meta.w2phase"
 done_effects = "done"
+auto_picks = ["ad97faa7c2fa0742bdd403d1eec05597=Progress"]   # decisions the walk passed that only the quest itself reads: block GUID=socket taken
 
 [templates]   # the generator's trial on each window template: ok | done | the refusal
 w1_spirit = "ok"

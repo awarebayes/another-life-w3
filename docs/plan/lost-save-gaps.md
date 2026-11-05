@@ -1,0 +1,111 @@
+# Lost-save rebuild: gaps from White Orchard to early Skellige
+
+Date 2026-11-06. Read-only audit, no code or save changed. Use case: a player lost a save and wants it rebuilt as "White
+Orchard, Velen, every Novigrad quest below level 16, just arrived in Skellige, level 18, about 17k crowns". The user's rebuild:
+template `w4_undvik` (pack 33, `ManualSave_8c0ab_7ea51000_3f73208`), `w3al side-complete` for 28 quests, `w3al edit --level
+--crowns --gear recommended`, result `C:\w3-out\my_skellige\final\ManualSave_8c0ab_7ea51000_4f51969.sav`.
+
+Evidence labels: **[save]** read with `w3al facts` / `journal` / `character` / `tree` on the template and the result,
+**[script]** read in `content0/scripts/game` of the install, **[doc]** a repo file, **[inferred]** reasoning, **[hypothesis]**
+needs the game. "Settable today" means a questbook choice or CLI flag exists and its export path is verified offline; nothing in
+this document has been loaded in game unless it says so.
+
+## What the result save actually is [save]
+
+* It is pack 33 plus 116 facts and 28 journal quests from `side-complete`, and nothing else. `w3al facts <final> --diff <template>`
+  shows 116 facts added, 0 other changes; level, crowns and kit are character data, not facts.
+* Journal (1996 entries): `q203him`, `q205lofoten`, `giant` (The Lord of Undvik) and `sq301triss` (A Matter of Life and Death) are
+  Active, `q309novigradundercontrol2` is Inactive; `q309mages` (Now or Never), `sq202yen` (The Last Wish), `q206`, `q402` are absent.
+  Facts `q309_*`, `sq202_*`, `q206_*`, `q110_*`, `mq3035_*`, `sq301_kissed_triss` are not in the save. So the player is mid-Skellige
+  main story (Possession and Lofoten open, Undvik giant waiting), not "just arrived".
+* `worldInfo > world` = `levels\novigrad\novigrad.w2w` and `LoadingScreenName` = `map_location_novigrad` [save]. The template
+  was parked in the Velen / Novigrad / No Man's Land world, so Geralt loads there, not in Skellige. [inferred from the
+  strings; the position was not looked at in game.]
+* `NewGamePlus = 1`, `FinalNewGamePlusLevel = 53`, `simulate_import_ingame`, `import_letho_alive`, `import_geralt_rescued_triss`,
+  `import_sheala_alive`, `import_council_exists` [save] (Witcher 2 import facts, out of v1: `research.md` checklist "Witcher 2 import").
+* Character [save]: level 18, XP 21000, skill points free 33 / used 0 (the template had level 75, free 90, used 0; the level table
+  grants 17 up to level 18, so 16 extra points from the NG+ pool stay), 678 item records (`next uid 9753`), 17000 crowns.
+
+## What NG+ does in scripts [script]
+
+`FactsQuerySum("NewGamePlus") > 0` is read in:
+* `gameplay/leveling/levelManager.ws:234-245`: double XP below level `50 + (FinalNewGamePlusLevel - 30)` = 73 here.
+* `gui/menus/journalQuestMenu.ws:578-580`, `gui/hud/modules/hudModuleQuests.ws:526-528`: every quest level shown to the player is
+  raised by `FinalNewGamePlusLevel` (53). A level-18 character sees level-60 to 70 quests. This is the "quest-level table" hole.
+* `gameplay/damage/damageManagerProcessor.ws:2915`: all damage to Geralt x1.1; `:2880` fistfight multiplier doubled.
+* `components/inventoryComponent.ws:375-398, 4440-4446, 4503-4626`: autogen (looted) gear levels are pushed up by 53; item level
+  requirements in `r4guimanager.ws:1777`, `craftingMenu.ws:561` shift too.
+Whether monster levels scale with it is not shown in these scripts (enemy levelling lives in the quest/spawn data): [hypothesis].
+
+## Table
+
+Columns: hole | today | why | fix idea | cost | needs in-game test. "Template-fixed" cites `questbook/templates.toml`.
+
+### A. Main and secondary decisions
+
+| Hole | Today | Why | Fix idea | Cost | In-game test |
+| --- | --- | --- | --- | --- | --- |
+| Whispering Hillock (release or destroy) | **Fixed** to destroy | `templates.toml` `w4_undvik` `[template.fixed]`: "the Baron finale (q107_swamps, pack 10 -> 11) already played the spirit's outcome"; facts `q105_evil_spirit_destroyed`, `q107_anna_is_crazy`, `q107_burrows_hanged` in the save [save]. Two donors exist (`session_V1`) and the rewrite is proven offline on W1 pairs only | Build the Velen part on T_spirit (pack 8) and chain forward: needs every later window (Keira, Letho, Junior, Undvik, Skellige-side quests) replayed on a pack-8 base. The story-chain does it for the full line, but then Novigrad and Skellige quests are "beyond". Cheaper: rewrite on pack 33 with the `chain.rs` delta (graph swap of the Baron finale already played, so not live: facts+journal only), accept that Anna / Baron scenes are not replayed | Hard (design) | Yes |
+| Baron and Anna outcome (hanged himself / Anna a monster vs crazy / burrows hanged) | **Fixed** (derived from the spirit) | Same as above: `q107_swamps` reads only the spirit (`decision-catalogue.md` section 2, "Velen finale") | Same as the spirit | Hard | Yes |
+| Botchling (bury / kill / lubberkin) | **Missing** (`family_matters.toml` has no choices); template holds `q103_buried_botch` [save] | `research.md` triage item 5: "needs a save inside Family Matters before the ritual"; pack 6 -> 7 pair exists but the greedy walk stops at `89a71b6b` | Get a 5.01 re-save of pack 6 / 7 (human, 5 min) or a mid-quest save; then a fact+journal rewrite like `chain.rs` (read only in `q103_daughter` and the `sq108` despawn phase [doc catalogue section 5], so a late rewrite is plausible) | Medium + a human re-save | Yes |
+| Keira's night (A Favor for a Friend: night / dinner / no date) | **Fixed** to night | `templates.toml` `a_favor_for_a_friend` fixed: "no 5.01 save of pack 12"; `sq101_keira_had_sex`, `sq101_sex_with_keira` in the save [save]. The questbook file `a_favor_for_a_friend.toml` has `dinner` / `no_date` walks (graph only) but no window template | Human re-save of pack 12 under 5.01 (research triage item 4), then register `w2a_date`; "no date" is `Out_no_date` walk, not wired (item 17) | Medium + human re-save | Yes |
+| For the Advancement of Learning (Keira to KM / Radovid / dead) and Ghosts of the Past (Letho) | **Settable but unknown on the user's save**: `edit-plan` says `unknown` for both (pack 33 holds `q109_keira_to_km`, `sq102_helped_letho` [save]) | Registry `encodes` for `w4_undvik` says `keira=kaer_morhen`, `letho=kaer_morhen`; `edit-plan` read them as "no answer combination of the window exports" because the output stem is not a registry stem. Letho abandoned is fixed from pack 21 on | Make `edit-plan` fall back to the nearest registered template by content (pack 33 + side facts), or keep the stem lookup through `side-complete` | Easy | No |
+| A Towerful of Mice (Anabelle: help / graham / later) | **Fixed** to Graham (facts `q106_graham_kissed`, `q106_graham_to_morowa` [save]) | `questbook/02_velen/a_towerful_of_mice.toml` walks exist but the window template is pack 11 old-gen, no 5.01 re-save (`research.md` item 4); `edit-plan`: "untracked ... not recorded on later templates" | Human re-save of pack 11, register the window, rewrite on later templates by fact+journal delta | Medium + human | Yes |
+| Carnal Sins (Nathaniel) | **Fixed** to not guilty + killed anyway (`q308_nath_not_guilty`, `q308_nath_killed`, `q308_nathanel_killed` [save]) | `carnal_sins.toml`, same reasons, pack 29 old-gen | Human re-save of pack 29 | Medium + human | Yes |
+| Carnal Sins suspect and Priscilla's fate (`q308_priscila_healed`, `q308_prisc_inv`) | **Fixed**, no questbook option | Only the Nathaniel scene is a choice in `carnal_sins.toml` | Read the rest of the quest's graph exits with `synth-walk`; low consequence | Easy | No |
+| Get Junior (kill / spare) | **Settable on the template** (`get_junior.junior`, `edit-plan` "rewrite") but pack 33 holds `kill` (`q302_whoreson_dead` [save]) | Window w3_junior, rewritable 33-51 (`story-chain.md` section 3) | Already works; verify in game that sparing keeps Dudu / Ciri scenes sane | Done | Yes (the rewrite chain was never loaded) |
+| Triss kiss (A Matter of Life and Death, `sq301_kissed_triss`) | **Missing, quest left Active** | Journal `sq301triss` is Active in the template [save]; the fact is a scene fact (`catalogue` D7, "fold into D8"), no questbook file; level 12 so the player expects it done | New questbook quest `a_matter_of_life_and_death` with a walk of `sq301_dawn_estate.w2phase` scenes `6397221b` / `fd10b44f` from the Active frontier (the quest is already running, so the walker needs no new template); `side-complete --allow-decision --pick` can finish it today with the kiss unset | Medium | Yes (kiss fact is read in q309 scenes only) |
+| Now or Never (Triss stays / goes) | **Missing: not done on this save**, and not settable here | `now_or_never.toml` window is pack 42 (`w5_romance`), which is after Skellige act 2 (Cerys crowned) on the one pack line. `chain-plan` calls it "beyond" for a pack-33 stop. `edit-plan` instead prints it as `done` ("= go") because it misreads the save (see "edit-plan misreads" below) | Walk `q309_casablanca` on pack 33 with `side-complete --allow-decision` (never-started quests work: gate F), forcing `triss`; make the questbook emit that walk when the template line is earlier than the quest's window (a reverse-chain mode) | Medium-Hard | Yes (frontier states of q309 hubs on a pack-33 world) |
+| The Last Wish (Yennefer: love / friends) | **Missing** (same cause) | Window pack 42; `sq202yen` journal absent [save]. Level 15 | Same as Now or Never; also D9 facts `sq202_yen_girlfriend` / `sq202_yen_just_friends` | Medium-Hard | Yes |
+| Triss / Yennefer romance flags together | **Missing** | Both read at the ending boards and q504/q505; setting them early (before q309 played) is not needed for the early-Skellige save but the quests that read them later would mismatch | Decide the rule: a rebuild stopping before act 3 sets nothing beyond the quests the player did | Design | No |
+| Dandelion line (Broken Flowers, Poet Under Pressure, Cabaret, Priscilla's Song) | **Fixed**: all Success in the template (`q304dandelion`, `q305lookingfordandelion`, `q305theplay`, `sq303brothel`) [save] | Not decisions in the questbook; no consequence fact is read before act 3 (catalogue has none) | None needed unless a consequence is found; document that these are the pack's | None | No |
+| Count Reuven's Treasure (`q303treasure`) and Novigrad Dreaming (`q301dreamer`) | **Fixed**: Success in the template [save] | `q303treasure` is Dijkstra's reveal; no questbook choice, no catalogue decision | Same | None | No |
+| Gwent (quests and `gwent_difficulty`) | `gwent_difficulty` **settable** (`w3al edit-fact`, proven in game, `research.md` gate D); Gwent quests `cgnovigrad`, `cgnomansland`, `cginnkeepers`, `cgoldfriends`, `cgskellige` already Success in the template [save] | Pack state | Expose difficulty and a "Gwent quests done" tick in the UI; cards live in the inventory (not inspected) | Easy | No (difficulty already proven) |
+| Lord of Undvik / Vigi / Folan | **Fixed** (template is parked at the window; the quest is Active) | `lord_of_undvik.toml`: Folan walks, Vigi dead; Vigi saved "not expressible" (race, `research.md` item 5) | Not a rebuild gap for "just arrived"; it is a position problem, see below | n/a | n/a |
+
+### B. Side quests and notable outcomes
+
+| Hole | Today | Why | Fix idea | Cost | In-game test |
+| --- | --- | --- | --- | --- | --- |
+| Wild at Heart (`sq104werewolf`) | **Addressed 2026-11-06 (no longer decided silently): refused by the consequence check** (`w3graph::consequence`; the file is gone from `questbook/side`, export refuses it too). Still missing as a choice: promote it to a decision file so the player can pick | Before: `side-complete sq104werewolf` picks `out hanna missing`, `out accept`, `out of quest`, `In cave? = True` and writes `sq104_helped_margaret`, `sq104_lied`, `sq104_niellen_dead` [save, run on the template]. The quest is a three-outcome choice (Niellen / Margaret / Hanna), but the generator treats it as a "done" side quest | Promote to a decision file under `02_velen`, forced picks via `--pick` / `--scene-pick` exposed as questbook choices; audit the other 97 generated quests for the same (`gen-side-quests` only refused the 11 listed in `DECISION_FILES`; the audit is now the generator's rule, 10 quests dropped, see research.md) | Medium | Yes |
+| The other decision-bearing generated side quests (e.g. `mq1013` The Pretender, `mq1015`, `mq3031`, `mq3037`, `mq3017`, `mq1020`, `mq1045`) | **Partly addressed 2026-11-06**: a decision whose branches differ in a fact read outside the quest or in a Failed objective is refused (10 quests: mh201, mh303, mq1023, mq1051, mq2012, mq2030, q203him, q205herbarium, q309 under control 2, sq104); decisions that only the quest itself reads stay and are listed as `auto_picks` in their TOML (32 quests), not yet shown in the UI. The ones named here (mq1013, mq1015, mq1020, mq1045 ...) pass the rule: either the other outputs only fail or abandon the quest (mq1015, mq1020, mq1045: a quest the player marks completed never takes them) or nothing outside the quest reads the difference (mq1013 is listed in `auto_picks`) | `w3al side-complete` prints its picks but the UI never shows them; `Side quests` page just ticks "done" (`README.md` features) | Show the picks in the export report and let the player override per quest; at least list "outcome chosen by the tool" | Easy (report) / Medium (override) | Yes for any override |
+| Side quests the generator refuses (171 of 415) | **Missing** | `research.md` item 6: 90 no graph (script journals, scavenger notes, POIs, races), 36 not running on any template, 17 no route to Success, 11 decision quests, 5 unresolved, 1 phase running. A level <= 16 non-DLC scan of the journal [save] shows about 60 absent or not Success, including Velen / Novigrad ones such as Thou Shalt Not Pass, Lynch Mob, A Greedy God, Haunted House, Novigrad Closed City, A Walk on the Waterfront, Flesh for Sale, The Things Men Do For Coin, plus several contracts and treasure hunts | Journal-only mode for graphless quests, hub-gate walks for non-running ones (`research.md` item 6, 3-6 days). Ship a "what the tool cannot tick" list so players can finish them in game | Hard | Yes (item 1: side-complete never loaded) |
+| The pack's extra done / undone quests | **Stay** (cannot be undone) | The template is a real playthrough: Skellige main quests Active, `bobmainquests/q701ahook` Active (Blood and Wine hook), `ep1/q601intro` Active and `ep1/mq6003taxcollector` Success (Hearts of Stone intro), Skellige side quests `sq209*`, `sq210impossibletower`, `sq205alchemist`, `mh207wraith`, `mh308noonwraith` Success [save] | `w3save::journal::remove` exists (gate Y2); `chain.rs` can remove A-only entries. Needs a "hide what the player did not do" step: remove or reset listed quests, plus their facts, plus the graph state | Hard | Yes |
+| Blood and Wine / Hearts of Stone state | **Template's** (intro quests started or done) | Out of v1 (`CLAUDE.md`, `research.md` item 8) | Strip the DLC intro entries or leave and warn | Medium | Yes |
+
+### C. Mechanical state
+
+| Hole | Today | Why | Fix idea | Cost | In-game test |
+| --- | --- | --- | --- | --- | --- |
+| NG+ flag | **Fixed on** (`NewGamePlus`, `FinalNewGamePlusLevel = 53` [save]) | Scripts above: x2 XP, x1.1 damage taken, quest levels +53, autogen gear levels +53. A level-18 character in an NG+ world is wrong in all four | Remove both facts with the proven fact `remove` path; also drop `simulate_import_ingame` and the four `import_*` facts only if the game does not need them (leave, they are Witcher 2 answers). Then strip `Autogen` items that carry NG+ level abilities (below). `FactsQuerySum("NewGamePlus")` is also read in `damageManagerProcessor.ws` and shop code | Easy to write, uncertain effect | Yes (does the game re-add it on load? `r4Player.ws` OnSpawned adds some default facts, as `gwent_difficulty` shows) |
+| Skill points (33 free at level 18) | **Wrong** | `character-inventory.md` section 2: points above the table grant are "from other sources" and stay on a level change; the template's extra 16 NG+ points stay. `RemasterSkillResetAndRefund` is in the save [save] | Add `--skill-points N` to `edit` (writes `points[ESkillPoint].free`), default = table grant for the level; same code path as level (proven in Y/Z gates for level, skills not proven) | Easy | Yes (skill slot unlock on load: `PlayerAbilityManager.PostInit` recomputes from free+used) |
+| Learned skills / mutations / mutagens | **Unknown** | Template `used 0`, so no skill is learned; mutations and `entriesmutations` journal entries exist | Check `abilities` and `skills` arrays in `character`; clear what the level cannot afford | Medium | Yes |
+| Inventory (678 items, NG+ autogen gear, quest items) | **Template's** | `start_kit` only adds; item records are not removable by any CLI flag (`character-inventory.md`); autogen / looted gear refused (`research.md` item 9) | `--clear-inventory` keeping essentials (quest items, Roach gear), then the kit; removal is easier than the add path because uid numbering stays | Medium | Yes |
+| Crowns | **Settable** (`--crowns`, proven in Z gates) | | none | Done | No |
+| Level | **Settable** (`--level`, proven in Z gates; XP and `Lvl` abilities written) | | none | Done | No |
+| Quest-level table | **Wrong** under NG+ | Scripts: journal shows level + 53. Not stored in the save; follows from removing NG+ | Same fix as NG+ | Easy | Yes |
+| Position / world | **Template's**: the world loaded is the Velen / Novigrad world (`worldInfo`) while the story state is Skellige | Position edit and visited-world swap are proven (T1, T2a, T2b), `position::*` is `todo!()` and no spawn rule exists (`research.md` item 3) | Pick a Skellige signpost or the Kaer Trolde arrival spot from the lukwraith / `6b4a7` saves (those already hold a Skellige world) and write world + player entity + horse | Medium | Yes (long play after a swap) |
+| Horse | **Template's** (Roach with the pack's gear and name; horse position independent of the player, `position-world.md` section 5) | No horse support in `start_kit.rs` | Leave, but report; horse teleport with the player is untested | Easy to report | Yes |
+| Map / fast-travel signposts, question marks | **Template's** (pack player's discoveries) | `CCommonMapManager` visited flags are "probably cosmetic" (`position-world.md` section 6); pins and `QuestMapPinStates` are graph state | A "discover all of Velen and Novigrad, nothing of Skellige" step is research: diff two saves with different exploration | Hard (research) | Yes |
+| Bestiary / alchemy recipes / crafting schematics | **Template's**: bestiary journal entries are present (necrophages, relicts, hybrids, ...) and alchemy tutorial entries [save]; recipe lists not located in any doc | No finding about where recipes live (`entriesalchemy` is only a tutorial) | Locate by diffing two saves around a recipe pickup; then a "known by this level" table | Hard (research) | Yes |
+| Save name / thumbnail | OK (`ManualSave_*`, proven) | | none | Done | No |
+
+### D. Tool and report holes found on the way
+
+| Hole | Today | Why | Fix idea | Cost | In-game test |
+| --- | --- | --- | --- | --- | --- |
+| `edit-plan` misreads a `side-complete` result | **Wrong output** | On the final save it prints position `w8_novigrad_act3`, `now_or_never.triss = go`, `the_last_wish = love`, `kings_gambit = refuse`, `brothers_in_arms = skip`, `blood_on_the_battlefield` as done, although none of those quests or facts exist [save]. Cause [inferred]: absent facts match the "all defaults" combination, and the stem is not a registry stem | Require at least one decisive fact before calling a window `decided` and refuse to rank a save past a window whose quest root is absent | Easy | No |
+| `side-complete` output is not a registered template | Consequence of the above | The advanced stem (`..._4f51969`) is not in `templates.toml` | Record the base template in the `.json` sidecar or a second sidecar | Easy | No |
+| One line of templates for a non-linear story | Structural | `story-chain.md` section 1: line order is pack order; Skellige act 2 (33-35) precedes the Novigrad romance (42). A player who finished Novigrad and not Skellige is "before" the pack on one axis and "after" on another | Reverse-chain mode: take the earliest template whose stop line covers the player's *latest* act, then complete the remaining earlier-act quests with `--allow-decision` walks | Hard | Yes |
+
+## Settable today, summary
+
+Level, crowns, recommended kit, `gwent_difficulty`, Junior (kill / spare), Triss at Now or Never and Yennefer *only on templates at pack 42 or later* (not on the pack-33 base the user got), Folan and Dijkstra / Roche decisions on their own windows. Everything else in sections A and B is either baked into the template or missing.
+
+## Top 5 to do next
+
+1. **Ship an honest rebuild mode for "Novigrad done, Skellige just starting".** Add the reverse-chain walk (Now or Never, The Last Wish, A Matter of Life and Death via `side-complete --allow-decision --pick` on pack 33), plus a Triss kiss / Triss stays / Yennefer choice in the questbook. This is the single biggest gap between what the user asked and what they got. Needs one gate save.
+2. **Turn NG+ off and fix the character.** Remove `NewGamePlus` / `FinalNewGamePlusLevel`, add `--skill-points`, add `--clear-inventory` (keep quest items, then the kit). Fixes skill points, quest levels, XP, damage, gear levels in one gate. One in-game test confirms that the game does not re-add the facts.
+3. **Stop silent outcomes.** Print and let the player override the walker's picks (Wild at Heart first, then the other decision-bearing generated side quests); promote Wild at Heart to a decision file.
+4. **Position and world for the rebuilt save.** Spawn in the story's region (Kaer Trolde / first Skellige signpost) instead of the template's Velen / Novigrad world; reuse the proven world swap.
+5. **Re-saves that unlock fixed answers (30 minutes of the user's time).** Pack 12 (Keira's night), pack 11 (Towerful), pack 29 (Carnal Sins), pack 6 / 7 (botchling), each registered as a window. Also fix `edit-plan` so it stops reporting later windows as decided (hole in section D). The spirit stays last: it needs a Velen-first chain and is the largest design change.

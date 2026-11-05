@@ -1083,8 +1083,7 @@ mod tests {
             through: true,
             pick: vec!["d24f649d=Keira to KM".into()],
             stop: vec!["4c2a9b2d".into()],
-            scene_pick: Vec::new(),
-            complete: None,
+            ..Default::default()
         };
         let effect = crate::Effect { source: "test".into(), synth: Some(synth), ..Default::default() };
         Resolution {

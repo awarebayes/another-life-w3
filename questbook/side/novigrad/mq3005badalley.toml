@@ -12,6 +12,7 @@ fallback_title = "quests/minor_quests/novigrad/mq3005_bad_alley"
 journal = "67e5afe3ceb5c148a9cde5c4a99c7a84/4f6af66e0d16744abf881b9dc4a59148"
 phase = "quests/minor_quests/novigrad/mq3005_bad_alley.w2phase"
 done_effects = "done"
+auto_picks = ["2b71ff37ac6e504f842728ddd7797235=Fight"]   # decisions the walk passed that only the quest itself reads: block GUID=socket taken
 
 [templates]   # the generator's trial on each window template: ok | done | the refusal
 w1_spirit = "ok"

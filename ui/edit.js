@@ -16,7 +16,7 @@ function newEdit() {
     gameDir: null, templateDir: '',
   };
 }
-function emptyChanges() { return { answers: {}, level: null, crowns: null, gear: false, items: [] }; }
+function emptyChanges() { return { answers: {}, level: null, crowns: null, gear: false, items: [], no_new_game_plus: false, skill_points: null }; }
 S.edit = newEdit();
 const E = S.edit; // never reassigned: newEdit() fields are copied in place by resetEdit()
 function resetEdit() { Object.assign(E, newEdit(), { dir: E.dir, gameDir: E.gameDir, templateDir: E.templateDir, saves: E.saves, briefs: E.briefs, thumbs: E.thumbs }); }
@@ -51,7 +51,7 @@ const pendingOf = (qid, cid) => (E.changes.answers[qid] || {})[cid];
 function changeCount() {
   const c = E.changes;
   return Object.values(c.answers).reduce((n, m) => n + Object.keys(m).length, 0)
-    + (c.level != null ? 1 : 0) + (c.crowns != null ? 1 : 0) + (c.gear ? 1 : 0) + c.items.length;
+    + (c.level != null ? 1 : 0) + (c.crowns != null ? 1 : 0) + (c.gear ? 1 : 0) + c.items.length + (c.no_new_game_plus ? 1 : 0) + (c.skill_points != null ? 1 : 0);
 }
 function setAnswer(qid, cid, oid) {
   const pc = planChoice(qid, cid);
@@ -103,7 +103,7 @@ function editNav() {
       list.push(h('li', null,
         h('span', { class: 'q' }, q ? qname(q) : qid),
         h('span', { class: 'a' }, pc.current ? t('edit.ledger.from', { from: optText(qid, cid, pc.current), to: optText(qid, cid, oid) }) : optText(qid, cid, oid)),
-        h('div', { class: 'row' }, h('span', { class: 'st' }, pc.mode === 'synth' ? t('edit.ledger.synth') : t('edit.ledger.rewrite')),
+        h('div', { class: 'row' }, h('span', { class: 'st' }, pc.mode === 'synth' ? t('edit.ledger.synth') : pc.mode === 'late' ? t('edit.ledger.late') : t('edit.ledger.rewrite')),
           h('button', { class: 'link', onclick: () => undoAnswer(qid, cid) }, t('ledger.undo')))));
     }
   }
@@ -114,6 +114,8 @@ function editNav() {
   if (c.crowns != null) kitLine('edit.ledger.crowns', t('edit.ledger.crowns.to', { n: c.crowns }), () => { c.crowns = null; editRefresh(); });
   if (c.gear) kitLine('edit.ledger.gear', t('edit.ledger.gear.to'), () => { c.gear = false; editRefresh(); });
   for (const name of c.items) kitLine('edit.ledger.item', iname(name), () => { c.items = c.items.filter(x => x !== name); editRefresh(); });
+  if (c.skill_points != null) kitLine('edit.ledger.skill', t('edit.ledger.skill.to', { n: c.skill_points }), () => { c.skill_points = null; editRefresh(); });
+  if (c.no_new_game_plus) kitLine('edit.ledger.ngplus', t('edit.ledger.ngplus.to'), () => { c.no_new_game_plus = false; editRefresh(); });
   const dest = E.outDir || E.dir;
   document.getElementById('ledger').replaceChildren(
     h('div', { class: 'ledger-head' }, h('h3', null, t('ledger.title')), h('div', { class: 'sub' }, tn('edit.ledger.count', n))),
@@ -231,7 +233,7 @@ function questRow(pq) {
     if (!meta) return null;
     const pend = pendingOf(q.id, pc.id);
     const eff = pend || pc.current;
-    const synth = pc.mode === 'synth';
+    const synth = pc.mode === 'synth' || pc.mode === 'late';
     const alts = pc.options.filter(o => o.allowed && o.id !== eff && (pc.mode === 'rewrite' || synth))
       .map(o => h('button', { type: 'button', onclick: () => setAnswer(q.id, pc.id, o.id) }, optText(q.id, pc.id, o.id) + (synth && o.id === meta.default ? ' · ' + t('edit.default') : '')));
     let outcome;
@@ -248,6 +250,7 @@ function questRow(pq) {
       outcome,
       alts.length ? h('div', { class: 'alts' }, alts) : null,
       blocked && pc.reason ? h('div', { class: 'why small' }, t('edit.cannot', { why: pc.reason })) : null,
+      pc.mode === 'late' ? h('div', { class: 'why small' }, t('edit.late.hint')) : null,
       !blocked && pc.source === 'registry' ? h('div', { class: 'why small' }, t('edit.fromregistry')) : null);
   });
   const note = !choices.length ? (pq.status === 'done' ? t('edit.nochoices.done') : pq.status === 'active' ? t('edit.nochoices.active') : (pq.note || t('edit.st.' + pq.status))) : null;
@@ -287,7 +290,7 @@ function editplan() {
   const kitEl = document.getElementById('editkit');
   if (kitEl) E.kitOpen = kitEl.open;
   const count = s => plan.quests.filter(q => q.status === s).length;
-  const changeable = pq => pq.choices.some(c => c.mode === 'rewrite' || c.mode === 'synth');
+  const changeable = pq => pq.choices.some(c => c.mode === 'rewrite' || c.mode === 'synth' || c.mode === 'late');
   const tabs = [['all', t('review.tab.all'), plan.quests.length], ['changeable', t('edit.tab.changeable'), plan.quests.filter(changeable).length],
     ['readonly', t('edit.tab.readonly'), plan.quests.filter(q => !changeable(q)).length]];
   const shown = plan.quests.filter(q => E.tab === 'all' || (E.tab === 'changeable') === changeable(q));
@@ -332,7 +335,7 @@ function editKitCard(plan) {
   const addable = band.items.filter(i => !c.items.includes(i.name));
   const sel = h('select', { 'aria-label': t('edit.kit.item') }, h('option', { value: '' }, t('edit.kit.item.pick')),
     addable.map(i => h('option', { value: i.name }, iname(i.name) + (i.carried != null ? ' · ' + t('edit.kit.carried', { n: i.carried }) : ''))));
-  return h('details', { class: 'panel start-kit', id: 'editkit', open: !!(E.kitOpen || c.level != null || c.crowns != null || c.gear || c.items.length) },
+  return h('details', { class: 'panel start-kit', id: 'editkit', open: !!(E.kitOpen || c.level != null || c.crowns != null || c.gear || c.items.length || c.no_new_game_plus || c.skill_points != null) },
     h('summary', null, h('span', { class: 'eyebrow' }, t('edit.kit.title'))),
     h('p', { class: 'small muted', style: 'margin-top:12px' }, t('edit.kit.intro')),
     h('div', { class: 'kit-grid' },
@@ -342,9 +345,15 @@ function editKitCard(plan) {
       h('div', { class: 'field' }, h('span', { class: 'lab' }, t('kit.crowns')),
         stepper('crowns', 0, 999999, ch.crowns || 0, 100),
         h('span', { class: 'was' }, ch.crowns == null ? t('edit.kit.nocrowns') : t('edit.kit.now.crowns', { n: ch.crowns }))),
+      h('div', { class: 'field' }, h('span', { class: 'lab' }, t('kit.skill')),
+        stepper('skill_points', ch.skill_used || 0, 300, (ch.skill_free || 0) + (ch.skill_used || 0), 1),
+        h('span', { class: 'was' }, t('edit.kit.skill.now', { n: (ch.skill_free || 0) + (ch.skill_used || 0), used: ch.skill_used || 0, lvl: target, grant: Math.max(0, target - 1) }))),
       h('div', { class: 'field' }, h('span', { class: 'lab' }, t('kit.supplies')),
         h('label', { class: 'check' }, h('input', { type: 'checkbox', checked: c.gear, onchange: ev => set('gear', ev.target.checked) }), t('edit.kit.recommended')),
-        h('span', { class: 'was' }, t('edit.kit.recommended.note', { n: band.items.length })))),
+        h('span', { class: 'was' }, t('edit.kit.recommended.note', { n: band.items.length }))),
+      ch.new_game_plus ? h('div', { class: 'field' }, h('span', { class: 'lab' }, t('kit.ngplus')),
+        h('label', { class: 'check' }, h('input', { type: 'checkbox', checked: c.no_new_game_plus, onchange: ev => set('no_new_game_plus', ev.target.checked) }), t('kit.ngplus.off')),
+        h('span', { class: 'was' }, t('kit.ngplus.note'))) : null),
     h('div', { class: 'field', style: 'margin-top:16px' }, h('span', { class: 'lab' }, t('edit.kit.item')),
       h('div', { class: 'row' }, sel, h('button', { type: 'button', onclick: () => { if (sel.value) { c.items.push(sel.value); E.result = null; editplan(); } } }, t('edit.kit.add'))),
       c.items.length ? h('div', { class: 'chips' }, c.items.map(n => h('span', { class: 'chip' }, iname(n), h('button', { type: 'button', class: 'link', 'aria-label': t('ledger.undo'), onclick: () => { c.items = c.items.filter(x => x !== n); editplan(); } }, '×')))) : null));
@@ -430,6 +439,7 @@ async function editMock(cmd, args) {
             reason: locked ? 'the battle of Kaer Morhen (q403, pack 47) already played with these allies (preview text)' : null };
         }
         if (status === 'active') return { id: c.id, current: null, source: 'none', mode: 'synth', options: c.options.map(o => ({ id: o.id, allowed: true, why: null })), reason: null };
+        if (status === 'not_reached' && i === cut + 1) return { id: c.id, current: null, source: 'none', mode: 'late', options: c.options.map(o => ({ id: o.id, allowed: true, why: null })), reason: null };
         return { id: c.id, current: null, source: 'none', mode: 'readonly', options: c.options.map(o => ({ id: o.id, allowed: false, why: null })), reason: status === 'unknown' ? 'mixed: the best answer still differs in 4 of 9 deciding facts' : 'this part of the story is not reached in the save' };
       });
       return { quest: q.id, window: 'w' + (1 + (i >> 1)), status, note: status === 'unknown' ? 'mixed: the best answer still differs in 4 of 9 deciding facts' : '', choices };
@@ -439,7 +449,7 @@ async function editMock(cmd, args) {
       { name: 'Swallow 1', quantity: 1, form: 'charged', carried: 2 }, { name: 'Cat 1', quantity: 1, form: 'charged', carried: null },
       { name: 'Beast Oil 1', quantity: 1, form: 'charged', carried: null }, { name: 'Bread', quantity: 5, form: 'stack', carried: 3 }, { name: 'Blunt Bolt', quantity: 20, form: 'stack', carried: 12 }] }));
     return { stem: args.savePath.split(/[\\/]/).pop().replace(/\.sav$/i, ''), position: 'w9_skellige_act3', is_template: null,
-      windows: [], quests, character: { level: 31, max_level: 50, crowns: 5230, items: 641, kit: bands }, character_error: null,
+      windows: [], quests, character: { level: 31, max_level: 50, crowns: 5230, items: 641, new_game_plus: true, skill_free: 30, skill_used: 2, kit: bands }, character_error: null,
       notes: ['Browser preview: this plan is invented from the questbook to show the screens. Nothing was read.'] };
   }
   if (cmd === 'edit_apply') {

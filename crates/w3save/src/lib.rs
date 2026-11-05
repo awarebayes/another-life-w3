@@ -21,6 +21,7 @@ pub mod facts;
 pub mod graph;
 pub mod inspect;
 pub mod journal;
+pub mod newgameplus;
 pub mod packed;
 pub mod payload;
 pub mod position;
